@@ -9,12 +9,11 @@ module.exports = {
 		extensions: ['.js']
 	},
 	devServer:{
-		contentBase: 'src',
-		watchContentBase: true
+		contentBase: ['src', '../pioneer-assets', '../cmts_creator/out/'],
+		contentBasePublicPath: ['/', '/assets/static', '/cmts/']
 	},
 	watchOptions: {
-		aggregateTimeout: 1000,
-		poll: 1000,
+		ignored: '../cmts_creator/out'
 	},
 	module: {
 		rules: [{
@@ -28,6 +27,8 @@ module.exports = {
 				from: 'src/index.html'
 			}, {
 				from: 'src/style.css'
+			}, {
+				from: 'src/favicon.ico'
 			}, {
 				from: 'src/config.js',
 				noErrorOnMissing: true
