@@ -1,0 +1,30 @@
+{
+	"root": true,
+	"extends": [
+		"eslint:recommended"
+	],
+	"rules": {
+		"brace-style": ["error", "stroustrup"],
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"no-multiple-empty-lines": ["error", {
+			"max": 1,
+			"maxEOF": 0,
+			"maxBOF": 0
+		}],
+		"no-constant-condition": "off",
+		"no-tabs": "off",
+		"no-trailing-spaces": "error",
+		"operator-linebreak": ["error", "before"],
+		"quotes": ["error", "single"],
+		"semi": ["error", "always"],
+		"space-before-function-paren": ["error", {
+			"anonymous": "always",
+			"asyncArrow": "always",
+			"named": "never"
+		}],
+		"yoda": "off"
+	},
+	"env": {
+		"browser": true
+	}
+}

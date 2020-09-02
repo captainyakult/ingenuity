@@ -1,0 +1,29 @@
+{
+	"name": "mars2020",
+	"version": "1.0.0",
+	"description": "Mars 2020 Mission Visualization",
+	"private": true,
+	"scripts": {
+		"setup": "yarn install; yarn link pioneer-js; yarn link pioneer-scripts; mkdir -p dist; cp src/config.example.js dist/config.js",
+		"update": "yarn install --no-default-rc",
+		"build": "webpack --config webpack.dev.js",
+		"build-production": "webpack --config webpack.prod.js",
+		"start": "webpack-dev-server --config webpack.dev.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.jpl.nasa.gov/VTAD/mars2020.git"
+	},
+	"author": "Stephen Hurley",
+	"license": "ISC",
+	"homepage": "https://github.jpl.nasa.gov/VTAD/mars2020",
+	"dependencies": {},
+	"devDependencies": {
+		"copy-webpack-plugin": "latest",
+		"eslint": "latest",
+		"webpack": "latest",
+		"webpack-cli": "latest",
+		"webpack-dev-server": "latest",
+		"webpack-merge": "latest"
+	}
+}

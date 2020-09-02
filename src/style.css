@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300');
+
+:root {
+	--fg: rgb(255, 234, 228);
+	--bg: rgb(0, 0, 0);
+	--border: rgb(238, 137, 54);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: 'Lato';
+	color: var(--fg);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100%;
+}
+
+/* Pioneer CSS */
+
+.pioneer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.pioneer .pioneer-label-div {
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.pioneer .pioneer-label-div.disabled {
+	color: rgba(255, 255, 255, 0.5);
+	cursor: default;
+	pointer-events: none;
+}
+
+.pioneer .pioneer-label-div:before {
+	content: "○";
+	display: inline-block;
+	margin-left: -.25em;
+	padding-bottom: .25em;
+	padding-right: .25em;
+}
+
+/* UI CSS */
+
+.ui {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
