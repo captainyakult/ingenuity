@@ -38,7 +38,7 @@ export class Mars2020App extends UI.App {
 		});
 		this.__insertComponent(UI.TimeInterval, this.__element('time-interval'), undefined, {
 			id: 'time-interval',
-			attributes: new Map([['pioneer', this._pioneer], ['timeOrigin', 666953078]])
+			attributes: new Map([['pioneer', this._pioneer], ['timeOrigin', 666953087]])
 		});
 	}
 
