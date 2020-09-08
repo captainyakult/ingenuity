@@ -36,6 +36,10 @@ export class Mars2020App extends UI.App {
 			id: 'time-control',
 			attributes: new Map([['pioneer', this._pioneer]])
 		});
+		this.__insertComponent(UI.TimeInterval, this.__element('time-interval'), undefined, {
+			id: 'time-interval',
+			attributes: new Map([['pioneer', this._pioneer], ['timeOrigin', 666953078]])
+		});
 	}
 
 	/**
@@ -218,7 +222,10 @@ Mars2020App.html = /* html */`
 			<div id="time-control"></div>
 			</div>
 		<div id="footer">
-			<h2 id="target"></h2>
+			<div id="left">
+				<p>Looking at: <span id="target"></span>
+				<p>Time until landing: <span id="time-interval"></span></p>
+			</div>
 		</div>
 	</div>
 	`;

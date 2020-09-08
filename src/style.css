@@ -79,6 +79,15 @@ body {
 	grid-area: footer;
 }
 
+.ui #footer #left {
+	margin-left: 1rem;
+	font-size: 1.25rem;
+}
+
+.ul #footer #left p {
+	margin-bottom: 0;
+}
+
 .ui #title {
 	text-align: center;
 	margin-top: 1rem;
@@ -107,4 +116,3 @@ body {
 	display: block;
 	font-size: 1.25em;
 }
-
