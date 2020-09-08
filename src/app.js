@@ -2,6 +2,8 @@ import * as Pioneer from 'pioneer-js';
 import { Entity, Cameras, CMTSComponent, SceneHelpers } from 'pioneer-scripts';
 import { UI } from 'ui';
 
+const landingTime = 666953087;
+
 export class Mars2020App extends UI.App {
 	/**
 	 * Constructs the app.
@@ -38,8 +40,17 @@ export class Mars2020App extends UI.App {
 		});
 		this.__insertComponent(UI.TimeInterval, this.__element('time-interval'), undefined, {
 			id: 'time-interval',
-			attributes: new Map([['pioneer', this._pioneer], ['timeOrigin', 666953087]])
+			attributes: new Map([['pioneer', this._pioneer], ['timeOrigin', landingTime]])
 		});
+
+		this._pioneer.addCallback(() => {
+			if (this._pioneer.getTime() <= landingTime) {
+				this.__element('since-until').innerHTML = 'until';
+			}
+			else {
+				this.__element('since-until').innerHTML = 'since';
+			}
+		}, true);
 	}
 
 	/**
@@ -224,7 +235,7 @@ Mars2020App.html = /* html */`
 		<div id="footer">
 			<div id="left">
 				<p>Looking at: <span id="target"></span>
-				<p>Time until landing: <span id="time-interval"></span></p>
+				<p>Time <span id="since-until"></span> landing: <span id="time-interval"></span></p>
 			</div>
 		</div>
 	</div>
