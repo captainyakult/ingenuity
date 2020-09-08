@@ -1,12 +1,14 @@
 import * as Pioneer from 'pioneer-js';
 import { Entity, Cameras, CMTSComponent, SceneHelpers } from 'pioneer-scripts';
-import { Router } from './router';
+import { UI } from 'ui';
 
-export class App {
+export class Mars2020App extends UI.App {
 	/**
-	 * Initializes the app.
+	 * Constructs the app.
 	 */
-	async initialize() {
+	constructor() {
+		super();
+
 		this._pioneer = new Pioneer.Engine(document.querySelector('.pioneer'));
 		this._pioneer.getDownloader().setReplacement('STATIC_ASSETS_URL', window.config.staticAssetsUrl);
 		this._pioneer.getDownloader().setReplacement('DYNAMIC_ASSETS_URL', window.config.dynamicAssetsUrl);
@@ -29,7 +31,11 @@ export class App {
 		this._populateLabelEvents();
 
 		this._router.processURL();
-		await this._pioneer.waitUntilNextFrame();
+
+		this.__insertComponent(UI.TimeControl, this.__element('time-control'), undefined, {
+			id: 'time-control',
+			attributes: new Map([['pioneer', this._pioneer]])
+		});
 	}
 
 	/**
@@ -50,8 +56,8 @@ export class App {
 			if (entity !== null) {
 				await this.goToEntity(entity.getName());
 				this._target = entity.getName();
-				this._router.push({
-					'target': this._target
+				this._router.pushQuery({
+					target: this._target
 				}, true);
 			}
 		});
@@ -64,6 +70,11 @@ export class App {
 			zoom.setUseSpheroidRadiusForDistance(true);
 		}
 		cameraEntity.addController('roll');
+		// Apply the target text.
+		const div = focusEntity.getComponentByType('div');
+		if (div instanceof Pioneer.DivComponent) {
+			this.__element('target').innerHTML = div.getDiv().innerHTML;
+		}
 	}
 
 	/**
@@ -71,8 +82,7 @@ export class App {
 	 * @private
 	 */
 	_setupRouter() {
-		this._router = new Router();
-		this._router.setCallback(async (query) => {
+		this.router.addCallback(async (query) => {
 			if (query.target) {
 				if (this._target !== query.target) {
 					this._target = query.target;
@@ -125,8 +135,8 @@ export class App {
 					div.addEventListener('click', async (event) => {
 						await this.goToEntity(entity.getName());
 						this._target = entity.getName();
-						this._router.push({
-							'target': this._target
+						this._router.pushQuery({
+							target: this._target
 						}, true);
 						event.preventDefault();
 					}, false);
@@ -170,7 +180,7 @@ export class App {
 		cmts.setHeightScale(1);
 		cmts.setPlanetographic(false);
 
-		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 15, 12727, 21985, 12729, 21987);
+		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 15, 12727, 21985, 12729, 21987);
 	}
 
 	/**
@@ -200,17 +210,19 @@ export class App {
 	}
 }
 
-/**
- * The function that's called when the document is finished loading. It just initializes the app.
- */
-document.addEventListener('DOMContentLoaded', async () => {
-	const app = new App();
-	window.app = app;
-	window.Pioneer = Pioneer;
-	try {
-		await app.initialize();
-	}
-	catch (e) {
-		console.log(e);
-	}
-});
+Mars2020App.html = /* html */`
+	<div class="pioneer"></div>
+	<div class="ui">
+		<div id="header">
+			<h1 id="title">Mars 2020</h1>
+			<div id="time-control"></div>
+			</div>
+		<div id="footer">
+			<h2 id="target"></h2>
+		</div>
+	</div>
+	`;
+
+Mars2020App.register();
+
+UI.App.setAppClass(Mars2020App);

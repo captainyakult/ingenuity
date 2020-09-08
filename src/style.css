@@ -20,8 +20,8 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100vw;
-	height: 100%;
+	width: 100%;
+	height: 100vh;
 }
 
 /* Pioneer CSS */
@@ -63,12 +63,48 @@ body {
 	width: 100%;
 	height: 100%;
 	pointer-events: none;
+	display: grid;
+	grid-template-areas:
+		"header"
+		"main"
+		"footer";
+	grid-template-rows: 8rem 1fr 8rem;
 }
 
-.ui h1 {
+.ui #header {
+	grid-area: header;
+}
+
+.ui #footer {
+	grid-area: footer;
+}
+
+.ui #title {
+	text-align: center;
+	margin-top: 1rem;
+	margin-bottom: 0;
+}
+
+.ui #target {
+	margin-top: 0;
+	margin-bottom: 0;
 	text-align: center;
 }
 
-.ui h2 {
+/* Time Control */
+
+#time-control {
+	margin-top: 1rem;
 	text-align: center;
 }
+
+#time-control #date {
+	display: block;
+	font-size: 1.5em;
+}
+
+#time-control #time {
+	display: block;
+	font-size: 1.25em;
+}
+

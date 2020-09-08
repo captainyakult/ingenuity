@@ -1,35 +1,27 @@
 {
-	"root": true,
 	"extends": [
-		"eslint:recommended"
+		"standard",
+		"plugin:import/errors",
+		"plugin:import/warnings"
 	],
 	"parserOptions": {
-		"ecmaVersion": 12,
-		"sourceType": "module"
+		"ecmaFeatures": {
+			"modules": true
+		}
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup"],
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
-		"no-multiple-empty-lines": ["error", {
-			"max": 1,
-			"maxEOF": 0,
-			"maxBOF": 0
-		}],
-		"no-constant-condition": "off",
-		"no-tabs": "off",
-		"no-trailing-spaces": "error",
+		"no-tabs": ["off"],
 		"operator-linebreak": ["error", "before"],
-		"quotes": ["error", "single"],
 		"semi": ["error", "always"],
 		"space-before-function-paren": ["error", {
 			"anonymous": "always",
 			"asyncArrow": "always",
 			"named": "never"
-		}],
-		"yoda": "off"
+		}]
 	},
 	"env": {
-		"browser": true,
-		"es6": true
+		"browser": true
 	}
 }
