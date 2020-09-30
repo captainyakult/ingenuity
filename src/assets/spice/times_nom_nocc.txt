@@ -1,0 +1,18 @@
+Cruise Stage Separation:      0.000
+De-Spin:     20.500
+Cruise Balance Masses Ejected:     57.145
+Entry Interface Point:    540.010
+Guidance Start:    593.875
+Heading Alignment:    679.750
+Begin SUFR:    765.000
+Parachute Deploy    782.025
+Heat Shield Separation:    802.519
+TRN Image Acquisition Begins:    859.563
+TRN Coarse Solution:    865.656
+TRN Valid Solution:    866.656
+Backshell Separation:    883.910
+Descent Stage Throttle Down:    926.408
+Rover Separation:    928.938
+Touchdown:    945.110
+Flyaway:    945.722
+Descent Stage Engine Cutoff:    952.512

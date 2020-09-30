@@ -16,13 +16,7 @@ export class Mars2020App extends UI.App {
 		this._pioneer.getDownloader().setReplacement('DYNAMIC_ASSETS_URL', window.config.dynamicAssetsUrl);
 
 		// Setup the scene.
-		this._scene = this._pioneer.addScene('main');
-		Entity.createGroup('stars', this._scene, { skybox: true, starfield: false, skyboxResolution: 1024 });
-		Entity.createGroup('planets', this._scene);
-		Entity.createGroup('mars,moons', this._scene);
-		Entity.create('sc_mars_science_laboratory_landing_site', this._scene);
-		Entity.create('sc_perseverance_landing_site', this._scene);
-		Entity.create('sc_perseverance', this._scene);
+		this.createScene();
 
 		Cameras.createFullSizeViewportAndCamera(this._scene);
 
@@ -51,6 +45,88 @@ export class Mars2020App extends UI.App {
 				this.__element('since-until').innerHTML = 'since';
 			}
 		}, true);
+	}
+
+	/**
+	 * Creates the scene.
+	 */
+	createScene() {
+		this._scene = this._pioneer.addScene('main');
+		Entity.createGroup('stars', this._scene, { skybox: true, starfield: false, skyboxResolution: 1024 });
+		Entity.createGroup('planets', this._scene);
+		Entity.createGroup('mars,moons', this._scene);
+		Entity.create('sc_mars_science_laboratory_landing_site', this._scene);
+		Entity.create('sc_perseverance_landing_site', this._scene);
+		Entity.create('sc_perseverance', this._scene);
+
+		// Remove the earth and sun Mars2020 dynamo, and adjust the perseverance.mars dynamo to use the custom version.
+		const perseverance = this._scene.getEntity('sc_perseverance');
+		for (let i = 0; ; i++) {
+			const dynamo = perseverance.getControllerByType('dynamo', i);
+			if (dynamo === null) {
+				break;
+			}
+			const parent = dynamo.getParent();
+			if (parent === this._scene.get('earth') || parent === this._scene.get('sun')) {
+				perseverance.removeController(dynamo);
+				i--;
+			}
+			else if (parent === this._scene.get('mars') && dynamo instanceof Pioneer.DynamoController) {
+				dynamo.setBaseUrl('assets/dynamo/sc_perseverance/mars/pos');
+			}
+		}
+
+		// Create other Mars2020 parts
+		Entity.createFromOptions('sc_perseverance_backshell', {
+			radius: 0.0045,
+			label: 'Mars 2020 Backshell',
+			trail: {
+				length: 10000000.0
+			},
+			// model: {
+			// 	url: '$STATIC_ASSETS_URL/models/sc_perseverance/cruise/MSLcruiseStage.gltf'
+			// },
+			fixed: {
+				orientation: Pioneer.Quaternion.Identity
+			},
+			dynamo: [{
+				url: 'assets/dynamo/sc_perseverance/backshell/mars/pos',
+				parent: 'mars',
+				customUrl: true
+			}],
+			postCreateFunction: (entity) => {
+				const trail = entity.get('trail');
+				if (trail instanceof Pioneer.TrailComponent) {
+					trail.setRelativeToParentOrientation(true);
+					trail.resetPoints();
+				}
+			}
+		}, this._scene);
+		Entity.createFromOptions('sc_perseverance_heatshield', {
+			radius: 0.0045,
+			label: 'Mars 2020 Heatshield',
+			trail: {
+				length: 10000000.0
+			},
+			// model: {
+			// 	url: '$STATIC_ASSETS_URL/models/sc_perseverance/cruise/MSLcruiseStage.gltf'
+			// },
+			fixed: {
+				orientation: Pioneer.Quaternion.Identity
+			},
+			dynamo: [{
+				url: 'assets/dynamo/sc_perseverance/heatshield/mars/pos',
+				parent: 'mars',
+				customUrl: true
+			}],
+			postCreateFunction: (entity) => {
+				const trail = entity.get('trail');
+				if (trail instanceof Pioneer.TrailComponent) {
+					trail.setRelativeToParentOrientation(true);
+					trail.resetPoints();
+				}
+			}
+		}, this._scene);
 	}
 
 	/**
@@ -107,8 +183,8 @@ export class Mars2020App extends UI.App {
 			else {
 				this.goToEntity('sc_perseverance');
 			}
-			let date;
 			if (query.time) {
+				let date;
 				if (query.time.indexOf('U') !== -1) { // UTC
 					date = new Date(query.time + (query.time.indexOf(':') !== -1 ? 'Z' : ''));
 					// this._timeScrubber.setTime(date);
@@ -118,12 +194,12 @@ export class Mars2020App extends UI.App {
 					date = new Date(Pioneer.TimeUtils.etToUnix(time) * 1000);
 					// this._timeScrubber.setTime(new Date(Pioneer.TimeUtils.etToUnix(time) * 1000));
 				}
+				this._pioneer.setTime(Pioneer.TimeUtils.unixToEt(date.getTime() / 1000.0));
 			}
 			else {
-				date = new Date();
+				this._pioneer.setTime(666951475.928640);
 				// this._timeScrubber.setTime(date);
 			}
-			this._pioneer.setTime(Pioneer.TimeUtils.unixToEt(date.getTime() / 1000.0));
 			if (query.rate) {
 				this._pioneer.setTimeRate(Number.parseFloat(query.rate));
 				// this._timeScrubber.setTimeRate(query.rate);
@@ -183,11 +259,12 @@ export class Mars2020App extends UI.App {
 		/** @type {Pioneer.Spheroid} */
 		const spheroid = mars.getComponentByType('spheroid').getSpheroid();
 		// Remove the spheroid component.
-		mars.removeComponent(mars.getComponentByType('spheroid'));
+		mars.getComponentByType('spheroid').setEnabled(false);
+		// mars.removeComponent(mars.getComponentByType('spheroid'));
 		// mars.get('atmosphere').setEnabled(false);
 		/** @type {CMTSComponent} */
 		const cmts = mars.addComponent('cmts');
-		// cmts.setMaxLevel(7);
+		cmts.setMaxLevel(9);
 		cmts.setLightSource(this._scene.get('sun', 'lightSource'));
 		cmts.setRadii(spheroid.equatorialRadius, spheroid.polarRadius);
 		cmts.setBaseUrl('color', '/cmts/mars/color');
