@@ -21,7 +21,7 @@ export class Mars2020App extends UI.App {
 		Cameras.createFullSizeViewportAndCamera(this._scene);
 
 		this._setupRouter();
-		this._createCMTS();
+		// this._createCMTS();
 		this._makeTrailsBetter();
 		this._setupDynamicEnvironmentMap();
 		this._populateLabelEvents();
