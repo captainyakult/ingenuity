@@ -30,7 +30,7 @@ export class Mars2020App extends UI.App {
 
 		this.__insertComponent(UI.TimeControl, this.__element('time-control'), undefined, {
 			id: 'time-control',
-			attributes: new Map([['pioneer', this._pioneer]])
+			attributes: new Map([['pioneer', this._pioneer], ['router', this.router]])
 		});
 		this.__insertComponent(UI.TimeInterval, this.__element('time-interval'), undefined, {
 			id: 'time-interval',
