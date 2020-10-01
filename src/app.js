@@ -21,7 +21,7 @@ export class Mars2020App extends UI.App {
 		Cameras.createFullSizeViewportAndCamera(this._scene);
 
 		this._setupRouter();
-		// this._createCMTS();
+		this._createCMTS();
 		this._makeTrailsBetter();
 		this._setupDynamicEnvironmentMap();
 		this._populateLabelEvents();
@@ -90,7 +90,7 @@ export class Mars2020App extends UI.App {
 				orientation: Pioneer.Quaternion.Identity
 			},
 			dynamo: [{
-				url: 'assets/dynamo/sc_perseverance/backshell/mars/pos',
+				url: 'assets/dynamo/sc_perseverance_backshell/mars/pos',
 				parent: 'mars',
 				customUrl: true
 			}],
@@ -115,7 +115,7 @@ export class Mars2020App extends UI.App {
 				orientation: Pioneer.Quaternion.Identity
 			},
 			dynamo: [{
-				url: 'assets/dynamo/sc_perseverance/heatshield/mars/pos',
+				url: 'assets/dynamo/sc_perseverance_heatshield/mars/pos',
 				parent: 'mars',
 				customUrl: true
 			}],
@@ -197,7 +197,7 @@ export class Mars2020App extends UI.App {
 				this._pioneer.setTime(Pioneer.TimeUtils.unixToEt(date.getTime() / 1000.0));
 			}
 			else {
-				this._pioneer.setTime(666951475.928640);
+				this._pioneer.setTime(666952132.045910);
 				// this._timeScrubber.setTime(date);
 			}
 			if (query.rate) {
