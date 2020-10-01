@@ -15,6 +15,9 @@ module.exports = {
 	watchOptions: {
 		ignored: '../cmts_creator/out'
 	},
+	stats: {
+		assets: false,
+	},
 	module: {
 		rules: [{
 			test: /\.(css|svg|html)$/,
