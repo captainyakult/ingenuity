@@ -1,4 +1,5 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
 	entry: './src/app.js',
@@ -19,18 +20,31 @@ module.exports = {
 		assets: false,
 	},
 	module: {
-		rules: [{
-			test: /\.(css|svg|html)$/,
-			use: 'raw-loader'
-		}]
+		rules: [
+			{
+				test: /\.(svg|html)$/,
+				use: 'raw-loader'
+			},
+			{
+				test: /\.css$/,
+				use: [
+					MiniCssExtractPlugin.loader,
+					{
+						loader: 'css-loader',
+						options: {
+							url: false
+						}
+					}
+				]
+			}
+		]
 	},
 	plugins: [
 		new CopyWebpackPlugin({
 			patterns: [{
 				from: 'src/index.html'
-			}, {
-				from: 'src/style.css'
-			}, {
+			},
+			{
 				from: 'src/favicon.ico'
 			}, {
 				from: 'src/config.js',
@@ -40,6 +54,10 @@ module.exports = {
 				to: 'assets',
 				noErrorOnMissing: true
 			}]
+		}),
+		new MiniCssExtractPlugin({
+			filename: 'mars2020.css',
+			chunkFilename: '[id].css'
 		})
 	]
 };
