@@ -1,6 +1,7 @@
 import * as Pioneer from 'pioneer-js';
 import { Entity, Cameras, CMTSComponent, SceneHelpers } from 'pioneer-scripts';
 import { UI } from 'ui';
+import './style.css';
 
 const landingTime = 666953087;
 
