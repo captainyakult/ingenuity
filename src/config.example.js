@@ -1,4 +1,4 @@
 window.config = {
-	staticAssetsUrl: '/pioneer-assets',
+	staticAssetsUrl: '/assets/static',
 	dynamicAssetsUrl: 'https://eyes.nasa.gov/dev/assets/dynamic'
 };
