@@ -1,17 +1,33 @@
 import * as Pioneer from 'pioneer-js';
 import { Entity, Cameras, CMTSComponent, SceneHelpers } from 'pioneer-scripts';
-import { UI } from 'ui';
+// Import UI library managers
+import {
+	BaseApp
+} from 'es6-ui-library';
+
 import './style.css';
 
 const landingTime = 666953087;
 
-export class Mars2020App extends UI.App {
+class App extends BaseApp {
 	/**
 	 * Constructs the app.
 	 */
 	constructor() {
 		super();
 
+		/**
+		 * Pioneer engine.
+		 * @type {Pioneer.Engine}
+		 * @private
+		 */
+		this._pioneer = null;
+	}
+
+	/**
+	 * Inits the app.
+	 */
+	async init() {
 		this._pioneer = new Pioneer.Engine(document.querySelector('.pioneer'));
 		this._pioneer.getDownloader().setReplacement('STATIC_ASSETS_URL', window.config.staticAssetsUrl);
 		this._pioneer.getDownloader().setReplacement('DYNAMIC_ASSETS_URL', window.config.dynamicAssetsUrl);
@@ -21,31 +37,17 @@ export class Mars2020App extends UI.App {
 
 		Cameras.createFullSizeViewportAndCamera(this._scene);
 
-		this._setupRouter();
+		// this._setupRouter();
 		// this._createCMTS();
 		this._makeTrailsBetter();
 		this._setupDynamicEnvironmentMap();
 		this._populateLabelEvents();
 
-		this._router.processURL();
+		// Set the time to 'now'
+		this._pioneer.setTime(666952132.045910);
 
-		this.__insertComponent(UI.TimeControl, this.__element('time-control'), undefined, {
-			id: 'time-control',
-			attributes: new Map([['pioneer', this._pioneer], ['router', this.router]])
-		});
-		this.__insertComponent(UI.TimeInterval, this.__element('time-interval'), undefined, {
-			id: 'time-interval',
-			attributes: new Map([['pioneer', this._pioneer], ['timeOrigin', landingTime]])
-		});
-
-		this._pioneer.addCallback(() => {
-			if (this._pioneer.getTime() <= landingTime) {
-				this.__element('since-until').innerHTML = 'until';
-			}
-			else {
-				this.__element('since-until').innerHTML = 'since';
-			}
-		}, true);
+		// this._router.processURL();
+		this.goToEntity('sc_perseverance');
 	}
 
 	/**
@@ -148,9 +150,9 @@ export class Mars2020App extends UI.App {
 			if (entity !== null) {
 				await this.goToEntity(entity.getName());
 				this._target = entity.getName();
-				this._router.pushQuery({
-					target: this._target
-				}, true);
+				// this._router.pushQuery({
+				// 	target: this._target
+				// }, true);
 			}
 		});
 		const orbit = cameraEntity.get('orbit');
@@ -163,10 +165,10 @@ export class Mars2020App extends UI.App {
 		}
 		cameraEntity.addController('roll');
 		// Apply the target text.
-		const div = focusEntity.getComponentByType('div');
-		if (div instanceof Pioneer.DivComponent) {
-			this.__element('target').innerHTML = div.getDiv().innerHTML;
-		}
+		// const div = focusEntity.getComponentByType('div');
+		// if (div instanceof Pioneer.DivComponent) {
+		// 	this.__element('target').innerHTML = div.getDiv().innerHTML;
+		// }
 	}
 
 	/**
@@ -303,22 +305,5 @@ export class Mars2020App extends UI.App {
 	}
 }
 
-Mars2020App.html = /* html */`
-	<div class="pioneer"></div>
-	<div class="ui">
-		<div id="header">
-			<h1 id="title">Mars 2020</h1>
-			<div id="time-control"></div>
-			</div>
-		<div id="footer">
-			<div id="left">
-				<p>Looking at: <span id="target"></span>
-				<p>Time <span id="since-until"></span> landing: <span id="time-interval"></span></p>
-			</div>
-		</div>
-	</div>
-	`;
-
-Mars2020App.register();
-
-UI.App.setAppClass(Mars2020App);
+const app = new App();
+export default app;
