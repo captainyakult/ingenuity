@@ -1,5 +1,6 @@
 import * as Pioneer from 'pioneer-js';
 import { Entity, Cameras, CMTSComponent, SceneHelpers } from 'pioneer-scripts';
+import { SetupSpacecraft } from './setup_spacecraft';
 // Import UI library managers
 import {
 	BaseApp
@@ -60,76 +61,7 @@ class App extends BaseApp {
 		Entity.createGroup('mars,moons', this._scene);
 		Entity.create('sc_mars_science_laboratory_landing_site', this._scene);
 		Entity.create('sc_perseverance_landing_site', this._scene);
-		Entity.create('sc_perseverance', this._scene);
-
-		// Remove the earth and sun Mars2020 dynamo, and adjust the perseverance.mars dynamo to use the custom version.
-		const perseverance = this._scene.getEntity('sc_perseverance');
-		for (let i = 0; ; i++) {
-			const dynamo = perseverance.getControllerByType('dynamo', i);
-			if (dynamo === null) {
-				break;
-			}
-			const parent = dynamo.getParent();
-			if (parent === this._scene.get('earth') || parent === this._scene.get('sun')) {
-				perseverance.removeController(dynamo);
-				i--;
-			}
-			else if (parent === this._scene.get('mars') && dynamo instanceof Pioneer.DynamoController) {
-				dynamo.setBaseUrl('assets/dynamo/sc_perseverance/mars/pos');
-			}
-		}
-
-		// Create other Mars2020 parts
-		Entity.createFromOptions('sc_perseverance_backshell', {
-			radius: 0.0045,
-			label: 'Mars 2020 Backshell',
-			trail: {
-				length: 10000000.0
-			},
-			// model: {
-			// 	url: '$STATIC_ASSETS_URL/models/sc_perseverance/cruise/MSLcruiseStage.gltf'
-			// },
-			fixed: {
-				orientation: Pioneer.Quaternion.Identity
-			},
-			dynamo: [{
-				url: 'assets/dynamo/sc_perseverance_backshell/mars/pos',
-				parent: 'mars',
-				customUrl: true
-			}],
-			postCreateFunction: (entity) => {
-				const trail = entity.get('trail');
-				if (trail instanceof Pioneer.TrailComponent) {
-					trail.setRelativeToParentOrientation(true);
-					trail.resetPoints();
-				}
-			}
-		}, this._scene);
-		Entity.createFromOptions('sc_perseverance_heatshield', {
-			radius: 0.0045,
-			label: 'Mars 2020 Heatshield',
-			trail: {
-				length: 10000000.0
-			},
-			// model: {
-			// 	url: '$STATIC_ASSETS_URL/models/sc_perseverance/cruise/MSLcruiseStage.gltf'
-			// },
-			fixed: {
-				orientation: Pioneer.Quaternion.Identity
-			},
-			dynamo: [{
-				url: 'assets/dynamo/sc_perseverance_heatshield/mars/pos',
-				parent: 'mars',
-				customUrl: true
-			}],
-			postCreateFunction: (entity) => {
-				const trail = entity.get('trail');
-				if (trail instanceof Pioneer.TrailComponent) {
-					trail.setRelativeToParentOrientation(true);
-					trail.resetPoints();
-				}
-			}
-		}, this._scene);
+		SetupSpacecraft.setup(this._scene);
 	}
 
 	/**
@@ -219,7 +151,13 @@ class App extends BaseApp {
 	 */
 	_populateLabelEvents() {
 		// Populate labels
-		const clickableEntities = ['sc_perseverance_landing_site', 'sc_perseverance', 'mars', 'earth', 'phobos', 'deimos'];
+		const clickableEntities = [
+			'sc_perseverance_landing_site',
+			'sc_perseverance',
+			'sc_perseverance_cruise_stage',
+			'sc_perseverance_backshell',
+			'sc_perseverance_heat_shield',
+			'mars', 'earth', 'phobos', 'deimos'];
 		for (let i = 0, l = this._scene.getNumEntities(); i < l; i++) {
 			const entity = this._scene.getEntity(i);
 			const divComponent = entity.get('div');
@@ -300,7 +238,8 @@ class App extends BaseApp {
 		// Dynamic environment map
 		const dynEnvMap = this._scene.get('camera').addComponent('dynEnvMap');
 		if (dynEnvMap instanceof Pioneer.DynamicEnvironmentMapComponent) {
-			this._scene.get('sc_perseverance', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
+			this._scene.get('sc_perseverance_cruise_stage', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
+			this._scene.get('sc_perseverance_backshell', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 		}
 	}
 }
