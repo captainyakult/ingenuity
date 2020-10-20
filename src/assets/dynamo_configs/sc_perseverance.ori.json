@@ -1,0 +1,10 @@
+{
+	"type" : "ori",
+	"body" : -168,
+	"frame" : "M2020_ROVER",
+	"spiceDirs" : [
+		"lsk",
+		"celestial",
+		"../../../mars2020/src/assets/spice"
+	]
+}
