@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 	window.Pioneer = Pioneer;
 
 	try {
-		// await app.createManagers();
-		// await app.createComponents();
-		// app.getManager('router').start();
+		await app.createManagers();
+		await app.createComponents();
+		app.getManager('router').start();
 	}
 	catch (error) {
 		console.log(error);

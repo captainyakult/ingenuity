@@ -2,23 +2,18 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="./mars2020.css" />
 		<script src="config.js"></script>
 		<script src="script.js"></script>
 		<title>Mars 2020 Mission Visualization</title>
 	</head>
 	<body style="margin: 0">
 		<div class="pioneer"></div>
-		<div class="ui">
-			<div id="header">
-				<h1 id="title">Mars 2020</h1>
-				<div id="time-control"></div>
-			</div>
-			<div id="footer">
-				<div id="left">
-					<p>Looking at: <span id="target"></span>
-					<p>Time <span id="since-until"></span> landing: <span id="time-interval"></span></p>
-				</div>
+		<div class="ui grid-layout simple-grid">
+			<header class="header"></header>
+			<div class="float-mid-bottom">
+				<time id="clock" class="clock"></time>
+				<div id="time-controller" class="time-controller"></div>
 			</div>
 		</div>
 	</body>
