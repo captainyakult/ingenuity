@@ -1,0 +1,61 @@
+/* Live container */
+.clock .live-container {
+	background-color: var(--grayDarkAlpha);
+	justify-self: start;
+	border-radius: 2px;
+	padding: 1px 8px;
+	margin-left: 0;
+	grid-row: 1;
+}
+body.hover .clock .live-container:hover {
+	background-color: var(--liveAlpha);
+}
+.clock .live-container.active {
+	background-color: transparent;
+	margin-left: 8px;
+	padding-left: 0;
+}
+body.hover .clock .live-container.active:hover {
+	background-color: transparent;
+}
+
+/* Live text */
+.clock .live {
+	color: var(--gray);
+}
+body.hover .clock .live-container:hover .live {
+	color: var(--white);
+}
+.clock .active .live {
+	color: var(--live);
+}
+
+/* Icon */
+body.hover .clock .live-container:hover .icon.icon-back-to-live {
+	background-position: -26px -61px;
+}
+
+/* Date time container */
+.clock .datetime-container {
+	grid-row: 2;
+}
+.clock .datetime-container .display-container {
+	opacity: 0.6;
+	display: grid;
+	grid-template-columns: 45% 30% 20%;
+	margin-left: 8px;
+}
+.clock .datetime-container .display-container.hidden {
+	display: none;
+}
+.clock .date,
+.clock .time,
+.clock .meridiem {
+	margin-right: 0;
+}
+
+/* Input */
+.clock .hour-input {
+	opacity: 0.6;
+	margin-left: 8px;
+}

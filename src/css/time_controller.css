@@ -1,0 +1,33 @@
+.time-controller label {
+	opacity: 0.6;
+}
+.time-controller .play-pause {
+	margin-right: 42px;
+}
+.time-controller .vertical-line {
+	opacity: 0.6;
+}
+.time-controller .next-rate,
+.time-controller .prev-rate {
+	position: relative;
+}
+.time-controller .icon-forward,
+.time-controller .icon-backward {
+	opacity: 0.2;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+body.hover .time-controller .next-rate:hover .icon-forward,
+body.hover .time-controller .prev-rate:hover .icon-backward {
+	opacity: 1.0;
+}
+.time-controller .prev-rate .container,
+.time-controller .next-rate .container {
+	background-color: var(--grayDarkAlpha);
+}
+body.hover .time-controller .prev-rate:hover .container,
+body.hover .time-controller .next-rate:hover .container {
+	background-color: var(--grayAlpha);
+}

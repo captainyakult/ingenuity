@@ -1,0 +1,328 @@
+/* Colors */
+:root {
+	/* Primary */
+	--black: #000000;
+	--grayDark: #252527;
+	--grayDarkAlpha: #25252799; /* 60% transparent */
+	--gray: #95959d;
+	--grayAlpha: #95959d33; /* 20% transparent */
+	--grayMed: #c6c6c9;
+	--grayLight: #eaeaeb;
+	--white: #ffffff;
+
+	/* Secondary */
+	--sun: #f7f4df;
+	--sunMed: #b8b7a7;
+	--sunDark: #626259;
+	--mercury: #9768ac;
+	--mercuryMed: #714e81;
+	--mercuryDark: #3c2a45;
+	--venus: #b07919;
+	--venusMed: #845b13;
+	--venusDark: #46300a;
+	--earth: #1f479f;
+	--earthMed: #173577;
+	--earthDark: #0c1c40;
+	--mars: #9a4e19;
+	--marsMed: #733a13;
+	--marsDark: #3d1f0a;
+	--jupiter: #da8b72;
+	--jupiterMed: #a36855;
+	--jupiterDark: #57382e;
+	--saturn: #d5c187;
+	--saturnMed: #786d4c;
+	--saturnDark: #554d36;
+	--uranus: #68ccda;
+	--uranusMed: #4e99a3;
+	--uranusDark: #2a5257;
+	--neptune: #708ce3;
+	--neptuneMed: #5469aa;
+	--neptuneDark: #2d385b;
+
+	/* Tertiary */
+	--spacecraft: #cd9745;
+	--moon: #b6acac;
+	--dwarfPlanet: #929871;
+	--comet: #7e86b0;
+	--asteroid: #806262;
+
+	/* Semantic */
+	--live: #47da84;
+	--liveAlpha: #47da84bf; /* 75% transparent */
+	--error: #d55033;
+	--settings: #0d67ff;
+
+	/* Gradients */
+	--bgGradient: linear-gradient(180deg, #252527cc 0%, rgba(37, 37, 39, 0.64) 52.08%, rgba(37, 37, 39, 0) 100%);
+}
+
+/* Default background text color */
+.bg-color {
+	color: var(--white);
+}
+
+/* Primary */
+.color.black {
+	color: var(--black);
+}
+.bg-color.black {
+	background-color: var(--black);
+}
+.color.gray.dark {
+	color: var(--grayDark);
+}
+.bg-color.gray.dark {
+	background-color: var(--grayDark);
+}
+.color.gray {
+	color: var(--gray);
+}
+.bg-color.gray {
+	background-color: var(--gray);
+}
+.color.gray.med {
+	color: var(--grayMed);
+}
+.bg-color.gray.med {
+	background-color: var(--grayMed);
+}
+.color.gray.light {
+	color: var(--grayLight);
+}
+.bg-color.gray.light {
+	background-color: var(--grayLight);
+}
+
+/* Secondary */
+/* Sun */
+.color.sun {
+	color: var(--sun);
+}
+.bg-color.sun {
+	background-color: var(--sun);
+	color: var(--black); /* Overrides default background color */
+}
+.color.sun.med {
+	color: var(--sunMed);
+}
+.bg-color.sun.med {
+	background-color: var(--sunMed);
+}
+.color.sun.dark {
+	color: var(--sunDark);
+}
+.bg-color.sun.dark {
+	background-color: var(--sunDark);
+}
+
+/* Mercury */
+.color.mercury {
+	color: var(--mercury);
+}
+.bg-color.mercury {
+	background-color: var(--mercury);
+}
+.color.mercury.med {
+	color: var(--mercuryMed);
+}
+.bg-color.mercury.med {
+	background-color: var(--mercuryMed);
+}
+.color.mercury.dark {
+	color: var(--mercuryDark);
+}
+.bg-color.mercury.dark {
+	background-color: var(--mercuryDark);
+}
+
+/* Venus */
+.color.venus {
+	color: var(--venus);
+}
+.bg-color.venus {
+	background-color: var(--venus);
+}
+.color.venus.med {
+	color: var(--venusMed);
+}
+.bg-color.venus.med {
+	background-color: var(--venusMed);
+}
+.color.venus.dark {
+	color: var(--venusDark);
+}
+.bg-color.venus.dark {
+	background-color: var(--venusDark);
+}
+
+/* Earth */
+.color.earth {
+	color: var(--earth);
+}
+.bg-color.earth {
+	background-color: var(--earth);
+}
+.color.earth.med {
+	color: var(--earthMed);
+}
+.bg-color.earth.med {
+	background-color: var(--earthMed);
+}
+.color.earth.dark {
+	color: var(--earthDark);
+}
+.bg-color.earth.dark {
+	background-color: var(--earthDark);
+}
+
+/* Mars */
+.color.mars {
+	color: var(--mars);
+}
+.bg-color.mars {
+	background-color: var(--mars);
+}
+.color.mars.med {
+	color: var(--marsMed);
+}
+.bg-color.mars.med {
+	background-color: var(--marsMed);
+}
+.color.mars.dark {
+	color: var(--marsDark);
+}
+.bg-color.mars.dark {
+	background-color: var(--marsDark);
+}
+
+/* Jupiter */
+.color.jupiter {
+	color: var(--jupiter);
+}
+.bg-color.jupiter {
+	background-color: var(--jupiter);
+}
+.color.jupiter.med {
+	color: var(--jupiterMed);
+}
+.bg-color.jupiter.med {
+	background-color: var(--jupiterMed);
+}
+.color.jupiter.dark {
+	color: var(--jupiterDark);
+}
+.bg-color.jupiter.dark {
+	background-color: var(--jupiterDark);
+}
+
+/* Saturn */
+.color.saturn {
+	color: var(--saturn);
+}
+.bg-color.saturn {
+	background-color: var(--saturn);
+}
+.color.saturn.med {
+	color: var(--saturnMed);
+}
+.bg-color.saturn.med {
+	background-color: var(--saturnMed);
+}
+.color.saturn.dark {
+	color: var(--saturnDark);
+}
+.bg-color.saturn.dark {
+	background-color: var(--saturnDark);
+}
+
+/* Uranus */
+.color.uranus {
+	color: var(--uranus);
+}
+.bg-color.uranus {
+	background-color: var(--uranus);
+}
+.color.uranus.med {
+	color: var(--uranusMed);
+}
+.bg-color.uranus.med {
+	background-color: var(--uranusMed);
+}
+.color.uranus.dark {
+	color: var(--uranusDark);
+}
+.bg-color.uranus.dark {
+	background-color: var(--uranusDark);
+}
+
+/* Neptune */
+.color.neptune {
+	color: var(--neptune);
+}
+.bg-color.neptune {
+	background-color: var(--neptune);
+}
+.color.neptune.med {
+	color: var(--neptuneMed);
+}
+.bg-color.neptune.med {
+	background-color: var(--neptuneMed);
+}
+.color.neptune.dark {
+	color: var(--neptuneDark);
+}
+.bg-color.neptune.dark {
+	background-color: var(--neptuneDark);
+}
+
+/* Tertiary */
+.color.spacecraft {
+	color: var(--spacecraft);
+}
+.bg-color.spacecraft {
+	background-color: var(--spacecraft);
+}
+.color.moon {
+	color: var(--moon);
+}
+.bg-color.moon {
+	background-color: var(--moon);
+}
+.color.dwarf-planet {
+	color: var(--dwarfPlanet);
+}
+.bg-color.dwarf-planet {
+	background-color: var(--dwarfPlanet);
+}
+.color.comet {
+	color: var(--comet);
+}
+.bg-color.comet {
+	background-color: var(--comet);
+}
+.color.asteroid {
+	color: var(--asteroid);
+}
+.bg-color.asteroid {
+	background-color: var(--asteroid);
+}
+
+/* Semantic */
+.color.live {
+	color: var(--live);
+}
+.bg-color.live {
+	background-color: var(--live);
+}
+.color.error {
+	color: var(--error);
+}
+.bg-color.error {
+	background-color: var(--error);
+}
+.color.settings {
+	color: var(--settings);
+}
+.bg-color.settings {
+	background-color: var(--settings);
+}

@@ -17,7 +17,10 @@
 	"author": "Stephen Hurley",
 	"license": "ISC",
 	"homepage": "https://github.jpl.nasa.gov/VTAD/mars2020",
-	"dependencies": {},
+	"dependencies": {
+		"moment": "^2.29.1",
+		"moment-timezone": "^0.5.31"
+	},
 	"devDependencies": {
 		"copy-webpack-plugin": "latest",
 		"css-loader": "latest",
