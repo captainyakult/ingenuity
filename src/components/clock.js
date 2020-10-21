@@ -20,6 +20,20 @@ class Clock extends BaseClock {
 		this._children.time.classList.add('semi');
 		this._children.meridiem.classList.add('semi');
 		this._children.timeInput.classList.add('semi');
+
+		this._handleTimeUpdate = this._handleTimeUpdate.bind(this);
+		this.setTimeCallback(this._handleTimeUpdate);
+	}
+
+	/**
+	 * Handles time update.
+	 * @param {Moment.moment} time
+	 */
+	_handleTimeUpdate(time) {
+		// Change time to Earth Received Time
+		if (this._app.getManager('time').isERT()) {
+			this._setEarthReceivedTime(time, 'sc_perseverance');
+		}
 	}
 }
 
