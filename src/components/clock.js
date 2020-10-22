@@ -63,7 +63,7 @@ class Clock extends BaseClock {
 			this._children.date.classList.remove('small');
 			this._children.time.classList.remove('small');
 			this._children.meridiem.classList.remove('small');
-			this._children.timeInput.classList.add('small');
+			this._children.timeInput.classList.remove('small');
 		}
 	}
 }
