@@ -50,6 +50,9 @@ class Clock extends BaseClock {
 		}
 	}
 
+	/**
+	 * Update fonts.
+	 */
 	_updateFonts() {
 		if (this._app.isMobile()) {
 			this._children.live.classList.add('x-small');

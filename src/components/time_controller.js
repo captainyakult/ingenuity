@@ -23,7 +23,6 @@ class TimeController extends BaseTimeController {
 		window.addEventListener('resize', () => {
 			this._updateFonts();
 		});
-		this._updateFonts();
 	}
 
 	/**
@@ -35,6 +34,9 @@ class TimeController extends BaseTimeController {
 		this._updateFonts();
 	}
 
+	/**
+	 * Update fonts.
+	 */
 	_updateFonts() {
 		if (this._app.isMobile()) {
 			this._children.label.classList.add('tiny');
