@@ -2,7 +2,7 @@
 	opacity: 0.6;
 }
 .time-controller .play-pause {
-	margin-right: 42px;
+	margin-right: 30px;
 }
 .time-controller .vertical-line {
 	opacity: 0.6;
@@ -30,4 +30,42 @@ body.hover .time-controller .prev-rate:hover .icon-backward {
 body.hover .time-controller .prev-rate:hover .container,
 body.hover .time-controller .next-rate:hover .container {
 	background-color: var(--grayAlpha);
+}
+
+.time-controller .rate-display-label {
+	white-space: nowrap;
+}
+
+/* Phones, 991px and down */
+@media only screen and (max-width: 991px) {
+	.time-controller .prev-rate .container,
+	.time-controller .next-rate .container {
+		height: 22px;
+	}
+	.time-controller {
+		padding-top: 10px;
+		margin-bottom: 20px;
+		border-top: 1px solid var(--grayDark);
+	}
+}
+
+/* Laptops/desktops, large devices, and screens with width >= 992px */
+@media only screen and (min-width: 992px) {
+	.time-controller .prev-rate .container,
+	.time-controller .next-rate .container {
+		height: 10px;
+	}
+}
+
+/* Mobile landscape, panorama with height less than 600px */
+@media only screen and (max-height: 600px) and (orientation: landscape) {
+	.time-controller .prev-rate .container,
+	.time-controller .next-rate .container {
+		height: 22px;
+	}
+	.time-controller {
+		padding-top: 10px;
+		margin-bottom: 20px;
+		border-top: 1px solid var(--grayDark);
+	}
 }

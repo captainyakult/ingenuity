@@ -51,10 +51,13 @@
 	/* Time */
 	.grid-layout .float-mid-bottom {
 		grid-area: foot;
-		align-self: end;
-		justify-self: start;
-		width: 100%;
-		height: 100px;
+		grid-template-columns: auto;
+		grid-template-rows: auto auto;
+		align-self: center;
+		justify-self: center;
+		margin: 0 20px;
+		width: calc(100% - 40px);
+		display: grid;
 	}
 
 	/* Overlay */
@@ -116,14 +119,15 @@
 
 	/* Time */
 	.grid-layout .float-mid-bottom {
-		display: grid;
 		grid-template-columns: minmax(250px, 30%) 70%;
 		grid-template-rows: 50% 50%;
 		grid-column: main-end / side-start;
 		grid-row: foot-start / foot-end;
-		height: 50px;
 		align-self: center;
 		align-items: center;
+		justify-content: start;
+		height: auto;
+		display: grid;
 	}
 }
 
@@ -170,9 +174,12 @@
 
 	/* Time */
 	.grid-layout .float-mid-bottom {
-		grid-column: main-end / side-start;
+		grid-template-columns: auto;
+		grid-template-rows: auto auto;
+		grid-column: main-start / side-end;
 		grid-row: foot-start / foot-end;
-		height: 50px;
-		align-self: center;
+		height: auto;
+		align-self: start;
+		display: grid;
 	}
 }

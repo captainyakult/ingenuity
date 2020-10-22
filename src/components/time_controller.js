@@ -19,6 +19,31 @@ class TimeController extends BaseTimeController {
 		this._children.increaseContainer.classList.add('bg-color', 'gray', 'dark');
 		this._children.label.classList.add('semi');
 		this._children.rateDisplay.classList.add('semi');
+
+		window.addEventListener('resize', () => {
+			this._updateFonts();
+		});
+		this._updateFonts();
+	}
+
+	/**
+	 * Initialization.
+	 * Called automatically by addComponent.
+	 * @returns {Promise}
+	 */
+	async init() {
+		this._updateFonts();
+	}
+
+	_updateFonts() {
+		if (this._app.isMobile()) {
+			this._children.label.classList.add('tiny');
+			this._children.rateDisplay.classList.add('tiny');
+		}
+		else {
+			this._children.label.classList.remove('tiny');
+			this._children.rateDisplay.classList.remove('tiny');
+		}
 	}
 }
 

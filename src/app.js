@@ -124,6 +124,59 @@ class App extends BaseApp {
 	get pioneer() {
 		return this._pioneer;
 	}
+
+	/**
+	 * Returns true if the media query is mobile.
+	 * @returns {boolean}
+	 */
+	isMobile() {
+		if (window.matchMedia('(max-width: 991px)').matches) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Returns trueif the media query is landascape.
+	 * @returns {boolean}
+	 */
+	isLandscape() {
+		if (window.matchMedia('(orientation: landscape)').matches
+			&& window.matchMedia('(max-height: 600px)').matches) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Returns true if the media query is 2K.
+	 * @returns {boolean}
+	 */
+	is2K() {
+		if (window.matchMedia('(min-width: 2880px) and (min-height: 1024px)').matches) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Returns true if the media query is 4K.
+	 * @returns {boolean}
+	 */
+	is4K() {
+		if (window.matchMedia('(min-width: 3200px) and (min-height: 1440px)').matches) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }
 
 const app = new App();
