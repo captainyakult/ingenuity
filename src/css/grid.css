@@ -181,5 +181,7 @@
 		height: auto;
 		align-self: start;
 		display: grid;
+		align-items: initial;
+		justify-content: initial;
 	}
 }

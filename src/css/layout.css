@@ -54,6 +54,7 @@ body {
 	}
 	.time-controller {
 		grid-row: 2;
+		grid-column: 1
 	}
 	.time-controller .rate-container .play-pause {
 		display: none;
@@ -86,9 +87,11 @@ body {
 		grid-row: 1;
 		grid-column: 1;
 		grid-template-columns: auto max-content;
+		grid-template-rows: 23px;
 	}
 	.time-controller {
 		grid-row: 2;
+		grid-column: 1;
 	}
 	.time-controller .rate-container .play-pause {
 		display: none;

@@ -54,7 +54,7 @@ class Clock extends BaseClock {
 	 * Update fonts.
 	 */
 	_updateFonts() {
-		if (this._app.isMobile()) {
+		if (this._app.isMobile() || this._app.isLandscape()) {
 			this._children.live.classList.add('x-small');
 			this._children.date.classList.add('small');
 			this._children.time.classList.add('small');

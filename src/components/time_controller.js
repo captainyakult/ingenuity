@@ -38,7 +38,7 @@ class TimeController extends BaseTimeController {
 	 * Update fonts.
 	 */
 	_updateFonts() {
-		if (this._app.isMobile()) {
+		if (this._app.isMobile() || this._app.isLandscape()) {
 			this._children.label.classList.add('tiny');
 			this._children.rateDisplay.classList.add('tiny');
 		}

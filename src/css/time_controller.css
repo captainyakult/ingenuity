@@ -42,8 +42,11 @@ body.hover .time-controller .next-rate:hover .container {
 	.time-controller .next-rate .container {
 		height: 22px;
 	}
+	.time-controller .vertical-line {
+		height: 29px;
+	}
 	.time-controller {
-		padding-top: 10px;
+		padding-top: 20px;
 		margin-bottom: 20px;
 		border-top: 1px solid var(--grayDark);
 	}
@@ -63,8 +66,11 @@ body.hover .time-controller .next-rate:hover .container {
 	.time-controller .next-rate .container {
 		height: 22px;
 	}
+	.time-controller .vertical-line {
+		height: 29px;
+	}
 	.time-controller {
-		padding-top: 10px;
+		padding-top: 15px;
 		margin-bottom: 20px;
 		border-top: 1px solid var(--grayDark);
 	}
