@@ -1,6 +1,5 @@
 import { Clock as BaseClock } from 'es6-ui-library';
 import '../css/clock.css';
-import moment from 'moment-timezone';
 
 /**
  * Extended TimeController from es6-ui-library.
@@ -67,6 +66,23 @@ class Clock extends BaseClock {
 			this._children.time.classList.remove('small');
 			this._children.meridiem.classList.remove('small');
 			this._children.timeInput.classList.remove('small');
+		}
+	}
+
+	/**
+	 * Change time rate to 1s/s and time to real time.
+	 */
+	_backToLive() {
+		if (!this._app.getManager('time').isNow()) {
+			const timeManager = this._app.getManager('time');
+			const navigated = this._app.getManager('router').navigate({
+				time: timeManager.getTimeUrl(timeManager.getNow()),
+				__remove: ['rate']
+			});
+			if (!navigated) {
+				this._app.getManager('time').setTimeRate(1);
+				this._app.getManager('time').setToNow();
+			}
 		}
 	}
 }
