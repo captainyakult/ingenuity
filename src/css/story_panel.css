@@ -1,0 +1,59 @@
+.carousel .track {
+	background: transparent url(../assets/svg/timeline-bg.svg) repeat-y 0 0;
+}
+
+.carousel .slide .content {
+	padding-right: 0;
+	font-size: 1em;
+}
+
+.carousel .navigation-button {
+	text-align: left;
+	padding-left: 10%;
+}
+.carousel .navigation-button:hover {
+	background: transparent;
+}
+
+.carousel .slide .content,
+.carousel .navigation-button {
+	color: var(--grayMed);
+}
+.carousel .slide .content .live {
+	color: var(--live);
+	text-transform: uppercase;
+}
+.carousel .slide .content .title {
+	white-space: nowrap;
+}
+.carousel .slide .content .description {
+
+}
+.carousel .slide .content .distance {
+	color: var(--white);
+	font-weight: 600;
+}
+.carousel .slide .content .velocity {
+	color: var(--white);
+	font-weight: 600;
+}
+.carousel .slide .content .touchdown {
+	color: var(--gray);
+}
+.carousel .slide .content .timer {
+
+}
+
+/* Phones, 991px and down */
+@media only screen and (max-width: 991px) {
+	.carousel .slide {
+		height: 40vh;
+	}
+}
+
+/* Laptops/desktops, large devices, and screens with width >= 992px */
+@media only screen and (min-width: 992px) {
+	.carousel .slide {
+		height: 60vh;
+	}
+}

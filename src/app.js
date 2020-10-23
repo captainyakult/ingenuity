@@ -5,6 +5,7 @@ import 'es6-ui-library/css/grid_layout.css';
 import 'es6-ui-library/css/style.css';
 import 'es6-ui-library/css/clock.css';
 import 'es6-ui-library/css/time_controller.css';
+import 'es6-ui-library/css/carousel.css';
 import './css/grid.css';
 import './css/sprite.css';
 import './css/color.css';
@@ -12,6 +13,7 @@ import './css/layout.css';
 import './css/style.css';
 import './css/clock.css';
 import './css/time_controller.css';
+import './css/story_panel.css';
 
 // Import UI library managers
 import {
@@ -27,6 +29,7 @@ import RouteManager from './managers/route_manager';
 import HomeView from './views/home_view';
 import Clock from './components/clock';
 import TimeController from './components/time_controller';
+import StoryPanel from './components/story_panel';
 
 class App extends BaseApp {
 	/**
@@ -116,6 +119,8 @@ class App extends BaseApp {
 		const timeController = await this.addComponent('timeController', TimeController, document.getElementById('time-controller'));
 		this._managers.time.registerCallback('ratechange', timeController.onRateChange);
 		timeController.setEnabled(true);
+
+		await this.addComponent('storyPanel', StoryPanel, document.getElementById('story-panel'));
 	}
 
 	/**

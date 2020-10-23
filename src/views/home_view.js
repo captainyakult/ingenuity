@@ -14,7 +14,7 @@ class HomeView extends BaseView {
 	constructor(div, app) {
 		super(div, app);
 
-		this._components = ['clock', 'timeController', 'breadcrumb'];
+		this._components = ['clock', 'timeController', 'storyPanel'];
 
 		this._rules = {
 			rate: {
@@ -42,6 +42,9 @@ class HomeView extends BaseView {
 			const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
 			this._app.getManager('time').setTime(startTime);
 		}
+
+		// Update story panel
+		this._app.getComponent('storyPanel').onRouteChange(params.id);
 
 		await this.updateCamera(params.target);
 	}
