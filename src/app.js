@@ -77,7 +77,8 @@ class App extends BaseApp {
 	 */
 	async createManagers() {
 		// Time manager
-		const timeMgr = this.addManager('time', TimeManager);
+		const timeManager = this.addManager('time', TimeManager);
+		timeManager.setDisplayERT(true);
 		// TODO: update limits
 		// const min = moment.tz('1949-12-31', 'Etc/UTC'); // Dec 31st 1949
 		// const max = moment.tz('2049-12-31', 'Etc/UTC'); // Dec 31st 2049
@@ -109,6 +110,7 @@ class App extends BaseApp {
 
 		const clock = await this.addComponent('clock', Clock, document.getElementById('clock'));
 		this._managers.time.registerCallback('update', clock.update);
+		this._managers.time.registerCallback('earthreceivedtime', clock.update);
 		clock.setEnabled(true);
 
 		const timeController = await this.addComponent('timeController', TimeController, document.getElementById('time-controller'));
@@ -121,6 +123,59 @@ class App extends BaseApp {
 	 */
 	get pioneer() {
 		return this._pioneer;
+	}
+
+	/**
+	 * Returns true if the media query is mobile.
+	 * @returns {boolean}
+	 */
+	isMobile() {
+		if (window.matchMedia('(max-width: 991px)').matches) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Returns trueif the media query is landascape.
+	 * @returns {boolean}
+	 */
+	isLandscape() {
+		if (window.matchMedia('(orientation: landscape)').matches
+			&& window.matchMedia('(max-height: 600px)').matches) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Returns true if the media query is 2K.
+	 * @returns {boolean}
+	 */
+	is2K() {
+		if (window.matchMedia('(min-width: 2880px) and (min-height: 1024px)').matches) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Returns true if the media query is 4K.
+	 * @returns {boolean}
+	 */
+	is4K() {
+		if (window.matchMedia('(min-width: 3200px) and (min-height: 1440px)').matches) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
 

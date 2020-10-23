@@ -32,19 +32,72 @@ body {
 	cursor: pointer;
 }
 
+.time-controller .rate-container {
+	display: grid;
+    grid-template-rows: auto;
+	justify-content: start;
+	align-items: center;
+}
+
 .clock {
 	display: grid;
-	grid-row: span 2;
-	grid-column: 1;
-	grid-template-rows: 26px 24px;
-}
-
-.time-controller {
-	grid-row: 2;
-	grid-column: 2;
-}
-
-.time-controller .rate-container {
-	display: flex;
 	align-items: center;
+}
+
+/* Phones, 991px and down */
+@media only screen and (max-width: 991px) {
+	.clock {
+		grid-row: 1;
+		grid-column: 1;
+		grid-template-columns: auto max-content;
+		grid-template-rows: 23px;
+	}
+	.time-controller {
+		grid-row: 2;
+		grid-column: 1
+	}
+	.time-controller .rate-container .play-pause {
+		display: none;
+	}
+	.time-controller .rate-container {
+		grid-template-columns: auto 91px 2px 91px auto;
+	}
+}
+
+/* Laptops/desktops, large devices, and screens with width >= 992px */
+@media only screen and (min-width: 992px) {
+	.clock {
+		grid-row: span 2;
+		grid-column: 1;
+		grid-template-rows: 26px 24px;
+	}
+	.time-controller {
+		grid-row: 2;
+		grid-column: 2;
+	}
+	.time-controller .rate-container {
+		grid-template-columns: auto auto 91px 2px 91px auto;
+	}
+
+}
+
+/* Mobile landscape, panorama with height less than 600px */
+@media only screen and (max-height: 600px) and (orientation: landscape) {
+	.clock {
+		grid-row: 1;
+		grid-column: 1;
+		grid-template-columns: auto max-content;
+		grid-template-rows: 23px;
+	}
+	.time-controller {
+		grid-row: 2;
+		grid-column: 1;
+	}
+	.time-controller .rate-container .play-pause {
+		display: none;
+	}
+	.time-controller .rate-container {
+		grid-template-columns: auto 91px 2px 91px auto;
+		grid-template-rows: 23px;
+	}
 }
