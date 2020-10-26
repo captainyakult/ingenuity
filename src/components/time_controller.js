@@ -23,6 +23,18 @@ class TimeController extends BaseTimeController {
 		window.addEventListener('resize', () => {
 			this._updateFonts();
 		});
+
+		this._rates = [
+			-300, // 5 mins
+			-60,
+			-10,
+			-1,
+			0,
+			1,
+			10,
+			60,
+			300
+		];
 	}
 
 	/**
