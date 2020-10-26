@@ -50,6 +50,10 @@ body.hover .time-controller .next-rate:hover .container {
 		margin-bottom: 20px;
 		border-top: 1px solid var(--grayDark);
 	}
+	.time-controller .prev-rate,
+	.time-controller .next-rate {
+		width: 75px;
+	}
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
@@ -73,5 +77,9 @@ body.hover .time-controller .next-rate:hover .container {
 		padding-top: 15px;
 		margin-bottom: 20px;
 		border-top: 1px solid var(--grayDark);
+	}
+	.time-controller .prev-rate,
+	.time-controller .next-rate {
+		width: 75px;
 	}
 }

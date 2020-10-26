@@ -3,8 +3,13 @@
 	background-color: var(--grayDarkAlpha);
 	justify-self: start;
 	border-radius: 2px;
-	padding: 1px 8px;
+	padding: 1px 7px;
 	margin-left: 0;
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-template-rows: auto;
+	gap: 0 7px;
+	align-items: center;
 }
 body.hover .clock .live-container:hover {
 	background-color: var(--liveAlpha);
