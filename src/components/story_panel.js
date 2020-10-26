@@ -17,7 +17,7 @@ class StoryPanel extends Carousel {
 
 		this._state = {
 			...this._state,
-			live: 'hidden',
+			liveClass: 'hidden',
 			distance: 0,
 			velocity: 0,
 			touchdown: 0
@@ -25,6 +25,8 @@ class StoryPanel extends Carousel {
 
 		this._settings.navigationButtons.prev.text = 'Scroll for previous phase';
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
+
+		this.update = this.update.bind(this);
 	}
 
 	/**
@@ -35,7 +37,7 @@ class StoryPanel extends Carousel {
 	 */
 	_createSlideContent(info, nextInfo) {
 		let html = `
-			<div class="live-container {{live}}">
+			<div class="live-container {{liveClass}}">
 				<span class="icon icon-live"></span>
 				<span class="live semi color">live</span>
 			</div>
@@ -88,6 +90,17 @@ class StoryPanel extends Carousel {
 	onRouteChange(phaseId) {
 		// TODO: Get panel index using phaseId as id, if no id, index = 0
 		// TODO: Go to panel with index
+	}
+
+	/**
+	 * Update every frame.
+	 */
+	update() {
+		const isNow = this._app.getManager('time').isNow();
+
+		this.setState({
+			liveClass: isNow ? '' : 'hidden'
+		});
 	}
 }
 

@@ -120,7 +120,8 @@ class App extends BaseApp {
 		this._managers.time.registerCallback('ratechange', timeController.onRateChange);
 		timeController.setEnabled(true);
 
-		await this.addComponent('storyPanel', StoryPanel, document.getElementById('story-panel'));
+		const storyPanel = await this.addComponent('storyPanel', StoryPanel, document.getElementById('story-panel'));
+		this._managers.time.registerCallback('update', storyPanel.update);
 	}
 
 	/**
