@@ -1,4 +1,5 @@
 import * as Pioneer from 'pioneer-js';
+import moment from 'moment-timezone';
 
 // Import css
 import 'es6-ui-library/css/grid_layout.css';
@@ -79,11 +80,11 @@ class App extends BaseApp {
 		// Time manager
 		const timeManager = this.addManager('time', TimeManager);
 		timeManager.setDisplayERT(true);
-		// TODO: update limits
-		// const min = moment.tz('1949-12-31', 'Etc/UTC'); // Dec 31st 1949
-		// const max = moment.tz('2049-12-31', 'Etc/UTC'); // Dec 31st 2049
-		// timeMgr.setDefaultLimits({ min, max });
-		// timeMgr.setLimits({ min, max });
+		// Update date limits
+		const min = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.start) * 1000, this._timezone);
+		const max = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.landing) * 1000, this._timezone);
+		timeManager.setDefaultLimits({ min, max });
+		timeManager.setLimits({ min, max });
 
 		// Scene manager
 		const sceneManager = this.addManager('scene', SceneManager, this._pioneer);
