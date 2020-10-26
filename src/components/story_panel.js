@@ -56,12 +56,11 @@ class StoryPanel extends Carousel {
 	}
 
 	/**
-	 * Update UI on route change.
-	 * @param {string} id - Story id
+	 * Initialization.
 	 */
-	onRouteChange(id) {
-		// TODO: Get story info using id
-		// TODO: Update panel with story info
+	init() {
+		// Populate panel with all slides once since it doesn't change.
+		// TODO: Get story info from file
 		this.addSlides([
 			{
 				id: 'section_1',
@@ -80,8 +79,15 @@ class StoryPanel extends Carousel {
 			{ id: 'section_9', text: 'Section 9' },
 			{ id: 'section_10', text: 'Section 10' }
 		]);
+	}
 
-		// this._setVariables(this._children.track);
+	/**
+	 * Update UI on route change.
+	 * @param {string} phaseId - Phase id
+	 */
+	onRouteChange(phaseId) {
+		// TODO: Get panel index using phaseId as id, if no id, index = 0
+		// TODO: Go to panel with index
 	}
 }
 
