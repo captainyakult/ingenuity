@@ -50,7 +50,8 @@ body {
 		grid-row: 1;
 		grid-column: 1;
 		grid-template-columns: auto max-content;
-		grid-template-rows: 23px;
+		grid-template-rows: 26px;
+		gap: 5px;
 	}
 	.time-controller {
 		grid-row: 2;
@@ -60,7 +61,8 @@ body {
 		display: none;
 	}
 	.time-controller .rate-container {
-		grid-template-columns: auto 91px 2px 91px auto;
+		grid-template-columns: auto 85px 2px 85px auto;
+		grid-template-rows: 30px;
 	}
 }
 
@@ -76,7 +78,8 @@ body {
 		grid-column: 2;
 	}
 	.time-controller .rate-container {
-		grid-template-columns: auto auto 91px 2px 91px auto;
+		grid-template-columns: auto auto 90px 2px 90px auto;
+		grid-template-rows: 30px;
 	}
 
 }
@@ -87,7 +90,8 @@ body {
 		grid-row: 1;
 		grid-column: 1;
 		grid-template-columns: auto max-content;
-		grid-template-rows: 23px;
+		grid-template-rows: 26px;
+		gap: 5px;
 	}
 	.time-controller {
 		grid-row: 2;
@@ -97,7 +101,7 @@ body {
 		display: none;
 	}
 	.time-controller .rate-container {
-		grid-template-columns: auto 91px 2px 91px auto;
-		grid-template-rows: 23px;
+		grid-template-columns: auto 85px 2px 85px auto;
+		grid-template-rows: 30px;
 	}
 }
