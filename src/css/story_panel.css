@@ -3,13 +3,15 @@
 }
 
 .carousel .slide .content {
-	padding-right: 0;
 	font-size: 1em;
 }
 
 .carousel .navigation-button {
 	text-align: left;
 	padding-left: 10%;
+}
+.carousel .navigation-button:focus {
+	outline: 0;
 }
 .carousel .navigation-button:hover {
 	background: transparent;
@@ -22,9 +24,6 @@
 .carousel .slide .content .live {
 	color: var(--live);
 	text-transform: uppercase;
-}
-.carousel .slide .content .title {
-	white-space: nowrap;
 }
 .carousel .slide .content .description {
 
@@ -49,11 +48,43 @@
 	.carousel .slide {
 		height: 40vh;
 	}
+
+	.carousel .slide .content {
+		padding: 0 5%;
+		font-size: 0.8em;
+	}
+
+	.carousel .slide .content h1 {
+		font-size: 2em;
+	}
+
+	.carousel .slide .content .description {
+		display: none;
+	}
+
+	.carousel .navigation-button {
+		padding: 0 5%;
+	}
+}
+
+/* Mobile landscape, panorama with height less than 600px */
+@media only screen and (max-height: 600px) and (orientation: landscape) {
+	.carousel .slide {
+		height: 60vh;
+	}
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
 @media only screen and (min-width: 992px) {
 	.carousel .slide {
 		height: 60vh;
+	}
+
+	.carousel .slide .content {
+		padding-right: 0;
+	}
+
+	.carousel .slide .content .title {
+		white-space: nowrap;
 	}
 }

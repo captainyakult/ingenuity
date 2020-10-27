@@ -84,8 +84,8 @@
 @media only screen and (max-height: 600px) and (orientation: landscape) {
 	/* Story panel */
 	.grid-layout .story-panel {
-		grid-column: main-start / main-end;
-		grid-row: head-end / foot-end;
+		grid-column: main-start / 13;
+		grid-row: 3 / foot-end;
 	}
 
 	/* Header */
