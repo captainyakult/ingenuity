@@ -62,52 +62,9 @@ class StoryPanel extends Carousel {
 	/**
 	 * Initialization.
 	 */
-	init() {
+	async init() {
 		// Populate panel with all slides once since it doesn't change.
-		// TODO: Get story info from file
-		const info = [
-			{
-				id: 'cruise_stage_separation',
-				title: 'Cruise Stage Separation',
-				description: 'About ten minutes before entering the atmosphere, the spacecraft sheds its Cruise Stage, which houses solar panels, radios, and fuel tanks during its flight to Mars.'
-			},
-			{
-				id: 'section_2',
-				title: 'Section 2'
-			},
-			{
-				id: 'section_3',
-				title: 'Section 3'
-			},
-			{
-				id: 'section_4',
-				title: 'Section 4'
-			},
-			{
-				id: 'section_5',
-				title: 'Section 5'
-			},
-			{
-				id: 'section_6',
-				title: 'Section 6'
-			},
-			{
-				id: 'section_7',
-				title: 'Section 7'
-			},
-			{
-				id: 'section_8',
-				title: 'Section 8'
-			},
-			{
-				id: 'section_9',
-				title: 'Section 9'
-			},
-			{
-				id: 'section_10',
-				title: 'Section 10'
-			}
-		];
+		const info = await AppUtils.loadJSON('/assets/story.json');
 
 		info.forEach(({ id, title, description }, index) => {
 			const nextInfo = index + 1 < info.length
