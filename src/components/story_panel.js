@@ -1,4 +1,4 @@
-import { Carousel } from 'es6-ui-library';
+import { Carousel, AppUtils } from 'es6-ui-library';
 
 /**
  * Story panel.
@@ -82,8 +82,9 @@ class StoryPanel extends Carousel {
 	 * @param {string} phaseId - Phase id
 	 */
 	onRouteChange(phaseId) {
-		// TODO: Get panel index using phaseId as id, if no id, index = 0
-		// TODO: Go to panel with index
+		// Go to slide using id, or first slide if no id
+		const index = Math.max(0, this._children.slides.findIndex(x => x.dataset.id === phaseId));
+		this.goToSlide(index);
 	}
 
 	/**
