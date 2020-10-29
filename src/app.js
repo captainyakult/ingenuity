@@ -5,14 +5,13 @@ import moment from 'moment-timezone';
 import 'es6-ui-library/css/grid_layout.css';
 import 'es6-ui-library/css/style.css';
 import 'es6-ui-library/css/clock.css';
+import 'es6-ui-library/css/clock_shortcut.css';
 import 'es6-ui-library/css/time_controller.css';
 import './css/grid.css';
 import './css/sprite.css';
 import './css/color.css';
 import './css/layout.css';
 import './css/style.css';
-import './css/clock.css';
-import './css/time_controller.css';
 
 // Import UI library managers
 import {
@@ -27,6 +26,7 @@ import RouteManager from './managers/route_manager';
 // Import components
 import HomeView from './views/home_view';
 import Clock from './components/clock';
+import ClockShortcut from './components/clock_shortcut';
 import TimeController from './components/time_controller';
 
 class App extends BaseApp {
@@ -113,6 +113,10 @@ class App extends BaseApp {
 		this._managers.time.registerCallback('update', clock.update);
 		this._managers.time.registerCallback('earthreceivedtime', clock.update);
 		clock.setEnabled(true);
+
+		const clockShortcut = await this.addComponent('clockShortcut', ClockShortcut, document.getElementById('clock-shortcut'));
+		this._managers.time.registerCallback('update', clockShortcut.update);
+		clockShortcut.setEnabled(true);
 
 		const timeController = await this.addComponent('timeController', TimeController, document.getElementById('time-controller'));
 		this._managers.time.registerCallback('ratechange', timeController.onRateChange);

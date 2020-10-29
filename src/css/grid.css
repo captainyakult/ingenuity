@@ -51,13 +51,14 @@
 	/* Time */
 	.grid-layout .float-mid-bottom {
 		grid-area: foot;
-		grid-template-columns: auto;
+		grid-template-columns: auto max-content;
 		grid-template-rows: auto auto;
 		align-self: center;
 		justify-self: center;
 		margin: 0 20px;
 		width: calc(100% - 40px);
 		display: grid;
+		justify-items: start;
 	}
 
 	/* Overlay */
@@ -125,7 +126,7 @@
 		grid-row: foot-start / foot-end;
 		align-self: center;
 		align-items: center;
-		justify-content: start;
+		justify-items: start;
 		height: auto;
 		display: grid;
 		gap: 0 30px;
@@ -175,7 +176,7 @@
 
 	/* Time */
 	.grid-layout .float-mid-bottom {
-		grid-template-columns: auto;
+		grid-template-columns: auto max-content;
 		grid-template-rows: auto auto;
 		grid-column: main-start / side-end;
 		grid-row: foot-start / foot-end;
@@ -183,6 +184,6 @@
 		align-self: start;
 		display: grid;
 		align-items: initial;
-		justify-content: initial;
+		justify-items: start;
 	}
 }

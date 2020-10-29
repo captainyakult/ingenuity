@@ -39,23 +39,21 @@ body {
 	align-items: center;
 }
 
-.clock {
-	display: grid;
-	align-items: center;
+.clock-shortcut {
+	grid-row: 1;
+	grid-column: 1;
 }
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
 	.clock {
 		grid-row: 1;
-		grid-column: 1;
-		grid-template-columns: auto max-content;
-		grid-template-rows: 26px;
-		gap: 5px;
+		grid-column: 2;
 	}
 	.time-controller {
 		grid-row: 2;
-		grid-column: 1
+		grid-column: span 2;
+		justify-self: stretch;
 	}
 	.time-controller .rate-container .play-pause {
 		display: none;
@@ -69,9 +67,8 @@ body {
 /* Laptops/desktops, large devices, and screens with width >= 992px */
 @media only screen and (min-width: 992px) {
 	.clock {
-		grid-row: span 2;
+		grid-row: 2;
 		grid-column: 1;
-		grid-template-rows: 26px 24px;
 	}
 	.time-controller {
 		grid-row: 2;
@@ -88,14 +85,12 @@ body {
 @media only screen and (max-height: 600px) and (orientation: landscape) {
 	.clock {
 		grid-row: 1;
-		grid-column: 1;
-		grid-template-columns: auto max-content;
-		grid-template-rows: 26px;
-		gap: 5px;
+		grid-column: 2;
 	}
 	.time-controller {
 		grid-row: 2;
-		grid-column: 1;
+		grid-column: span 2;
+		justify-self: stretch;
 	}
 	.time-controller .rate-container .play-pause {
 		display: none;
