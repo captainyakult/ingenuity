@@ -112,6 +112,9 @@ body.hover .clock .live-container:hover .icon.icon-back-to-live {
 	.clock .hour-input {
 		margin-left: 8px;
 	}
+	.alert {
+		outline-offset: 0;
+	}
 }
 
 /* Mobile landscape, panorama with height less than 600px */
