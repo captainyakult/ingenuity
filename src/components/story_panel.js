@@ -23,6 +23,8 @@ class StoryPanel extends Carousel {
 			touchdown: 0
 		};
 
+		this._onChangeSlide = index => this._app.getManager('router').navigate({ id: this._children.slides[index].dataset.id });
+
 		this._settings.navigationButtons.prev.text = 'Scroll for previous phase';
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
 
