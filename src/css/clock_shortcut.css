@@ -45,6 +45,9 @@ body.hover .clock-shortcut .container:hover .text {
 .clock-shortcut .active .live {
 	color: var(--live);
 }
+body.hover .clock-shortcut .container.active:hover .live {
+	color: var(--live);
+}
 
 /* Icon */
 body.hover .clock-shortcut .live-container:hover .icon.icon-back-to-live {
