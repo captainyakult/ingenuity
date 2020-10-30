@@ -30,6 +30,7 @@ class Clock extends BaseClock {
 		this._children.time.classList.add('semi');
 		this._children.meridiem.classList.add('semi');
 		this._children.timeInput.classList.add('semi');
+		this._children.timeForm.classList.add('semi');
 		this._updateFonts();
 
 		window.addEventListener('resize', () => {
@@ -57,12 +58,14 @@ class Clock extends BaseClock {
 			this._children.time.classList.add('small');
 			this._children.meridiem.classList.add('small');
 			this._children.timeInput.classList.add('small');
+			this._children.timeForm.classList.add('small');
 		}
 		else {
 			this._children.date.classList.remove('small');
 			this._children.time.classList.remove('small');
 			this._children.meridiem.classList.remove('small');
 			this._children.timeInput.classList.remove('small');
+			this._children.timeForm.classList.remove('small');
 		}
 	}
 }

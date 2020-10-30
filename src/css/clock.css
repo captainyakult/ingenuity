@@ -52,10 +52,10 @@
 	.clock .datetime-container {
 		grid-row: 2;
 		grid-column: 1;
+		margin-left: 8px;
 	}
 	.clock .datetime-container .display-container {
 		justify-content: start;
-		margin-left: 8px;
 	}
 	.clock .hour-input {
 		margin-left: 8px;
