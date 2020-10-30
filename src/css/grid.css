@@ -51,13 +51,15 @@
 	/* Time */
 	.grid-layout .float-mid-bottom {
 		grid-area: foot;
-		grid-template-columns: auto;
+		grid-template-columns: auto max-content;
 		grid-template-rows: auto auto;
 		align-self: center;
 		justify-self: center;
 		margin: 0 20px;
 		width: calc(100% - 40px);
 		display: grid;
+		justify-items: start;
+		gap: 15px 5px;
 	}
 
 	/* Overlay */
@@ -67,7 +69,6 @@
 		z-index: 1000;
 	}
 }
-
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
 @media only screen and (min-width: 992px) {
@@ -125,7 +126,7 @@
 		grid-row: foot-start / foot-end;
 		align-self: center;
 		align-items: center;
-		justify-content: start;
+		justify-items: start;
 		height: auto;
 		display: grid;
 		gap: 0 30px;
@@ -175,7 +176,7 @@
 
 	/* Time */
 	.grid-layout .float-mid-bottom {
-		grid-template-columns: auto;
+		grid-template-columns: auto max-content;
 		grid-template-rows: auto auto;
 		grid-column: main-start / side-end;
 		grid-row: foot-start / foot-end;
@@ -183,6 +184,7 @@
 		align-self: start;
 		display: grid;
 		align-items: initial;
-		justify-content: initial;
+		justify-items: start;
+		gap: 10px 5px;
 	}
 }

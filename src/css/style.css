@@ -107,6 +107,23 @@ button {
 	white-space: pre-line;
 }
 
+/* Alert outline */
+.alert {
+	outline: none;
+	outline-offset: 4px;
+	animation-name: blink;
+	animation-duration: .5s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 3;
+	animation-direction: alternate;
+}
+@keyframes blink {
+	0% { outline: 1px transparent solid; }
+	25% { outline: 1px var(--error) solid; }
+	50% { outline: 4px var(--error) solid; }
+	75% { outline: 1px var(--error) solid; }
+	100% { outline: 1px transparent solid; }
+ }
 
 /* Pioneer CSS */
 .pioneer {
