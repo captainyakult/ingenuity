@@ -5,7 +5,6 @@
 	margin-left: 0;
 	pointer-events: all;
 }
-.clock-shortcut .container.hidden,
 .clock-shortcut .container.hidden {
 	display: none;
 }
