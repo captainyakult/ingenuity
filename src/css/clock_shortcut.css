@@ -12,6 +12,9 @@ body.hover .clock-shortcut .container:hover {
 	background-color: var(--grayAlpha);
 	cursor: pointer;
 }
+body.hover .clock-shortcut .live-container.active:hover {
+	cursor: auto;
+}
 
 .clock-shortcut .replay-container,
 .clock-shortcut .live-container {
