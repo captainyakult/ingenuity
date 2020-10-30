@@ -32,9 +32,6 @@
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
-	.clock {
-		margin-bottom: 15px;
-	}
 	.clock .datetime-container {
 		grid-column: 2;
 		grid-row: 1;
@@ -70,9 +67,6 @@
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
-	.clock {
-		margin-bottom: 8px;
-	}
 	.clock .datetime-container {
 		grid-column: 2;
 		grid-row: 1;

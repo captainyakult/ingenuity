@@ -12,9 +12,6 @@ body.hover .clock-shortcut .container:hover {
 	background-color: var(--grayAlpha);
 	cursor: pointer;
 }
-body.hover .clock-shortcut .live-container.active:hover {
-	cursor: auto;
-}
 
 .clock-shortcut .replay-container,
 .clock-shortcut .live-container {
@@ -36,6 +33,7 @@ body.hover .clock-shortcut .live-container:hover {
 }
 body.hover .clock-shortcut .live-container.active:hover {
 	background-color: transparent;
+	cursor: auto;
 }
 
 /* Text */
@@ -59,7 +57,9 @@ body.hover .clock-shortcut .live-container:hover .icon.icon-back-to-live {
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
-
+	.clock-shortcut .replay-container {
+		margin-top: 5px;
+	}
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
@@ -69,5 +69,10 @@ body.hover .clock-shortcut .live-container:hover .icon.icon-back-to-live {
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
-
+	.clock-shortcut .live-container {
+		margin-right: 5px;
+	}
+	.clock-shortcut .replay-container {
+		margin-top: 0;
+	}
 }
