@@ -59,6 +59,7 @@
 		width: calc(100% - 40px);
 		display: grid;
 		justify-items: start;
+		gap: 5px;
 	}
 
 	/* Overlay */
@@ -185,5 +186,6 @@
 		display: grid;
 		align-items: initial;
 		justify-items: start;
+		gap: 5px;
 	}
 }

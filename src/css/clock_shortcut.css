@@ -1,9 +1,21 @@
-/* Live container */
-.clock-shortcut .live-container {
+.clock-shortcut .container {
 	background-color: var(--grayDarkAlpha);
 	border-radius: 2px;
 	padding: 1px 7px;
 	margin-left: 0;
+	pointer-events: all;
+}
+.clock-shortcut .container.hidden,
+.clock-shortcut .container.hidden {
+	display: none;
+}
+body.hover .clock-shortcut .container:hover {
+	background-color: var(--grayAlpha);
+	cursor: pointer;
+}
+
+.clock-shortcut .replay-container,
+.clock-shortcut .live-container {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-template-rows: auto;
@@ -14,6 +26,7 @@
 body.hover .clock-shortcut .live-container:hover {
 	background-color: var(--liveAlpha);
 }
+
 .clock-shortcut .live-container.active {
 	background-color: transparent;
 	margin-left: 8px;
@@ -23,11 +36,11 @@ body.hover .clock-shortcut .live-container.active:hover {
 	background-color: transparent;
 }
 
-/* Live text */
-.clock-shortcut .live {
+/* Text */
+.clock-shortcut .text {
 	color: var(--gray);
 }
-body.hover .clock-shortcut .live-container:hover .live {
+body.hover .clock-shortcut .container:hover .text {
 	color: var(--white);
 }
 .clock-shortcut .active .live {

@@ -85,6 +85,7 @@ class App extends BaseApp {
 		const max = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.landing) * 1000, this._timezone);
 		timeManager.setDefaultLimits({ min, max });
 		timeManager.setLimits({ min, max });
+		timeManager.setStartTime(min);
 
 		// Scene manager
 		const sceneManager = this.addManager('scene', SceneManager, this._pioneer);

@@ -42,6 +42,7 @@ body {
 .clock-shortcut {
 	grid-row: 1;
 	grid-column: 1;
+	display: grid;
 }
 
 /* Phones, 991px and down */
@@ -49,6 +50,7 @@ body {
 	.clock {
 		grid-row: 1;
 		grid-column: 2;
+		align-self: end;
 	}
 	.time-controller {
 		grid-row: 2;
@@ -61,6 +63,10 @@ body {
 	.time-controller .rate-container {
 		grid-template-columns: auto 85px 2px 85px auto;
 		grid-template-rows: 30px;
+	}
+	.clock-shortcut {
+		grid-template-rows: auto auto;
+		gap: 5px 0;
 	}
 }
 
@@ -78,7 +84,11 @@ body {
 		grid-template-columns: auto auto 90px 2px 90px auto;
 		grid-template-rows: 30px;
 	}
-
+	.clock-shortcut {
+		grid-column: span 2;
+		grid-template-columns: auto auto;
+		gap: 0 5px;
+	}
 }
 
 /* Mobile landscape, panorama with height less than 600px */
@@ -86,6 +96,7 @@ body {
 	.clock {
 		grid-row: 1;
 		grid-column: 2;
+		align-self: end;
 	}
 	.time-controller {
 		grid-row: 2;
@@ -98,5 +109,11 @@ body {
 	.time-controller .rate-container {
 		grid-template-columns: auto 85px 2px 85px auto;
 		grid-template-rows: 30px;
+	}
+	.clock-shortcut {
+		grid-row: 1;
+		grid-column: 1;
+		grid-template-columns: auto auto;
+		gap: 0 5px;
 	}
 }

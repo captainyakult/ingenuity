@@ -15,17 +15,8 @@ class Clock extends BaseClock {
 	constructor(app, div) {
 		super(app, div);
 
-		this._children.date.classList.add('semi');
-		this._children.time.classList.add('semi');
-		this._children.meridiem.classList.add('semi');
-		this._children.timeInput.classList.add('semi');
-
 		this._handleTimeUpdate = this._handleTimeUpdate.bind(this);
 		this.setTimeCallback(this._handleTimeUpdate);
-
-		window.addEventListener('resize', () => {
-			this._updateFonts();
-		});
 	}
 
 	/**
@@ -34,7 +25,16 @@ class Clock extends BaseClock {
 	 * @returns {Promise}
 	 */
 	async init() {
+		super.init();
+		this._children.date.classList.add('semi');
+		this._children.time.classList.add('semi');
+		this._children.meridiem.classList.add('semi');
+		this._children.timeInput.classList.add('semi');
 		this._updateFonts();
+
+		window.addEventListener('resize', () => {
+			this._updateFonts();
+		});
 	}
 
 	/**

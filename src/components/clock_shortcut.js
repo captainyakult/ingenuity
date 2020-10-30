@@ -14,11 +14,6 @@ class ClockShortcut extends BaseClockShortcut {
 	 */
 	constructor(app, div) {
 		super(app, div);
-
-		this._children.live.classList.add('semi', 'color');
-		window.addEventListener('resize', () => {
-			this._updateFonts();
-		});
 	}
 
 	/**
@@ -27,7 +22,14 @@ class ClockShortcut extends BaseClockShortcut {
 	 * @returns {Promise}
 	 */
 	async init() {
+		super.init();
+		this._children.live.classList.add('semi', 'color');
+		this._children.replay.classList.add('semi', 'color');
 		this._updateFonts();
+
+		window.addEventListener('resize', () => {
+			this._updateFonts();
+		});
 	}
 
 	/**
@@ -36,9 +38,11 @@ class ClockShortcut extends BaseClockShortcut {
 	_updateFonts() {
 		if (this._app.isMobile() || this._app.isLandscape()) {
 			this._children.live.classList.add('x-small');
+			this._children.replay.classList.add('x-small');
 		}
 		else {
 			this._children.live.classList.remove('x-small');
+			this._children.replay.classList.remove('x-small');
 		}
 	}
 
