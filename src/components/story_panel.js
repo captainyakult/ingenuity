@@ -83,11 +83,13 @@ class StoryPanel extends Carousel {
 
 	/**
 	 * Update UI on route change.
-	 * @param {string} phaseId - Phase id
+	 * @param {object} params
+	 * @param {string} params.id
+	 * @param {string} params.time
 	 */
-	onRouteChange(phaseId) {
+	async onRouteChange(params) {
 		// Go to slide using id, or first slide if no id
-		const index = Math.max(0, this._children.slides.findIndex(x => x.dataset.id === phaseId));
+		const index = Math.max(0, this._children.slides.findIndex(x => x.dataset.id === params.id));
 		this.goToSlide(index);
 	}
 

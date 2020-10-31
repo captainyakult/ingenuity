@@ -44,7 +44,7 @@ class HomeView extends BaseView {
 		}
 
 		// Update story panel
-		this._app.getComponent('storyPanel').onRouteChange(params.id);
+		this._app.getComponent('storyPanel').onRouteChange(params);
 
 		await this.updateCamera(params.target);
 	}
