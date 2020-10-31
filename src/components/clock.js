@@ -1,4 +1,5 @@
 import { Clock as BaseClock } from 'es6-ui-library';
+import 'es6-ui-library/css/clock.css';
 import '../css/clock.css';
 
 /**
