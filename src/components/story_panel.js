@@ -1,4 +1,6 @@
 import { Carousel, AppUtils } from 'es6-ui-library';
+import 'es6-ui-library/css/carousel.css';
+import '../css/story_panel.css';
 
 /**
  * Story panel.
