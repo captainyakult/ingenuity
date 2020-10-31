@@ -1,4 +1,5 @@
 import { TimeController as BaseTimeController } from 'es6-ui-library';
+import 'es6-ui-library/css/time_controller.css';
 import '../css/time_controller.css';
 
 /**
@@ -14,15 +15,17 @@ class TimeController extends BaseTimeController {
 	 */
 	constructor(app, div) {
 		super(app, div);
-
-		this._children.decreaseContainer.classList.add('bg-color', 'gray', 'dark');
-		this._children.increaseContainer.classList.add('bg-color', 'gray', 'dark');
-		this._children.label.classList.add('semi');
-		this._children.rateDisplay.classList.add('semi');
-
-		window.addEventListener('resize', () => {
-			this._updateFonts();
-		});
+		this._rates = [
+			-300, // 5 mins
+			-60,
+			-10,
+			-1,
+			0,
+			1,
+			10,
+			60,
+			300
+		];
 	}
 
 	/**
@@ -31,7 +34,16 @@ class TimeController extends BaseTimeController {
 	 * @returns {Promise}
 	 */
 	async init() {
+		this._children.decreaseContainer.classList.add('bg-color', 'gray', 'dark');
+		this._children.increaseContainer.classList.add('bg-color', 'gray', 'dark');
+		this._children.label.classList.add('semi');
+		this._children.rateDisplay.classList.add('semi');
+
 		this._updateFonts();
+
+		window.addEventListener('resize', () => {
+			this._updateFonts();
+		});
 	}
 
 	/**

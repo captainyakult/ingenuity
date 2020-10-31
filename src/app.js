@@ -1,18 +1,14 @@
 import * as Pioneer from 'pioneer-js';
+import moment from 'moment-timezone';
 
 // Import css
 import 'es6-ui-library/css/grid_layout.css';
 import 'es6-ui-library/css/style.css';
-import 'es6-ui-library/css/clock.css';
-import 'es6-ui-library/css/time_controller.css';
-import 'es6-ui-library/css/carousel.css';
 import './css/grid.css';
 import './css/sprite.css';
 import './css/color.css';
 import './css/layout.css';
 import './css/style.css';
-import './css/clock.css';
-import './css/time_controller.css';
 import './css/story_panel.css';
 
 // Import UI library managers
@@ -28,6 +24,7 @@ import RouteManager from './managers/route_manager';
 // Import components
 import HomeView from './views/home_view';
 import Clock from './components/clock';
+import ClockShortcut from './components/clock_shortcut';
 import TimeController from './components/time_controller';
 import StoryPanel from './components/story_panel';
 
@@ -82,11 +79,12 @@ class App extends BaseApp {
 		// Time manager
 		const timeManager = this.addManager('time', TimeManager);
 		timeManager.setDisplayERT(true);
-		// TODO: update limits
-		// const min = moment.tz('1949-12-31', 'Etc/UTC'); // Dec 31st 1949
-		// const max = moment.tz('2049-12-31', 'Etc/UTC'); // Dec 31st 2049
-		// timeMgr.setDefaultLimits({ min, max });
-		// timeMgr.setLimits({ min, max });
+		// Update date limits
+		const min = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.start) * 1000, this._timezone);
+		const max = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.landing) * 1000, this._timezone);
+		timeManager.setDefaultLimits({ min, max });
+		timeManager.setLimits({ min, max });
+		timeManager.setStartTime(min);
 
 		// Scene manager
 		const sceneManager = this.addManager('scene', SceneManager, this._pioneer);
@@ -115,6 +113,10 @@ class App extends BaseApp {
 		this._managers.time.registerCallback('update', clock.update);
 		this._managers.time.registerCallback('earthreceivedtime', clock.update);
 		clock.setEnabled(true);
+
+		const clockShortcut = await this.addComponent('clockShortcut', ClockShortcut, document.getElementById('clock-shortcut'));
+		this._managers.time.registerCallback('update', clockShortcut.update);
+		clockShortcut.setEnabled(true);
 
 		const timeController = await this.addComponent('timeController', TimeController, document.getElementById('time-controller'));
 		this._managers.time.registerCallback('ratechange', timeController.onRateChange);
