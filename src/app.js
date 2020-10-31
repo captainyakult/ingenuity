@@ -4,9 +4,6 @@ import moment from 'moment-timezone';
 // Import css
 import 'es6-ui-library/css/grid_layout.css';
 import 'es6-ui-library/css/style.css';
-import 'es6-ui-library/css/clock.css';
-import 'es6-ui-library/css/clock_shortcut.css';
-import 'es6-ui-library/css/time_controller.css';
 import './css/grid.css';
 import './css/sprite.css';
 import './css/color.css';
