@@ -24,9 +24,6 @@ class CameraManager extends BaseCameraManager {
 			if (entity !== null) {
 				await this.goToEntity(entity.getName());
 				this._target = entity.getName();
-				this._router.pushQuery({
-					target: this._target
-				}, true);
 			}
 		});
 		const orbit = cameraEntity.get('orbit');
