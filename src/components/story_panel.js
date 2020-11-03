@@ -26,11 +26,23 @@ class StoryPanel extends Carousel {
 		};
 
 		this._timestamps = [];
+		this._touchdown = 0;
+		this._keywords = {
+			nextPhase: id => id + '-next-phase'
+		};
 
-		this._onSlideChange = async index => await this._app.getManager('router').navigate({
-			id: this._children.slides[index].dataset.id,
-			time: this._app.getManager('time').getTimeUrl()
-		});
+		this._onSlideChange = async (index, includeTime = false) => {
+			const query = {
+				id: this._children.slides[index].dataset.id
+			};
+			if (includeTime) {
+				query.time = this._app.getManager('time').getTimeUrl();
+			}
+			else {
+				query.__remove = ['time'];
+			}
+			await this._app.getManager('router').navigate(query);
+		};
 
 		this._settings.navigationButtons.prev.text = 'Scroll for previous phase';
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
@@ -56,12 +68,13 @@ class StoryPanel extends Carousel {
 			<div class="description ${descriptionClass}">${info.description}</div>
 			<div class="distance">{{distance}}<span> from Mars</span></div>
 			<div class="velocity">{{velocity}}</div>
-			<div class="touchdown"><span>Touchdown in </span>{{touchdown}}</div>
+			<div class="touchdown"><span>Touchdown in </span><span>{{touchdown}}</span></div>
 		`;
+
 		if (nextInfo) {
 			html += `
 				<div>Next phase:</div>
-				<div><span>${nextInfo.title} in</span><span class="timer"></span></div>
+				<div><span>${nextInfo.title} in </span><span class="timer" key="${this._keywords.nextPhase(info.id)}">0:0</span></div>
 			`;
 		}
 
@@ -83,9 +96,12 @@ class StoryPanel extends Carousel {
 				: null;
 			const time = startTime + timestamp * 1000;
 			this._timestamps.push(time);
+			if (id === 'touchdown') {
+				this._touchdown = time;
+			}
 			this.addSlide({
 				id,
-				text: this._createSlideContent({ title, description }, nextInfo)
+				text: this._createSlideContent({ id, title, description }, nextInfo)
 			});
 		});
 
@@ -103,22 +119,36 @@ class StoryPanel extends Carousel {
 		// Go to slide using id, or first slide if no id
 		const index = Math.max(0, this._children.slides.findIndex(x => x.dataset.id === params.id));
 		this.goToSlide(index);
-		if (params.time) {
-			let time = this._app.getManager('time').parseTime(params.time);
-			time = this._app.getManager('time').momentToET(time);
-			this._app.pioneer.setTime(time);
+		const time = params.time ? params.time : this._timestamps[index];
+		this._app.getManager('time').setTime(time);
+
+		this.updatePanel(index, this._app.getManager('time').getTime().valueOf());
+	}
+
+	updatePanel(currentIndex, time) {
+		const isNow = this._app.getManager('time').isNow();
+		const id = this._children.slides[currentIndex].dataset.id;
+		const nextIndex = currentIndex + 1;
+		const nextPhase = nextIndex < this._timestamps.length
+			? AppUtils.msToTime(this._timestamps[nextIndex] - time)
+			: 0;
+		const touchdown = AppUtils.msToTime(this._touchdown - time);
+
+		const nextPhaseId = this._keywords.nextPhase(id);
+		if (this._children[nextPhaseId]) {
+			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second}`;
 		}
-		else {
-			const timestamp = this._timestamps[index];
-			this._app.pioneer.setTime(timestamp);
-		}
+
+		this.setState({
+			liveClass: isNow ? '' : 'hidden',
+			touchdown: `${touchdown.hour}:${touchdown.minute}:${touchdown.second}`
+		});
 	}
 
 	/**
 	 * Update every frame.
 	 */
 	async update() {
-		const isNow = this._app.getManager('time').isNow();
 		const time = this._app.getManager('time').getTime().valueOf();
 		const rate = this._app.getManager('time').getTimeRate();
 		const { currentIndex } = this._state;
@@ -157,12 +187,13 @@ class StoryPanel extends Carousel {
 		}
 
 		if (currentIndex !== index) {
-			await this._onSlideChange(index);
+			await this._onSlideChange(index, true);
 		}
-
-		this.setState({
-			liveClass: isNow ? '' : 'hidden'
-		});
+		else {
+			if (rate !== 0) {
+				this.updatePanel(currentIndex, time);
+			}
+		}
 	}
 }
 
