@@ -49,7 +49,7 @@
 @media only screen and (min-width: 992px) {
 	/* Story panel */
 	.grid-layout .story-panel {
-		grid-column: main-start / main-end;
+		grid-column: main-start / 7;
 		grid-row: head-end / foot-start;
 	}
 
