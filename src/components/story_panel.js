@@ -27,7 +27,7 @@ class StoryPanel extends Carousel {
 
 		this._timestamps = [];
 
-		this._onChangeSlide = async index => await this._app.getManager('router').navigate({
+		this._onSlideChange = async index => await this._app.getManager('router').navigate({
 			id: this._children.slides[index].dataset.id,
 			time: this._app.getManager('time').getTimeUrl()
 		});
@@ -157,7 +157,7 @@ class StoryPanel extends Carousel {
 		}
 
 		if (currentIndex !== index) {
-			await this._onChangeSlide(index);
+			await this._onSlideChange(index);
 		}
 
 		this.setState({
