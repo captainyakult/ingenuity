@@ -64,7 +64,7 @@ class StoryPanel extends Carousel {
 				<span class="icon icon-live"></span>
 				<span class="live semi color">live</span>
 			</div>
-			<h1 class="title">${info.title}</h1>
+			<h2 class="title">${info.title}</h2>
 			<div class="description ${descriptionClass}">${info.description}</div>
 			<div class="distance">{{distance}}<span> from Mars</span></div>
 			<div class="velocity">{{velocity}}</div>
@@ -107,6 +107,10 @@ class StoryPanel extends Carousel {
 
 		// Store time limits once since it doesn't change for this app.
 		this._timeLimits = this._app.getManager('time').getLimits();
+
+		window.addEventListener('resize', () => {
+			this._updateFonts();
+		});
 	}
 
 	/**
@@ -195,6 +199,16 @@ class StoryPanel extends Carousel {
 			if (rate !== 0) {
 				this.updatePanel(currentIndex, time);
 			}
+		}
+	}
+
+	/**
+	 * Update fonts.
+	 */
+	_updateFonts() {
+		if (this._app.isMobile() || this._app.isLandscape()) {
+		}
+		else {
 		}
 	}
 }

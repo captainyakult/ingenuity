@@ -45,9 +45,9 @@
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
-	.carousel .slide {
+	/* .carousel .slide {
 		height: 40vh;
-	}
+	} */
 
 	.carousel .slide .content {
 		padding: 0 5%;
@@ -69,22 +69,22 @@
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
-	.carousel .slide {
+	/* .carousel .slide {
 		height: 60vh;
-	}
+	} */
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
 @media only screen and (min-width: 992px) {
+	.carousel {
+		height: calc(100% - 85px);
+	}
 	.carousel .slide {
-		height: 60vh;
+		/* height: 60vh; */
+		height: calc(100vh - 85px);
 	}
 
 	.carousel .slide .content {
 		padding-right: 0;
-	}
-
-	.carousel .slide .content .title {
-		white-space: nowrap;
 	}
 }

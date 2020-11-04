@@ -49,8 +49,8 @@
 @media only screen and (min-width: 992px) {
 	/* Story panel */
 	.grid-layout .story-panel {
-		grid-column: main-start / 7;
-		grid-row: head-end / foot-start;
+		grid-column: main-start / extd-end;
+		grid-row: head-start / foot-end;
 	}
 
 	/* Header */
@@ -75,7 +75,7 @@
 	.grid-layout .float-mid-bottom {
 		grid-template-columns: minmax(250px, 30%) 70%;
 		grid-template-rows: 50% 50%;
-		grid-column: main-end / side-start;
+		grid-column: extd-end / side-start;
 		grid-row: foot-start / foot-end;
 		align-self: center;
 		align-items: center;
