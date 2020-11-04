@@ -84,6 +84,7 @@ class App extends BaseApp {
 		timeManager.setDefaultLimits({ min, max });
 		timeManager.setLimits({ min, max });
 		timeManager.setStartTime(min);
+		timeManager.setToStart();
 
 		// Scene manager
 		const sceneManager = this.addManager('scene', SceneManager, this._pioneer);
