@@ -160,7 +160,9 @@ class StoryPanel extends Carousel {
 			if (index < 0) {
 				index = this._timestamps.length;
 			}
-			index -= 1;
+			if (index !== 0) {
+				index -= 1;
+			}
 		}
 		else if (rate < 0) {
 			index = this._timestamps.findIndex(x => time < x);
