@@ -120,7 +120,7 @@ class StoryPanel extends Carousel {
 			// Return if not needed
 
 			// Update distance
-			const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'mars', { subtractRadius: true });
+			const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'sc_perseverance_landing_site', { subtractRadius: false });
 
 			// Update velocity
 			const velocity = this._app.getManager('scene').getSpeed('sc_perseverance');
@@ -140,34 +140,52 @@ class StoryPanel extends Carousel {
 			Pioneer.LatLonAlt.pool.release(lla);
 
 			// Update state
-			this.setState({ distance: this._formatDistance(distance), velocity: this._formatSpeed(velocity), altitude: this._formatDistance(lla.alt) });
-		}, 30);
+			this.setState({
+				distance: this._formatDistance(distance),
+				velocity: this._formatSpeed(velocity),
+				altitude: this._formatDistance(lla.alt)
+			});
+		}, 200);
 	}
 
+	/**
+	 * Formats distance.
+	 * @param {number} distance
+	 * @returns {string}
+	 */
 	_formatDistance(distance) {
-		let output = '<span>';
-		if (this._isMetric) {
-			distance = Number.parseFloat(distance).toFixed(2);
-			output += Number(distance).toLocaleString() + '<span class="unit">km</span>';
+		const unit = this._isMetric ? 'km' : 'mi';
+
+		distance = Number.parseFloat(distance);
+		if (!this._isMetric) {
+			distance = distance * AppUtils.conversionTable.kmToMi;
 		}
-		else {
-			distance = Number.parseFloat(distance * AppUtils.conversionTable.kmToMi).toFixed(2);
-			output += Number(distance).toLocaleString() + '<span class="unit">mi</span>';
-		}
+		distance = distance.toFixed(2);
+		const length = distance.toString().length + unit.length;
+		const width = length * 11 + 5;
+
+		let output = '<span class="value" style="width: ' + width + 'px;">';
+		output += Number(distance).toLocaleString() + '<span class="unit">' + unit + '</span>';
 		output += '</span>';
 		return output;
 	}
 
+	/**
+	 * Formats speed.
+	 * @param {number} speed
+	 * @returns {string}
+	 */
 	_formatSpeed(speed) {
+		const unit = this._isMetric ? 'km/h' : 'mph';
+
+		speed = Number.parseFloat(speed * 3600);
+		if (!this._isMetric) {
+			speed = speed * AppUtils.conversionTable.kmToMi;
+		}
+		speed = Math.floor(speed);
+
 		let output = '<span>';
-		if (this._isMetric) {
-			speed = Number.parseFloat(speed * 3600).toFixed(2);
-			output += Number(speed).toLocaleString() + '<span class="unit">km/h</span>';
-		}
-		else {
-			speed = Number.parseFloat(speed * 3600 * AppUtils.conversionTable.kmToMi).toFixed(2);
-			output += Number(speed).toLocaleString() + '<span class="unit">mph</span>';
-		}
+		output += Number(speed).toLocaleString() + '<span class="unit">' + unit + '</span>';
 		output += '</span>';
 		return output;
 	}

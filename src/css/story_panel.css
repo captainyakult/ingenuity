@@ -42,6 +42,14 @@
 .carousel .slide.hidden {
 	opacity: 0;
 }
+.carousel .distance span {
+	display: inline-block;
+}
+
+.carousel .unit {
+	margin-left: 5px;
+}
+
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
