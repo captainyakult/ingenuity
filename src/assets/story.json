@@ -84,16 +84,10 @@
 		"timestamp": 928.938
 	},
 	{
-		"id": "touchdown",
-		"title": "Touchdown",
-		"description": "The rover touches down on Mars.",
+		"id": "touchdown_flyaway",
+		"title": "Touchdown - Flyaway",
+		"description": "The rover touches down on Mars. As soon as the rover senses that its wheels have touched the ground, it quickly cuts the cables. This frees the descent stage to fly off a safe distance away from Perseverance.",
 		"timestamp": 945.110
-	},
-	{
-		"id": "flyaway",
-		"title": "Flyaway",
-		"description": "As soon as the rover senses that its wheels have touched the ground, it quickly cuts the cables. This frees the descent stage to fly off a safe distance away from Perseverance.",
-		"timestamp": 945.722
 	},
 	{
 		"id": "descent_stage_engine_cutoff",
