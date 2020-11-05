@@ -123,7 +123,35 @@ button {
 	50% { outline: 4px var(--error) solid; }
 	75% { outline: 1px var(--error) solid; }
 	100% { outline: 1px transparent solid; }
- }
+}
+
+.grid-layout .float-mid-bottom {
+	display: none;
+}
+.grid-layout .float-mid-bottom.active {
+	display: grid;
+	animation-name: fadeInBottom;
+	animation-duration: 1.0s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+}
+.grid-layout .float-mid-bottom.hidden {
+	display: grid;
+	animation-name: fadeOutBottom;
+	animation-duration: 1.0s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+}
+@keyframes fadeOutBottom {
+	0% { transform: translateY(0); opacity: 1; }
+	100% { transform: translateY(220%); opacity: 0; }
+}
+@keyframes fadeInBottom {
+	0% { transform: translateY(220%); opacity: 0; }
+	100% { transform: translateY(0); opacity: 1; }
+}
 
 /* Pioneer CSS */
 .pioneer {

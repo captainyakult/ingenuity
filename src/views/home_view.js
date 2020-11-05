@@ -22,6 +22,69 @@ class HomeView extends BaseView {
 				default: 1
 			}
 		};
+
+		this._controlsTimeout = 4 * 1000; // in milliseconds
+
+		window.addEventListener('mousedown', (event) => {
+			// Show bottom panel
+			if (event.target.id === 'main-viewport') {
+				document.getElementById('float-mid-bottom').classList.add('active');
+				document.getElementById('float-mid-bottom').classList.remove('hidden');
+			}
+
+			// Refresh timer
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+				document.getElementById('float-mid-bottom').classList.add('hidden');
+				document.getElementById('float-mid-bottom').classList.remove('active');
+			}, this._controlsTimeout);
+		});
+		window.addEventListener('mousemove', (event) => {
+			if (this._isDragging) { // TODO:
+				// Refresh timer
+				clearTimeout(this._timer);
+			}
+		});
+		window.addEventListener('wheel', (event) => {
+			// Refresh timer
+			clearTimeout(this._timer);
+		});
+		window.addEventListener('mouseup', (event) => {
+			// Refresh timer
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+				document.getElementById('float-mid-bottom').classList.add('hidden');
+				document.getElementById('float-mid-bottom').classList.remove('active');
+			}, this._controlsTimeout);
+		});
+		window.addEventListener('touchstart', (event) => {
+			// Show bottom panel
+			if (event.target.id === 'main-viewport') {
+				document.getElementById('float-mid-bottom').classList.add('active');
+				document.getElementById('float-mid-bottom').classList.remove('hidden');
+			}
+
+			// Refresh timer
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+				document.getElementById('float-mid-bottom').classList.add('hidden');
+				document.getElementById('float-mid-bottom').classList.remove('active');
+			}, this._controlsTimeout);
+		});
+
+		window.addEventListener('touchmove', (event) => {
+			// Refresh timer
+			clearTimeout(this._timer);
+		});
+
+		window.addEventListener('touchend', (event) => {
+			// Refresh timer
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+				document.getElementById('float-mid-bottom').classList.add('hidden');
+				document.getElementById('float-mid-bottom').classList.remove('active');
+			}, this._controlsTimeout);
+		});
 	}
 
 	/**
