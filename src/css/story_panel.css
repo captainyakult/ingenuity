@@ -32,8 +32,7 @@
 	text-transform: uppercase;
 }
 
-.carousel .slide .content .description,
-.carousel .slide .content .touchdown {
+.carousel .slide .content .description {
 	opacity: 0.6;
 }
 .carousel .slide .content .touchdown {
@@ -42,12 +41,23 @@
 .carousel .slide.hidden {
 	opacity: 0;
 }
+.carousel .velocity span,
+.carousel .altitude span,
 .carousel .distance span {
 	display: inline-block;
 }
-
 .carousel .unit {
 	margin-left: 5px;
+	margin-right: 8px;
+	opacity: 0.9;
+}
+.carousel .label {
+	opacity: 0.9;
+}
+
+.carousel .velocity .value,
+.carousel .altitude .value {
+	margin-left: 8px;
 }
 
 

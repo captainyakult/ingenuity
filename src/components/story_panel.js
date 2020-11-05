@@ -24,7 +24,10 @@ class StoryPanel extends Carousel {
 			distance: 0,
 			velocity: 0,
 			altitude: 0,
-			touchdown: 0
+			touchdown: 0,
+			isMetric: true,
+			distanceUnit: 'km',
+			speedUnit: 'km/h'
 		};
 
 		this._timestamps = [];
@@ -32,6 +35,7 @@ class StoryPanel extends Carousel {
 		this._keywords = {
 			nextPhase: id => id + '-next-phase'
 		};
+		this._formatOpts = [undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }];
 
 		this._onSlideChange = async (index, includeTime = false) => {
 			const query = {
@@ -50,7 +54,6 @@ class StoryPanel extends Carousel {
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
 
 		this.update = this.update.bind(this);
-		this._isMetric = true;
 	}
 
 	/**
@@ -68,11 +71,11 @@ class StoryPanel extends Carousel {
 				<span class="live semi color">live</span>
 			</div>
 			<h2 class="title">${info.title}</h2>
-			<div class="distance semi">{{distance}}<span> from landing site.</span></div>
-			<div class="altitude semi"><span>Altitude: </span>{{altitude}}</div>
-			<div class="velocity semi"><span>Velocity: </span>{{velocity}}</div>
+			<div class="distance">{{distance}}<span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
+			<div class="altitude"><span class="label semi">Altitude: </span><span>{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
+			<div class="velocity"><span class="label semi">Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 			<div class="description ${descriptionClass}">${info.description}</div>
-			<div class="touchdown"><span>Touchdown in </span><span>{{touchdown}}</span></div>
+			<div class="touchdown"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
 		`;
 
 		if (nextInfo) {
@@ -100,7 +103,7 @@ class StoryPanel extends Carousel {
 				: null;
 			const time = startTime + timestamp * 1000;
 			this._timestamps.push(time);
-			if (id === 'touchdown') {
+			if (id === 'touchdown_flyaway') {
 				this._touchdown = time;
 			}
 			this.addSlide({
@@ -154,18 +157,16 @@ class StoryPanel extends Carousel {
 	 * @returns {string}
 	 */
 	_formatDistance(distance) {
-		const unit = this._isMetric ? 'km' : 'mi';
-
 		distance = Number.parseFloat(distance);
 		if (!this._isMetric) {
 			distance = distance * AppUtils.conversionTable.kmToMi;
 		}
 		distance = distance.toFixed(2);
-		const length = distance.toString().length + unit.length;
-		const width = length * 11 + 5;
+		const length = distance.toString().length;
+		const width = length * 10;
 
-		let output = '<span class="value" style="width: ' + width + 'px;">';
-		output += Number(distance).toLocaleString() + '<span class="unit">' + unit + '</span>';
+		let output = '<span class="value semi" style="width: ' + width + 'px;">';
+		output += Number(distance).toLocaleString(...this._formatOpts);
 		output += '</span>';
 		return output;
 	}
@@ -176,18 +177,39 @@ class StoryPanel extends Carousel {
 	 * @returns {string}
 	 */
 	_formatSpeed(speed) {
-		const unit = this._isMetric ? 'km/h' : 'mph';
-
 		speed = Number.parseFloat(speed * 3600);
 		if (!this._isMetric) {
 			speed = speed * AppUtils.conversionTable.kmToMi;
 		}
-		speed = Math.floor(speed);
+		speed = speed.toFixed(2);
+		const length = speed.toString().length;
+		const width = length * 10;
 
-		let output = '<span>';
-		output += Number(speed).toLocaleString() + '<span class="unit">' + unit + '</span>';
+		let output = '<span class="value semi" style="width: ' + width + 'px;">';
+		output += Number(speed).toLocaleString(...this._formatOpts);
 		output += '</span>';
 		return output;
+	}
+
+	/**
+	 * Toggle unit between km and mile.
+	 */
+	toggleUnit() {
+		const isMetric = !this._state.isMetric;
+		if (isMetric) {
+			this.setState({
+				isMetric,
+				distanceUnit: 'km',
+				speedUnit: 'km/h'
+			});
+		}
+		else {
+			this.setState({
+				isMetric,
+				distanceUnit: 'mi',
+				speedUnit: 'mph'
+			});
+		}
 	}
 
 	/**
