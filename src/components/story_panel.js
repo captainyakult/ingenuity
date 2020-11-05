@@ -24,7 +24,10 @@ class StoryPanel extends Carousel {
 			distance: 0,
 			velocity: 0,
 			altitude: 0,
-			touchdown: 0
+			touchdown: 0,
+			isMetric: true,
+			distanceUnit: 'km',
+			speedUnit: 'km/h'
 		};
 
 		this._timestamps = [];
@@ -32,6 +35,7 @@ class StoryPanel extends Carousel {
 		this._keywords = {
 			nextPhase: id => id + '-next-phase'
 		};
+		this._formatOpts = [undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }];
 
 		this._onSlideChange = async (index, includeTime = false) => {
 			const query = {
@@ -50,7 +54,6 @@ class StoryPanel extends Carousel {
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
 
 		this.update = this.update.bind(this);
-		this._isMetric = true;
 	}
 
 	/**
@@ -68,9 +71,9 @@ class StoryPanel extends Carousel {
 				<span class="live semi color">live</span>
 			</div>
 			<h2 class="title">${info.title}</h2>
-			<div class="distance semi">{{distance}}<span> from landing site.</span></div>
-			<div class="altitude semi"><span>Altitude: </span>{{altitude}}</div>
-			<div class="velocity semi"><span>Velocity: </span>{{velocity}}</div>
+			<div class="distance semi"><span>{{distance}}</span><span class="unit">{{distanceUnit}}</span><span> from landing site.</span></div>
+			<div class="altitude semi"><span>Altitude: </span><span>{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
+			<div class="velocity semi"><span>Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 			<div class="description ${descriptionClass}">${info.description}</div>
 			<div class="touchdown"><span>Touchdown in </span><span>{{touchdown}}</span></div>
 		`;
@@ -140,36 +143,53 @@ class StoryPanel extends Carousel {
 			Pioneer.LatLonAlt.pool.release(lla);
 
 			// Update state
-			this.setState({ distance: this._formatDistance(distance), velocity: this._formatSpeed(velocity), altitude: this._formatDistance(lla.alt) });
-		}, 30);
+			this.setState({
+				distance: this._formatDistance(distance),
+				velocity: this._formatSpeed(velocity),
+				altitude: this._formatDistance(lla.alt)
+			});
+		}, 1000);
 	}
 
 	_formatDistance(distance) {
-		let output = '<span>';
-		if (this._isMetric) {
-			distance = Number.parseFloat(distance).toFixed(2);
-			output += Number(distance).toLocaleString() + '<span class="unit">km</span>';
+		if (this._state.isMetric) {
+			distance = Number.parseFloat(distance);
 		}
 		else {
-			distance = Number.parseFloat(distance * AppUtils.conversionTable.kmToMi).toFixed(2);
-			output += Number(distance).toLocaleString() + '<span class="unit">mi</span>';
+			distance = Number.parseFloat(distance * AppUtils.conversionTable.kmToMi);
 		}
-		output += '</span>';
-		return output;
+		return Number(distance).toLocaleString(...this._formatOpts);
 	}
 
 	_formatSpeed(speed) {
-		let output = '<span>';
-		if (this._isMetric) {
-			speed = Number.parseFloat(speed * 3600).toFixed(2);
-			output += Number(speed).toLocaleString() + '<span class="unit">km/h</span>';
+		if (this._state.isMetric) {
+			speed = Number.parseFloat(speed * 3600);
 		}
 		else {
-			speed = Number.parseFloat(speed * 3600 * AppUtils.conversionTable.kmToMi).toFixed(2);
-			output += Number(speed).toLocaleString() + '<span class="unit">mph</span>';
+			speed = Number.parseFloat(speed * 3600 * AppUtils.conversionTable.kmToMi);
 		}
-		output += '</span>';
-		return output;
+		return Number(speed).toLocaleString(...this._formatOpts);
+	}
+
+	/**
+	 * Toggle unit between km and mile.
+	 */
+	toggleUnit() {
+		const isMetric = !this._state.isMetric;
+		if (isMetric) {
+			this.setState({
+				isMetric,
+				distanceUnit: 'km',
+				speedUnit: 'km/h'
+			});
+		}
+		else {
+			this.setState({
+				isMetric,
+				distanceUnit: 'mi',
+				speedUnit: 'mph'
+			});
+		}
 	}
 
 	/**

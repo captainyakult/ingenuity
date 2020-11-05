@@ -43,6 +43,10 @@
 	opacity: 0;
 }
 
+.unit {
+	margin-left: 4px;
+}
+
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
 	/* .carousel .slide {
