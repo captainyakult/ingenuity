@@ -65,9 +65,9 @@ class StoryPanel extends Carousel {
 				<span class="live semi color">live</span>
 			</div>
 			<h2 class="title">${info.title}</h2>
+			<div class="distance semi">{{distance}}<span> from Mars</span></div>
+			<div class="velocity semi">{{velocity}}</div>
 			<div class="description ${descriptionClass}">${info.description}</div>
-			<div class="distance">{{distance}}<span> from Mars</span></div>
-			<div class="velocity">{{velocity}}</div>
 			<div class="touchdown"><span>Touchdown in </span><span>{{touchdown}}</span></div>
 		`;
 
@@ -210,6 +210,31 @@ class StoryPanel extends Carousel {
 		}
 		else {
 		}
+	}
+
+	/**
+	 * Create navigation buttons.
+	 * @param {string} buttonType - 'prev' or 'next'
+	 * @param {HTMLElement} parent - Parent element to add button to
+	 */
+	_createNavigationButton(buttonType, parent) {
+		const button = document.createElement('button');
+		button.setAttribute('type', 'button');
+		button.classList.add('navigation-button', buttonType, 'small');
+		button.textContent = this._settings.navigationButtons[buttonType].text;
+		button.addEventListener('click', () => {
+			if (buttonType === 'next') {
+				this.goToNextSlide();
+			}
+			else {
+				this.goToPrevSlide();
+			}
+		});
+		parent.appendChild(button);
+
+		const icon = document.createElement('span');
+		icon.className = 'icon ' + this._settings.navigationButtons[buttonType].icon;
+		button.appendChild(icon);
 	}
 }
 

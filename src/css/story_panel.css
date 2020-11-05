@@ -1,14 +1,24 @@
 .carousel .track {
 	background: transparent url(../assets/svg/timeline-bg.svg) repeat-y 0 0;
 }
-
+.carousel .slide {
+	position: relative;
+}
 .carousel .slide .content {
 	font-size: 1em;
 }
-
-.carousel .navigation-button {
+.carousel.vertical .navigation-button {
 	text-align: left;
 	padding-left: 10%;
+	position: absolute;
+	top: 0;
+}
+.carousel.vertical .navigation-button.next {
+	top: auto;
+	bottom: 0;
+}
+.carousel.vertical .navigation-button.prev {
+	display: none;
 }
 .carousel .navigation-button:focus {
 	outline: 0;
@@ -17,30 +27,20 @@
 	background: transparent;
 }
 
-.carousel .slide .content,
-.carousel .navigation-button {
-	color: var(--grayMed);
-}
 .carousel .slide .content .live {
 	color: var(--live);
 	text-transform: uppercase;
 }
-.carousel .slide .content .description {
 
-}
-.carousel .slide .content .distance {
-	color: var(--white);
-	font-weight: 600;
-}
-.carousel .slide .content .velocity {
-	color: var(--white);
-	font-weight: 600;
+.carousel .slide .content .description,
+.carousel .slide .content .touchdown {
+	opacity: 0.6;
 }
 .carousel .slide .content .touchdown {
-	color: var(--gray);
+	margin-bottom: 20px;
 }
-.carousel .slide .content .timer {
-
+.carousel .slide.hidden {
+	opacity: 0;
 }
 
 /* Phones, 991px and down */
