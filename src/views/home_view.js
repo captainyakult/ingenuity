@@ -24,8 +24,11 @@ class HomeView extends BaseView {
 		};
 
 		this._controlsTimeout = 4 * 1000; // in milliseconds
+		this._isDragging = false;
 
 		window.addEventListener('mousedown', (event) => {
+			this._isDragging = true;
+
 			// Show bottom panel
 			if (event.target.id === 'main-viewport') {
 				document.getElementById('float-mid-bottom').classList.add('active');
@@ -40,7 +43,7 @@ class HomeView extends BaseView {
 			}, this._controlsTimeout);
 		});
 		window.addEventListener('mousemove', (event) => {
-			if (this._isDragging) { // TODO:
+			if (this._isDragging) {
 				// Refresh timer
 				clearTimeout(this._timer);
 			}
@@ -50,6 +53,8 @@ class HomeView extends BaseView {
 			clearTimeout(this._timer);
 		});
 		window.addEventListener('mouseup', (event) => {
+			this._isDragging = false;
+
 			// Refresh timer
 			clearTimeout(this._timer);
 			this._timer = setTimeout(() => {
