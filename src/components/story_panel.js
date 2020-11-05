@@ -1,6 +1,7 @@
 import { Carousel, AppUtils } from 'es6-ui-library';
 import 'es6-ui-library/css/carousel.css';
 import '../css/story_panel.css';
+import * as Pioneer from 'pioneer-js';
 
 /**
  * Story panel.
@@ -22,6 +23,7 @@ class StoryPanel extends Carousel {
 			liveClass: 'hidden',
 			distance: 0,
 			velocity: 0,
+			altitude: 0,
 			touchdown: 0
 		};
 
@@ -48,6 +50,7 @@ class StoryPanel extends Carousel {
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
 
 		this.update = this.update.bind(this);
+		this._isMetric = true;
 	}
 
 	/**
@@ -65,8 +68,9 @@ class StoryPanel extends Carousel {
 				<span class="live semi color">live</span>
 			</div>
 			<h2 class="title">${info.title}</h2>
-			<div class="distance semi">{{distance}}<span> from Mars</span></div>
-			<div class="velocity semi">{{velocity}}</div>
+			<div class="distance semi">{{distance}}<span> from landing site.</span></div>
+			<div class="altitude semi"><span>Altitude: </span>{{altitude}}</div>
+			<div class="velocity semi"><span>Velocity: </span>{{velocity}}</div>
 			<div class="description ${descriptionClass}">${info.description}</div>
 			<div class="touchdown"><span>Touchdown in </span><span>{{touchdown}}</span></div>
 		`;
@@ -111,6 +115,61 @@ class StoryPanel extends Carousel {
 		window.addEventListener('resize', () => {
 			this._updateFonts();
 		});
+
+		this._interval = setInterval(() => {
+			// Return if not needed
+
+			// Update distance
+			const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'mars', { subtractRadius: true });
+
+			// Update velocity
+			const velocity = this._app.getManager('scene').getSpeed('sc_perseverance');
+
+			// Update altitude
+			const marsSpheroid = this._app.pioneer.get('main', 'mars', 'spheroid').getSpheroid();
+			const lla = Pioneer.LatLonAlt.pool.get();
+			const position = Pioneer.Vector3.pool.get();
+			const mars = this._app.pioneer.get('main', 'mars');
+			const perseverance = this._app.pioneer.get('main', 'sc_perseverance');
+
+			perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
+
+			marsSpheroid.llaFromXYZ(lla, position, false);
+
+			Pioneer.Vector3.pool.release(position);
+			Pioneer.LatLonAlt.pool.release(lla);
+
+			// Update state
+			this.setState({ distance: this._formatDistance(distance), velocity: this._formatSpeed(velocity), altitude: this._formatDistance(lla.alt) });
+		}, 30);
+	}
+
+	_formatDistance(distance) {
+		let output = '<span>';
+		if (this._isMetric) {
+			distance = Number.parseFloat(distance).toFixed(2);
+			output += Number(distance).toLocaleString() + '<span class="unit">km</span>';
+		}
+		else {
+			distance = Number.parseFloat(distance * AppUtils.conversionTable.kmToMi).toFixed(2);
+			output += Number(distance).toLocaleString() + '<span class="unit">mi</span>';
+		}
+		output += '</span>';
+		return output;
+	}
+
+	_formatSpeed(speed) {
+		let output = '<span>';
+		if (this._isMetric) {
+			speed = Number.parseFloat(speed * 3600).toFixed(2);
+			output += Number(speed).toLocaleString() + '<span class="unit">km/h</span>';
+		}
+		else {
+			speed = Number.parseFloat(speed * 3600 * AppUtils.conversionTable.kmToMi).toFixed(2);
+			output += Number(speed).toLocaleString() + '<span class="unit">mph</span>';
+		}
+		output += '</span>';
+		return output;
 	}
 
 	/**
