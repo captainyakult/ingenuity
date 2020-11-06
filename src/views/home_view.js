@@ -59,15 +59,17 @@ class HomeView extends BaseView {
 			this._timer = setTimeout(this._hideControls, this._controlsTimeout);
 		});
 		window.addEventListener('touchstart', (event) => {
-			// Show bottom panel
+			// Show bottom panel and hide story panel
 			if (event.target.id === 'main-viewport') {
 				this._showControls();
+				this._app.getComponent('storyPanel').hide();
 			}
 
 			// Refresh timer
 			clearTimeout(this._timer);
 			this._timer = setTimeout(() => {
 				this._hideControls();
+				this._app.getComponent('storyPanel').show();
 			}, this._controlsTimeout);
 		});
 
@@ -81,6 +83,7 @@ class HomeView extends BaseView {
 			clearTimeout(this._timer);
 			this._timer = setTimeout(() => {
 				this._hideControls();
+				this._app.getComponent('storyPanel').show();
 			}, this._controlsTimeout);
 		});
 	}
