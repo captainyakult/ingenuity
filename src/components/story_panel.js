@@ -55,6 +55,7 @@ class StoryPanel extends Carousel {
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
 
 		this.update = this.update.bind(this);
+		this.onUnitChange = this.onUnitChange.bind(this);
 	}
 
 	/**
@@ -168,7 +169,7 @@ class StoryPanel extends Carousel {
 	 */
 	_formatDistance(distance) {
 		distance = Number.parseFloat(distance);
-		if (!this._isMetric) {
+		if (!this._state.isMetric) {
 			distance = distance * AppUtils.conversionTable.kmToMi;
 		}
 		distance = distance.toFixed(2);
@@ -188,7 +189,7 @@ class StoryPanel extends Carousel {
 	 */
 	_formatSpeed(speed) {
 		speed = Number.parseFloat(speed * 3600);
-		if (!this._isMetric) {
+		if (!this._state.isMetric) {
 			speed = speed * AppUtils.conversionTable.kmToMi;
 		}
 		speed = speed.toFixed(2);
@@ -202,10 +203,10 @@ class StoryPanel extends Carousel {
 	}
 
 	/**
-	 * Toggle unit between km and mile.
+	 * Handle unit change.
+	 * @param {boolean} system
 	 */
-	toggleUnit() {
-		const isMetric = !this._state.isMetric;
+	onUnitChange(isMetric) {
 		if (isMetric) {
 			this.setState({
 				isMetric,

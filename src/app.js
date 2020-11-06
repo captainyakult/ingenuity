@@ -5,6 +5,7 @@ import moment from 'moment-timezone';
 import 'es6-ui-library/css/grid_layout.css';
 import 'es6-ui-library/css/style.css';
 import 'es6-ui-library/css/animation.css';
+import 'es6-ui-library/css/settings.css';
 import './css/grid.css';
 import './css/sprite.css';
 import './css/color.css';
@@ -13,7 +14,7 @@ import './css/style.css';
 
 // Import UI library managers
 import {
-	BaseApp, TimeManager
+	BaseApp, TimeManager, Settings
 } from 'es6-ui-library';
 
 // Overriden managers
@@ -123,8 +124,11 @@ class App extends BaseApp {
 		this._managers.time.registerCallback('ratechange', timeController.onRateChange);
 		timeController.setEnabled(true);
 
+		const settings = await this.addComponent('settings', Settings, document.getElementById('settings'));
+
 		const storyPanel = await this.addComponent('storyPanel', StoryPanel, document.getElementById('story-panel'));
 		this._managers.time.registerCallback('update', storyPanel.update);
+		settings.registerCallback('unitchange', storyPanel.onUnitChange);
 	}
 
 	/**
