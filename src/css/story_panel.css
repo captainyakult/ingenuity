@@ -4,9 +4,8 @@
 .carousel .slide {
 	position: relative;
 }
-.carousel .slide .content {
-	font-size: 1em;
-}
+
+/* Navigation */
 .carousel.vertical .navigation-button {
 	text-align: left;
 	padding-left: 10%;
@@ -27,17 +26,15 @@
 	background: transparent;
 }
 
+/* Slide content */
 .carousel .slide .content .live {
 	color: var(--live);
 	text-transform: uppercase;
 }
-
 .carousel .slide .content .description {
 	opacity: 0.6;
 }
-.carousel .slide .content .touchdown {
-	margin-bottom: 20px;
-}
+
 .carousel .slide.hidden {
 	opacity: 0;
 }
@@ -54,7 +51,6 @@
 .carousel .label {
 	opacity: 0.9;
 }
-
 .carousel .velocity .value,
 .carousel .altitude .value {
 	margin-left: 8px;
@@ -63,33 +59,35 @@
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
-	/* .carousel .slide {
-		height: 40vh;
-	} */
-
+	.carousel .slide {
+		align-content: start;
+		height: calc(100vh * 2 / 5 + 5px);
+	}
+	.carousel .slide.hidden * {
+		pointer-events: none;
+	}
 	.carousel .slide .content {
-		padding: 0 5%;
-		font-size: 0.8em;
+		padding: 0 20px;
 	}
-
-	.carousel .slide .content h1 {
-		font-size: 2em;
+	.carousel .content {
+		margin: 0;
 	}
-
-	.carousel .slide .content .description {
+	.carousel .navigation-button {
 		display: none;
 	}
-
-	.carousel .navigation-button {
-		padding: 0 5%;
+	.carousel .title {
+		font-size: 29px;
+		line-height: 95%;
+		margin-bottom: 10px;
+	}
+	.carousel .phase .label {
+		display: none;
 	}
 }
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
-	/* .carousel .slide {
-		height: 60vh;
-	} */
+
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
@@ -98,11 +96,15 @@
 		height: calc(100% - 85px);
 	}
 	.carousel .slide {
-		/* height: 60vh; */
 		height: calc(100vh - 85px);
 	}
-
 	.carousel .slide .content {
 		padding-right: 0;
+	}
+	.carousel .title {
+		margin-bottom: 15px;
+	}
+	.carousel .slide .content .touchdown {
+		margin-bottom: 20px;
 	}
 }

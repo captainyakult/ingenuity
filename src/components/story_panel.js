@@ -27,7 +27,8 @@ class StoryPanel extends Carousel {
 			touchdown: 0,
 			isMetric: true,
 			distanceUnit: 'km',
-			speedUnit: 'km/h'
+			speedUnit: 'km/h',
+			textClass: ''
 		};
 
 		this._timestamps = [];
@@ -71,17 +72,25 @@ class StoryPanel extends Carousel {
 				<span class="live semi color">live</span>
 			</div>
 			<h2 class="title">${info.title}</h2>
-			<div class="distance">{{distance}}<span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
-			<div class="altitude"><span class="label semi">Altitude: </span><span>{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
-			<div class="velocity"><span class="label semi">Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
-			<div class="description ${descriptionClass}">${info.description}</div>
-			<div class="touchdown"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
+			<div class="distance {{textClass}}">{{distance}}<span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
+			<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span>{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
+			<div class="velocity {{textClass}}"><span class="label semi">Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
+			<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
+			<div class="footer">
+				<div class="touchdown {{textClass}}"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
 		`;
 
 		if (nextInfo) {
 			html += `
-				<div>Next phase:</div>
-				<div><span>${nextInfo.title} in </span><span class="timer" key="${this._keywords.nextPhase(info.id)}">0:0</span></div>
+				<div class="phase">
+					<div class="label {{textClass}}">Next phase:</div>
+					<div class="{{textClass}}"><span>${nextInfo.title} in </span><span class="timer" key="${this._keywords.nextPhase(info.id)}">0:0</span></div>
+				</div></div>
+			`;
+		}
+		else {
+			html += `
+				</div>
 			`;
 		}
 
@@ -118,6 +127,7 @@ class StoryPanel extends Carousel {
 		window.addEventListener('resize', () => {
 			this._updateFonts();
 		});
+		this._updateFonts();
 
 		this._interval = setInterval(() => {
 			// Return if not needed
@@ -306,8 +316,10 @@ class StoryPanel extends Carousel {
 	 */
 	_updateFonts() {
 		if (this._app.isMobile() || this._app.isLandscape()) {
+			this.setState({ textClass: 'small' });
 		}
 		else {
+			this.setState({ textClass: '' });
 		}
 	}
 
