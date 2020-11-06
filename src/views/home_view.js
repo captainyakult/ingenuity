@@ -26,21 +26,20 @@ class HomeView extends BaseView {
 		this._controlsTimeout = 4 * 1000; // in milliseconds
 		this._isDragging = false;
 
+		this._showControls = this._showControls.bind(this);
+		this._hideControls = this._hideControls.bind(this);
+
 		window.addEventListener('mousedown', (event) => {
 			this._isDragging = true;
 
 			// Show bottom panel
 			if (event.target.id === 'main-viewport') {
-				document.getElementById('float-mid-bottom').classList.add('active');
-				document.getElementById('float-mid-bottom').classList.remove('hidden');
+				this._showControls();
 			}
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			this._timer = setTimeout(() => {
-				document.getElementById('float-mid-bottom').classList.add('hidden');
-				document.getElementById('float-mid-bottom').classList.remove('active');
-			}, this._controlsTimeout);
+			this._timer = setTimeout(this._hideControls, this._controlsTimeout);
 		});
 		window.addEventListener('mousemove', (event) => {
 			if (this._isDragging) {
@@ -57,23 +56,18 @@ class HomeView extends BaseView {
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			this._timer = setTimeout(() => {
-				document.getElementById('float-mid-bottom').classList.add('hidden');
-				document.getElementById('float-mid-bottom').classList.remove('active');
-			}, this._controlsTimeout);
+			this._timer = setTimeout(this._hideControls, this._controlsTimeout);
 		});
 		window.addEventListener('touchstart', (event) => {
 			// Show bottom panel
 			if (event.target.id === 'main-viewport') {
-				document.getElementById('float-mid-bottom').classList.add('active');
-				document.getElementById('float-mid-bottom').classList.remove('hidden');
+				this._showControls();
 			}
 
 			// Refresh timer
 			clearTimeout(this._timer);
 			this._timer = setTimeout(() => {
-				document.getElementById('float-mid-bottom').classList.add('hidden');
-				document.getElementById('float-mid-bottom').classList.remove('active');
+				this._hideControls();
 			}, this._controlsTimeout);
 		});
 
@@ -86,8 +80,7 @@ class HomeView extends BaseView {
 			// Refresh timer
 			clearTimeout(this._timer);
 			this._timer = setTimeout(() => {
-				document.getElementById('float-mid-bottom').classList.add('hidden');
-				document.getElementById('float-mid-bottom').classList.remove('active');
+				this._hideControls();
 			}, this._controlsTimeout);
 		});
 	}
@@ -131,6 +124,22 @@ class HomeView extends BaseView {
 		else {
 			await this._app.getManager('camera').goToEntity('sc_perseverance');
 		}
+	}
+
+	/**
+	 * Show control panel (clock, time controls).
+	 */
+	_showControls() {
+		document.getElementById('float-mid-bottom').classList.add('active');
+		document.getElementById('float-mid-bottom').classList.remove('hidden');
+	}
+
+	/**
+	 * Hide control panel (clock, time controls).
+	 */
+	_hideControls() {
+		document.getElementById('float-mid-bottom').classList.add('hidden');
+		document.getElementById('float-mid-bottom').classList.remove('active');
 	}
 }
 
