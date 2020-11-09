@@ -14,7 +14,7 @@ class HomeView extends BaseView {
 	constructor(div, app) {
 		super(div, app);
 
-		this._components = ['clock', 'timeController', 'breadcrumb', 'clockShortcut', 'settings', 'storyPanel'];
+		this._components = ['clock', 'timeController', 'breadcrumb', 'clockShortcut', 'settings', 'storyPanel', 'storyBackButton'];
 
 		this._rules = {
 			rate: {
@@ -143,6 +143,16 @@ class HomeView extends BaseView {
 	_hideControls() {
 		document.getElementById('float-mid-bottom').classList.add('hidden');
 		document.getElementById('float-mid-bottom').classList.remove('active');
+	}
+
+	resetStoryPanel() {
+		this._hideControls();
+		if (!this._app.getComponent('storyPanel').isVisible()) {
+			this._app.getComponent('storyPanel').show();
+		}
+		if (this._timer) {
+			clearTimeout(this._timer);
+		}
 	}
 }
 

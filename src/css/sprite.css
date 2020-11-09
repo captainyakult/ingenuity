@@ -73,10 +73,22 @@ body.hover .icon-radio-circle:hover {
   height: 30px;
   background-position: 0 -119px;
 }
+.icon-arrow-up {
+  width: 30px;
+  height: 30px;
+  background-position: 0 -119px;
+  transform: rotate(180deg);
+}
 .icon-arrow-right {
   width: 30px;
   height: 30px;
   background-position: -46px -119px;
+}
+.icon-arrow-left {
+  width: 30px;
+  height: 30px;
+  background-position: -46px -119px;
+  transform: rotate(180deg);
 }
 body.hover .icon-controls:hover {
   width: 30px;
