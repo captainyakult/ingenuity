@@ -25,6 +25,7 @@ class StoryPanel extends Carousel {
 			velocity: 0,
 			altitude: 0,
 			touchdown: 0,
+			touchdownClass: '',
 			isMetric: true,
 			distanceUnit: 'km',
 			speedUnit: 'km/h',
@@ -78,7 +79,7 @@ class StoryPanel extends Carousel {
 			<div class="velocity {{textClass}}"><span class="label semi">Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 			<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
 			<div class="footer">
-				<div class="touchdown {{textClass}}"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
+				<div class="touchdown {{touchdownClass}}"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
 		`;
 
 		if (nextInfo) {
@@ -252,10 +253,11 @@ class StoryPanel extends Carousel {
 		if (this._children[nextPhaseId]) {
 			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second}`;
 		}
-
+		const touchddownClass = (this._touchdown - time) <= 0 ? 'hidden ' : '';
 		this.setState({
 			liveClass: isNow ? '' : 'hidden',
-			touchdown: `${touchdown.hour}:${touchdown.minute}:${touchdown.second}`
+			touchdown: `${touchdown.hour}:${touchdown.minute}:${touchdown.second}`,
+			touchdownClass: touchddownClass + this._state.textClass
 		});
 	}
 
@@ -316,11 +318,14 @@ class StoryPanel extends Carousel {
 	 * Update fonts.
 	 */
 	_updateFonts() {
+		const touchdown = this._touchdown - this._app.getManager('time').getTime().valueOf();
+		const touchdownClass = (touchdown <= 0) ? 'hidden' : '';
+
 		if (this._app.isMobile() || this._app.isLandscape()) {
-			this.setState({ textClass: 'small' });
+			this.setState({ textClass: 'small', touchdownClass: 'small ' + touchdownClass });
 		}
 		else {
-			this.setState({ textClass: '' });
+			this.setState({ textClass: '', touchdownClass: touchdownClass });
 		}
 	}
 
