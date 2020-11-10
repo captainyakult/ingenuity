@@ -81,11 +81,22 @@
 	.carousel .phase .label {
 		display: none;
 	}
+	.carousel .description {
+		display: none;
+	}
+	.carousel .description.mobile {
+		display: block;
+	}
 }
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
-
+	.carousel .description {
+		display: block;
+	}
+	.carousel .description.mobile {
+		display: none;
+	}
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
@@ -104,5 +115,11 @@
 	}
 	.carousel .slide .content .touchdown {
 		margin-bottom: 20px;
+	}
+	.carousel .description {
+		display: none;
+	}
+	.carousel .description.mobile {
+		display: block;
 	}
 }

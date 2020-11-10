@@ -67,6 +67,7 @@ class StoryPanel extends Carousel {
 	 */
 	_createSlideContent(info, nextInfo) {
 		const descriptionClass = info.description ? '' : 'hidden';
+		info.mobileDescription = (info.mobileDescription !== undefined) ? info.mobileDescription : info.description;
 
 		let html = `
 			<div class="live-container {{liveClass}}">
@@ -78,6 +79,7 @@ class StoryPanel extends Carousel {
 			<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span>{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
 			<div class="velocity {{textClass}}"><span class="label semi">Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 			<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
+			<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
 			<div class="footer">
 				<div class="touchdown {{touchdownClass}}"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
 		`;
@@ -108,7 +110,7 @@ class StoryPanel extends Carousel {
 
 		const startTime = this._app.getManager('time').etToMoment(this._app.dateConstants.start).valueOf();
 
-		info.forEach(({ id, title, description, timestamp }, index) => {
+		info.forEach(({ id, title, description, mobileDescription, timestamp }, index) => {
 			const nextInfo = index + 1 < info.length
 				? info[index + 1]
 				: null;
@@ -119,7 +121,7 @@ class StoryPanel extends Carousel {
 			}
 			this.addSlide({
 				id,
-				text: this._createSlideContent({ id, title, description }, nextInfo)
+				text: this._createSlideContent({ id, title, description, mobileDescription }, nextInfo)
 			});
 		});
 
