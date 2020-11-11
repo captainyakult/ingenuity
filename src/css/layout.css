@@ -104,6 +104,10 @@ body {
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
+	/* Story panel */
+	.story-panel {
+		margin-left: -20px;
+	}
 	.story-back-button {
 		grid-row: 1;
 		grid-column: span 2;

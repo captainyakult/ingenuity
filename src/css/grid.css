@@ -25,10 +25,11 @@
 
 	/* Time */
 	.grid-layout .float-mid-bottom {
-		grid-area: foot;
+		grid-column: main-start / side-end;
+		grid-row: extf-start / foot-end;
 		grid-template-columns: auto max-content;
 		grid-template-rows: auto auto auto;
-		align-self: center;
+		align-self: end;
 		justify-self: center;
 		margin: 0 20px;
 		width: calc(100% - 40px);
@@ -90,8 +91,8 @@
 @media only screen and (max-height: 600px) and (orientation: landscape) {
 	/* Story panel */
 	.grid-layout .story-panel {
-		grid-column: main-start / 13;
-		grid-row: 3 / foot-end;
+		grid-column: main-start / side-end;
+		grid-row: extm-start / foot-end;
 	}
 
 	/* Header */
@@ -115,9 +116,9 @@
 		grid-template-columns: auto max-content;
 		grid-template-rows: auto auto;
 		grid-column: main-start / side-end;
-		grid-row: foot-start / foot-end;
+		grid-row: extf-start / foot-end;
 		height: auto;
-		align-self: start;
+		align-self: end;
 		display: grid;
 		align-items: initial;
 		justify-items: start;
