@@ -116,13 +116,24 @@
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
+	.carousel {
+		pointer-events: none;
+	}
+	.carousel .track {
+		pointer-events: none;
+	}
 	.carousel .slide {
 		height: calc((100vh - 16px) * 3 / 5 + 8px);
+	}
+	.carousel .slide .container {
+		align-items: end;
+		pointer-events: none;
 	}
 	.carousel .slide .content {
 		padding: 0 20px;
 		margin: 0 0 20px 0;
 		align-content: end;
+		pointer-events: all;
 	}
 	.carousel .description {
 		display: none;
