@@ -58,8 +58,6 @@
 	.grid-layout header {
 		grid-area: head;
 		height: 65px;
-		display: grid;
-		grid-template-columns: 1fr auto;
 	}
 
 	/* Controls */

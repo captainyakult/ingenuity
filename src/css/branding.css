@@ -1,0 +1,41 @@
+.header {
+	display: grid;
+	grid-template-columns: auto auto auto 1fr;
+	align-items: center;
+}
+
+.header .icon-nasa-logo {
+	opacity: 0.5;
+	margin-right: 15px;
+}
+
+.header .title,
+.header .subtitle {
+	text-transform: uppercase;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.header .title {
+	line-height: 1.1;
+	opacity: 0.75;
+}
+
+.header .subtitle {
+	line-height: 1;
+	opacity: 0.5;
+}
+
+.header .title .first {
+	letter-spacing: 3.5px;
+}
+
+.header .title .second {
+	letter-spacing: 7px;
+}
+
+.header .title span,
+.header .subtitle span {
+	display: block;
+}
