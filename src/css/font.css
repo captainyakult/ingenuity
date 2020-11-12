@@ -1,0 +1,16 @@
+/* Metropolis */
+@font-face {
+	font-family: 'Metropolis';
+	font-weight: 100;
+	src: url("../assets/fonts/Metropolis-Thin.woff");
+}
+@font-face {
+	font-family: 'Metropolis';
+	font-weight: 300;
+	src: url("../assets/fonts/Metropolis-Light.woff");
+}
+@font-face {
+	font-family: 'Metropolis';
+	font-weight: 600;
+	src: url("../assets/fonts/Metropolis-SemiBold.woff");
+}
