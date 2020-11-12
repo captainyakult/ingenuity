@@ -12,6 +12,7 @@
 	.grid-layout header {
 		grid-area: head;
 		height: 60px;
+		padding: 0 10px;
 	}
 
 	/* Controls */
@@ -97,6 +98,7 @@
 	.grid-layout header {
 		grid-area: head;
 		height: 60px;
+		padding: 0;
 	}
 
 	/* Controls */
