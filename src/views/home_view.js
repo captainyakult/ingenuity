@@ -28,6 +28,7 @@ class HomeView extends BaseView {
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
+		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
 
 		window.addEventListener('mousedown', (event) => {
 			this._isDragging = true;
@@ -110,6 +111,9 @@ class HomeView extends BaseView {
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);
 
+		// Register callback for photo mode
+		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
+
 		await this.updateCamera(params.target);
 	}
 
@@ -126,6 +130,20 @@ class HomeView extends BaseView {
 		}
 		else {
 			await this._app.getManager('camera').goToEntity('sc_perseverance');
+		}
+	}
+
+	/**
+	 * Show/hide components on photo mode change.
+	 * @param {boolean} isPhotoMode
+	 */
+	onPhotoModeChange(isPhotoMode) {
+		if (isPhotoMode) {
+			this._hideControls();
+			this._app.getComponent('storyPanel').hide();
+		}
+		else {
+			this._app.getComponent('storyPanel').show();
 		}
 	}
 
