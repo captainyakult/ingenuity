@@ -6,6 +6,7 @@ import 'es6-ui-library/css/grid_layout.css';
 import 'es6-ui-library/css/style.css';
 import 'es6-ui-library/css/animation.css';
 import 'es6-ui-library/css/settings.css';
+import './css/font.css';
 import './css/grid.css';
 import './css/sprite.css';
 import './css/color.css';
