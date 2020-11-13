@@ -13,6 +13,7 @@ import './css/color.css';
 import './css/layout.css';
 import './css/style.css';
 import './css/branding.css';
+import './css/settings.css';
 
 // Import UI library managers
 import {
