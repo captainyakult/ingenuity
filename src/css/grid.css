@@ -17,11 +17,11 @@
 
 	/* Controls */
 	.grid-layout .float-right-bottom {
-		grid-area: foot;
+		grid-column: extf-end / side-end;
+		grid-row: extf-start / foot-end;
 		align-self: end;
 		justify-self: start;
 		width: 100%;
-		height: 100px;
 	}
 
 	/* Time */
@@ -68,7 +68,7 @@
 		align-self: center;
 		justify-self: end;
 		width: 30px;
-		height: 55%;
+		height: 60%;
 	}
 
 	/* Time */
@@ -103,12 +103,13 @@
 
 	/* Controls */
 	.grid-layout .float-right-bottom {
-		grid-column: side-start / side-end;
-		grid-row: side-start / foot-end;
+		grid-column: 9 / side-end;
+		grid-row: side-end / foot-end;
 		align-self: center;
 		justify-self: end;
-		width: 30px;
 		height: 50%;
+		display: grid;
+		justify-content: end;
 	}
 
 	/* Time */

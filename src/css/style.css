@@ -144,26 +144,6 @@ button {
 	animation-iteration-count: 1;
 	animation-fill-mode: both;
 }
-@keyframes fade-out-bottom {
-	0% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-	100% {
-		transform: translateY(220%);
-		opacity: 0;
-	}
-}
-@keyframes fade-in-bottom {
-	0% {
-		transform: translateY(220%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
 
 /* Pioneer CSS */
 .pioneer {

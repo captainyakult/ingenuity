@@ -168,6 +168,9 @@ class HomeView extends BaseView {
 	_showControls() {
 		document.getElementById('float-mid-bottom').classList.add('active');
 		document.getElementById('float-mid-bottom').classList.remove('hidden');
+		if (this._app.isMobile()) {
+			this._app.getComponent('settings').show();
+		}
 	}
 
 	/**
@@ -176,6 +179,9 @@ class HomeView extends BaseView {
 	_hideControls() {
 		document.getElementById('float-mid-bottom').classList.add('hidden');
 		document.getElementById('float-mid-bottom').classList.remove('active');
+		if (this._app.isMobile()) {
+			this._app.getComponent('settings').hide();
+		}
 	}
 
 	resetStoryPanel() {
