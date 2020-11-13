@@ -31,6 +31,9 @@ class HomeView extends BaseView {
 		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
 
 		window.addEventListener('mousedown', (event) => {
+			if (this._app.isTouch()) {
+				return;
+			}
 			this._isDragging = true;
 
 			// Show bottom panel
@@ -52,10 +55,16 @@ class HomeView extends BaseView {
 			}
 		});
 		window.addEventListener('wheel', (event) => {
+			if (this._app.isTouch()) {
+				return;
+			}
 			// Refresh timer
 			clearTimeout(this._timer);
 		});
 		window.addEventListener('mouseup', (event) => {
+			if (this._app.isTouch()) {
+				return;
+			}
 			this._isDragging = false;
 
 			// Refresh timer
