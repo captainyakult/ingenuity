@@ -40,3 +40,37 @@
 .header .subtitle span {
 	display: block;
 }
+
+.header .disclaimer {
+	position: absolute;
+	margin: auto;
+	margin-top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.header .credits {
+	opacity: 0.5;
+	justify-self: right;
+}
+
+/* Phones, 991px and down */
+@media only screen and (max-width: 991px)  {
+	.header .disclaimer {
+		margin-top: 65px;
+	}
+
+	.header .credits {
+		text-align: right;
+	}
+	.header .credits span {
+		display: block;
+	}
+}
+
+/* Mobile landscape, panorama with height less than 600px */
+@media only screen and (max-height: 600px) and (orientation: landscape) {
+	.header .disclaimer {
+		margin-top: 20px;
+	}
+}
