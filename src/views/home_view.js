@@ -40,7 +40,10 @@ class HomeView extends BaseView {
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			this._timer = setTimeout(this._hideControls, this._controlsTimeout);
+			this._timer = setTimeout(() => {
+				this._hideControls();
+				this._app.getComponent('storyPanel').show();
+			}, this._controlsTimeout);
 		});
 		window.addEventListener('mousemove', (event) => {
 			if (this._isDragging) {
@@ -57,7 +60,10 @@ class HomeView extends BaseView {
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			this._timer = setTimeout(this._hideControls, this._controlsTimeout);
+			this._timer = setTimeout(() => {
+				this._hideControls();
+				this._app.getComponent('storyPanel').show();
+			}, this._controlsTimeout);
 		});
 		window.addEventListener('touchstart', (event) => {
 			// Show bottom panel and hide story panel
