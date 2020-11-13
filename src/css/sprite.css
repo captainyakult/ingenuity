@@ -1,14 +1,14 @@
 .icon {
   display: inline-block;
   background-repeat: no-repeat;
-  background-image: url(./assets/svg/sprite.svg);
+  background-image: url(../assets/svg/sprite.svg);
 }
 body.hover .icon-checkbox:hover {
   width: 15px;
   height: 15px;
   background-position: 0 0;
 }
-.icon-checkbox-icon {
+.icon-checkbox {
   width: 15px;
   height: 15px;
   background-position: -31px 0;
@@ -68,198 +68,217 @@ body.hover .icon-radio-circle:hover {
   height: 16px;
   background-position: -64px -87px;
 }
-.icon-arrow-down {
+.icon-km {
   width: 30px;
   height: 30px;
   background-position: 0 -119px;
 }
-.icon-arrow-up {
+body.hover .icon-km:hover {
   width: 30px;
   height: 30px;
-  background-position: 0 -119px;
-  transform: rotate(180deg);
+  background-position: -46px -119px;
+}
+.icon-mi {
+  width: 30px;
+  height: 30px;
+  background-position: -92px -119px;
+}
+body.hover .icon-mi:hover {
+  width: 30px;
+  height: 30px;
+  background-position: -138px -119px;
+}
+.icon-lighting {
+  width: 54px;
+  height: 30px;
+  background-position: -184px -119px;
+}
+body.hover .icon-lighting:hover {
+  width: 54px;
+  height: 30px;
+  background-position: -276px -119px;
+}
+.icon-fullscreen {
+  width: 30px;
+  height: 30px;
+  background-position: -368px -119px;
+}
+body.hover .icon-fullscreen:hover {
+  width: 30px;
+  height: 30px;
+  background-position: -414px -119px;
+}
+.icon-expand {
+  width: 30px;
+  height: 30px;
+  background-position: -460px -119px;
+}
+body.hover .icon-expand:hover {
+  width: 30px;
+  height: 30px;
+  background-position: -506px -119px;
+}
+.icon-arrow-down {
+  width: 30px;
+  height: 30px;
+  background-position: -552px -119px;
 }
 .icon-arrow-right {
   width: 30px;
   height: 30px;
-  background-position: -46px -119px;
+  background-position: -598px -119px;
+}
+.icon-arrow-up {
+  width: 30px;
+  height: 30px;
+  background-position: -552px -119px;
+  transform: rotate(180deg);
 }
 .icon-arrow-left {
   width: 30px;
   height: 30px;
-  background-position: -46px -119px;
+  background-position: -598px -119px;
   transform: rotate(180deg);
 }
 body.hover .icon-controls:hover {
   width: 30px;
   height: 30px;
-  background-position: -92px -119px;
+  background-position: -644px -119px;
 }
 .icon-controls {
   width: 30px;
   height: 30px;
-  background-position: -138px -119px;
-}
-body.hover .icon-expand:hover {
-  width: 30px;
-  height: 30px;
-  background-position: -184px -119px;
-}
-.icon-expand {
-  width: 30px;
-  height: 30px;
-  background-position: -230px -119px;
+  background-position: -690px -119px;
 }
 .icon-expand-side {
   width: 30px;
   height: 30px;
-  background-position: -276px -119px;
+  background-position: 0 -165px;
 }
 body.hover .icon-expand-side:hover {
   width: 30px;
   height: 30px;
-  background-position: -322px -119px;
+  background-position: -46px -165px;
 }
 .icon-replay {
   width: 30px;
   height: 30px;
-  background-position: -368px -119px;
+  background-position: -92px -165px;
 }
 .icon-menu {
   width: 30px;
   height: 30px;
-  background-position: -414px -119px;
+  background-position: -138px -165px;
 }
 .icon-search {
   width: 30px;
   height: 30px;
-  background-position: -460px -119px;
+  background-position: -184px -165px;
 }
 .icon-close {
   width: 30px;
   height: 30px;
-  background-position: -506px -119px;
+  background-position: -230px -165px;
 }
 .icon-minus {
   width: 30px;
   height: 30px;
-  background-position: -552px -119px;
+  background-position: -276px -165px;
 }
 .icon-plus {
   width: 30px;
   height: 30px;
-  background-position: -598px -119px;
+  background-position: -322px -165px;
 }
 .icon-box {
   width: 30px;
   height: 30px;
-  background-position: -644px -119px;
+  background-position: -368px -165px;
 }
 body.hover .icon-box:hover {
   width: 30px;
   height: 30px;
-  background-position: -690px -119px;
+  background-position: -414px -165px;
 }
 .icon-checkbox-icon1 {
   width: 30px;
   height: 30px;
-  background-position: 0 -165px;
+  background-position: -460px -165px;
 }
 .icon-collapse {
   width: 30px;
   height: 30px;
-  background-position: -46px -165px;
+  background-position: -506px -165px;
 }
 body.hover .icon-collapse:hover {
   width: 30px;
   height: 30px;
-  background-position: -92px -165px;
+  background-position: -552px -165px;
 }
 .icon-collapse-side {
   width: 30px;
   height: 30px;
-  background-position: -138px -165px;
+  background-position: -598px -165px;
 }
 body.hover .icon-collapse-side:hover {
   width: 30px;
   height: 30px;
-  background-position: -184px -165px;
+  background-position: -644px -165px;
 }
 .icon-dropdown {
   width: 30px;
   height: 30px;
-  background-position: -230px -165px;
+  background-position: -690px -165px;
 }
 .icon-dropup {
   width: 31px;
   height: 30px;
-  background-position: -276px -165px;
-}
-.icon-expand {
-  width: 30px;
-  height: 30px;
-  background-position: -322px -165px;
-}
-body.hover .icon-expand:hover {
-  width: 30px;
-  height: 30px;
-  background-position: -368px -165px;
+  background-position: 0 -211px;
 }
 .icon-greater {
   width: 30px;
   height: 30px;
-  background-position: -414px -165px;
+  background-position: -46px -211px;
 }
 .icon-lesser {
   width: 30px;
   height: 30px;
-  background-position: -460px -165px;
-}
-.icon-lighting {
-  width: 54px;
-  height: 30px;
-  background-position: -506px -165px;
-}
-body.hover .icon-lighting:hover {
-  width: 54px;
-  height: 30px;
-  background-position: -598px -165px;
+  background-position: -92px -211px;
 }
 .icon-pause {
   width: 30px;
   height: 30px;
-  background-position: 0 -211px;
+  background-position: -138px -211px;
 }
 body.hover .icon-pause:hover {
   width: 30px;
   height: 30px;
-  background-position: -46px -211px;
+  background-position: -184px -211px;
 }
 .icon-play {
   width: 30px;
   height: 30px;
-  background-position: -92px -211px;
+  background-position: -230px -211px;
 }
 body.hover .icon-play:hover {
   width: 30px;
   height: 30px;
-  background-position: -138px -211px;
+  background-position: -276px -211px;
 }
 .icon-telescope {
   width: 30px;
   height: 30px;
-  background-position: -184px -211px;
+  background-position: -322px -211px;
 }
 body.hover .icon-telescope:hover {
   width: 30px;
   height: 30px;
-  background-position: -230px -211px;
+  background-position: -368px -211px;
 }
-
 .icon-nasa-logo {
   display: inline-block;
   background-repeat: no-repeat;
-  background-image: url(./assets/svg/nasa_logo.svg);
+  background-image: url(../svg/nasa_logo.svg);
   width: 45px;
   height: 45px;
 }
