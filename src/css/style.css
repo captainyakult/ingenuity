@@ -145,6 +145,28 @@ button {
 	animation-fill-mode: both;
 }
 
+/* Additional icons */
+.icon-nasa-logo {
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-image: url(../assets/svg/nasa_logo.svg);
+	width: 45px;
+	height: 45px;
+}
+.icon-bg {
+	background: var(--grayDarkAlpha);
+	border-radius: 3px;
+}
+body.hover .icon-bg:hover {
+	background: var(--grayAlpha);
+}
+body.hover .icon-plus:hover,
+body.hover .icon-minus:hover,
+body.hover .icon-box:hover .icon-natural-light,
+body.hover .icon-box:hover .icon-flood-light {
+	opacity: 1;
+}
+
 /* Pioneer CSS */
 .pioneer {
 	position: absolute;

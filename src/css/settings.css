@@ -1,0 +1,7 @@
+.settings .horizontal-line {
+	height: 2px;
+    background: var(--grayDark);
+    width: 22px;
+    box-sizing: border-box;
+    margin: auto;
+}

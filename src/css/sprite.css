@@ -270,10 +270,3 @@ body.hover .icon-telescope:hover {
   height: 30px;
   background-position: -368px -211px;
 }
-.icon-nasa-logo {
-  display: inline-block;
-  background-repeat: no-repeat;
-  background-image: url(../assets/svg/nasa_logo.svg);
-  width: 45px;
-  height: 45px;
-}
