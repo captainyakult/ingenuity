@@ -137,14 +137,12 @@ class HomeView extends BaseView {
 	 * @param {string} target
 	 */
 	async updateCamera(target) {
-		if (target) {
-			if (this._target !== target) {
-				this._target = target;
-				await this._app.getManager('camera').goToEntity(target);
-			}
+		if (!target) {
+			target = 'sc_perseverance';
 		}
-		else {
-			await this._app.getManager('camera').goToEntity('sc_perseverance');
+		if (this._target !== target) {
+			this._target = target;
+			await this._app.getManager('camera').goToEntity(target);
 		}
 	}
 
