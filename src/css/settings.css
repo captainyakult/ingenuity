@@ -4,7 +4,7 @@
 	width: 22px;
 	box-sizing: border-box;
 	margin: auto;
-	}
+}
 .settings .zoom {
 	display: grid;
 	grid-template-rows: 30px 2px 30px;
