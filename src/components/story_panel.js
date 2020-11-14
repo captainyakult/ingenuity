@@ -253,12 +253,12 @@ class StoryPanel extends Carousel {
 
 		const nextPhaseId = this._keywords.nextPhase(id);
 		if (this._children[nextPhaseId]) {
-			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second}`;
+			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second.toString().padStart(2, '0')}`;
 		}
 		const touchddownClass = (this._touchdown - time) <= 0 ? 'hidden ' : '';
 		this.setState({
 			liveClass: isNow ? '' : 'hidden',
-			touchdown: `${touchdown.hour}:${touchdown.minute}:${touchdown.second}`,
+			touchdown: `${touchdown.hour}:${touchdown.minute.toString().padStart(2, '0')}:${touchdown.second.toString().padStart(2, '0')}`,
 			touchdownClass: touchddownClass + this._state.textClass
 		});
 	}
