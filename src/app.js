@@ -59,8 +59,9 @@ class App extends BaseApp {
 		 * @type {object}
 		 */
 		this.dateConstants = {
-			start: 666952132.045910,
-			landing: 666953087
+			start: 666952132.045910 - 60, // Cruise state separation is 60s before start of EDL (ET seconds)
+			EDLStart: 666952132.045910, // ET seconds
+			landing: 666953087 // ET seconds
 		};
 	}
 

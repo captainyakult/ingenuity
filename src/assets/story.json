@@ -3,7 +3,7 @@
 		"id": "cruise_stage_separation",
 		"title": "Cruise Stage Separation",
 		"description": "About ten minutes before entering the atmosphere, the spacecraft sheds its Cruise Stage, which houses solar panels, radios, and fuel tanks during its flight to Mars.",
-		"timestamp": 0.000
+		"timestamp": -60.000
 	},
 	{
 		"id": "de-spin",
@@ -16,20 +16,20 @@
 		"title": "Cruise Balance Masses Ejected",
 		"description": "Five minutes before entering the Martian atmosphere, the spacecraft drops two 70 kg balance masses in order to create the desired lift-to-drag ratio.",
 		"mobileDescription": "The spacecraft drops mass for aerodynamics in the atmosphere.",
-		"timestamp": 57.145
+		"timestamp": 57.020
 	},
 	{
 		"id": "entry_interface_point",
 		"title": "Entry Interface Point",
 		"description": "The spacecraft enters the Martian atmosphere, drastically slowing it down while also heating it up.",
-		"timestamp": 540.010
+		"timestamp": 540.065
 	},
 	{
 		"id": "guidance_start",
 		"title": "Guidance Start",
 		"description": "As it begins to descend through the atmosphere, the spacecraft encounters pockets of air that are more or less dense, which can nudge it off course. To compensate, it fires small thrusters on its backshell that adjust its angle and direction of lift.",
 		"mobileDescription": "The spacecraft fires thrusters to stay on course.",
-		"timestamp": 593.875
+		"timestamp": 594.875
 	},
 	{
 		"id": "heading_alignment",
@@ -41,64 +41,64 @@
 		"id": "begin_SUFR",
 		"title": "Begin SUFR",
 		"description": "The spacecraft executes the “Straighten Up and Fly Right” maneuver, ejecting six more balance masses and setting the angle of attack to zero.",
-		"timestamp": 765.000
+		"timestamp":766.250
 	},
 	{
 		"id": "parachute_deploy",
 		"title": "Parachute Deploy",
 		"description": "The parachute is triggered by calculating the distance to the landing site, and opening at the optimum time to hit a smaller target area.  This is called a “Range Trigger.”",
 		"mobileDescription": "",
-		"timestamp": 782.025
+		"timestamp": 783.275
 	},
 	{
 		"id": "heat_shield_separation",
 		"title": "Heat Shield Separation",
 		"description": "Twenty seconds after parachute deploy, the heat shield separates and drops away, and the rover is exposed to the atmosphere of Mars.  Cameras and instruments begin taking data.",
 		"mobileDescription": "",
-		"timestamp": 802.519
+		"timestamp": 804.269
 	},
 	{
 		"id": "TRN_image_acquisition_begins",
 		"title": "TRN Image Acquisition Begins",
 		"description": "Terrain Relative Navigation enables the spacecraft to change course based on pictures taken of the ground.  The onboard computer compares the pictures to previous maps, and changes course if necessary for safer landing zones.",
 		"mobileDescription": "The spacecraft takes pictures of the ground to see where it is and change course if necessary.",
-		"timestamp": 859.563
+		"timestamp": 864.225
 	},
 	{
 		"id": "TRN_valid_solution",
 		"title": "TRN Valid Solution",
 		"description": "The onboard computer has found a safe area to land that is free of hazards.",
-		"timestamp": 866.656
+		"timestamp": 871.156
 	},
 	{
 		"id": "backshell_separation",
 		"title": "Backshell Separation",
 		"description": "The Perseverance rover and its own rocket-powered descent engine detach from the parachute and begin free-flying above Mars in order to reduce vertical velocity and eliminate horizontal velocity.",
 		"mobileDescription": "The rover and a rocket pack detach and free-fly above Mars.",
-		"timestamp": 883.910
+		"timestamp": 888.910
 	},
 	{
 		"id": "descent_stage_throttle_down",
 		"title": "Descent Stage Throttle Down",
 		"description": "When the rover is 21 meters above the ground, half of the engines turn off and the descent stage levels off to reach the final velocity of 2.7 km/hr.",
-		"timestamp": 926.408
+		"timestamp": 931.000
 	},
 	{
 		"id": "rover_separation",
 		"title": "Rover Separation",
 		"description": "The rover is released from the descent stage and lowered on a set of cables that extend to over 20 feet of length.  The rover unlocks and deploys its wheels as this happens.",
-		"timestamp": 928.938
+		"timestamp": 933.532
 	},
 	{
 		"id": "touchdown_flyaway",
 		"title": "Touchdown - Flyaway",
 		"description": "The rover touches down on Mars. As soon as the rover senses that its wheels have touched the ground, it quickly cuts the cables. This frees the descent stage to fly off a safe distance away from Perseverance.",
-		"timestamp": 945.110
+		"timestamp": 949.610
 	},
 	{
 		"id": "descent_stage_engine_cutoff",
 		"title": "Descent Stage Engine Cutoff",
 		"description": "The Descent Stage flies away at a 45 degree angle and expends the remaining fuel, then crashes into the terrain with no remaining fuel.",
-		"timestamp": 952.512
+		"timestamp": 957.012
 	}
 ]

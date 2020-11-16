@@ -108,7 +108,7 @@ class StoryPanel extends Carousel {
 		// Populate panel with all slides once since it doesn't change.
 		const info = await AppUtils.loadJSON('/assets/story.json');
 
-		const startTime = this._app.getManager('time').etToMoment(this._app.dateConstants.start).valueOf();
+		const startTime = this._app.getManager('time').etToMoment(this._app.dateConstants.EDLStart).valueOf();
 
 		info.forEach(({ id, title, description, mobileDescription, timestamp }, index) => {
 			const nextInfo = index + 1 < info.length
