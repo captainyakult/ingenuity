@@ -47,10 +47,11 @@
 	margin-top: 20px;
 	left: 50%;
 	transform: translateX(-50%);
+	opacity: 0.25;
 }
 
 .header .credits {
-	opacity: 0.5;
+	opacity: 0.25;
 	justify-self: right;
 }
 
