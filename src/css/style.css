@@ -146,7 +146,7 @@ button {
 }
 
 /* Additional icons */
-.icon-nasa-logo {
+.icon.icon-nasa-logo {
 	display: inline-block;
 	background-repeat: no-repeat;
 	background-image: url(../assets/svg/nasa_logo.svg);
