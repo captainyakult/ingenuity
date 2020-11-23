@@ -4,7 +4,7 @@
 	"description": "Mars 2020 Mission Visualization",
 	"private": true,
 	"scripts": {
-		"setup": "yarn install; yarn link pioneer-js; yarn link pioneer-scripts; yarn link ui; yarn link es6-ui-library; mkdir -p dist; cp src/config.example.js src/config.js",
+		"setup": "yarn install; yarn link pioneer-js; yarn link pioneer-scripts; yarn link es6-ui-library; mkdir -p dist; cp src/config.example.js src/config.js",
 		"update": "yarn install --no-default-rc",
 		"build": "webpack --config webpack.dev.js",
 		"build-production": "webpack --config webpack.prod.js",

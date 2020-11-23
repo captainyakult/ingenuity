@@ -13,8 +13,9 @@ QA_LEVEL=$1
 VERSION=$2
 BUILD_FOLDER=$3
 
-# Get git branch
+# Get git branchs
 PIONEER_BRANCH=$QA_LEVEL
+ES6_UI_LIBRARY_BRANCH=$QA_LEVEL
 if [[($QA_LEVEL = "dev")]]; then
 	PIONEER_BRANCH="mars2020"
 fi
@@ -41,6 +42,16 @@ pushd ../pioneer-scripts > /dev/null
 git fetch -p
 git checkout $PIONEER_BRANCH
 git reset --hard origin/$PIONEER_BRANCH
+git clean -dfx
+yarn setup
+popd > /dev/null
+
+# Update es6-ui-library
+echo "Making sure es6-ui-library is up-to-date."
+pushd ../es6-ui-library > /dev/null
+git fetch -p
+git checkout $ES6_UI_LIBRARY_BRANCH
+git reset --hard origin/$ES6_UI_LIBRARY_BRANCH
 git clean -dfx
 yarn setup
 popd > /dev/null
