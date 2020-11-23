@@ -6,5 +6,7 @@
 		"lsk",
 		"celestial",
 		"../../../mars2020/src/assets/spice"
-	]
+	],
+	"pointsPerFile": 512,
+	"limitedCoverage" : [666952142.000, null]
 }

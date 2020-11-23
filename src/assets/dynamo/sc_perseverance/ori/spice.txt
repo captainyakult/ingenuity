@@ -1,7 +1,8 @@
 ../../../mars2020/src/assets/spice/m2020.tf	1601564407
 ../../../mars2020/src/assets/spice/naif0012.tls	1601564407
-../../../mars2020/src/assets/spice/od035_nom_nocc.bck	1601564786
-../../../mars2020/src/assets/spice/od035_nom_nocc.tsc	1601564793
+../../../mars2020/src/assets/spice/m2020_parts.tf	1603209277
+../../../mars2020/src/assets/spice/nom_nocc.bc	1604946311
+../../../mars2020/src/assets/spice/nom_nocc.tsc	1604946311
 celestial/02_asteroids/codes_300ast_20100725.tf	1280386800
 celestial/04_pck/Gravity.tpc	926578800
 celestial/04_pck/pck00010.tpc	1319266800

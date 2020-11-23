@@ -1,0 +1,12 @@
+{
+	"type" : "pos",
+	"body" : -1686,
+	"otherBody" : 499,
+	"spiceDirs" : [
+		"lsk",
+		"celestial",
+		"../../../mars2020/src/assets/spice"
+	],
+	"precisionAbsolute": true,
+	"precision": 0.00001
+}

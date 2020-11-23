@@ -1,7 +1,8 @@
 ../../../mars2020/src/assets/spice/m2020.tf	1601564407
 ../../../mars2020/src/assets/spice/naif0012.tls	1601564407
-../../../mars2020/src/assets/spice/od035_nom_nocc.bsp	1601564778
-../../../mars2020/src/assets/spice/od035_nom_nocc.tsc	1601564793
+../../../mars2020/src/assets/spice/nom_nocc.tsc	1604946311
+../../../mars2020/src/assets/spice/nom_nocc.bsp	1604946311
+../../../mars2020/src/assets/spice/m2020_parts.tf	1605290936
 celestial/00_planets/de430.bsp	1378191600
 celestial/00_planets/de435.bsp	1546848000
 celestial/00_planets/de438.bsp	1566975600
@@ -13,8 +14,8 @@ celestial/01_satellites/ura111.bsp	1389254400
 celestial/01_satellites/sat368.bsp	1407740400
 celestial/01_satellites/nep081.bsp	1430290800
 celestial/01_satellites/plu055.bsp	1446796800
-celestial/01_satellites/sat393_daphnis.bsp	1476169200
 celestial/01_satellites/sat393-rocks_pan.bsp	1476169200
+celestial/01_satellites/sat393_daphnis.bsp	1476169200
 celestial/01_satellites/sat393.bsp	1476169200
 celestial/01_satellites/jup310.bsp	1536649200
 celestial/01_satellites/nep090.bsp	1546848000
