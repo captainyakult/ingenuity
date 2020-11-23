@@ -62,9 +62,9 @@ yarn setup
 
 # Build the app
 if [[($QA_LEVEL = "staging") || ($QA_LEVEL = "production")]]; then
-	yarn build
+	yarn build-production
 else
-	yarn build-dev
+	yarn build
 fi
 
 # Create the config.js
