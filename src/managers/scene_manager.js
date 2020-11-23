@@ -12,7 +12,7 @@ class SceneManager extends BaseSceneManager {
 	 */
 	async populate() {
 		this._createScene();
-		// this._createCMTS();
+		this._createCMTS();
 		this._makeTrailsBetter();
 		this._populateLabelEvents();
 
@@ -43,18 +43,17 @@ class SceneManager extends BaseSceneManager {
 		mars.addComponent('gizmo');
 		// Get the spheroid from the spheroid coomponent.
 		/** @type {Pioneer.Spheroid} */
-		const spheroid = mars.getComponentByType('spheroid').getSpheroid();
 		// Remove the spheroid component.
 		mars.getComponentByType('spheroid').setEnabled(false);
 		// mars.removeComponent(mars.getComponentByType('spheroid'));
 		// mars.get('atmosphere').setEnabled(false);
 		/** @type {CMTSComponent} */
 		const cmts = mars.addComponent('cmts');
-		cmts.setMaxLevel(9);
+		cmts.setMaxLevel(11);
 		cmts.setLightSource(this._scene.get('sun', 'lightSource'));
-		cmts.setRadii(spheroid.equatorialRadius, spheroid.polarRadius);
-		cmts.setBaseUrl('color', '/cmts/mars/color');
-		cmts.setBaseUrl('height', '/cmts/mars/height');
+		cmts.setRadii(3396.190 - 0.01549952582, 3396.190 - 0.01549952582); // Offset to get the rover landing on its wheels.
+		cmts.setBaseUrl('color', '$DYNAMIC_ASSETS_URL/cmts/mars/color');
+		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height');
 		cmts.setHeightScale(1);
 		cmts.setPlanetographic(false);
 
