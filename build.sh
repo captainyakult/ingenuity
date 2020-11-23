@@ -18,6 +18,7 @@ PIONEER_BRANCH=$QA_LEVEL
 ES6_UI_LIBRARY_BRANCH=$QA_LEVEL
 if [[($QA_LEVEL = "dev")]]; then
 	PIONEER_BRANCH="mars2020"
+	ES6_UI_LIBRARY_BRANCH="master"
 fi
 if [[($QA_LEVEL = "staging")]]; then
 	PIONEER_BRANCH="mars2020"
