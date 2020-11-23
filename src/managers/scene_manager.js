@@ -83,8 +83,11 @@ class SceneManager extends BaseSceneManager {
 		// Dynamic environment map
 		const dynEnvMap = this._scene.get('camera').addComponent('dynEnvMap');
 		if (dynEnvMap instanceof Pioneer.DynamicEnvironmentMapComponent) {
+			this._scene.get('sc_perseverance_rover', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 			this._scene.get('sc_perseverance_cruise_stage', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 			this._scene.get('sc_perseverance_backshell', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
+			this._scene.get('sc_perseverance_heat_shield', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
+			this._scene.get('sc_perseverance_descent_stage', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 		}
 	}
 
@@ -96,10 +99,11 @@ class SceneManager extends BaseSceneManager {
 		// Populate labels
 		const clickableEntities = [
 			'sc_perseverance_landing_site',
-			'sc_perseverance',
+			'sc_perseverance_rover',
 			'sc_perseverance_cruise_stage',
 			'sc_perseverance_backshell',
 			'sc_perseverance_heat_shield',
+			'sc_perseverance_descent_stage',
 			'mars', 'earth', 'phobos', 'deimos'];
 		for (let i = 0, l = this._scene.getNumEntities(); i < l; i++) {
 			const entity = this._scene.getEntity(i);
