@@ -1,0 +1,10 @@
+{
+	"type" : "ori",
+	"body" : -168400,
+	"frame" : "M2020_HEAT_SHIELD",
+	"spiceDirs" : [
+		"lsk",
+		"celestial",
+		"../../../mars2020/src/assets/spice"
+	]
+}

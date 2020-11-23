@@ -7,12 +7,22 @@
 		"celestial",
 		"../../../mars2020/src/assets/spice"
 	],
+	"precisionAbsolute": true,
+	"precision": 1,
+	"precisionCoverages": [{
+		"precision": 0.1,
+		"coverage": [666952965.910, 666953060]
+	}, {
+		"precision": 0.00001,
+		"coverage": [666953060, null]
+	}],
+	"pointsPerFile": 1024,
 	"forcedPoints": [
-		[666952082.045910, "cruise stage separation"],
-		[666952946.270190, "heatshield separation"],
+		[666952082.000, "cruise stage separation"],
+		[666952946.269, "heatshield separation"],
 		[666953030.911190, "backshell separation"],
-		[666953075.521190, "deploy"]
+		[666953075.532, "deploy"]
 	],
-	"limitedCoverage" : [666932224, 667051269.185],
+	"limitedCoverage" : [666952142.000, null],
 	"forceLoadOrientationKernels" : true
 }
