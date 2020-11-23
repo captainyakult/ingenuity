@@ -71,7 +71,7 @@ export class SetupSpacecraft {
 			radius: 0.002,
 			label: 'Cruise Stage',
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/CruiseStage/edl2020_cruiseStage.gltf',
+				url: 'assets/models/CruiseStage/edl2020_cruiseStage.gltf',
 				rotate: [
 					{ x: -90 }
 				]
@@ -187,7 +187,7 @@ export class SetupSpacecraft {
 			radius: 0.002,
 			label: 'Backshell',
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/Backshell/edl2020_backshell.gltf',
+				url: 'assets/models/Backshell/edl2020_backshell.gltf',
 				rotate: [
 					{ x: -90 }
 				]
@@ -257,7 +257,7 @@ export class SetupSpacecraft {
 		Entity.createFromOptions('sc_perseverance_chutecap', {
 			radius: 0.002,
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/ChuteCap/edl2020_chuteCap.gltf',
+				url: 'assets/models/ChuteCap/edl2020_chuteCap.gltf',
 				rotate: [
 					{ x: -90 }
 				]
@@ -284,7 +284,7 @@ export class SetupSpacecraft {
 			radius: 0.002,
 			label: 'Parachute',
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/Chute/edl2020_chute.gltf',
+				url: 'assets/models/Chute/edl2020_chute.gltf',
 				rotate: [
 					{ x: -90 }
 				]
@@ -314,7 +314,7 @@ export class SetupSpacecraft {
 				length: 100
 			},
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/edl2020_heatshield.gltf',
+				url: 'assets/models/HeatShield/edl2020_heatshield.gltf',
 				rotate: [
 					{ x: -90 }
 				]
@@ -365,7 +365,7 @@ export class SetupSpacecraft {
 				// Add entry burn model.
 				const entryBurnModel = entity.addComponent('model', 'entryBurn');
 				if (entryBurnModel instanceof Pioneer.ModelComponent) {
-					entryBurnModel.setUrl('$STATIC_ASSETS_URL/models/sc_perseverance/edl/Entry_Burn/edl2020_entryBurn.gltf');
+					entryBurnModel.setUrl('assets/models/Entry_Burn/edl2020_entryBurn.gltf');
 					entryBurnModel.setRotation(entity.get('model', 0).getRotation());
 					entryBurnModel.setMeshCreatedCallback(async () => {
 						const oldMaterial = entryBurnModel.getMaterial('effects.003');
@@ -465,7 +465,7 @@ export class SetupSpacecraft {
 			radius: 0.002,
 			label: 'Descent Stage',
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/SkyCrane/edl2020_skyCrane.gltf',
+				url: 'assets/models/SkyCrane/edl2020_skyCrane.gltf',
 				rotate: [
 					{ x: -90 }
 				]
@@ -534,7 +534,7 @@ export class SetupSpacecraft {
 				// Add thruster and plume models.
 				const thrustersModel = entity.addComponent('model');
 				if (thrustersModel instanceof Pioneer.ModelComponent) {
-					thrustersModel.setUrl('$STATIC_ASSETS_URL/models/sc_perseverance/edl/SkyCrane_Thrusters/edl2020_skyCraneThrusters.gltf');
+					thrustersModel.setUrl('assets/models/SkyCrane_Thrusters/edl2020_skyCraneThrusters.gltf');
 					thrustersModel.setRotation(entity.get('model', 0).getRotation());
 					thrustersModel.setMeshCreatedCallback(async () => {
 						const oldMaterial = thrustersModel.getMaterial('effects');
@@ -555,7 +555,7 @@ export class SetupSpacecraft {
 				}
 				const plumesModel = entity.addComponent('model');
 				if (plumesModel instanceof Pioneer.ModelComponent) {
-					plumesModel.setUrl('$STATIC_ASSETS_URL/models/sc_perseverance/edl/SkyCrane_Plumes/edl2020_skyCranePlumes.gltf');
+					plumesModel.setUrl('assets/models/SkyCrane_Plumes/edl2020_skyCranePlumes.gltf');
 					plumesModel.setRotation(entity.get('model', 0).getRotation());
 					plumesModel.setMeshCreatedCallback(async () => {
 						const oldMaterial = plumesModel.getMaterial('Plumes2');
@@ -640,7 +640,7 @@ export class SetupSpacecraft {
 		Entity.createFromOptions('sc_perseverance_cables', {
 			radius: 0.002,
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/Cables/edl2020_cables.gltf',
+				url: 'assets/models/Cables/edl2020_cables.gltf',
 				rotate: [
 					{ x: -90 }
 				]
@@ -667,7 +667,7 @@ export class SetupSpacecraft {
 			radius: 0.002,
 			label: 'Perseverance',
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/Perse/edl2020_perse.gltf',
+				url: 'assets/models/Perse/edl2020_perse.gltf',
 				rotate: [
 					{ x: -90 }
 				]
