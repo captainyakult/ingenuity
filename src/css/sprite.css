@@ -1,7 +1,7 @@
 .icon {
   display: inline-block;
   background-repeat: no-repeat;
-  background-image: url(../assets/svg/sprite.svg);
+  background-image: url(./assets/svg/sprite.svg);
 }
 body.hover .icon-checkbox:hover {
   width: 15px;

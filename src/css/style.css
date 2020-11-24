@@ -149,7 +149,7 @@ button {
 .icon.icon-nasa-logo {
 	display: inline-block;
 	background-repeat: no-repeat;
-	background-image: url(../assets/svg/nasa_logo.svg);
+	background-image: url(./assets/svg/nasa_logo.svg);
 	width: 45px;
 	height: 45px;
 }
