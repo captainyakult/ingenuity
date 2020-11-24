@@ -4,15 +4,20 @@ import moment from 'moment-timezone';
 // Import css
 import 'es6-ui-library/css/grid_layout.css';
 import 'es6-ui-library/css/style.css';
+import 'es6-ui-library/css/animation.css';
+import 'es6-ui-library/css/settings.css';
+import './css/font.css';
 import './css/grid.css';
 import './css/sprite.css';
 import './css/color.css';
 import './css/layout.css';
 import './css/style.css';
+import './css/branding.css';
+import './css/settings.css';
 
 // Import UI library managers
 import {
-	BaseApp, TimeManager
+	BaseApp, TimeManager, Settings
 } from 'es6-ui-library';
 
 // Overriden managers
@@ -25,6 +30,8 @@ import HomeView from './views/home_view';
 import Clock from './components/clock';
 import ClockShortcut from './components/clock_shortcut';
 import TimeController from './components/time_controller';
+import StoryPanel from './components/story_panel';
+import StoryBackButton from './components/story_back_button';
 
 class App extends BaseApp {
 	/**
@@ -52,8 +59,9 @@ class App extends BaseApp {
 		 * @type {object}
 		 */
 		this.dateConstants = {
-			start: 666952132.045910,
-			landing: 666953087
+			start: 666952132.045910 - 60, // Cruise state separation is 60s before start of EDL (ET seconds)
+			EDLStart: 666952132.045910, // ET seconds
+			landing: 666953087 // ET seconds
 		};
 	}
 
@@ -83,6 +91,7 @@ class App extends BaseApp {
 		timeManager.setDefaultLimits({ min, max });
 		timeManager.setLimits({ min, max });
 		timeManager.setStartTime(min);
+		timeManager.setToStart();
 
 		// Scene manager
 		const sceneManager = this.addManager('scene', SceneManager, this._pioneer);
@@ -119,6 +128,14 @@ class App extends BaseApp {
 		const timeController = await this.addComponent('timeController', TimeController, document.getElementById('time-controller'));
 		this._managers.time.registerCallback('ratechange', timeController.onRateChange);
 		timeController.setEnabled(true);
+
+		const settings = await this.addComponent('settings', Settings, document.getElementById('settings'));
+
+		const storyPanel = await this.addComponent('storyPanel', StoryPanel, document.getElementById('story-panel'));
+		this._managers.time.registerCallback('update', storyPanel.update);
+		settings.registerCallback('unitchange', storyPanel.onUnitChange);
+
+		await this.addComponent('storyBackButton', StoryBackButton, document.getElementById('story-back-button'));
 	}
 
 	/**

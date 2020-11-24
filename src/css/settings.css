@@ -1,0 +1,26 @@
+.settings .horizontal-line {
+	height: 2px;
+	background: var(--grayDark);
+	width: 22px;
+	box-sizing: border-box;
+	margin: auto;
+}
+.settings .zoom {
+	display: grid;
+	grid-template-rows: 30px 2px 30px;
+	grid-template-columns: 30px;
+}
+
+/* Mobile landscape, panorama with height less than 600px */
+@media only screen and (max-height: 600px) and (orientation: landscape) {
+	.settings .zoom {
+		display: grid;
+		grid-template-columns: 30px 2px 30px;
+		grid-template-rows: 30px;
+	}
+	.settings .horizontal-line {
+		height: 22px;
+		width: 2px;
+		display: inline-block;
+	}
+}

@@ -10,9 +10,20 @@
 * Click on Download
 * Move resulting sprite svg and css to svg and css folders
 * Change path of sprite.svg in sprite.css to ../svg/sprite.svg
+* Change path of sprite.css in sprite.html to ../css/sprite.css
 * Search and remove the -fixed
 * Search and replace -hover by :hover
 * Prepend body.hover for every hover statement
+* Create optional mirrored icons for arrow up and arrow left by copying down and right and adding transform: rotate(180deg);
+* Add Nasa logo
+  .icon-nasa-logo {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-image: url(../svg/nasa_logo.svg);
+    width: 45px;
+    height: 45px;
+  }
+* Test sprite.html in your browser
 
 # Modified files
 * Some icons were modified they have the -fixed in their names and should be used instead of original ones

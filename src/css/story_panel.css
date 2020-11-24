@@ -1,0 +1,144 @@
+.carousel .track {
+	background: transparent url(../assets/svg/timeline-bg.svg) repeat-y 0 0;
+}
+.carousel .slide {
+	position: relative;
+}
+
+/* Navigation */
+.carousel.vertical .navigation-button.prev {
+	display: none;
+}
+.carousel .slide .container {
+	grid-template-rows: auto max-content;
+}
+.carousel.vertical .navigation-button {
+	text-align: left;
+	padding-left: 10%;
+}
+.carousel .navigation-button:focus {
+	outline: 0;
+}
+.carousel .navigation-button:hover {
+	background: transparent;
+}
+
+/* Slide content */
+.carousel .slide .content {
+	align-content: center;
+}
+.carousel .slide .content .live {
+	color: var(--live);
+	text-transform: uppercase;
+}
+.carousel .slide .content .description {
+	opacity: 0.6;
+}
+
+.carousel .slide.hidden {
+	opacity: 0;
+}
+.carousel .velocity span,
+.carousel .altitude span,
+.carousel .distance span {
+	display: inline-block;
+}
+.carousel .unit {
+	margin-left: 5px;
+	margin-right: 8px;
+	opacity: 0.9;
+}
+.carousel .label {
+	opacity: 0.9;
+}
+.carousel .velocity .value,
+.carousel .altitude .value {
+	margin-left: 8px;
+}
+
+
+/* Phones, 991px and down */
+@media only screen and (max-width: 991px) {
+	.carousel .slide {
+		height: calc((100vh - 20px) * 2 / 5 + 5px);
+	}
+	.carousel .slide.hidden * {
+		pointer-events: none;
+	}
+	.carousel .slide .content {
+		padding: 0 20px;
+		margin: 0;
+		align-content: center;
+	}
+	.carousel .navigation-button {
+		display: none;
+	}
+	.carousel .title {
+		font-size: 29px;
+		line-height: 95%;
+		margin-bottom: 10px;
+	}
+	.carousel .phase .label {
+		display: none;
+	}
+	.carousel .description {
+		display: none;
+	}
+	.carousel .description.mobile {
+		display: block;
+	}
+}
+
+/* Laptops/desktops, large devices, and screens with width >= 992px */
+@media only screen and (min-width: 992px) {
+	.carousel {
+		height: calc(100% - 85px);
+	}
+	.carousel .slide {
+		height: calc(100vh - 85px);
+	}
+	.carousel .slide .content {
+		padding-right: 0;
+	}
+	.carousel .title {
+		margin-bottom: 15px;
+	}
+	.carousel .slide .content .touchdown {
+		margin-bottom: 20px;
+	}
+	.carousel .description {
+		display: block;
+	}
+	.carousel .description.mobile {
+		display: none;
+	}
+}
+
+/* Mobile landscape, panorama with height less than 600px */
+@media only screen and (max-height: 600px) and (orientation: landscape) {
+	.carousel {
+		pointer-events: none;
+	}
+	.carousel .track {
+		pointer-events: none;
+	}
+	.carousel .slide {
+		height: calc((100vh - 16px) * 3 / 5 + 8px);
+	}
+	.carousel .slide .container {
+		align-items: end;
+		pointer-events: none;
+	}
+	.carousel .slide .content {
+		padding: 0 20px;
+		margin: 0 0 20px 0;
+		align-content: end;
+		pointer-events: all;
+	}
+	.carousel .description {
+		display: none;
+	}
+	.carousel .description.mobile {
+		display: block;
+	}
+}

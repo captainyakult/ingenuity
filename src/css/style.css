@@ -112,7 +112,7 @@ button {
 	outline: none;
 	outline-offset: 4px;
 	animation-name: blink;
-	animation-duration: .5s;
+	animation-duration: 0.5s;
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: 3;
 	animation-direction: alternate;
@@ -123,7 +123,49 @@ button {
 	50% { outline: 4px var(--error) solid; }
 	75% { outline: 1px var(--error) solid; }
 	100% { outline: 1px transparent solid; }
- }
+}
+
+.grid-layout .float-mid-bottom {
+	display: none;
+}
+.grid-layout .float-mid-bottom.active {
+	display: grid;
+	animation-name: fade-in-bottom;
+	animation-duration: 1.0s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+}
+.grid-layout .float-mid-bottom.hidden {
+	display: grid;
+	animation-name: fade-out-bottom;
+	animation-duration: 1.0s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+}
+
+/* Additional icons */
+.icon.icon-nasa-logo {
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-image: url(../assets/svg/nasa_logo.svg);
+	width: 45px;
+	height: 45px;
+}
+.icon-bg {
+	background: var(--grayDarkAlpha);
+	border-radius: 3px;
+}
+body.hover .icon-bg:hover {
+	background: var(--grayAlpha);
+}
+body.hover .icon-plus:hover,
+body.hover .icon-minus:hover,
+body.hover .icon-box:hover .icon-natural-light,
+body.hover .icon-box:hover .icon-flood-light {
+	opacity: 1;
+}
 
 /* Pioneer CSS */
 .pioneer {
@@ -142,13 +184,11 @@ button {
 	cursor: default;
 	pointer-events: none;
 }
-.pioneer .pioneer-label-div:before {
+.pioneer .pioneer-label-div::before {
 	content: "⌾ ";
 	display: inline-block;
-	margin-left: -.35em;
-	margin-top: .20em;
-	padding-bottom: .25em;
-	padding-right: .25em;
+	margin-left: -0.35em;
+	margin-top: 0.20em;
+	padding-bottom: 0.25em;
+	padding-right: 0.25em;
 }
-
-

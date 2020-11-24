@@ -7,14 +7,28 @@
 		<script src="script.js"></script>
 		<title>Mars 2020 Mission Visualization</title>
 	</head>
-	<body style="margin: 0">
+	<body>
 		<div class="pioneer"></div>
 		<div class="ui grid-layout simple-grid">
-			<header class="header"></header>
-			<div class="float-mid-bottom">
+			<header class="header">
+				<div class="icon icon-nasa-logo"></div>
+				<div class="title semi">
+					<span class="first">Mars</span>
+					<span class="second">2020</span>
+				</div>
+				<div class="subtitle tiny"><span>Entry</span><span>Descent</span><span>Landing</span></div>
+				<p class="credits small"><span>Powered by </span><span><em>NASA's Eyes</em></span></p>
+				<div class="disclaimer subtitle tiny">Computer Simulation</div>
+			</header>
+			<article id="story-panel" class="story-panel"></article>
+			<div id ="float-mid-bottom" class="float-mid-bottom">
+				<div id="story-back-button" class="story-back-button"></div>
 				<nav id="clock-shortcut" class="clock-shortcut"></nav>
 				<time id="clock" class="clock"></time>
 				<div id="time-controller" class="time-controller"></div>
+			</div>
+			<div class="float-right-bottom">
+				<div id="settings"></div>
 			</div>
 		</div>
 	</body>

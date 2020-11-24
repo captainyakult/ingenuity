@@ -113,9 +113,6 @@ class SceneManager extends BaseSceneManager {
 					div.addEventListener('click', async (event) => {
 						await this.goToEntity(entity.getName());
 						this._target = entity.getName();
-						this._router.pushQuery({
-							target: this._target
-						}, true);
 						event.preventDefault();
 					}, false);
 					div.addEventListener('mouseup', (event) => {

@@ -14,7 +14,7 @@ class HomeView extends BaseView {
 	constructor(div, app) {
 		super(div, app);
 
-		this._components = ['clock', 'timeController', 'breadcrumb', 'clockShortcut'];
+		this._components = ['clock', 'timeController', 'breadcrumb', 'clockShortcut', 'settings', 'storyPanel', 'storyBackButton'];
 
 		this._rules = {
 			rate: {
@@ -22,6 +22,86 @@ class HomeView extends BaseView {
 				default: 1
 			}
 		};
+
+		this._controlsTimeout = 4 * 1000; // in milliseconds
+		this._isDragging = false;
+
+		this._showControls = this._showControls.bind(this);
+		this._hideControls = this._hideControls.bind(this);
+		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
+
+		window.addEventListener('mousedown', (event) => {
+			if (this._app.isTouch()) {
+				return;
+			}
+			this._isDragging = true;
+
+			// Show bottom panel
+			if (event.target.id === 'main-viewport') {
+				this._showControls();
+			}
+
+			// Refresh timer
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+				this._hideControls();
+				this._app.getComponent('storyPanel').show();
+			}, this._controlsTimeout);
+		});
+		window.addEventListener('mousemove', (event) => {
+			if (this._isDragging) {
+				// Refresh timer
+				clearTimeout(this._timer);
+			}
+		});
+		window.addEventListener('wheel', (event) => {
+			if (this._app.isTouch()) {
+				return;
+			}
+			// Refresh timer
+			clearTimeout(this._timer);
+		});
+		window.addEventListener('mouseup', (event) => {
+			if (this._app.isTouch()) {
+				return;
+			}
+			this._isDragging = false;
+
+			// Refresh timer
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+				this._hideControls();
+				this._app.getComponent('storyPanel').show();
+			}, this._controlsTimeout);
+		});
+		window.addEventListener('touchstart', (event) => {
+			// Show bottom panel and hide story panel
+			if (event.target.id === 'main-viewport') {
+				this._showControls();
+				this._app.getComponent('storyPanel').hide();
+			}
+
+			// Refresh timer
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+				this._hideControls();
+				this._app.getComponent('storyPanel').show();
+			}, this._controlsTimeout);
+		});
+
+		window.addEventListener('touchmove', (event) => {
+			// Refresh timer
+			clearTimeout(this._timer);
+		});
+
+		window.addEventListener('touchend', (event) => {
+			// Refresh timer
+			clearTimeout(this._timer);
+			this._timer = setTimeout(() => {
+				this._hideControls();
+				this._app.getComponent('storyPanel').show();
+			}, this._controlsTimeout);
+		});
 	}
 
 	/**
@@ -43,6 +123,12 @@ class HomeView extends BaseView {
 			this._app.getManager('time').setTime(startTime);
 		}
 
+		// Update story panel
+		this._app.getComponent('storyPanel').onRouteChange(params);
+
+		// Register callback for photo mode
+		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
+
 		await this.updateCamera(params.target);
 	}
 
@@ -51,14 +137,58 @@ class HomeView extends BaseView {
 	 * @param {string} target
 	 */
 	async updateCamera(target) {
-		if (target) {
-			if (this._target !== target) {
-				this._target = target;
-				await this._app.getManager('camera').goToEntity(target);
-			}
+		if (!target) {
+			target = 'sc_perseverance';
+		}
+		if (this._target !== target) {
+			this._target = target;
+			await this._app.getManager('camera').goToEntity(target);
+		}
+	}
+
+	/**
+	 * Show/hide components on photo mode change.
+	 * @param {boolean} isPhotoMode
+	 */
+	onPhotoModeChange(isPhotoMode) {
+		if (isPhotoMode) {
+			this._hideControls();
+			this._app.getComponent('storyPanel').hide();
 		}
 		else {
-			await this._app.getManager('camera').goToEntity('sc_perseverance');
+			this._app.getComponent('storyPanel').show();
+		}
+	}
+
+	/**
+	 * Show control panel (clock, time controls).
+	 */
+	_showControls() {
+		document.getElementById('float-mid-bottom').classList.add('active');
+		document.getElementById('float-mid-bottom').classList.remove('hidden');
+		if (this._app.isMobile()) {
+			this._app.getComponent('settings').show();
+		}
+	}
+
+	/**
+	 * Hide control panel (clock, time controls).
+	 */
+	_hideControls() {
+		document.getElementById('float-mid-bottom').classList.add('hidden');
+		document.getElementById('float-mid-bottom').classList.remove('active');
+		if (this._app.isMobile()) {
+			this._app.getComponent('settings').hide();
+		}
+	}
+
+	resetStoryPanel() {
+		this._hideControls();
+		if (!this._app.getComponent('storyPanel').isVisible()) {
+			this._app.getComponent('storyPanel').show();
+		}
+		if (this._timer) {
+			clearTimeout(this._timer);
 		}
 	}
 }

@@ -1,59 +1,36 @@
 /* Shared properties */
-/* Timeline */
-.grid-layout .float-mid {
-	width: 100%;
-	align-self: end;
-	justify-self: start;
-}
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
 	/* Story panel */
-	.grid-layout .story {
+	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
 		grid-row: extf-start / foot-end;
-	}
-
-	/* Detail panel */
-	.grid-layout .detail {
-		grid-column: main-start / side-end;
-		grid-row: extf-start / foot-end;
-	}
-
-	/* Content panel */
-	.grid-layout .content-panel {
-		grid-column: main-start / side-end;
-		grid-row: extf-start / foot-end;
-		z-index: 50;
 	}
 
 	/* Header */
 	.grid-layout header {
 		grid-area: head;
 		height: 60px;
+		padding: 0 10px;
 	}
 
 	/* Controls */
 	.grid-layout .float-right-bottom {
-		grid-area: foot;
+		grid-column: extf-end / side-end;
+		grid-row: extf-start / foot-end;
 		align-self: end;
 		justify-self: start;
 		width: 100%;
-		height: 100px;
-	}
-
-	/* Timeline */
-	.grid-layout .float-mid {
-		grid-column: 2 / side-start;
-		grid-row: 3;
 	}
 
 	/* Time */
 	.grid-layout .float-mid-bottom {
-		grid-area: foot;
+		grid-column: main-start / side-end;
+		grid-row: extf-start / foot-end;
 		grid-template-columns: auto max-content;
-		grid-template-rows: auto auto;
-		align-self: center;
+		grid-template-rows: auto auto auto;
+		align-self: end;
 		justify-self: center;
 		margin: 0 20px;
 		width: calc(100% - 40px);
@@ -73,33 +50,15 @@
 /* Laptops/desktops, large devices, and screens with width >= 992px */
 @media only screen and (min-width: 992px) {
 	/* Story panel */
-	.grid-layout .story {
+	.grid-layout .story-panel {
 		grid-column: main-start / extd-end;
 		grid-row: head-start / foot-end;
-	}
-
-	/* Detail panel */
-	.grid-layout .detail {
-		grid-column: main-start / main-end;
-		grid-row: head-start / foot-end;
-	}
-
-	/* Content panel */
-	.grid-layout .content-panel {
-		grid-column: main-start / main-end;
-		grid-row: head-start / foot-end;
-		display: grid;
-		grid-template-rows: 80px 30px auto 3%;
-		grid-template-columns: 1fr;
-		gap: 5px;
 	}
 
 	/* Header */
 	.grid-layout header {
 		grid-area: head;
 		height: 65px;
-		display: grid;
-		grid-template-columns: 1fr auto;
 	}
 
 	/* Controls */
@@ -109,20 +68,14 @@
 		align-self: center;
 		justify-self: end;
 		width: 30px;
-		height: 50%;
-	}
-
-	/* Timeline */
-	.grid-layout .float-mid {
-		grid-column: main-end / side-start;
-		grid-row: extf-start;
+		height: 60%;
 	}
 
 	/* Time */
 	.grid-layout .float-mid-bottom {
 		grid-template-columns: minmax(250px, 30%) 70%;
 		grid-template-rows: 50% 50%;
-		grid-column: main-end / side-start;
+		grid-column: extd-end / side-start;
 		grid-row: foot-start / foot-end;
 		align-self: center;
 		align-items: center;
@@ -136,42 +89,27 @@
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
 	/* Story panel */
-	.grid-layout .story {
-		grid-column: main-start / extd-end;
-		grid-row: head-start / foot-end;
-	}
-
-	/* Detail panel */
-	.grid-layout .detail {
-		grid-column: main-start / main-end;
-		grid-row: head-start / foot-end;
-	}
-
-	/* Content panel */
-	.grid-layout .content-panel {
-		grid-column: main-start / main-end;
-		grid-row: head-start / foot-end;
+	.grid-layout .story-panel {
+		grid-column: main-start / side-end;
+		grid-row: extm-start / foot-end;
 	}
 
 	/* Header */
 	.grid-layout header {
 		grid-area: head;
 		height: 60px;
+		padding: 0;
 	}
 
 	/* Controls */
 	.grid-layout .float-right-bottom {
-		grid-column: side-start / side-end;
-		grid-row: side-start / foot-end;
+		grid-column: 9 / side-end;
+		grid-row: side-end / foot-end;
 		align-self: center;
 		justify-self: end;
-		width: 30px;
 		height: 50%;
-	}
-
-	/* Timeline */
-	.grid-layout .float-mid {
-		grid-row: main;
+		display: grid;
+		justify-content: end;
 	}
 
 	/* Time */
@@ -179,9 +117,9 @@
 		grid-template-columns: auto max-content;
 		grid-template-rows: auto auto;
 		grid-column: main-start / side-end;
-		grid-row: foot-start / foot-end;
+		grid-row: extf-start / foot-end;
 		height: auto;
-		align-self: start;
+		align-self: end;
 		display: grid;
 		align-items: initial;
 		justify-items: start;
