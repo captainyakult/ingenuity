@@ -1,5 +1,5 @@
 .carousel .track {
-	background: transparent url(../assets/svg/timeline-bg.svg) repeat-y 0 0;
+	background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
 }
 .carousel .slide {
 	position: relative;
