@@ -19,13 +19,6 @@ class CameraManager extends BaseCameraManager {
 			up: false,
 			distance: distance
 		});
-		const select = cameraEntity.addController('select');
-		select.setCallback(async (entity) => {
-			if (entity !== null) {
-				await this.goToEntity(entity.getName());
-				this._target = entity.getName();
-			}
-		});
 		const orbit = cameraEntity.get('orbit');
 		if (orbit instanceof Pioneer.OrbitController) {
 			orbit.slowWhenCloseToParent(true);
