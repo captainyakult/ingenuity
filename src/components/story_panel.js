@@ -18,6 +18,17 @@ class StoryPanel extends Carousel {
 	constructor(app, div, options) {
 		super(app, div, options);
 
+		this._units = {
+			metric: {
+				distanceUnit: 'km',
+				speedUnit: 'km/h'
+			},
+			imperial: {
+				distanceUnit: 'mi',
+				speedUnit: 'mph'
+			}
+		};
+
 		this._state = {
 			...this._state,
 			liveClass: 'hidden',
@@ -26,9 +37,8 @@ class StoryPanel extends Carousel {
 			altitude: 0,
 			touchdown: 0,
 			touchdownClass: '',
-			isMetric: true,
-			distanceUnit: 'km',
-			speedUnit: 'km/h',
+			isMetric: false,
+			...this._units.imperial,
 			textClass: ''
 		};
 
@@ -210,20 +220,10 @@ class StoryPanel extends Carousel {
 	 * @param {boolean} system
 	 */
 	onUnitChange(isMetric) {
-		if (isMetric) {
-			this.setState({
-				isMetric,
-				distanceUnit: 'km',
-				speedUnit: 'km/h'
-			});
-		}
-		else {
-			this.setState({
-				isMetric,
-				distanceUnit: 'mi',
-				speedUnit: 'mph'
-			});
-		}
+		this.setState({
+			isMetric,
+			...(isMetric ? this._units.metric : this._units.imperial)
+		});
 	}
 
 	/**
