@@ -19,9 +19,11 @@ class TimeController extends BaseTimeController {
 			-300, // 5 mins
 			-60,
 			-10,
+			-5,
 			-1,
 			0,
 			1,
+			5,
 			10,
 			60,
 			300
