@@ -98,12 +98,14 @@ class SceneManager extends BaseSceneManager {
 		// Populate labels
 		const clickableEntities = [
 			'sc_perseverance_landing_site',
+			'sc_perseverance',
 			'sc_perseverance_rover',
 			'sc_perseverance_cruise_stage',
 			'sc_perseverance_backshell',
 			'sc_perseverance_heat_shield',
 			'sc_perseverance_descent_stage',
-			'mars', 'earth', 'phobos', 'deimos'];
+			'mars', 'earth', 'phobos', 'deimos'
+		];
 		for (let i = 0, l = this._scene.getNumEntities(); i < l; i++) {
 			const entity = this._scene.getEntity(i);
 			const divComponent = entity.get('div');
@@ -111,7 +113,7 @@ class SceneManager extends BaseSceneManager {
 				const div = divComponent.getDiv();
 				if (clickableEntities.includes(entity.getName())) {
 					div.addEventListener('click', async (event) => {
-						await this.goToEntity(entity.getName());
+						await this._app.getManager('camera').goToEntity(entity.getName());
 						this._target = entity.getName();
 						event.preventDefault();
 					}, false);
