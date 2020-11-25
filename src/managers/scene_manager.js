@@ -103,8 +103,7 @@ class SceneManager extends BaseSceneManager {
 			'sc_perseverance_cruise_stage',
 			'sc_perseverance_backshell',
 			'sc_perseverance_heat_shield',
-			'sc_perseverance_descent_stage',
-			'mars', 'earth', 'phobos', 'deimos'
+			'sc_perseverance_descent_stage'
 		];
 		for (let i = 0, l = this._scene.getNumEntities(); i < l; i++) {
 			const entity = this._scene.getEntity(i);
