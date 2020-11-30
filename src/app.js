@@ -59,9 +59,11 @@ class App extends BaseApp {
 		 * @type {object}
 		 */
 		this.dateConstants = {
-			start: 666952132.045910 - 60, // Cruise state separation is 60s before start of EDL (ET seconds)
-			EDLStart: 666952132.045910, // ET seconds
-			landing: 666953087 // ET seconds
+			min: 666952142.000 - 360.00, // Min time supported by keyframes
+			start: 666952082.000, // Cruise state separation is 60s before start of EDL (ET seconds)
+			EDLStart: 666952142.000, // ET seconds
+			landing: 666953087, // ET seconds
+			end: 666952142.000 + 950.222 + 16.000 // ET seconds
 		};
 	}
 
@@ -87,7 +89,7 @@ class App extends BaseApp {
 		timeManager.setDisplayERT(true);
 		// Update date limits
 		const min = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.start) * 1000, this._timezone);
-		const max = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.landing) * 1000, this._timezone);
+		const max = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.end) * 1000, this._timezone);
 		timeManager.setDefaultLimits({ min, max });
 		timeManager.setLimits({ min, max });
 		timeManager.setStartTime(min);
