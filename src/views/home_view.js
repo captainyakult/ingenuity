@@ -37,16 +37,18 @@ class HomeView extends BaseView {
 			this._isDragging = true;
 
 			// Show bottom panel
-			if (event.target.id === 'main-viewport') {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
 			}
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			this._timer = setTimeout(() => {
-				this._hideControls();
-				this._app.getComponent('storyPanel').show();
-			}, this._controlsTimeout);
+			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+				this._timer = setTimeout(() => {
+					this._hideControls();
+					this._app.getComponent('storyPanel').show();
+				}, this._controlsTimeout);
+			}
 		});
 		window.addEventListener('mousemove', (event) => {
 			if (this._isDragging) {
@@ -69,24 +71,28 @@ class HomeView extends BaseView {
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			this._timer = setTimeout(() => {
-				this._hideControls();
-				this._app.getComponent('storyPanel').show();
-			}, this._controlsTimeout);
+			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+				this._timer = setTimeout(() => {
+					this._hideControls();
+					this._app.getComponent('storyPanel').show();
+				}, this._controlsTimeout);
+			}
 		});
 		window.addEventListener('touchstart', (event) => {
 			// Show bottom panel and hide story panel
-			if (event.target.id === 'main-viewport') {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
 				this._app.getComponent('storyPanel').hide();
 			}
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			this._timer = setTimeout(() => {
-				this._hideControls();
-				this._app.getComponent('storyPanel').show();
-			}, this._controlsTimeout);
+			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+				this._timer = setTimeout(() => {
+					this._hideControls();
+					this._app.getComponent('storyPanel').show();
+				}, this._controlsTimeout);
+			}
 		});
 
 		window.addEventListener('touchmove', (event) => {
@@ -97,10 +103,12 @@ class HomeView extends BaseView {
 		window.addEventListener('touchend', (event) => {
 			// Refresh timer
 			clearTimeout(this._timer);
-			this._timer = setTimeout(() => {
-				this._hideControls();
-				this._app.getComponent('storyPanel').show();
-			}, this._controlsTimeout);
+			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+				this._timer = setTimeout(() => {
+					this._hideControls();
+					this._app.getComponent('storyPanel').show();
+				}, this._controlsTimeout);
+			}
 		});
 	}
 
