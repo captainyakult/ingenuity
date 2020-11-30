@@ -129,7 +129,7 @@ class App extends BaseApp {
 		this._managers.time.registerCallback('ratechange', timeController.onRateChange);
 		timeController.setEnabled(true);
 
-		const settings = await this.addComponent('settings', Settings, document.getElementById('settings'));
+		const settings = await this.addComponent('settings', Settings, document.getElementById('settings'), { isMetric: false });
 
 		const storyPanel = await this.addComponent('storyPanel', StoryPanel, document.getElementById('story-panel'));
 		this._managers.time.registerCallback('update', storyPanel.update);
