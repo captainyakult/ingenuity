@@ -8,22 +8,6 @@
 		grid-row: extf-start / foot-end;
 	}
 
-	/* Header */
-	.grid-layout header {
-		grid-area: head;
-		height: 60px;
-		padding: 0 10px;
-	}
-
-	/* Controls */
-	.grid-layout .float-right-bottom {
-		grid-column: extf-end / side-end;
-		grid-row: extf-start / foot-end;
-		align-self: end;
-		justify-self: start;
-		width: 100%;
-	}
-
 	/* Time */
 	.grid-layout .float-mid-bottom {
 		grid-column: main-start / side-end;
@@ -55,22 +39,6 @@
 		grid-row: head-start / foot-end;
 	}
 
-	/* Header */
-	.grid-layout header {
-		grid-area: head;
-		height: 65px;
-	}
-
-	/* Controls */
-	.grid-layout .float-right-bottom {
-		grid-column: side-start / side-end;
-		grid-row: side-start / foot-end;
-		align-self: center;
-		justify-self: end;
-		width: 30px;
-		height: 60%;
-	}
-
 	/* Time */
 	.grid-layout .float-mid-bottom {
 		grid-template-columns: minmax(250px, 30%) 70%;
@@ -94,24 +62,6 @@
 		grid-row: extm-start / foot-end;
 	}
 
-	/* Header */
-	.grid-layout header {
-		grid-area: head;
-		height: 60px;
-		padding: 0;
-	}
-
-	/* Controls */
-	.grid-layout .float-right-bottom {
-		grid-column: 9 / side-end;
-		grid-row: side-end / foot-end;
-		align-self: center;
-		justify-self: end;
-		height: 50%;
-		display: grid;
-		justify-content: end;
-	}
-
 	/* Time */
 	.grid-layout .float-mid-bottom {
 		grid-template-columns: auto max-content;
@@ -124,5 +74,74 @@
 		align-items: initial;
 		justify-items: start;
 		gap: 10px 5px;
+	}
+}
+
+
+/* 480x320 phones and above */
+@media only screen and (min-width: 320px) {
+	/* Header */
+	.grid-layout header {
+		grid-area: head;
+		height: 60px;
+		padding: 0 10px;
+	}
+
+	/* Controls */
+	.grid-layout .float-right-bottom {
+		grid-column: extf-end / side-end;
+		grid-row: extf-start / foot-end;
+		align-self: end;
+		justify-self: start;
+		width: 100%;
+	}
+}
+
+/* Landscape. 480x320 phones and above */
+@media only screen and (min-width: 320px) and (orientation: landscape) {
+	/* Header */
+	.grid-layout header {
+		padding: 0;
+	}
+
+	/* Controls */
+	.grid-layout .float-right-bottom {
+		grid-column: 9 / side-end;
+		grid-row: side-end / foot-end;
+		align-self: end;
+		justify-self: end;
+		display: grid;
+		justify-content: end;
+	}
+}
+
+/* Portrait. Portrait tablets/iPad and above */
+@media only screen and (min-width: 641px) and (orientation: portrait) {
+	/* Controls */
+	.grid-layout .float-right-bottom {
+		grid-column: 9 / side-end;
+		grid-row: foot-start / foot-end;
+		align-self: end;
+		justify-self: end;
+		display: grid;
+		justify-content: end;
+	}
+}
+
+/* Landscape iPad, big tablet and above */
+@media only screen and (min-width: 961px) {
+	/* Header */
+	.grid-layout header {
+		height: 65px;
+	}
+
+	/* Controls */
+	.grid-layout .float-right-bottom {
+		grid-column: side-start / side-end;
+		grid-row: side-start / foot-end;
+		align-self: center;
+		justify-self: end;
+		width: 30px;
+		height: 60%;
 	}
 }
