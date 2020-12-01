@@ -13,16 +13,8 @@
 * Change path of sprite.css in sprite.html to ../css/sprite.css
 * Search and remove the -fixed
 * Search and replace -hover by :hover
-* Prepend body.hover for every hover statement
+* Prepend body.hover for every hover statement and add hover class to sprite.html body
 * Create optional mirrored icons for arrow up and arrow left by copying down and right and adding transform: rotate(180deg);
-* Add Nasa logo
-  .icon-nasa-logo {
-    display: inline-block;
-    background-repeat: no-repeat;
-    background-image: url(../svg/nasa_logo.svg);
-    width: 45px;
-    height: 45px;
-  }
 * Test sprite.html in your browser
 
 # Modified files
