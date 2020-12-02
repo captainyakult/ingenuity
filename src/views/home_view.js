@@ -137,7 +137,7 @@ class HomeView extends BaseView {
 		// Register callback for photo mode
 		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
 
-		await this.updateCamera(params.target);
+		await this.updateCamera();
 	}
 
 	/**
