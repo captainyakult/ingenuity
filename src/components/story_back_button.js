@@ -43,7 +43,7 @@ class StoryBackButton extends BaseComponent {
 		this._container = document.createElement('div');
 		this._container.className = 'container clickable';
 		this._container.addEventListener('click', () => {
-			this._app.getView('home').resetStoryPanel();
+			this._app.getView('home').resetStoryPanelMobile();
 		});
 		this._div.appendChild(this._container);
 
