@@ -173,7 +173,7 @@ class HomeView extends BaseView {
 	 */
 	async updateCamera(target) {
 		if (!target) {
-			target = 'sc_perseverance';
+			target = 'sc_perseverance_rover';
 		}
 		if (this._target !== target) {
 			this._target = target;
