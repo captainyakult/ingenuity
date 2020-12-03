@@ -5,13 +5,13 @@
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
-		grid-row: extf-start / foot-end;
+		grid-row: extm-start / foot-end;
 	}
 
 	/* Header */
 	.grid-layout header {
 		grid-area: head;
-		height: 60px;
+		height: 80px;
 		padding: 0 10px;
 	}
 

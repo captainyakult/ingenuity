@@ -239,7 +239,6 @@ class StoryPanel extends Carousel {
 		this.goToSlide(index);
 		const time = params.time ? params.time : this._timestamps[index];
 		this._app.getManager('time').setTime(time);
-
 		this.updatePanel(index, this._app.getManager('time').getTime().valueOf());
 	}
 

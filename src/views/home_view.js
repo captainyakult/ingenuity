@@ -26,6 +26,7 @@ class HomeView extends BaseView {
 		this._controlsTimeout = 4 * 1000; // in milliseconds
 		this._isDragging = false;
 		this._controlsVisible = false;
+		this._firstLoad = true;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -183,12 +184,18 @@ class HomeView extends BaseView {
 			this._app.getManager('time').setTime(startTime);
 		}
 
+		// Collapse on first load
+		if (this._firstLoad && this._app.isMobile()) {
+			this._app.getComponent('storyPanel').collapse();
+		}
+
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);
 
 		// Register callback for photo mode
 		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
 
+		this._firstLoad = false;
 		await this.updateCamera(params.target);
 	}
 

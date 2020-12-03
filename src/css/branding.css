@@ -56,10 +56,14 @@
 		grid-column: 4;
 		grid-row: 2;
 		justify-self: end;
+		align-self: start;
 		opacity: 0.25;
+		text-align: right;
+		margin-top: -25px;
 	}
 	.header .credits {
 		text-align: right;
+		align-self: start;
 	}
 	.header .credits span {
 		display: block;
