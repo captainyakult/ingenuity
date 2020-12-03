@@ -25,6 +25,7 @@ class HomeView extends BaseView {
 
 		this._controlsTimeout = 4 * 1000; // in milliseconds
 		this._isDragging = false;
+		this._controlsVisible = false;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -137,6 +138,30 @@ class HomeView extends BaseView {
 				}, this._controlsTimeout);
 			}
 		});
+
+		window.addEventListener('resize', () => {
+			if (this._app.getComponent('settings').getState('isPhotoMode')) {
+				return;
+			}
+
+			// Mobile
+			if (this._app.isMobile()) {
+				if (this._app.getComponent('storyPanel').isVisible() && this._controlsVisible) {
+					this.resetStoryPanelMobile();
+				}
+				else if (this._app.getComponent('storyPanel').isVisible() && this._app.getComponent('settings').isVisible()) {
+					this.resetStoryPanelMobile();
+				}
+			}
+			else { // Desktop
+				if (!this._app.getComponent('storyPanel').isVisible()) {
+					this._app.getComponent('storyPanel').show();
+				}
+				if (!this._app.getComponent('settings').isVisible()) {
+					this._app.getComponent('settings').show();
+				}
+			}
+		});
 	}
 
 	/**
@@ -189,7 +214,6 @@ class HomeView extends BaseView {
 		if (isPhotoMode) {
 			this._hideControls();
 			this._app.getComponent('storyPanel').hide();
-			this._app.getComponent('settings').collapse();
 		}
 		else {
 			this._app.getComponent('storyPanel').show();
@@ -203,6 +227,7 @@ class HomeView extends BaseView {
 	 * Shows control panel (clock, time controls).
 	 */
 	_showControls() {
+		this._controlsVisible = true;
 		document.getElementById('float-mid-bottom').classList.add('active');
 		document.getElementById('float-mid-bottom').classList.remove('hidden');
 	}
@@ -211,6 +236,7 @@ class HomeView extends BaseView {
 	 * Hides control panel (clock, time controls).
 	 */
 	_hideControls() {
+		this._controlsVisible = false;
 		document.getElementById('float-mid-bottom').classList.add('hidden');
 		document.getElementById('float-mid-bottom').classList.remove('active');
 	}
@@ -229,7 +255,10 @@ class HomeView extends BaseView {
 		this._app.getComponent('settings').hide();
 	}
 
-	resetStoryPanel() {
+	/**
+	 * Resets the story panel for mobile.
+	 */
+	resetStoryPanelMobile() {
 		this._hideControls();
 		this._hideSettings();
 		if (!this._app.getComponent('storyPanel').isVisible()) {
