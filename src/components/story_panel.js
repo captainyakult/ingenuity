@@ -64,6 +64,7 @@ class StoryPanel extends Carousel {
 
 		this._settings.navigationButtons.prev.text = 'Scroll for previous phase';
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
+		this._settings.timeout = 500;
 
 		this.update = this.update.bind(this);
 		this.onUnitChange = this.onUnitChange.bind(this);
