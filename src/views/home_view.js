@@ -23,7 +23,7 @@ class HomeView extends BaseView {
 			}
 		};
 
-		this._controlsTimeout = 4 * 1000; // in milliseconds
+		this._controlsTimeout = 30 * 1000; // in milliseconds
 		this._isDragging = false;
 		this._controlsVisible = false;
 		this._firstLoad = true;
@@ -49,7 +49,7 @@ class HomeView extends BaseView {
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._timer = setTimeout(() => {
 					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
 						this._hideControls();
@@ -82,7 +82,7 @@ class HomeView extends BaseView {
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._timer = setTimeout(() => {
 					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
 						this._hideControls();
@@ -106,7 +106,7 @@ class HomeView extends BaseView {
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._timer = setTimeout(() => {
 					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
 						this._hideControls();
@@ -127,7 +127,7 @@ class HomeView extends BaseView {
 		window.addEventListener('touchend', (event) => {
 			// Refresh timer
 			clearTimeout(this._timer);
-			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._timer = setTimeout(() => {
 					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
 						this._hideControls();

@@ -159,6 +159,7 @@
 		font-size: 24px;
 		line-height: 95%;
 		margin-bottom: 10px;
+		margin-right: 25px;
 	}
 	.carousel .phase .label {
 		display: none;
@@ -174,6 +175,36 @@
 		top: 0;
 		right: 10px;
 		outline: none;
+	}
+	.carousel .hint-button {
+		position: absolute;
+		top: -30px;
+		left: 50%;
+		transform: rotate(-90deg) translateY(-50%) scale(1);
+		pointer-events: none;
+		display: none;
+	}
+	.carousel.expand-active .hint-button,
+	.carousel.expand .hint-button {
+		animation-name: pulse;
+		animation-duration: 0.75s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 8;
+		animation-fill-mode: both;
+		animation-direction: alternate;
+		display: block;
+	}
+
+	@keyframes pulse {
+		0% {
+			opacity: 0.0;
+		}
+		75% {
+			opacity: 0.5;
+		}
+		100% {
+			opacity: 0.75;
+		}
 	}
 }
 
@@ -226,6 +257,7 @@
 	.carousel .description.mobile {
 		display: none;
 	}
+	.carousel .hint-button,
 	.carousel .collapse-button {
 		display: none;
 	}
