@@ -36,7 +36,7 @@
 		width: calc(100% - 40px);
 		display: grid;
 		justify-items: start;
-		gap: 15px 5px;
+		gap: 10px 5px;
 	}
 
 	/* Overlay */
