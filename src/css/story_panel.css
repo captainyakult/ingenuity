@@ -1,3 +1,7 @@
+.carousel {
+	--offset: calc(100% - 75px);
+}
+
 .carousel .track {
 	background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
 }
@@ -55,75 +59,70 @@
 .carousel .altitude .value {
 	margin-left: 8px;
 }
-
+@keyframes story-collapse-mobile {
+	0% {
+		top: 0%;
+	}
+	100% {
+		top: var(--offset);
+	}
+}
+@keyframes story-expand-mobile {
+	0% {
+		top: var(--offset);
+	}
+	100% {
+		top: 0%;
+	}
+}
+@keyframes fade-in-left-collapse {
+	0% {
+		opacity: 0;
+		transform: translateX(-100%);
+		top: var(--offset);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+		top: var(--offset);
+	}
+}
+@keyframes fade-out-left-collapse {
+	0% {
+		opacity: 1;
+		transform: translateX(0);
+		top: var(--offset);
+	}
+	100% {
+		opacity: 0;
+		transform: translateX(-100%);
+		top: var(--offset);
+	}
+}
+@keyframes pulse {
+	0% {
+		opacity: 0.0;
+	}
+	75% {
+		opacity: 0.5;
+	}
+	100% {
+		opacity: 0.75;
+	}
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 50%;
+	}
+}
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
 	.carousel {
 		pointer-events: none;
-	}
-	@keyframes story-collapse-mobile {
-		0% {
-			top: 0%;
-		}
-		100% {
-			top: 80%;
-		}
-	}
-	@keyframes story-expand-mobile {
-		0% {
-			top: 80%;
-		}
-		100% {
-			top: 0%;
-		}
-	}
-	@keyframes fade-in-left-collapse {
-		0% {
-			opacity: 0;
-			transform: translateX(-100%);
-			top: 80%;
-		}
-		100% {
-			opacity: 1;
-			transform: translateX(0);
-			top: 80%;
-		}
-	}
-	@keyframes fade-out-left-collapse {
-		0% {
-			opacity: 1;
-			transform: translateX(0);
-			top: 80%;
-		}
-		100% {
-			opacity: 0;
-			transform: translateX(-100%);
-			top: 80%;
-		}
-	}
-	.carousel.expand-active {
-		animation: story-expand-mobile 0.75s ease 1;
-		animation-fill-mode: both;
-	}
-	.carousel.collapse.hidden {
-		display: block;
-		animation-name: fade-out-left-collapse;
-		animation-duration: 1.0s;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: 1;
-		animation-fill-mode: both;
-	}
-	.carousel.collapse.active {
-		animation-name: fade-in-left-collapse;
-		animation-duration: 1.0s;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: 1;
-		animation-fill-mode: both;
-	}
-	.carousel.collapse-active.active {
-		animation: story-collapse-mobile 0.75s ease 1;
-		animation-fill-mode: both;
 	}
 	.carousel .track {
 		pointer-events: none;
@@ -152,9 +151,8 @@
 		pointer-events: all;
 		position: relative;
 	}
-	.carousel .navigation-button {
-		display: none;
-	}
+
+	/* Content */
 	.carousel .title {
 		font-size: 24px;
 		line-height: 95%;
@@ -170,6 +168,11 @@
 	.carousel .description.mobile {
 		display: block;
 	}
+
+	/* Buttons */
+	.carousel .navigation-button {
+		display: none;
+	}
 	.carousel .collapse-button {
 		position: absolute;
 		top: 0;
@@ -184,6 +187,31 @@
 		pointer-events: none;
 		display: none;
 	}
+
+	/* Animations */
+	.carousel.expand-active {
+		animation: story-expand-mobile 0.75s ease 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse.hidden {
+		display: block;
+		animation-name: fade-out-left-collapse;
+		animation-duration: 1.0s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse.active {
+		animation-name: fade-in-left-collapse;
+		animation-duration: 1.0s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse-active.active {
+		animation: story-collapse-mobile 0.75s ease 1;
+		animation-fill-mode: both;
+	}
 	.carousel.expand-active .hint-button,
 	.carousel.expand .hint-button {
 		animation-name: pulse;
@@ -194,32 +222,12 @@
 		animation-direction: alternate;
 		display: block;
 	}
-
-	@keyframes pulse {
-		0% {
-			opacity: 0.0;
-		}
-		75% {
-			opacity: 0.5;
-		}
-		100% {
-			opacity: 0.75;
-		}
-	}
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
 @media only screen and (min-width: 992px) {
 	.carousel {
 		height: calc(100% - 85px);
-	}
-	@keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		100% {
-			background-position: 100% 50%;
-		}
 	}
 	.carousel .slide .container {
 		padding-right: 20px;
@@ -277,20 +285,93 @@
 	.carousel .slide.hidden * {
 		pointer-events: none;
 	}
+	.carousel.collapse-active .slide .container,
+	.carousel.collapse .slide .container {
+		align-content: start;
+		padding-top: 20px;
+	}
 	.carousel .slide .container {
 		align-items: end;
 		pointer-events: none;
+		align-content: end;
+		padding-bottom: 20px;
 	}
 	.carousel .slide .content {
 		padding: 0 20px;
-		margin: 0 0 20px 0;
+		margin: 0;
 		align-content: end;
 		pointer-events: all;
+		position: relative;
+	}
+
+	/* Content */
+	.carousel .title {
+		font-size: 24px;
+		line-height: 95%;
+		margin-bottom: 10px;
+		margin-right: 25px;
+	}
+	.carousel .phase .label {
+		display: none;
 	}
 	.carousel .description {
 		display: none;
 	}
 	.carousel .description.mobile {
+		display: block;
+	}
+	
+	/* Buttons */
+	.carousel .navigation-button {
+		display: none;
+	}
+	.carousel .collapse-button {
+		position: absolute;
+		top: 0;
+		right: 10px;
+		outline: none;
+	}
+	.carousel .hint-button {
+		position: absolute;
+		top: -30px;
+		left: 50%;
+		transform: rotate(-90deg) translateY(-50%) scale(1);
+		pointer-events: none;
+		display: none;
+	}
+
+	/* Animations */
+	.carousel.expand-active {
+		animation: story-expand-mobile 0.75s ease 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse.hidden {
+		display: block;
+		animation-name: fade-out-left-collapse;
+		animation-duration: 1.0s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse.active {
+		animation-name: fade-in-left-collapse;
+		animation-duration: 1.0s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse-active.active {
+		animation: story-collapse-mobile 0.75s ease 1;
+		animation-fill-mode: both;
+	}
+	.carousel.expand-active .hint-button,
+	.carousel.expand .hint-button {
+		animation-name: pulse;
+		animation-duration: 0.75s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 8;
+		animation-fill-mode: both;
+		animation-direction: alternate;
 		display: block;
 	}
 }
