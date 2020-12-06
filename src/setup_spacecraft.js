@@ -351,7 +351,9 @@ export class SetupSpacecraft {
 					const entryBurnModel = entity.getComponent('entryBurn');
 					if (entryBurnModel instanceof Pioneer.ModelComponent) {
 						const material = entryBurnModel.getMaterial('effects.003');
-						material.uniforms.colorMultiplier.value.set(1, 1, 1, 0);
+						if (material !== null) {
+							material.uniforms.colorMultiplier.value.set(1, 1, 1, 0);
+						}
 					}
 				}
 			}],
