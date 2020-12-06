@@ -14,7 +14,7 @@ export class SetupSpacecraft {
 
 		// Create Perseverance parent.
 		const perseverance = Entity.createFromOptions('sc_perseverance', {
-			radius: 0.0045,
+			radius: 0.00225,
 			label: 'Mars 2020',
 			trail: {
 				length: 10000000.0
@@ -28,8 +28,6 @@ export class SetupSpacecraft {
 				customUrl: true
 			}],
 			postCreateFunction: (entity) => {
-				entity.addComponent('gizmo').setSize(0.002);
-				entity.addComponent('gizmo').setRelativeToEntity(false);
 				// Make the trail relative to mars orientation.
 				const trail = entity.get('trail');
 				if (trail instanceof Pioneer.TrailComponent) {
@@ -81,7 +79,6 @@ export class SetupSpacecraft {
 				orientation: new Pioneer.Quaternion(0.810909298674393, -0.4734179035756301, 0.33425925681074165, -0.08107001377692065)
 			},
 			postCreateFunction: (entity) => {
-				entity.addComponent('gizmo');
 				// It's fixed to M20 until the separation point.
 				const fixed = entity.addController('fixed');
 				if (fixed instanceof Pioneer.FixedController) {
@@ -160,7 +157,6 @@ export class SetupSpacecraft {
 					orientation: Pioneer.Quaternion.Identity
 				},
 				postCreateFunction: (entity) => {
-					entity.addComponent('gizmo');
 					const keyframe = entity.addController('keyframe');
 					keyframe.setParent('sc_perseverance');
 					if (keyframe instanceof Pioneer.KeyframeController) {
@@ -184,7 +180,7 @@ export class SetupSpacecraft {
 
 		// Backshell
 		Entity.createFromOptions('sc_perseverance_backshell', {
-			radius: 0.002,
+			radius: 0.00225,
 			label: 'Backshell',
 			model: {
 				url: 'assets/models/Backshell/edl2020_backshell.gltf',
@@ -200,7 +196,6 @@ export class SetupSpacecraft {
 				customUrl: true
 			}],
 			postCreateFunction: (entity) => {
-				entity.addComponent('gizmo');
 				// Make the trail relative to mars orientation.
 				const trail = entity.get('trail');
 				if (trail instanceof Pioneer.TrailComponent) {
@@ -255,7 +250,7 @@ export class SetupSpacecraft {
 
 		// Parachute Cap
 		Entity.createFromOptions('sc_perseverance_chutecap', {
-			radius: 0.002,
+			radius: 0.0001,
 			model: {
 				url: 'assets/models/ChuteCap/edl2020_chuteCap.gltf',
 				rotate: [
@@ -308,7 +303,7 @@ export class SetupSpacecraft {
 
 		// Heat shield
 		Entity.createFromOptions('sc_perseverance_heat_shield', {
-			radius: 0.002,
+			radius: 0.00225,
 			label: 'Heat Shield',
 			trail: {
 				length: 100
