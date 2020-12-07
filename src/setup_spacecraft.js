@@ -314,15 +314,7 @@ export class SetupSpacecraft {
 					{ x: -90 }
 				]
 			},
-			// dynamo: [{
-			// 	url: 'assets/dynamo/sc_perseverance_heat_shield/mars/pos',
-			// 	parent: 'mars',
-			// 	customUrl: true
-			// }, {
-			// 	url: 'assets/dynamo/sc_perseverance_heat_shield/ori',
-			// 	customUrl: true
-			// }],
-			coverages: [{
+			coverages: [{ // Adding the entry burn model.
 				coverage: [T0, T0 + 783.275],
 				update: (entity) => {
 					const entryBurnModel = entity.getComponent('entryBurn');
@@ -351,6 +343,48 @@ export class SetupSpacecraft {
 						}
 					}
 				}
+			}, { // Offset of the heat shield so it rotates around a better axis.
+				coverage: [T0 + 804.269, Number.POSITIVE_INFINITY],
+				exit: (entity) => {
+					const model = entity.getComponentByType('model');
+					if (model instanceof Pioneer.ModelComponent) {
+						if (model.getRoot() !== null) {
+							model.getRoot().children[0].children[0].position.set(0, 0, 0);
+						}
+					}
+				},
+				update: (entity) => {
+					const model = entity.getComponentByType('model');
+					if (model instanceof Pioneer.ModelComponent) {
+						if (model.getRoot() !== null) {
+							const lerpOffset = Pioneer.MathUtils.clamp01((entity.getScene().getEngine().getTime() - (T0 + 804.269)) / 1.0);
+							// UPDATE: If heat shield mesh offset changes, update it here.
+							model.getRoot().children[0].children[0].position.set(0, 1.20 * lerpOffset, 0);
+						}
+					}
+				}
+			}, { // Changing the texture to burnth when it enters the atmosphere.
+				coverage: [T0 + 610.000, Number.POSITIVE_INFINITY],
+				enter: (entity) => {
+					const model = entity.get('model', 0);
+					if (model instanceof Pioneer.ModelComponent) {
+						const material = model.getMaterial('heat_shield_AO');
+						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+							console.log('in');
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/heat_shield_AO_burnt.png', false, true);
+						}
+					}
+				},
+				exit: (entity) => {
+					const model = entity.get('model', 0);
+					if (model instanceof Pioneer.ModelComponent) {
+						const material = model.getMaterial('heat_shield_AO');
+						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+							console.log('out');
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/heat_shield_AO.png', false, true);
+						}
+					}
+				}
 			}],
 			postCreateFunction: (entity) => {
 				// Make the tail relative to mars orientation.
@@ -358,6 +392,17 @@ export class SetupSpacecraft {
 				if (trail instanceof Pioneer.TrailComponent) {
 					trail.setRelativeToParentOrientation(true);
 					trail.resetPoints();
+				}
+				// Setup texture change for main model.
+				const model = entity.get('model', 0);
+				if (model instanceof Pioneer.ModelComponent) {
+					model.setMeshCreatedCallback(() => {
+						const material = model.getMaterial('heat_shield_AO');
+						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+							const burnt = (entity.getScene().getEngine().getTime() >= T0 + 610.000) ? '_burnt' : '';
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/heat_shield_AO' + burnt + '.png', false, true);
+						}
+					});
 				}
 				// Add entry burn model.
 				const entryBurnModel = entity.addComponent('model', 'entryBurn');
@@ -431,28 +476,6 @@ export class SetupSpacecraft {
 					spin.setReferenceTime(T0 + 804.269);
 					spin.setReferenceAngle(0.0);
 					spin.setCoverage(new Pioneer.Interval(T0 + 804.269, T0 + 804.269 + 60.0));
-				}
-				// Add coverage for the offsets of the heat shield mesh so that it rotates around its center when flying off.
-				const coverage = entity.addController('coverage');
-				if (coverage instanceof Pioneer.CoverageController) {
-					coverage.addCoverage(new Pioneer.Interval(T0 + 804.269, Number.POSITIVE_INFINITY), undefined,
-						(entity) => { // exit
-							const model = entity.getComponentByType('model');
-							if (model instanceof Pioneer.ModelComponent) {
-								if (model.getRoot() !== null) {
-									model.getRoot().children[0].children[0].position.set(0, 0, 0);
-								}
-							}
-						}, (entity) => { // update
-							const model = entity.getComponentByType('model');
-							if (model instanceof Pioneer.ModelComponent) {
-								if (model.getRoot() !== null) {
-									const lerpOffset = Pioneer.MathUtils.clamp01((entity.getScene().getEngine().getTime() - (T0 + 804.269)) / 1.0);
-									// UPDATE: If heat shield mesh offset changes, update it here.
-									model.getRoot().children[0].children[0].position.set(0, 1.20 * lerpOffset, 0);
-								}
-							}
-						});
 				}
 			}
 		}, scene);
