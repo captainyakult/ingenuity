@@ -3,6 +3,7 @@
 		"id": "cruise_stage_separation",
 		"title": "Cruise Stage Separation",
 		"description": "About ten minutes before entering the atmosphere, the spacecraft sheds its Cruise Stage, which houses solar panels, radios, and fuel tanks during its flight to Mars.",
+		"mobileDescription": "The spacecraft sheds the cruise stage, which houses the solar panels, fuel tanks.",
 		"timestamp": -60.000
 	},
 	{
@@ -81,6 +82,7 @@
 		"id": "descent_stage_throttle_down",
 		"title": "Descent Stage Throttle Down",
 		"description": "When the rover is 21 meters above the ground, half of the engines turn off and the descent stage levels off to reach the final velocity of 2.7 km/hr.",
+		"mobileDescription": "The rockets power down to achieve 2.7 km/hr speed.",
 		"timestamp": 931.000
 	},
 	{
