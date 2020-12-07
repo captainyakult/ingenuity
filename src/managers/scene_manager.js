@@ -105,10 +105,22 @@ class SceneManager extends BaseSceneManager {
 			'sc_perseverance_heat_shield',
 			'sc_perseverance_descent_stage'
 		];
+		const visibleLabels = [
+			...clickableEntities,
+			'earth'
+		];
 		for (let i = 0, l = this._scene.getNumEntities(); i < l; i++) {
 			const entity = this._scene.getEntity(i);
 			const divComponent = entity.get('div');
+
 			if (divComponent instanceof Pioneer.DivComponent) {
+				if (visibleLabels.indexOf(entity.getName()) < 0) {
+					divComponent.setEnabled(false);
+					continue;
+				}
+				if (entity.getName() === 'sc_perseverance') {
+					divComponent.setFadeWhenCloseToParent(false);
+				}
 				const div = divComponent.getDiv();
 				if (clickableEntities.includes(entity.getName())) {
 					div.addEventListener('click', async (event) => {
