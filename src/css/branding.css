@@ -68,9 +68,10 @@
 	}
 
 	.header .version {
-		grid-column: 1;
-		grid-row: 2;
-		justify-self: start;
+		grid-column: 4;
+		grid-row: 3;
+		justify-self: end;
+		margin-top: 8px;
 	}
 
 	.header .credits {
@@ -96,7 +97,7 @@
 	.header .version {
 		position: absolute;
 		margin: auto;
-		margin-top: 35px;
+		margin-top: 40px;
 		left: 50%;
 		transform: translateX(-50%);
 	}
@@ -116,10 +117,11 @@
 	.header .version {
 		position: absolute;
 		margin: auto;
-		margin-top: 35px;
+		margin-top: 40px;
 		left: 50%;
 		transform: translateX(-50%);
 		grid-row: unset;
 		grid-column: unset;
 	}
+
 }
