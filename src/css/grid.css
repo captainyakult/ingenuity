@@ -91,7 +91,7 @@
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
-		grid-row: extm-start / foot-end;
+		grid-row: main-start / foot-end;
 	}
 
 	/* Header */
@@ -125,5 +125,7 @@
 		align-items: initial;
 		justify-items: start;
 		gap: 10px 5px;
+		width: 100%;
+		margin: 0;
 	}
 }

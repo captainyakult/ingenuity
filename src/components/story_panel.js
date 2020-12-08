@@ -86,11 +86,13 @@ class StoryPanel extends Carousel {
 				<span class="live semi color">live</span>
 			</div>
 			<h2 class="title">${info.title}</h2>
-			<div class="distance {{textClass}}">{{distance}}<span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
-			<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span>{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
-			<div class="velocity {{textClass}}"><span class="label semi">Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
-			<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
-			<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
+			<div class="body">
+				<div class="distance {{textClass}}">{{distance}}<span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
+				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span>{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
+				<div class="velocity {{textClass}}"><span class="label semi">Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
+				<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
+				<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
+			</div>
 			<div class="footer">
 				<div class="touchdown {{touchdownClass}}"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
 		`;

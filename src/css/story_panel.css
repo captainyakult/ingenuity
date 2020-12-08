@@ -1,7 +1,3 @@
-.carousel {
-	--offset: calc(100% - 75px);
-}
-
 .carousel .track {
 	background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
 }
@@ -59,46 +55,7 @@
 .carousel .altitude .value {
 	margin-left: 8px;
 }
-@keyframes story-collapse-mobile {
-	0% {
-		top: 0%;
-	}
-	100% {
-		top: var(--offset);
-	}
-}
-@keyframes story-expand-mobile {
-	0% {
-		top: var(--offset);
-	}
-	100% {
-		top: 0%;
-	}
-}
-@keyframes fade-in-left-collapse {
-	0% {
-		opacity: 0;
-		transform: translateX(-100%);
-		top: var(--offset);
-	}
-	100% {
-		opacity: 1;
-		transform: translateX(0);
-		top: var(--offset);
-	}
-}
-@keyframes fade-out-left-collapse {
-	0% {
-		opacity: 1;
-		transform: translateX(0);
-		top: var(--offset);
-	}
-	100% {
-		opacity: 0;
-		transform: translateX(-100%);
-		top: var(--offset);
-	}
-}
+
 @keyframes pulse {
 	0% {
 		opacity: 0.0;
@@ -119,24 +76,22 @@
 	}
 }
 
+
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
 	.carousel {
 		pointer-events: none;
+		--story-height: calc((100vh - 16px) * 3 / 5 + 8px);
 	}
 	.carousel .track {
 		pointer-events: none;
+		background: none;
 	}
 	.carousel .slide {
-		height: calc((100vh - 16px) * 3 / 5 + 8px);
+		height: var(--story-height);
 	}
 	.carousel .slide.hidden * {
 		pointer-events: none;
-	}
-	.carousel.collapse-active .slide .container,
-	.carousel.collapse .slide .container {
-		align-content: start;
-		padding-top: 20px;
 	}
 	.carousel .slide .container {
 		align-items: end;
@@ -150,6 +105,10 @@
 		align-content: end;
 		pointer-events: all;
 		position: relative;
+		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+	.carousel .body {
+		overflow: hidden;
 	}
 
 	/* Content */
@@ -189,30 +148,36 @@
 	}
 
 	/* Animations */
-	.carousel.expand-active {
-		animation: story-expand-mobile 0.75s ease 1;
-		animation-fill-mode: both;
+	@keyframes shrink {
+		0% {
+			max-height: var(--story-height);
+		}
+		100% {
+			max-height: 0;
+		}
 	}
-	.carousel.collapse.hidden {
-		display: block;
-		animation-name: fade-out-left-collapse;
+	@keyframes develop {
+		0% {
+			max-height: 0;
+		}
+		100% {
+			max-height: var(--story-height);
+		}
+	}
+	.carousel.expand .body {
+		animation-name: develop;
 		animation-duration: 1.0s;
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 1;
 		animation-fill-mode: both;
 	}
-	.carousel.collapse.active {
-		animation-name: fade-in-left-collapse;
-		animation-duration: 1.0s;
+	.carousel.collapse .body {
+		animation-name: shrink;
+		animation-duration: 0.4s;
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 1;
 		animation-fill-mode: both;
 	}
-	.carousel.collapse-active.active {
-		animation: story-collapse-mobile 0.75s ease 1;
-		animation-fill-mode: both;
-	}
-	.carousel.expand-active .hint-button,
 	.carousel.expand .hint-button {
 		animation-name: pulse;
 		animation-duration: 0.75s;
@@ -275,20 +240,18 @@
 @media only screen and (max-height: 600px) and (orientation: landscape) {
 	.carousel {
 		pointer-events: none;
+		width: calc(100% + 20px); /* Add neg margin back */
+		--story-height: calc((100vh - 16px) * 4 / 5 + 12px);
 	}
 	.carousel .track {
 		pointer-events: none;
+		background: none;
 	}
 	.carousel .slide {
-		height: calc((100vh - 16px) * 3 / 5 + 8px);
+		height: var(--story-height);
 	}
 	.carousel .slide.hidden * {
 		pointer-events: none;
-	}
-	.carousel.collapse-active .slide .container,
-	.carousel.collapse .slide .container {
-		align-content: start;
-		padding-top: 20px;
 	}
 	.carousel .slide .container {
 		align-items: end;
@@ -302,6 +265,11 @@
 		align-content: end;
 		pointer-events: all;
 		position: relative;
+		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+	.carousel .footer,
+	.carousel .body {
+		overflow: hidden;
 	}
 
 	/* Content */
@@ -327,8 +295,9 @@
 	}
 	.carousel .collapse-button {
 		position: absolute;
-		top: 0;
-		right: 10px;
+		top: auto;
+		bottom: 0;
+		right: 0;
 		outline: none;
 	}
 	.carousel .hint-button {
@@ -341,30 +310,38 @@
 	}
 
 	/* Animations */
-	.carousel.expand-active {
-		animation: story-expand-mobile 0.75s ease 1;
-		animation-fill-mode: both;
+	@keyframes shrink {
+		0% {
+			max-height: var(--story-height);
+		}
+		100% {
+			max-height: 0;
+		}
 	}
-	.carousel.collapse.hidden {
-		display: block;
-		animation-name: fade-out-left-collapse;
+	@keyframes develop {
+		0% {
+			max-height: 0;
+		}
+		100% {
+			max-height: var(--story-height);
+		}
+	}
+	.carousel.expand .footer,
+	.carousel.expand .body {
+		animation-name: develop;
 		animation-duration: 1.0s;
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 1;
 		animation-fill-mode: both;
 	}
-	.carousel.collapse.active {
-		animation-name: fade-in-left-collapse;
-		animation-duration: 1.0s;
+	.carousel.collapse .footer,
+	.carousel.collapse .body {
+		animation-name: shrink;
+		animation-duration: 0.4s;
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 1;
 		animation-fill-mode: both;
 	}
-	.carousel.collapse-active.active {
-		animation: story-collapse-mobile 0.75s ease 1;
-		animation-fill-mode: both;
-	}
-	.carousel.expand-active .hint-button,
 	.carousel.expand .hint-button {
 		animation-name: pulse;
 		animation-duration: 0.75s;
