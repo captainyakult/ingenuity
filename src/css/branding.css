@@ -41,6 +41,9 @@
 	display: block;
 }
 
+.header .disclaimer {
+	opacity: 0.25;
+}
 
 .header .credits {
 	opacity: 0.25;
@@ -50,14 +53,27 @@
 	font-style: normal;
 }
 
+.header .version {
+	opacity: 0.75;
+	color: yellow;
+	font-weight: 600;
+}
+
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px)  {
 	.header .disclaimer {
 		grid-column: 4;
 		grid-row: 2;
 		justify-self: end;
-		opacity: 0.25;
 	}
+
+	.header .version {
+		grid-column: 4;
+		grid-row: 3;
+		justify-self: end;
+		margin-top: 8px;
+	}
+
 	.header .credits {
 		text-align: right;
 	}
@@ -77,7 +93,13 @@
 		margin-top: 20px;
 		left: 50%;
 		transform: translateX(-50%);
-		opacity: 0.25;
+	}
+	.header .version {
+		position: absolute;
+		margin: auto;
+		margin-top: 40px;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 }
 
@@ -89,8 +111,17 @@
 		margin-top: 20px;
 		left: 50%;
 		transform: translateX(-50%);
-		opacity: 0.25;
 		grid-row: unset;
 		grid-column: unset;
 	}
+	.header .version {
+		position: absolute;
+		margin: auto;
+		margin-top: 40px;
+		left: 50%;
+		transform: translateX(-50%);
+		grid-row: unset;
+		grid-column: unset;
+	}
+
 }
