@@ -188,23 +188,11 @@ export class SetupSpacecraft {
 					{ x: -90 }
 				]
 			},
-			trail: {
-				length: 1000.0
-			},
 			dynamo: [{
 				url: 'assets/dynamo/sc_perseverance_backshell/ori',
 				customUrl: true
 			}],
 			postCreateFunction: (entity) => {
-				// Make the trail relative to mars orientation.
-				const trail = entity.get('trail');
-				if (trail instanceof Pioneer.TrailComponent) {
-					trail.setStartTime(T0 + 888.910);
-					trail.setEndTime(T0 + 888.910 + 60);
-					trail.setRelativeTime(false);
-					trail.setRelativeToParentOrientation(true);
-					trail.resetPoints();
-				}
 				// It's fixed to M20 until the separation point.
 				const fixedAttached = entity.addController('fixed');
 				if (fixedAttached instanceof Pioneer.FixedController) {
@@ -305,9 +293,6 @@ export class SetupSpacecraft {
 		Entity.createFromOptions('sc_perseverance_heat_shield', {
 			radius: 0.00225,
 			label: 'Heat Shield',
-			trail: {
-				length: 100
-			},
 			model: {
 				url: 'assets/models/HeatShield/edl2020_heatshield.gltf',
 				rotate: [
@@ -387,12 +372,6 @@ export class SetupSpacecraft {
 				}
 			}],
 			postCreateFunction: (entity) => {
-				// Make the tail relative to mars orientation.
-				const trail = entity.get('trail');
-				if (trail instanceof Pioneer.TrailComponent) {
-					trail.setRelativeToParentOrientation(true);
-					trail.resetPoints();
-				}
 				// Setup texture change for main model.
 				const model = entity.get('model', 0);
 				if (model instanceof Pioneer.ModelComponent) {
@@ -499,7 +478,6 @@ export class SetupSpacecraft {
 				customUrl: true
 			}],
 			postCreateFunction: (entity) => {
-				entity.addComponent('gizmo');
 				// It's fixed to M20.
 				const fixed = entity.addController('fixed');
 				if (fixed instanceof Pioneer.FixedController) {
@@ -573,9 +551,6 @@ export class SetupSpacecraft {
 					{ x: -90 }
 				]
 			},
-			trail: {
-				length: 100
-			},
 			coverages: [{
 				// Turn on the thrusters and plumes right after the backshell separates.
 				coverage: [T0 + 888.910 + 0.5, T0 + 957.012],
@@ -628,12 +603,6 @@ export class SetupSpacecraft {
 				}
 			}],
 			postCreateFunction: async (entity) => {
-				// Make the tail relative to mars orientation.
-				const trail = entity.get('trail');
-				if (trail instanceof Pioneer.TrailComponent) {
-					trail.setRelativeToParentOrientation(true);
-					trail.resetPoints();
-				}
 				// Add thruster and plume models.
 				const thrustersModel = entity.addComponent('model');
 				if (thrustersModel instanceof Pioneer.ModelComponent) {
