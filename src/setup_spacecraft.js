@@ -272,6 +272,21 @@ export class SetupSpacecraft {
 					{ x: -90 }
 				]
 			},
+			coverages: [{
+				coverage: [T0 + 888.910 + 53.432, Number.POSITIVE_INFINITY],
+				enter: (entity) => {
+					const model = entity.get('model');
+					if (model instanceof Pioneer.ModelComponent) {
+						model.setUrl('assets/models/ChuteCrumple/EDL2020_chuteCrumple.gltf');
+					}
+				},
+				exit: (entity) => {
+					const model = entity.get('model');
+					if (model instanceof Pioneer.ModelComponent) {
+						model.setUrl('assets/models/Chute/edl2020_chute.gltf');
+					}
+				}
+			}],
 			postCreateFunction: (entity) => {
 				// It's fixed to the backshell.
 				const fixed = entity.addController('fixed');
