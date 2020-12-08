@@ -602,6 +602,20 @@ export class SetupSpacecraft {
 						threeJsObjects[6].visible = true;
 					}
 				}
+			}, {
+				coverage: [T0 + 949.610, Number.POSITIVE_INFINITY],
+				enter: (entity) => {
+					entity.getComponentByType('connectedSprite', 0).setEnabled(false);
+					entity.getComponentByType('connectedSprite', 1).setEnabled(false);
+					entity.getComponentByType('connectedSprite', 2).setEnabled(false);
+					entity.getComponentByType('connectedSprite', 3).setEnabled(false);
+				},
+				exit: (entity) => {
+					entity.getComponentByType('connectedSprite', 0).setEnabled(true);
+					entity.getComponentByType('connectedSprite', 1).setEnabled(true);
+					entity.getComponentByType('connectedSprite', 2).setEnabled(true);
+					entity.getComponentByType('connectedSprite', 3).setEnabled(true);
+				}
 			}],
 			postCreateFunction: async (entity) => {
 				// Add thruster and plume models.
