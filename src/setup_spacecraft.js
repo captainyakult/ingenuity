@@ -495,14 +495,15 @@ export class SetupSpacecraft {
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
 					fixedGround.setParent(mars);
-					// UPDATE: M20 position in mars frame at T0 + 949.610.
+					// UPDATE: M20 position and orientation in mars frame at T0 + 949.610.
 					fixedGround.setPosition(new Pioneer.Vector3(700.7172357536766, 3140.286921221415, 1073.747552904285));
+					fixedGround.setOrientation(new Pioneer.Quaternion(0.5162974652585, 0.5860245600428426, -0.5492355789284052, 0.2972413518227576));
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 949.610, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
 				const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationSeparated.setRotatingOrientation(false);
+					rotateByParentOrientationSeparated.setRotatingOrientation(true);
 					rotateByParentOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 949.610, Number.POSITIVE_INFINITY));
 				}
 				// Add the model animations.
