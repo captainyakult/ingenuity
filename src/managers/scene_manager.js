@@ -40,7 +40,6 @@ class SceneManager extends BaseSceneManager {
 	_createCMTS() {
 		this._pioneer.registerComponentType('cmts', CMTSComponent);
 		const mars = this._scene.getEntity('mars');
-		mars.addComponent('gizmo');
 		// Get the spheroid from the spheroid coomponent.
 		/** @type {Pioneer.Spheroid} */
 		// Remove the spheroid component.
