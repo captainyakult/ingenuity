@@ -1,11 +1,6 @@
 .story-back-button .container {
-	display: inline-grid;
-    grid-template-columns: auto auto;
-	align-items: center;
-	justify-content: start;
-	gap: 5px;
+	display: inline-block;
 	background-color: var(--grayDarkAlpha);
-	padding: 5px 10px 5px 5px;
 	border-radius: 3px;
 }
 
@@ -13,7 +8,7 @@
 @media only screen and (max-width: 991px) {
 	.story-back-button {
 		border-bottom: 1px solid var(--grayDark);
-		padding-bottom: 20px;
+		padding-bottom: 10px;
 		width: 100%;
 	}
 }
@@ -28,7 +23,7 @@
 @media only screen and (max-height: 600px) and (orientation: landscape) {
 	.story-back-button {
 		border-bottom: 1px solid var(--grayDark);
-		padding-bottom: 15px;
+		padding-bottom: 10px;
 		width: 100%;
 	}
 }

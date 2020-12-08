@@ -51,11 +51,6 @@ class StoryBackButton extends BaseComponent {
 		this._children.icon.className = 'icon  icon-arrow-left';
 		this._container.appendChild(this._children.icon);
 
-		this._children.text = document.createElement('div');
-		this._children.text.className = 'text small';
-		this._children.text.innerHTML = 'Back to current phase';
-		this._container.appendChild(this._children.text);
-
 		this._setVariables(this._div);
 	}
 }

@@ -5,13 +5,13 @@
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
-		grid-row: extf-start / foot-end;
+		grid-row: extm-start / foot-end;
 	}
 
 	/* Header */
 	.grid-layout header {
 		grid-area: head;
-		height: 60px;
+		height: 80px;
 		padding: 0 10px;
 	}
 
@@ -36,7 +36,7 @@
 		width: calc(100% - 40px);
 		display: grid;
 		justify-items: start;
-		gap: 15px 5px;
+		gap: 10px 5px;
 	}
 
 	/* Overlay */
@@ -91,7 +91,7 @@
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
-		grid-row: extm-start / foot-end;
+		grid-row: main-start / foot-end;
 	}
 
 	/* Header */
@@ -107,9 +107,9 @@
 		grid-row: side-end / foot-end;
 		align-self: center;
 		justify-self: end;
-		height: 50%;
 		display: grid;
 		justify-content: end;
+		margin-top: 10px;
 	}
 
 	/* Time */
@@ -124,5 +124,7 @@
 		align-items: initial;
 		justify-items: start;
 		gap: 10px 5px;
+		width: 100%;
+		margin: 0;
 	}
 }

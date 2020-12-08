@@ -55,7 +55,7 @@ body {
 	.clock {
 		grid-row: 2;
 		grid-column: 2;
-		align-self: end;
+		align-self: center;
 		justify-self: end;
 	}
 	.time-controller {
@@ -67,12 +67,13 @@ body {
 		display: none;
 	}
 	.time-controller .rate-container {
-		grid-template-columns: auto 85px 2px 85px auto;
+		grid-template-columns: auto 70px 2px 70px auto;
 		grid-template-rows: 30px;
 	}
 	.clock-shortcut {
 		grid-row: 2;
 		grid-template-rows: auto auto;
+		align-self: center;
 	}
 }
 
