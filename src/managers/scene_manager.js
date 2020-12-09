@@ -106,6 +106,10 @@ class SceneManager extends BaseSceneManager {
 		];
 		const visibleLabels = [
 			...clickableEntities,
+			'sc_perseverance_ballast_0',
+			'sc_perseverance_ballast_1',
+			'sc_perseverance_chutecap',
+			'sc_perseverance_parachute',
 			'earth'
 		];
 		for (let i = 0, l = this._scene.getNumEntities(); i < l; i++) {
