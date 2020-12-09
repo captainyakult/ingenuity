@@ -22,7 +22,8 @@ class SceneManager extends BaseSceneManager {
 			sc_perseverance: {
 				clickable: true,
 				label: true,
-				trail: true
+				trail: true,
+				fadeWhenCloseToParent: false
 			},
 			sc_perseverance_rover: {
 				clickable: true,
@@ -42,6 +43,22 @@ class SceneManager extends BaseSceneManager {
 			},
 			sc_perseverance_descent_stage: {
 				clickable: true,
+				label: true
+			},
+			sc_perseverance_ballast_0: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_ballast_1: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_chutecap: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_parachute: {
+				clickable: false,
 				label: true
 			},
 			earth: {
@@ -155,7 +172,8 @@ class SceneManager extends BaseSceneManager {
 					divComponent.setEnabled(false);
 				}
 				else {
-					if (entity.getName() === 'sc_perseverance') {
+					if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].fadeWhenCloseToParent !== undefined
+						&& this._entityInfo[entityName].fadeWhenCloseToParent === false) {
 						divComponent.setFadeWhenCloseToParent(false);
 					}
 					const div = divComponent.getDiv();
