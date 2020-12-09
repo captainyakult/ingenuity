@@ -65,10 +65,10 @@
 	.grid-layout .float-right-bottom {
 		grid-column: side-start / side-end;
 		grid-row: side-start / foot-end;
-		align-self: center;
+		align-self: end;
 		justify-self: end;
 		width: 30px;
-		height: 60%;
+		margin-bottom: 25px;
 	}
 
 	/* Time */
