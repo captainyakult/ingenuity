@@ -370,7 +370,7 @@ export class SetupSpacecraft {
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('heat_shield_AO');
 						if (material instanceof Pioneer.THREE.ShaderMaterial) {
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/heat_shield_AO_burnt.png', false, true);
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO_burnt.png', false, true);
 						}
 					}
 				},
@@ -379,7 +379,7 @@ export class SetupSpacecraft {
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('heat_shield_AO');
 						if (material instanceof Pioneer.THREE.ShaderMaterial) {
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/heat_shield_AO.png', false, true);
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO.png', false, true);
 						}
 					}
 				}
@@ -392,7 +392,7 @@ export class SetupSpacecraft {
 						const material = model.getMaterial('heat_shield_AO');
 						if (material instanceof Pioneer.THREE.ShaderMaterial) {
 							const burnt = (entity.getScene().getEngine().getTime() >= T0 + 610.000) ? '_burnt' : '';
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/heat_shield_AO' + burnt + '.png', false, true);
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO' + burnt + '.png', false, true);
 						}
 					});
 				}
@@ -477,7 +477,7 @@ export class SetupSpacecraft {
 			radius: 0.002,
 			label: 'Perseverance',
 			model: {
-				url: '$STATIC_ASSETS_URL/models/sc_perseverance/edl/Perse/edl2020_perse.gltf',
+				url: 'assets/models/Perse/edl2020_perse.gltf',
 				rotate: [
 					{ x: -90 }
 				]
@@ -677,7 +677,7 @@ export class SetupSpacecraft {
 				// Add the cable models.
 				const cable = entity.addComponent('connectedSprite');
 				if (cable instanceof Pioneer.ConnectedSpriteComponent) {
-					cable.setTextureUrl('$STATIC_ASSETS_URL/models/sc_perseverance/edl/Cables/cable.png');
+					cable.setTextureUrl('assets/models/Cables/cable.png');
 					cable.setEntity1(entity);
 					cable.setEntity1Offset(new Pioneer.Vector3(0.00049103, -0.000082696, 0.00040494));
 					cable.setEntity2(scene.getEntity('sc_perseverance_rover'));
@@ -687,7 +687,7 @@ export class SetupSpacecraft {
 				}
 				const rope1 = entity.addComponent('connectedSprite');
 				if (rope1 instanceof Pioneer.ConnectedSpriteComponent) {
-					rope1.setTextureUrl('$STATIC_ASSETS_URL/models/sc_perseverance/edl/Cables/rope.png');
+					rope1.setTextureUrl('assets/models/Cables/rope.png');
 					rope1.setEntity1(entity);
 					rope1.setEntity1Offset(new Pioneer.Vector3(0.000006286, 0.000001785, 0.00014488));
 					rope1.setEntity2(scene.getEntity('sc_perseverance_rover'));
@@ -697,7 +697,7 @@ export class SetupSpacecraft {
 				}
 				const rope2 = entity.addComponent('connectedSprite');
 				if (rope2 instanceof Pioneer.ConnectedSpriteComponent) {
-					rope2.setTextureUrl('$STATIC_ASSETS_URL/models/sc_perseverance/edl/Cables/rope.png');
+					rope2.setTextureUrl('assets/models/Cables/rope.png');
 					rope2.setEntity1(entity);
 					rope2.setEntity1Offset(new Pioneer.Vector3(0.000006286, 0.000001785, 0.00014488));
 					rope2.setEntity2(scene.getEntity('sc_perseverance_rover'));
@@ -707,7 +707,7 @@ export class SetupSpacecraft {
 				}
 				const rope3 = entity.addComponent('connectedSprite');
 				if (rope3 instanceof Pioneer.ConnectedSpriteComponent) {
-					rope3.setTextureUrl('$STATIC_ASSETS_URL/models/sc_perseverance/edl/Cables/rope.png');
+					rope3.setTextureUrl('assets/models/Cables/rope.png');
 					rope3.setEntity1(entity);
 					rope3.setEntity1Offset(new Pioneer.Vector3(0.000006286, 0.000001785, 0.00014488));
 					rope3.setEntity2(scene.getEntity('sc_perseverance_rover'));
