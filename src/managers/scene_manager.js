@@ -8,6 +8,67 @@ import { SetupSpacecraft } from '../setup_spacecraft';
  */
 class SceneManager extends BaseSceneManager {
 	/**
+	 * Constructs the scene manager.
+	 * @param {BaseApplication} app
+	 * @param {Pioneer.Engine} engine
+	 */
+	constructor(app, engine) {
+		super(app, engine);
+		this._entityInfo = {
+			sc_perseverance_landing_site: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance: {
+				clickable: true,
+				label: true,
+				trail: true,
+				fadeWhenCloseToParent: false
+			},
+			sc_perseverance_rover: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_cruise_stage: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_backshell: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_heat_shield: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_descent_stage: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_ballast_0: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_ballast_1: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_chutecap: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_parachute: {
+				clickable: false,
+				label: true
+			},
+			earth: {
+				clickable: false,
+				label: true
+			}
+		};
+	}
+
+	/**
 	 * Populates the scene with objects.
 	 */
 	async populate() {
@@ -94,54 +155,46 @@ class SceneManager extends BaseSceneManager {
 	 * @private
 	 */
 	_populateLabelEvents() {
-		// Populate labels
-		const clickableEntities = [
-			'sc_perseverance_landing_site',
-			'sc_perseverance',
-			'sc_perseverance_rover',
-			'sc_perseverance_cruise_stage',
-			'sc_perseverance_backshell',
-			'sc_perseverance_heat_shield',
-			'sc_perseverance_descent_stage'
-		];
-		const visibleLabels = [
-			...clickableEntities,
-			'sc_perseverance_ballast_0',
-			'sc_perseverance_ballast_1',
-			'sc_perseverance_chutecap',
-			'sc_perseverance_parachute',
-			'earth'
-		];
 		for (let i = 0, l = this._scene.getNumEntities(); i < l; i++) {
 			const entity = this._scene.getEntity(i);
+			const entityName = entity.getName();
 			const divComponent = entity.get('div');
+			const trailComponent = entity.get('trail');
+
+			if (trailComponent instanceof Pioneer.TrailComponent) {
+				if (this._entityInfo[entityName] === undefined || !this._entityInfo[entityName].trail) {
+					trailComponent.setEnabled(false);
+				}
+			}
 
 			if (divComponent instanceof Pioneer.DivComponent) {
-				if (visibleLabels.indexOf(entity.getName()) < 0) {
+				if (this._entityInfo[entityName] === undefined || !this._entityInfo[entityName].label) {
 					divComponent.setEnabled(false);
-					continue;
-				}
-				if (entity.getName() === 'sc_perseverance') {
-					divComponent.setFadeWhenCloseToParent(false);
-				}
-				const div = divComponent.getDiv();
-				if (clickableEntities.includes(entity.getName())) {
-					div.addEventListener('click', async (event) => {
-						await this._app.getManager('camera').goToEntity(entity.getName());
-						this._target = entity.getName();
-						event.preventDefault();
-					}, false);
-					div.addEventListener('mouseup', (event) => {
-						event.preventDefault();
-						event.stopPropagation();
-					}, true);
-					div.addEventListener('mousemove', (event) => {
-						event.preventDefault();
-					}, true);
-					div.style.cursor = 'pointer';
 				}
 				else {
-					div.classList.add('disabled');
+					if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].fadeWhenCloseToParent !== undefined
+						&& this._entityInfo[entityName].fadeWhenCloseToParent === false) {
+						divComponent.setFadeWhenCloseToParent(false);
+					}
+					const div = divComponent.getDiv();
+					if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].clickable === true) {
+						div.addEventListener('click', async (event) => {
+							await this._app.getManager('camera').goToEntity(entity.getName());
+							this._target = entity.getName();
+							event.preventDefault();
+						}, false);
+						div.addEventListener('mouseup', (event) => {
+							event.preventDefault();
+							event.stopPropagation();
+						}, true);
+						div.addEventListener('mousemove', (event) => {
+							event.preventDefault();
+						}, true);
+						div.style.cursor = 'pointer';
+					}
+					else {
+						div.classList.add('disabled');
+					}
 				}
 			}
 		}
