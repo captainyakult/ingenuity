@@ -370,7 +370,6 @@ export class SetupSpacecraft {
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('heat_shield_AO');
 						if (material instanceof Pioneer.THREE.ShaderMaterial) {
-							console.log('in');
 							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/heat_shield_AO_burnt.png', false, true);
 						}
 					}
@@ -380,7 +379,6 @@ export class SetupSpacecraft {
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('heat_shield_AO');
 						if (material instanceof Pioneer.THREE.ShaderMaterial) {
-							console.log('out');
 							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, '$STATIC_ASSETS_URL/models/sc_perseverance/edl/HeatShield/heat_shield_AO.png', false, true);
 						}
 					}
