@@ -94,7 +94,6 @@
 	.header .disclaimer {
 		position: absolute;
 		margin: auto;
-		margin-top: 20px;
 		left: 50%;
 		transform: translateX(-50%);
 	}
