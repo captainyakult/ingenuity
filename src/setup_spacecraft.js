@@ -39,7 +39,7 @@ export class SetupSpacecraft {
 				if (fixedPre instanceof Pioneer.FixedController) {
 					fixedPre.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 0.000));
 					// UPDATE: Orientation of M20 at T0 + 0.000.
-					fixedPre.setOrientation(new Pioneer.Quaternion(0.8109092986743931, -0.47341790357563024, 0.33425925681074165, -0.0810700137769209));
+					fixedPre.setOrientation(new Pioneer.Quaternion(0.8092756274728345, -0.4796625006256699, 0.3249889720674909, -0.09684530090043017));
 				}
 				const spin = entity.addController('spin');
 				if (spin instanceof Pioneer.SpinController) {
@@ -54,11 +54,11 @@ export class SetupSpacecraft {
 				if (keyframePre instanceof Pioneer.KeyframeController) {
 					keyframePre.addPositionKeyframe(T0 - 360.000, {
 						// UPDATE: Position of M20 - 360 * velocity of M20 at T0 + 0.000.
-						position: new Pioneer.Vector3(-497.7480251874273, -6038.5256971762865, -114.08757627726379)
+						position: new Pioneer.Vector3(-498.2428551314156, -6039.068508016852, -113.90010223393193)
 					});
 					keyframePre.addPositionKeyframe(T0 + 0.000, {
 						// UPDATE: Position of M20 at T0 + 0.000.
-						position: new Pioneer.Vector3(659.858717251302, -4745.123739328727, -483.8681486746802)
+						position: new Pioneer.Vector3(659.3594036761485, -4745.765988033754, -483.6893172514795)
 					});
 				}
 			}
@@ -76,7 +76,7 @@ export class SetupSpacecraft {
 			},
 			fixed: {
 				// UPDATE: Orientation of M20 at T0 - 60.000.
-				orientation: new Pioneer.Quaternion(0.810909298674393, -0.4734179035756301, 0.33425925681074165, -0.08107001377692065)
+				orientation: new Pioneer.Quaternion(0.8092756274728345, -0.4796625006256698, 0.32498897206749106, -0.09684530090043)
 			},
 			postCreateFunction: (entity) => {
 				// It's fixed to M20 until the separation point.
@@ -161,7 +161,7 @@ export class SetupSpacecraft {
 					keyframe.setParent('sc_perseverance');
 					if (keyframe instanceof Pioneer.KeyframeController) {
 						const factor = 2.0 * (i - 0.5);
-						keyframe.addPositionKeyframe(T0 + 57.020, { // Balance mass ejection
+						keyframe.addPositionKeyframe(T0 + 56.395, { // Balance mass ejection
 							position: new Pioneer.Vector3(0.002, factor * 0.0002, 0.00065),
 							relativeToEntityPosition: perseverance,
 							relativeToEntityOrientation: perseverance
@@ -169,9 +169,9 @@ export class SetupSpacecraft {
 						keyframe.addPositionKeyframe(T0 + 570.145, { // End point
 							position: new Pioneer.Vector3(1, factor * 0.020, 0.00065),
 							relativeToEntityPosition: perseverance,
-							relativeToEntityPositionTime: T0 + 57.020,
+							relativeToEntityPositionTime: T0 + 56.395,
 							relativeToEntityOrientation: perseverance,
-							relativeToEntityOrientationTime: T0 + 57.020
+							relativeToEntityOrientationTime: T0 + 56.395
 						});
 					}
 				}
@@ -199,22 +199,22 @@ export class SetupSpacecraft {
 					fixedAttached.setPosition(Pioneer.Vector3.Zero);
 					fixedAttached.setOrientation(Pioneer.Quaternion.Identity);
 					fixedAttached.setParent(perseverance);
-					fixedAttached.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 888.910));
+					fixedAttached.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 889.035));
 				}
 				const rotateByParentOrientationAttached = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientationAttached instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientationAttached.setRotatingOrientation(true);
-					rotateByParentOrientationAttached.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 888.910));
+					rotateByParentOrientationAttached.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 889.035));
 				}
 				// The separation keyframes.
 				const keyframe = entity.addController('keyframe');
 				keyframe.setParent(mars);
 				if (keyframe instanceof Pioneer.KeyframeController) {
-					keyframe.addPositionKeyframe(T0 + 888.910, { // Separation
-						// UPDATE: M20 position in mars frame at T0 + 888.910.
-						position: new Pioneer.Vector3(700.8429965793329, 3142.199789119053, 1074.9541744854735)
+					keyframe.addPositionKeyframe(T0 + 889.035, { // Separation
+						// UPDATE: M20 position in mars frame at T0 + 889.035.
+						position: new Pioneer.Vector3(700.837025865386, 3142.164325971572, 1075.0863696752538)
 					});
-					keyframe.addPositionKeyframe(T0 + 888.910 + 53.432, { // Fly away further.
+					keyframe.addPositionKeyframe(T0 + 889.035 + 53.432, { // Fly away further.
 						position: new Pioneer.Vector3(700.9784361453491, 3140.3309044053594, 1073.4985109483948)
 					});
 				}
@@ -222,16 +222,16 @@ export class SetupSpacecraft {
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
 					fixedGround.setPosition(new Pioneer.Vector3(700.9784361453491, 3140.3309044053594, 1073.4985109483948));
-					// UPDATE: Backshell orientation at T0 + 888.910 + 53.432.
+					// UPDATE: Backshell orientation at T0 + 889.035 + 53.432.
 					fixedGround.setOrientation(new Pioneer.Quaternion(0.7937387940233991, -0.4012801395784579, -0.45623782291500575, 0.02828471997296891));
 					fixedGround.setParent(mars);
-					fixedGround.setCoverage(new Pioneer.Interval(T0 + 888.910 + 53.432, Number.POSITIVE_INFINITY));
+					fixedGround.setCoverage(new Pioneer.Interval(T0 + 889.035 + 53.432, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
 				const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientationSeparated.setRotatingOrientation(false);
-					rotateByParentOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 888.910, Number.POSITIVE_INFINITY));
+					rotateByParentOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 889.035, Number.POSITIVE_INFINITY));
 				}
 			}
 		}, scene);
@@ -273,7 +273,7 @@ export class SetupSpacecraft {
 				]
 			},
 			coverages: [{
-				coverage: [T0 + 888.910 + 53.432, Number.POSITIVE_INFINITY],
+				coverage: [T0 + 889.035 + 53.432, Number.POSITIVE_INFINITY],
 				enter: (entity) => {
 					const model = entity.get('model');
 					if (model instanceof Pioneer.ModelComponent) {
@@ -363,7 +363,7 @@ export class SetupSpacecraft {
 						}
 					}
 				}
-			}, { // Changing the texture to burnth when it enters the atmosphere.
+			}, { // Changing the texture to burnt when it enters the atmosphere.
 				coverage: [T0 + 610.000, Number.POSITIVE_INFINITY],
 				enter: (entity) => {
 					const model = entity.get('model', 0);
@@ -432,7 +432,7 @@ export class SetupSpacecraft {
 				if (keyframe instanceof Pioneer.KeyframeController) {
 					keyframe.addPositionKeyframe(T0 + 804.269, { // Separation
 						// UPDATE: M20 position in mars frame at T0 + 804.269.
-						position: new Pioneer.Vector3(705.593064376437, 3148.113142221692, 1078.3818888641947)
+						position: new Pioneer.Vector3(705.6134199726483, 3148.089861491276, 1078.4971021783292)
 					});
 					keyframe.addPositionKeyframe(T0 + 804.269 + 15, { // Fly away somewhere.
 						position: new Pioneer.Vector3(702.4418208779947, 3145.9844968597126, 1076.5851208833976)
@@ -458,7 +458,7 @@ export class SetupSpacecraft {
 				const fixedSeparated = entity.addController('fixed');
 				if (fixedSeparated instanceof Pioneer.FixedController) {
 					// UPDATE: M20 Orientation at T0 + 804.269
-					fixedSeparated.setOrientation(new Pioneer.Quaternion(0.24029421201414608, -0.13317488633267183, -0.6340011491170063, -0.7228870480518348));
+					fixedSeparated.setOrientation(new Pioneer.Quaternion(0.06011512681638599, -0.011747375598459526, -0.6549298825790744, -0.7532031728553449));
 					fixedSeparated.setCoverage(new Pioneer.Interval(T0 + 804.269, Number.POSITIVE_INFINITY));
 				}
 				const spin = entity.addController('spin');
@@ -497,44 +497,44 @@ export class SetupSpacecraft {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setParent('sc_perseverance');
-					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.532));
+					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.345));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.532));
+					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.345));
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
 					fixedGround.setParent(mars);
-					// UPDATE: M20 position and orientation in mars frame at T0 + 949.610.
-					fixedGround.setPosition(new Pioneer.Vector3(700.7172357536766, 3140.286921221415, 1073.747552904285));
-					fixedGround.setOrientation(new Pioneer.Quaternion(0.5162974652585, 0.5860245600428426, -0.5492355789284052, 0.2972413518227576));
-					fixedGround.setCoverage(new Pioneer.Interval(T0 + 949.610, Number.POSITIVE_INFINITY));
+					// UPDATE: M20 position and orientation in mars frame at T0 + 949.453.
+					fixedGround.setPosition(new Pioneer.Vector3(700.0276411247091, 3140.1545373546896, 1074.6161012999464));
+					fixedGround.setOrientation(new Pioneer.Quaternion(0.19330655929796994, -0.5435771125363358, 0.21331821730184536, 0.788449005977053));
+					fixedGround.setCoverage(new Pioneer.Interval(T0 + 949.453, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
 				const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientationSeparated.setRotatingOrientation(true);
-					rotateByParentOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 949.610, Number.POSITIVE_INFINITY));
+					rotateByParentOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 949.453, Number.POSITIVE_INFINITY));
 				}
 				// Add the model animations.
 				const modelAnimate = entity.addController('modelAnimate');
 				if (modelAnimate instanceof Pioneer.ModelAnimateController) {
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_l', 'susp_arm_f_lAction.002', new Pioneer.Interval(T0 + 934.532, T0 + 934.532 + 4.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_r', 'susp_arm_f_rAction.002', new Pioneer.Interval(T0 + 934.532, T0 + 934.532 + 4.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_l', 'susp_arm_m_lAction.002', new Pioneer.Interval(T0 + 934.532, T0 + 934.532 + 4.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_r', 'susp_arm_m_rAction.002', new Pioneer.Interval(T0 + 934.532, T0 + 934.532 + 4.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_l', 'susp_arm_b_lAction.001', new Pioneer.Interval(T0 + 934.532, T0 + 934.532 + 4.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_r', 'susp_arm_b_rAction.001', new Pioneer.Interval(T0 + 934.532, T0 + 934.532 + 4.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_l', 'susp_steer_f_lAction.001', new Pioneer.Interval(T0 + 934.532, T0 + 934.532 + 4.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_r', 'susp_steer_f_rAction.001', new Pioneer.Interval(T0 + 934.532, T0 + 934.532 + 4.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_l', 'susp_arm_f_lAction.002', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_r', 'susp_arm_f_rAction.002', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_l', 'susp_arm_m_lAction.002', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_r', 'susp_arm_m_rAction.002', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_l', 'susp_arm_b_lAction.001', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_r', 'susp_arm_b_rAction.001', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_l', 'susp_steer_f_lAction.001', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_r', 'susp_steer_f_rAction.001', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
 				}
 				// Add coverage for the offsets of the rover mesh so that it lines up with the IGP point.
 				const coverage = entity.addController('coverage');
 				if (coverage instanceof Pioneer.CoverageController) {
-					coverage.addCoverage(new Pioneer.Interval(T0 + 933.532, Number.POSITIVE_INFINITY), undefined,
+					coverage.addCoverage(new Pioneer.Interval(T0 + 933.345, Number.POSITIVE_INFINITY), undefined,
 						(entity) => { // exit
 							const model = entity.getComponentByType('model');
 							if (model instanceof Pioneer.ModelComponent) {
@@ -567,7 +567,7 @@ export class SetupSpacecraft {
 			},
 			coverages: [{
 				// Turn on the thrusters and plumes right after the backshell separates.
-				coverage: [T0 + 888.910 + 0.5, T0 + 957.012],
+				coverage: [T0 + 889.035 + 0.5, T0 + 956.855],
 				enter: (entity) => {
 					entity.get('model', 1).setEnabled(true);
 					entity.get('model', 2).setEnabled(true);
@@ -578,7 +578,7 @@ export class SetupSpacecraft {
 				}
 			}, {
 				// Turn off the 4 straight-down thrusters right before the rover separation.
-				coverage: [T0 + 933.532 - 1.5, T0 + 957.012],
+				coverage: [T0 + 933.345 - 1.5, T0 + 956.855],
 				update: (entity) => {
 					const thrusterModel = entity.get('model', 1);
 					if (thrusterModel instanceof Pioneer.ModelComponent && thrusterModel.getRoot() !== null) {
@@ -616,7 +616,7 @@ export class SetupSpacecraft {
 					}
 				}
 			}, {
-				coverage: [T0 + 949.610, Number.POSITIVE_INFINITY],
+				coverage: [T0 + 949.453, Number.POSITIVE_INFINITY],
 				enter: (entity) => {
 					entity.getComponentByType('connectedSprite', 0).setEnabled(false);
 					entity.getComponentByType('connectedSprite', 1).setEnabled(false);
@@ -721,47 +721,47 @@ export class SetupSpacecraft {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setParent('sc_perseverance');
-					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 950.222));
+					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 950.067));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 950.222));
+					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 950.067));
 				}
 				// The dynamo doesn't include the descent stage fly away, so adding it here.
 				const keyframePost = entity.addController('keyframe');
 				keyframePost.setParent(mars);
 				if (keyframePost instanceof Pioneer.KeyframeController) {
-					keyframePost.addPositionKeyframe(T0 + 950.222, {
-						// UPDATE: Position of M20 at T0 + 950.222.
+					keyframePost.addPositionKeyframe(T0 + 950.067, {
+						// UPDATE: Position of M20 at T0 + 950.067.
 						position: new Pioneer.Vector3(700.7188360421875, 3140.293788794516, 1073.750230330617)
 					});
-					keyframePost.addPositionKeyframe(T0 + 950.222 + 6.000, {
+					keyframePost.addPositionKeyframe(T0 + 950.067 + 6.000, {
 						position: new Pioneer.Vector3(700.7533866164556, 3140.419027437696, 1073.5569438483712)
 					});
-					keyframePost.addPositionKeyframe(T0 + 950.222 + 10.000, {
+					keyframePost.addPositionKeyframe(T0 + 950.067 + 10.000, {
 						position: new Pioneer.Vector3(700.7794480663632, 3140.5139389992178, 1073.3446634656586)
 					});
-					keyframePost.addPositionKeyframe(T0 + 950.222 + 16.000, {
+					keyframePost.addPositionKeyframe(T0 + 950.067 + 16.000, {
 						position: new Pioneer.Vector3(700.8165882212365, 3140.4802902374727, 1073.143339339353)
 					});
-					keyframePost.addOrientationKeyframe(T0 + 950.222, {
-						// UPDATE: Position of M20 at T0 + 950.222.
+					keyframePost.addOrientationKeyframe(T0 + 950.067, {
+						// UPDATE: Position of M20 at T0 + 950.067.
 						orientation: new Pioneer.Quaternion(0.742609656174994, -0.12345220647494637, -0.5730508861374051, -0.3238875316668726)
 					});
-					keyframePost.addOrientationKeyframe(T0 + 950.222 + 2.0, {
-						// UPDATE: Position of M20 at T0 + 950.222.
+					keyframePost.addOrientationKeyframe(T0 + 950.067 + 2.0, {
+						// UPDATE: Position of M20 at T0 + 950.067.
 						orientation: new Pioneer.Quaternion(0.9053789420122392, 0.009891425512975227, -0.24524557265729852, -0.3464761754495011)
 					});
-					keyframePost.addOrientationKeyframe(T0 + 950.222 + 16.0, {
-						// UPDATE: Position of M20 at T0 + 950.222.
+					keyframePost.addOrientationKeyframe(T0 + 950.067 + 16.0, {
+						// UPDATE: Position of M20 at T0 + 950.067.
 						orientation: new Pioneer.Quaternion(0.9053789420122392, -0.2380013591240958, -0.24524557265729852, -0.2519899472357486)
 					});
 				}
 				// Make it fixed to ground.
 				const fixedPost = entity.addController('fixed');
 				if (fixedPost instanceof Pioneer.FixedController) {
-					fixedPost.setCoverage(new Pioneer.Interval(T0 + 950.222 + 16.000, Number.POSITIVE_INFINITY));
+					fixedPost.setCoverage(new Pioneer.Interval(T0 + 950.067 + 16.000, Number.POSITIVE_INFINITY));
 					// UPDATE: Position of last keyframe.
 					fixedPost.setPosition(new Pioneer.Vector3(700.8165882212365, 3140.4802902374727, 1073.143339339353));
 				}
@@ -769,7 +769,7 @@ export class SetupSpacecraft {
 				const rotateByParentOrientationPost = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientationPost instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientationPost.setRotatingOrientation(false);
-					rotateByParentOrientationPost.setCoverage(new Pioneer.Interval(T0 + 950.222, Number.POSITIVE_INFINITY));
+					rotateByParentOrientationPost.setCoverage(new Pioneer.Interval(T0 + 950.067, Number.POSITIVE_INFINITY));
 				}
 			}
 		}, scene);
