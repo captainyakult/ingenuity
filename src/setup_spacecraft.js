@@ -212,7 +212,7 @@ export class SetupSpacecraft {
 				if (keyframe instanceof Pioneer.KeyframeController) {
 					keyframe.addPositionKeyframe(T0 + 889.035, { // Separation
 						// UPDATE: M20 position in mars frame at T0 + 889.035.
-						position: new Pioneer.Vector3(700.837025865386, 3142.164325971572, 1075.0863696752538)
+						position: new Pioneer.Vector3(700.8357588368021, 3142.16472493506, 1075.087115041164)
 					});
 					keyframe.addPositionKeyframe(T0 + 889.035 + 53.432, { // Fly away further.
 						position: new Pioneer.Vector3(700.9784361453491, 3140.3309044053594, 1073.4985109483948)
@@ -467,7 +467,7 @@ export class SetupSpacecraft {
 					spin.setRate(0.1);
 					spin.setReferenceTime(T0 + 804.269);
 					spin.setReferenceAngle(0.0);
-					spin.setCoverage(new Pioneer.Interval(T0 + 804.269, T0 + 804.269 + 60.0));
+					spin.setCoverage(new Pioneer.Interval(T0 + 804.269, T0 + 804.269 + 50.0));
 				}
 			}
 		}, scene);
