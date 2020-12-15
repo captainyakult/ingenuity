@@ -497,20 +497,20 @@ export class SetupSpacecraft {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setParent('sc_perseverance');
-					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.345));
+					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.497));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.345));
+					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.497));
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
 					fixedGround.setParent(mars);
-					// UPDATE: M20 position and orientation in mars frame at T0 + 949.453.
-					fixedGround.setPosition(new Pioneer.Vector3(700.0276411247091, 3140.1545373546896, 1074.6161012999464));
-					fixedGround.setOrientation(new Pioneer.Quaternion(0.19330655929796994, -0.5435771125363358, 0.21331821730184536, 0.788449005977053));
+					// UPDATE: M20 rover position and orientation in mars frame at T0 + 949.453 - 0.00001.
+					fixedGround.setPosition(new Pioneer.Vector3(700.0259971377374, 3140.147204279965, 1074.6137468717366));
+					fixedGround.setOrientation(new Pioneer.Quaternion(-0.3687957252164953, -0.6453124355946519, -0.5010749764034842, 0.44326678372193135));
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 949.453, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
@@ -522,19 +522,19 @@ export class SetupSpacecraft {
 				// Add the model animations.
 				const modelAnimate = entity.addController('modelAnimate');
 				if (modelAnimate instanceof Pioneer.ModelAnimateController) {
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_l', 'susp_arm_f_lAction.002', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_r', 'susp_arm_f_rAction.002', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_l', 'susp_arm_m_lAction.002', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_r', 'susp_arm_m_rAction.002', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_l', 'susp_arm_b_lAction.001', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_r', 'susp_arm_b_rAction.001', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_l', 'susp_steer_f_lAction.001', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_r', 'susp_steer_f_rAction.001', new Pioneer.Interval(T0 + 933.345 + 1.000, T0 + 933.345 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_l', 'susp_arm_f_lAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_r', 'susp_arm_f_rAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_l', 'susp_arm_m_lAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_r', 'susp_arm_m_rAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_l', 'susp_arm_b_lAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_r', 'susp_arm_b_rAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_l', 'susp_steer_f_lAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_r', 'susp_steer_f_rAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
 				}
 				// Add coverage for the offsets of the rover mesh so that it lines up with the IGP point.
 				const coverage = entity.addController('coverage');
 				if (coverage instanceof Pioneer.CoverageController) {
-					coverage.addCoverage(new Pioneer.Interval(T0 + 933.345, Number.POSITIVE_INFINITY), undefined,
+					coverage.addCoverage(new Pioneer.Interval(T0 + 933.497, Number.POSITIVE_INFINITY), undefined,
 						(entity) => { // exit
 							const model = entity.getComponentByType('model');
 							if (model instanceof Pioneer.ModelComponent) {
