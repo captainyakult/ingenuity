@@ -6,19 +6,19 @@ Fake SCLK Kernel for Spacecraft with ID -168
    This SCLK kernel contains the data necessary for converting from
    ephemeris time (ET) to ticks for a fake clock associated with the
    spacecraft with ID code -168. This fake clock runs at the same rate
-   as ET, starting at ET 2021-FEB-18-20:28:52.045 and going for 100
+   as ET, starting at ET 2021-FEB-18-20:28:52.231 and going for 100
    years. It has two fields -- seconds and milliseconds. The clock's
    granularity is 1 millisecond.
  
    This file was created by POST2
-   on 2020-11-08/22:34:29.
+   on 2020-12-14/16:52:37.
  
 Kernel data
 --------------------------------------------------------
  
    \begindata
  
-      SCLK_KERNEL_ID = ( @2020-11-08/22:34:29 )
+      SCLK_KERNEL_ID = ( @2020-12-14/16:52:37 )
       SCLK_DATA_TYPE_168       = ( 1 )
       SCLK01_TIME_SYSTEM_168   = ( 1 )
       SCLK01_N_FIELDS_168      = ( 2 )
@@ -27,7 +27,7 @@ Kernel data
       SCLK01_OUTPUT_DELIM_168  = ( 1 )
       SCLK_PARTITION_START_168 = ( 0.00000E+00 )
       SCLK_PARTITION_END_168   = ( 3.15576E+12 )
-      SCLK01_COEFFICIENTS_168  = ( 0.0 @2021-FEB-18-20:28:52.045 1.0 )
+      SCLK01_COEFFICIENTS_168  = ( 0.0 @2021-FEB-18-20:28:52.231 1.0 )
  
    \begintext
  
@@ -39,19 +39,19 @@ Fake SCLK Kernel for Spacecraft with ID -1682
    This SCLK kernel contains the data necessary for converting from
    ephemeris time (ET) to ticks for a fake clock associated with the
    spacecraft with ID code -1682. This fake clock runs at the same rate
-   as ET, starting at ET 2021-FEB-18-20:42:06.327 and going for 100
+   as ET, starting at ET 2021-FEB-18-20:42:06.489 and going for 100
    years. It has two fields -- seconds and milliseconds. The clock's
    granularity is 1 millisecond.
  
    This file was created by POST2
-   on 2020-11-08/22:40:03.
+   on 2020-12-14/16:58:36.
  
 Kernel data
 --------------------------------------------------------
  
    \begindata
  
-      SCLK_KERNEL_ID = ( @2020-11-08/22:40:03 )
+      SCLK_KERNEL_ID = ( @2020-12-14/16:58:36 )
       SCLK_DATA_TYPE_1682       = ( 1 )
       SCLK01_TIME_SYSTEM_1682   = ( 1 )
       SCLK01_N_FIELDS_1682      = ( 2 )
@@ -60,7 +60,7 @@ Kernel data
       SCLK01_OUTPUT_DELIM_1682  = ( 1 )
       SCLK_PARTITION_START_1682 = ( 0.00000E+00 )
       SCLK_PARTITION_END_1682   = ( 3.15576E+12 )
-      SCLK01_COEFFICIENTS_1682  = ( 0.0 @2021-FEB-18-20:42:06.327 1.0 )
+      SCLK01_COEFFICIENTS_1682  = ( 0.0 @2021-FEB-18-20:42:06.489 1.0 )
  
    \begintext
  
@@ -72,19 +72,19 @@ Fake SCLK Kernel for Spacecraft with ID -1684
    This SCLK kernel contains the data necessary for converting from
    ephemeris time (ET) to ticks for a fake clock associated with the
    spacecraft with ID code -1684. This fake clock runs at the same rate
-   as ET, starting at ET 2021-FEB-18-20:42:26.270 and going for 100
+   as ET, starting at ET 2021-FEB-18-20:42:26.432 and going for 100
    years. It has two fields -- seconds and milliseconds. The clock's
    granularity is 1 millisecond.
  
    This file was created by POST2
-   on 2020-11-08/22:42:28.
+   on 2020-12-14/17:01:11.
  
 Kernel data
 --------------------------------------------------------
  
    \begindata
  
-      SCLK_KERNEL_ID = ( @2020-11-08/22:42:28 )
+      SCLK_KERNEL_ID = ( @2020-12-14/17:01:11 )
       SCLK_DATA_TYPE_1684       = ( 1 )
       SCLK01_TIME_SYSTEM_1684   = ( 1 )
       SCLK01_N_FIELDS_1684      = ( 2 )
@@ -93,7 +93,7 @@ Kernel data
       SCLK01_OUTPUT_DELIM_1684  = ( 1 )
       SCLK_PARTITION_START_1684 = ( 0.00000E+00 )
       SCLK_PARTITION_END_1684   = ( 3.15576E+12 )
-      SCLK01_COEFFICIENTS_1684  = ( 0.0 @2021-FEB-18-20:42:26.270 1.0 )
+      SCLK01_COEFFICIENTS_1684  = ( 0.0 @2021-FEB-18-20:42:26.432 1.0 )
  
    \begintext
  
@@ -105,19 +105,19 @@ Fake SCLK Kernel for Spacecraft with ID -1685
    This SCLK kernel contains the data necessary for converting from
    ephemeris time (ET) to ticks for a fake clock associated with the
    spacecraft with ID code -1685. This fake clock runs at the same rate
-   as ET, starting at ET 2021-FEB-18-20:43:50.911 and going for 100
+   as ET, starting at ET 2021-FEB-18-20:43:51.198 and going for 100
    years. It has two fields -- seconds and milliseconds. The clock's
    granularity is 1 millisecond.
  
    This file was created by POST2
-   on 2020-11-08/22:52:20.
+   on 2020-12-14/17:11:32.
  
 Kernel data
 --------------------------------------------------------
  
    \begindata
  
-      SCLK_KERNEL_ID = ( @2020-11-08/22:52:20 )
+      SCLK_KERNEL_ID = ( @2020-12-14/17:11:32 )
       SCLK_DATA_TYPE_1685       = ( 1 )
       SCLK01_TIME_SYSTEM_1685   = ( 1 )
       SCLK01_N_FIELDS_1685      = ( 2 )
@@ -126,7 +126,7 @@ Kernel data
       SCLK01_OUTPUT_DELIM_1685  = ( 1 )
       SCLK_PARTITION_START_1685 = ( 0.00000E+00 )
       SCLK_PARTITION_END_1685   = ( 3.15576E+12 )
-      SCLK01_COEFFICIENTS_1685  = ( 0.0 @2021-FEB-18-20:43:50.911 1.0 )
+      SCLK01_COEFFICIENTS_1685  = ( 0.0 @2021-FEB-18-20:43:51.198 1.0 )
  
    \begintext
  
@@ -138,19 +138,19 @@ Fake SCLK Kernel for Spacecraft with ID -1686
    This SCLK kernel contains the data necessary for converting from
    ephemeris time (ET) to ticks for a fake clock associated with the
    spacecraft with ID code -1686. This fake clock runs at the same rate
-   as ET, starting at ET 2021-FEB-18-20:44:35.521 and going for 100
+   as ET, starting at ET 2021-FEB-18-20:44:35.496 and going for 100
    years. It has two fields -- seconds and milliseconds. The clock's
    granularity is 1 millisecond.
  
    This file was created by POST2
-   on 2020-11-08/22:54:56.
+   on 2020-12-14/17:14:14.
  
 Kernel data
 --------------------------------------------------------
  
    \begindata
  
-      SCLK_KERNEL_ID = ( @2020-11-08/22:54:56 )
+      SCLK_KERNEL_ID = ( @2020-12-14/17:14:14 )
       SCLK_DATA_TYPE_1686       = ( 1 )
       SCLK01_TIME_SYSTEM_1686   = ( 1 )
       SCLK01_N_FIELDS_1686      = ( 2 )
@@ -159,7 +159,7 @@ Kernel data
       SCLK01_OUTPUT_DELIM_1686  = ( 1 )
       SCLK_PARTITION_START_1686 = ( 0.00000E+00 )
       SCLK_PARTITION_END_1686   = ( 3.15576E+12 )
-      SCLK01_COEFFICIENTS_1686  = ( 0.0 @2021-FEB-18-20:44:35.521 1.0 )
+      SCLK01_COEFFICIENTS_1686  = ( 0.0 @2021-FEB-18-20:44:35.496 1.0 )
  
    \begintext
  
