@@ -94,7 +94,7 @@ class StoryPanel extends Carousel {
 				<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
 			</div>
 			<div class="footer">
-				<div class="touchdown {{touchdownClass}}"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
+				<div class="touchdown {{textClass}} {{touchdownClass}}"><span class="label">Touchdown in </span><span class="value semi">{{touchdown}}</span></div>
 		`;
 
 		if (nextInfo) {
@@ -257,11 +257,10 @@ class StoryPanel extends Carousel {
 		if (this._children[nextPhaseId]) {
 			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second.toString().padStart(2, '0')}`;
 		}
-		const touchddownClass = (this._touchdown - time) <= 0 ? 'hidden ' : '';
 		this.setState({
 			liveClass: isNow ? '' : 'hidden',
 			touchdown: `${touchdown.hour}:${touchdown.minute.toString().padStart(2, '0')}:${touchdown.second.toString().padStart(2, '0')}`,
-			touchdownClass: touchddownClass + this._state.textClass
+			touchdownClass: (this._touchdown - time) <= 0 ? 'hidden ' : ''
 		});
 	}
 
@@ -322,14 +321,11 @@ class StoryPanel extends Carousel {
 	 * Update fonts.
 	 */
 	_updateFonts() {
-		const touchdown = this._touchdown - this._app.getManager('time').getTime().valueOf();
-		const touchdownClass = (touchdown <= 0) ? 'hidden' : '';
-
 		if (this._app.isMobile() || this._app.isLandscape()) {
-			this.setState({ textClass: 'small', touchdownClass: 'small ' + touchdownClass });
+			this.setState({ textClass: 'small' });
 		}
 		else {
-			this.setState({ textClass: '', touchdownClass: touchdownClass });
+			this.setState({ textClass: '' });
 		}
 	}
 
