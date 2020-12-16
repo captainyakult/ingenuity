@@ -235,6 +235,8 @@ class HomeView extends BaseView {
 	 */
 	_showControls() {
 		this._controlsVisible = true;
+		this._app.getComponent('clock').show();
+		this._app.getComponent('clockShortcut').show();
 		document.getElementById('float-mid-bottom').classList.add('active');
 		document.getElementById('float-mid-bottom').classList.remove('hidden');
 	}
@@ -244,6 +246,8 @@ class HomeView extends BaseView {
 	 */
 	_hideControls() {
 		this._controlsVisible = false;
+		this._app.getComponent('clock').hide();
+		this._app.getComponent('clockShortcut').hide();
 		document.getElementById('float-mid-bottom').classList.add('hidden');
 		document.getElementById('float-mid-bottom').classList.remove('active');
 	}
