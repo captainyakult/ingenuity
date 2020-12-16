@@ -64,6 +64,16 @@ class SceneManager extends BaseSceneManager {
 			earth: {
 				clickable: false,
 				label: true
+			},
+			sc_maven: {
+				clickable: false,
+				trail: true,
+				label: true
+			},
+			sc_mars_reconnaissance_orbiter: {
+				clickable: false,
+				trail: true,
+				label: true
 			}
 		};
 	}
@@ -91,6 +101,8 @@ class SceneManager extends BaseSceneManager {
 		Entity.createGroup('mars,moons', this._scene);
 		Entity.create('sc_mars_science_laboratory_landing_site', this._scene);
 		Entity.create('sc_perseverance_landing_site', this._scene);
+		Entity.create('sc_maven', this._scene);
+		Entity.create('sc_mars_reconnaissance_orbiter', this._scene);
 		SetupSpacecraft.setup(this._scene);
 	}
 
