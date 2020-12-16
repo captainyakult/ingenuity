@@ -87,9 +87,9 @@ class StoryPanel extends Carousel {
 			</div>
 			<h2 class="title">${info.title}</h2>
 			<div class="body">
-				<div class="distance {{textClass}}">{{distance}}<span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
-				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span>{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
-				<div class="velocity {{textClass}}"><span class="label semi">Velocity: </span><span>{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
+				<div class="distance {{textClass}}"><span key="distanceValue_${info.index}" class="value semi">{{distance}}</span><span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
+				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span key="altitudeValue_${info.index}" class="value semi">{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
+				<div class="velocity {{textClass}}"><span class="label semi">Velocity: </span><span key="velocityValue_${info.index}" class="value semi">{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 				<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
 				<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
 			</div>
@@ -134,7 +134,7 @@ class StoryPanel extends Carousel {
 			}
 			this.addSlide({
 				id,
-				text: this._createSlideContent({ id, title, description, mobileDescription }, nextInfo)
+				text: this._createSlideContent({ id, title, description, mobileDescription, index }, nextInfo)
 			});
 		});
 
@@ -169,11 +169,12 @@ class StoryPanel extends Carousel {
 			Pioneer.Vector3.pool.release(position);
 			Pioneer.LatLonAlt.pool.release(lla);
 
+			const { currentIndex } = this._state;
 			// Update state
 			this.setState({
-				distance: this._formatDistance(distance),
-				velocity: this._formatSpeed(velocity),
-				altitude: this._formatDistance(lla.alt)
+				distance: this._formatDistance(distance, `distanceValue_${currentIndex}`),
+				velocity: this._formatSpeed(velocity, `velocityValue_${currentIndex}`),
+				altitude: this._formatDistance(lla.alt, `altitudeValue_${currentIndex}`)
 			});
 		}, 200);
 	}
@@ -181,9 +182,10 @@ class StoryPanel extends Carousel {
 	/**
 	 * Formats distance.
 	 * @param {number} distance
+	 * @param {string} elementKey
 	 * @returns {string}
 	 */
-	_formatDistance(distance) {
+	_formatDistance(distance, elementKey) {
 		distance = Number.parseFloat(distance);
 		if (!this._state.isMetric) {
 			distance = distance * AppUtils.conversionTable.kmToMi;
@@ -191,19 +193,19 @@ class StoryPanel extends Carousel {
 		distance = distance.toFixed(2);
 		const length = distance.toString().length;
 		const width = length * 10;
+		this._children[elementKey].style.width = width;
 
-		let output = '<span class="value semi" style="width: ' + width + 'px;">';
-		output += Number(distance).toLocaleString(...this._formatOpts);
-		output += '</span>';
+		const output = Number(distance).toLocaleString(...this._formatOpts);
 		return output;
 	}
 
 	/**
 	 * Formats speed.
 	 * @param {number} speed
+	 * @param {string} elementKey
 	 * @returns {string}
 	 */
-	_formatSpeed(speed) {
+	_formatSpeed(speed, elementKey) {
 		speed = Number.parseFloat(speed * 3600);
 		if (!this._state.isMetric) {
 			speed = speed * AppUtils.conversionTable.kmToMi;
@@ -211,10 +213,9 @@ class StoryPanel extends Carousel {
 		speed = speed.toFixed(2);
 		const length = speed.toString().length;
 		const width = length * 10;
+		this._children[elementKey].style.width = width;
 
-		let output = '<span class="value semi" style="width: ' + width + 'px;">';
-		output += Number(speed).toLocaleString(...this._formatOpts);
-		output += '</span>';
+		const output = Number(speed).toLocaleString(...this._formatOpts);
 		return output;
 	}
 
