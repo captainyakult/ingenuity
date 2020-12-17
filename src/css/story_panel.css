@@ -81,7 +81,7 @@
 @media only screen and (max-width: 991px) {
 	.carousel {
 		pointer-events: none;
-		--story-height: calc((100vh - 16px) * 3 / 5 + 8px);
+		--story-height: calc((var(--vh) - 16px) * 3 / 5 + 8px);
 	}
 	.carousel .track {
 		pointer-events: none;
@@ -241,7 +241,7 @@
 	.carousel {
 		pointer-events: none;
 		width: calc(100% + 20px); /* Add neg margin back */
-		--story-height: calc((100vh - 16px) * 4 / 5 + 12px);
+		--story-height: calc((var(--vh) - 16px) * 4 / 5 + 12px);
 	}
 	.carousel .track {
 		pointer-events: none;

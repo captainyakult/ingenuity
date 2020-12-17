@@ -78,6 +78,14 @@ class App extends BaseApp {
 		this._pioneer.setTime(Pioneer.TimeUtils.now());
 		// Set the timerate to realtime
 		this._pioneer.setTimeRate(1.0);
+
+		// Update css vh variable
+		const vh = window.innerHeight;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+		window.addEventListener('resize', () => {
+			const vh = window.innerHeight;
+			document.documentElement.style.setProperty('--vh', `${vh}px`);
+		});
 	}
 
 	/**
