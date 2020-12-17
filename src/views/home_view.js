@@ -23,8 +23,10 @@ class HomeView extends BaseView {
 			}
 		};
 
-		this._controlsTimeout = 4 * 1000; // in milliseconds
+		this._controlsTimeout = 30 * 1000; // in milliseconds
 		this._isDragging = false;
+		this._controlsVisible = false;
+		this._firstLoad = true;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -39,14 +41,23 @@ class HomeView extends BaseView {
 			// Show bottom panel
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
+				if (this._app.isMobile()) {
+					this._showSettings();
+					this._app.getComponent('storyPanel').hide();
+				}
 			}
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._timer = setTimeout(() => {
-					this._hideControls();
-					this._app.getComponent('storyPanel').show();
+					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+						this._hideControls();
+						if (this._app.isMobile()) {
+							this._hideSettings();
+						}
+						this._app.getComponent('storyPanel').show();
+					}
 				}, this._controlsTimeout);
 			}
 		});
@@ -71,10 +82,15 @@ class HomeView extends BaseView {
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._timer = setTimeout(() => {
-					this._hideControls();
-					this._app.getComponent('storyPanel').show();
+					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+						this._hideControls();
+						if (this._app.isMobile()) {
+							this._hideSettings();
+						}
+						this._app.getComponent('storyPanel').show();
+					}
 				}, this._controlsTimeout);
 			}
 		});
@@ -82,15 +98,23 @@ class HomeView extends BaseView {
 			// Show bottom panel and hide story panel
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
-				this._app.getComponent('storyPanel').hide();
+				if (this._app.isMobile()) {
+					this._showSettings();
+					this._app.getComponent('storyPanel').hide();
+				}
 			}
 
 			// Refresh timer
 			clearTimeout(this._timer);
-			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._timer = setTimeout(() => {
-					this._hideControls();
-					this._app.getComponent('storyPanel').show();
+					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+						this._hideControls();
+						if (this._app.isMobile()) {
+							this._hideSettings();
+						}
+						this._app.getComponent('storyPanel').show();
+					}
 				}, this._controlsTimeout);
 			}
 		});
@@ -103,11 +127,40 @@ class HomeView extends BaseView {
 		window.addEventListener('touchend', (event) => {
 			// Refresh timer
 			clearTimeout(this._timer);
-			if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._timer = setTimeout(() => {
-					this._hideControls();
-					this._app.getComponent('storyPanel').show();
+					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
+						this._hideControls();
+						if (this._app.isMobile()) {
+							this._hideSettings();
+						}
+						this._app.getComponent('storyPanel').show();
+					}
 				}, this._controlsTimeout);
+			}
+		});
+
+		window.addEventListener('resize', () => {
+			if (this._app.getComponent('settings').getState('isPhotoMode')) {
+				return;
+			}
+
+			// Mobile
+			if (this._app.isMobile()) {
+				if (this._app.getComponent('storyPanel').isVisible() && this._controlsVisible) {
+					this.resetStoryPanelMobile();
+				}
+				else if (this._app.getComponent('storyPanel').isVisible() && this._app.getComponent('settings').isVisible()) {
+					this.resetStoryPanelMobile();
+				}
+			}
+			else { // Desktop
+				if (!this._app.getComponent('storyPanel').isVisible()) {
+					this._app.getComponent('storyPanel').show();
+				}
+				if (!this._app.getComponent('settings').isVisible()) {
+					this._app.getComponent('settings').show();
+				}
 			}
 		});
 	}
@@ -131,12 +184,18 @@ class HomeView extends BaseView {
 			this._app.getManager('time').setTime(startTime);
 		}
 
+		// Collapse on first load
+		if (this._firstLoad && this._app.isMobile()) {
+			this._app.getComponent('storyPanel').collapse();
+		}
+
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);
 
 		// Register callback for photo mode
 		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
 
+		this._firstLoad = false;
 		await this.updateCamera(params.target);
 	}
 
@@ -146,7 +205,7 @@ class HomeView extends BaseView {
 	 */
 	async updateCamera(target) {
 		if (!target) {
-			target = 'sc_perseverance';
+			target = 'sc_perseverance_rover';
 		}
 		if (this._target !== target) {
 			this._target = target;
@@ -165,33 +224,54 @@ class HomeView extends BaseView {
 		}
 		else {
 			this._app.getComponent('storyPanel').show();
+			if (this._app.isMobile()) {
+				this._hideSettings();
+			}
 		}
 	}
 
 	/**
-	 * Show control panel (clock, time controls).
+	 * Shows control panel (clock, time controls).
 	 */
 	_showControls() {
+		this._controlsVisible = true;
+		this._app.getComponent('clock').show();
+		this._app.getComponent('clockShortcut').show();
 		document.getElementById('float-mid-bottom').classList.add('active');
 		document.getElementById('float-mid-bottom').classList.remove('hidden');
-		if (this._app.isMobile()) {
-			this._app.getComponent('settings').show();
-		}
 	}
 
 	/**
-	 * Hide control panel (clock, time controls).
+	 * Hides control panel (clock, time controls).
 	 */
 	_hideControls() {
+		this._controlsVisible = false;
+		this._app.getComponent('clock').hide();
+		this._app.getComponent('clockShortcut').hide();
 		document.getElementById('float-mid-bottom').classList.add('hidden');
 		document.getElementById('float-mid-bottom').classList.remove('active');
-		if (this._app.isMobile()) {
-			this._app.getComponent('settings').hide();
-		}
 	}
 
-	resetStoryPanel() {
+	/**
+	 * Shows settings panel.
+	 */
+	_showSettings() {
+		this._app.getComponent('settings').show();
+	}
+
+	/**
+	 * Hides settings panel.
+	 */
+	_hideSettings() {
+		this._app.getComponent('settings').hide();
+	}
+
+	/**
+	 * Resets the story panel for mobile.
+	 */
+	resetStoryPanelMobile() {
 		this._hideControls();
+		this._hideSettings();
 		if (!this._app.getComponent('storyPanel').isVisible()) {
 			this._app.getComponent('storyPanel').show();
 		}

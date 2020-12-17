@@ -48,6 +48,17 @@ class ClockShortcut extends BaseClockShortcut {
 	}
 
 	/**
+	 * Change time rate to 1s/s and time to start time.
+	 */
+	_replay() {
+		const navigated = this._app.getManager('router').navigate('home');
+		if (!navigated) {
+			this._app.getManager('time').setTimeRate(1);
+			this._app.getManager('time').setToStart();
+		}
+	}
+
+	/**
 	 * Update clock on route change.
 	 * @param {object} entityInfo
 	 */

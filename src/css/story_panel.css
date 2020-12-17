@@ -56,27 +56,67 @@
 	margin-left: 8px;
 }
 
+@keyframes pulse {
+	0% {
+		opacity: 0.0;
+	}
+	75% {
+		opacity: 0.5;
+	}
+	100% {
+		opacity: 0.75;
+	}
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 100% 50%;
+	}
+}
+
 
 /* Phones, 991px and down */
 @media only screen and (max-width: 991px) {
+	.carousel {
+		pointer-events: none;
+		--story-height: calc((var(--vh) - 16px) * 3 / 5 + 8px);
+	}
+	.carousel .track {
+		pointer-events: none;
+		background: none;
+	}
 	.carousel .slide {
-		height: calc((100vh - 20px) * 2 / 5 + 5px);
+		height: var(--story-height);
 	}
 	.carousel .slide.hidden * {
 		pointer-events: none;
 	}
+	.carousel .slide .container {
+		align-items: end;
+		pointer-events: none;
+		align-content: end;
+		padding-bottom: 20px;
+	}
 	.carousel .slide .content {
 		padding: 0 10px 0 20px;
 		margin: 0;
-		align-content: center;
+		align-content: end;
+		pointer-events: all;
+		position: relative;
+		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
 	}
-	.carousel .navigation-button {
-		display: none;
+	.carousel .body {
+		overflow: hidden;
 	}
+
+	/* Content */
 	.carousel .title {
-		font-size: 29px;
+		font-size: 24px;
 		line-height: 95%;
 		margin-bottom: 10px;
+		margin-right: 25px;
 	}
 	.carousel .phase .label {
 		display: none;
@@ -87,12 +127,90 @@
 	.carousel .description.mobile {
 		display: block;
 	}
+
+	/* Buttons */
+	.carousel .navigation-button {
+		display: none;
+	}
+	.carousel .collapse-button {
+		position: absolute;
+		top: 0;
+		right: 10px;
+		outline: none;
+	}
+	.carousel .hint-button {
+		position: absolute;
+		top: -30px;
+		left: 50%;
+		transform: rotate(-90deg) translateY(-50%) scale(1);
+		pointer-events: none;
+		display: none;
+	}
+
+	/* Animations */
+	@keyframes shrink {
+		0% {
+			max-height: var(--story-height);
+		}
+		100% {
+			max-height: 0;
+		}
+	}
+	@keyframes develop {
+		0% {
+			max-height: 0;
+		}
+		100% {
+			max-height: var(--story-height);
+		}
+	}
+	.carousel.expand .body {
+		animation-name: develop;
+		animation-duration: 1.0s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse .body {
+		animation-name: shrink;
+		animation-duration: 0.4s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.expand .hint-button {
+		animation-name: pulse;
+		animation-duration: 0.75s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 8;
+		animation-fill-mode: both;
+		animation-direction: alternate;
+		display: block;
+	}
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
 @media only screen and (min-width: 992px) {
 	.carousel {
 		height: calc(100% - 85px);
+	}
+	.carousel .slide .container {
+		padding-right: 20px;
+	}
+	.carousel .slide .container:hover {
+		background: linear-gradient(90deg, rgba(37, 37, 39, 0.2) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.2) 100%);
+		background-size: 200% 100%;
+		animation: gradient 10s ease 1;
+		animation-fill-mode: both;
+	}
+	body.hover .carousel .container:hover::after {
+		content: '';
+		width: 1px;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: linear-gradient(180deg, rgba(149, 149, 157, 0) 0%, rgba(149, 149, 157, 0.5) 50%, rgba(149, 149, 157, 0) 100%);
 	}
 	.carousel .slide {
 		height: calc(100vh - 85px);
@@ -112,33 +230,125 @@
 	.carousel .description.mobile {
 		display: none;
 	}
+	.carousel .hint-button,
+	.carousel .collapse-button {
+		display: none;
+	}
 }
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
 	.carousel {
 		pointer-events: none;
+		width: calc(100% + 20px); /* Add neg margin back */
+		--story-height: calc((var(--vh) - 16px) * 4 / 5 + 12px);
 	}
 	.carousel .track {
 		pointer-events: none;
+		background: none;
 	}
 	.carousel .slide {
-		height: calc((100vh - 16px) * 3 / 5 + 8px);
+		height: var(--story-height);
+	}
+	.carousel .slide.hidden * {
+		pointer-events: none;
 	}
 	.carousel .slide .container {
 		align-items: end;
 		pointer-events: none;
+		align-content: end;
+		padding-bottom: 20px;
 	}
 	.carousel .slide .content {
 		padding: 0 20px;
-		margin: 0 0 20px 0;
+		margin: 0;
 		align-content: end;
 		pointer-events: all;
+		position: relative;
+		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+	.carousel .footer,
+	.carousel .body {
+		overflow: hidden;
+	}
+
+	/* Content */
+	.carousel .title {
+		font-size: 24px;
+		line-height: 95%;
+		margin-bottom: 10px;
+		margin-right: 25px;
+	}
+	.carousel .phase .label {
+		display: none;
 	}
 	.carousel .description {
 		display: none;
 	}
 	.carousel .description.mobile {
+		display: block;
+	}
+	
+	/* Buttons */
+	.carousel .navigation-button {
+		display: none;
+	}
+	.carousel .collapse-button {
+		position: absolute;
+		top: auto;
+		bottom: 0;
+		right: 0;
+		outline: none;
+	}
+	.carousel .hint-button {
+		position: absolute;
+		top: -30px;
+		left: 50%;
+		transform: rotate(-90deg) translateY(-50%) scale(1);
+		pointer-events: none;
+		display: none;
+	}
+
+	/* Animations */
+	@keyframes shrink {
+		0% {
+			max-height: var(--story-height);
+		}
+		100% {
+			max-height: 0;
+		}
+	}
+	@keyframes develop {
+		0% {
+			max-height: 0;
+		}
+		100% {
+			max-height: var(--story-height);
+		}
+	}
+	.carousel.expand .footer,
+	.carousel.expand .body {
+		animation-name: develop;
+		animation-duration: 1.0s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse .footer,
+	.carousel.collapse .body {
+		animation-name: shrink;
+		animation-duration: 0.4s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.expand .hint-button {
+		animation-name: pulse;
+		animation-duration: 0.75s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 8;
+		animation-fill-mode: both;
+		animation-direction: alternate;
 		display: block;
 	}
 }

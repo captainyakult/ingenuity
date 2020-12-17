@@ -19,9 +19,9 @@
 	"pointsPerFile": 1024,
 	"forcedPoints": [
 		[666952082.000, "cruise stage separation"],
-		[666952946.269, "heatshield separation"],
-		[666953030.911190, "backshell separation"],
-		[666953075.532, "deploy"]
+		[666952946.432570, "heatshield separation"],
+		[666953031.198570, "backshell separation"],
+		[666953075.496070, "rover separation"]
 	],
 	"limitedCoverage" : [666952142.000, null],
 	"forceLoadOrientationKernels" : true

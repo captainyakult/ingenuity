@@ -43,18 +43,13 @@ class StoryBackButton extends BaseComponent {
 		this._container = document.createElement('div');
 		this._container.className = 'container clickable';
 		this._container.addEventListener('click', () => {
-			this._app.getView('home').resetStoryPanel();
+			this._app.getView('home').resetStoryPanelMobile();
 		});
 		this._div.appendChild(this._container);
 
 		this._children.icon = document.createElement('div');
 		this._children.icon.className = 'icon  icon-arrow-left';
 		this._container.appendChild(this._children.icon);
-
-		this._children.text = document.createElement('div');
-		this._children.text.className = 'text small';
-		this._children.text.innerHTML = 'Back to current phase';
-		this._container.appendChild(this._children.text);
 
 		this._setVariables(this._div);
 	}

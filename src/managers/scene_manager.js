@@ -8,6 +8,77 @@ import { SetupSpacecraft } from '../setup_spacecraft';
  */
 class SceneManager extends BaseSceneManager {
 	/**
+	 * Constructs the scene manager.
+	 * @param {BaseApplication} app
+	 * @param {Pioneer.Engine} engine
+	 */
+	constructor(app, engine) {
+		super(app, engine);
+		this._entityInfo = {
+			sc_perseverance_landing_site: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance: {
+				clickable: true,
+				label: true,
+				trail: true,
+				fadeWhenCloseToParent: false
+			},
+			sc_perseverance_rover: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_cruise_stage: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_backshell: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_heat_shield: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_descent_stage: {
+				clickable: true,
+				label: true
+			},
+			sc_perseverance_ballast_0: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_ballast_1: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_chutecap: {
+				clickable: false,
+				label: true
+			},
+			sc_perseverance_parachute: {
+				clickable: false,
+				label: true
+			},
+			earth: {
+				clickable: false,
+				label: true
+			},
+			sc_maven: {
+				clickable: false,
+				trail: true,
+				label: true
+			},
+			sc_mars_reconnaissance_orbiter: {
+				clickable: false,
+				trail: true,
+				label: true
+			}
+		};
+	}
+
+	/**
 	 * Populates the scene with objects.
 	 */
 	async populate() {
@@ -30,6 +101,8 @@ class SceneManager extends BaseSceneManager {
 		Entity.createGroup('mars,moons', this._scene);
 		Entity.create('sc_mars_science_laboratory_landing_site', this._scene);
 		Entity.create('sc_perseverance_landing_site', this._scene);
+		Entity.create('sc_maven', this._scene);
+		Entity.create('sc_mars_reconnaissance_orbiter', this._scene);
 		SetupSpacecraft.setup(this._scene);
 	}
 
@@ -40,7 +113,6 @@ class SceneManager extends BaseSceneManager {
 	_createCMTS() {
 		this._pioneer.registerComponentType('cmts', CMTSComponent);
 		const mars = this._scene.getEntity('mars');
-		mars.addComponent('gizmo');
 		// Get the spheroid from the spheroid coomponent.
 		/** @type {Pioneer.Spheroid} */
 		// Remove the spheroid component.
@@ -53,11 +125,11 @@ class SceneManager extends BaseSceneManager {
 		cmts.setLightSource(this._scene.get('sun', 'lightSource'));
 		cmts.setRadii(3396.190 - 0.01549952582, 3396.190 - 0.01549952582); // Offset to get the rover landing on its wheels.
 		cmts.setBaseUrl('color', '$DYNAMIC_ASSETS_URL/cmts/mars/color');
-		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height');
+		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height32');
 		cmts.setHeightScale(1);
 		cmts.setPlanetographic(false);
 
-		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 15, 12727, 21985, 12729, 21987);
+		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 12, 1590, 2748, 1592, 2749);
 	}
 
 	/**
@@ -95,38 +167,46 @@ class SceneManager extends BaseSceneManager {
 	 * @private
 	 */
 	_populateLabelEvents() {
-		// Populate labels
-		const clickableEntities = [
-			'sc_perseverance_landing_site',
-			'sc_perseverance',
-			'sc_perseverance_rover',
-			'sc_perseverance_cruise_stage',
-			'sc_perseverance_backshell',
-			'sc_perseverance_heat_shield',
-			'sc_perseverance_descent_stage'
-		];
 		for (let i = 0, l = this._scene.getNumEntities(); i < l; i++) {
 			const entity = this._scene.getEntity(i);
+			const entityName = entity.getName();
 			const divComponent = entity.get('div');
+			const trailComponent = entity.get('trail');
+
+			if (trailComponent instanceof Pioneer.TrailComponent) {
+				if (this._entityInfo[entityName] === undefined || !this._entityInfo[entityName].trail) {
+					trailComponent.setEnabled(false);
+				}
+			}
+
 			if (divComponent instanceof Pioneer.DivComponent) {
-				const div = divComponent.getDiv();
-				if (clickableEntities.includes(entity.getName())) {
-					div.addEventListener('click', async (event) => {
-						await this._app.getManager('camera').goToEntity(entity.getName());
-						this._target = entity.getName();
-						event.preventDefault();
-					}, false);
-					div.addEventListener('mouseup', (event) => {
-						event.preventDefault();
-						event.stopPropagation();
-					}, true);
-					div.addEventListener('mousemove', (event) => {
-						event.preventDefault();
-					}, true);
-					div.style.cursor = 'pointer';
+				if (this._entityInfo[entityName] === undefined || !this._entityInfo[entityName].label) {
+					divComponent.setEnabled(false);
 				}
 				else {
-					div.classList.add('disabled');
+					if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].fadeWhenCloseToParent !== undefined
+						&& this._entityInfo[entityName].fadeWhenCloseToParent === false) {
+						divComponent.setFadeWhenCloseToParent(false);
+					}
+					const div = divComponent.getDiv();
+					if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].clickable === true) {
+						div.addEventListener('click', async (event) => {
+							await this._app.getManager('camera').goToEntity(entity.getName());
+							this._target = entity.getName();
+							event.preventDefault();
+						}, false);
+						div.addEventListener('mouseup', (event) => {
+							event.preventDefault();
+							event.stopPropagation();
+						}, true);
+						div.addEventListener('mousemove', (event) => {
+							event.preventDefault();
+						}, true);
+						div.style.cursor = 'pointer';
+					}
+					else {
+						div.classList.add('disabled');
+					}
 				}
 			}
 		}
