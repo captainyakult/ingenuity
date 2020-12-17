@@ -83,7 +83,7 @@
 		justify-self: end;
 		opacity: 0.25;
 		text-align: right;
-		margin-top: -25px;
+		margin-top: -10px;
 	}
 
 	.header .version {
@@ -126,18 +126,17 @@
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
 	.header .disclaimer {
-		position: absolute;
-		margin: auto;
-		margin-top: 20px;
-		left: 50%;
-		transform: translateX(-50%);
-		grid-row: unset;
-		grid-column: unset;
+		grid-column: 4;
+		grid-row: 2;
+		justify-self: end;
+		opacity: 0.25;
+		text-align: right;
+		margin-top: -10px;
 	}
 	.header .version {
 		position: absolute;
 		margin: auto;
-		margin-top: 40px;
+		margin-top: 20px;
 		left: 50%;
 		transform: translateX(-50%);
 		grid-row: unset;
