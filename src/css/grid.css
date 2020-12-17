@@ -1,7 +1,7 @@
 /* Shared properties */
 
-/* Phones, 991px and down */
-@media only screen and (max-width: 991px) {
+/* 480x320 phones and above */
+@media only screen and (min-width: 320px) {
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
@@ -18,7 +18,7 @@
 	/* Controls */
 	.grid-layout .float-right-bottom {
 		grid-column: extf-end / side-end;
-		grid-row: extf-start / foot-end;
+		grid-row: foot-start / foot-end;
 		align-self: end;
 		justify-self: start;
 		width: 100%;
@@ -47,8 +47,51 @@
 	}
 }
 
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
+/* Landscape. 480x320 phones and above */
+@media only screen and (min-width: 320px) and (orientation: landscape) {
+	/* Story panel */
+	.grid-layout .story-panel {
+		grid-column: main-start / side-end;
+		grid-row: main-start / foot-end;
+	}
+
+	/* Header */
+	.grid-layout header {
+		grid-area: head;
+		height: 60px;
+		padding: 0;
+	}
+
+	/* Controls */
+	.grid-layout .float-right-bottom {
+		grid-column: 9 / side-end;
+		grid-row: foot-start / foot-end;
+		justify-self: end;
+		display: grid;
+		align-items: center;
+		justify-content: end;
+		height: 51px;
+	}
+
+	/* Time */
+	.grid-layout .float-mid-bottom {
+		grid-template-columns: auto max-content;
+		grid-template-rows: auto auto;
+		grid-column: main-start / side-end;
+		grid-row: extf-start / foot-end;
+		height: auto;
+		align-self: end;
+		display: grid;
+		align-items: initial;
+		justify-items: start;
+		gap: 10px 5px;
+		width: 100%;
+		margin: 0;
+	}
+}
+
+/* Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) {
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / extd-end;
@@ -69,6 +112,7 @@
 		justify-self: end;
 		width: 30px;
 		margin-bottom: 25px;
+		height: 100%;
 	}
 
 	/* Time */
@@ -83,48 +127,5 @@
 		height: auto;
 		display: grid;
 		gap: 0 30px;
-	}
-}
-
-/* Mobile landscape, panorama with height less than 600px */
-@media only screen and (max-height: 600px) and (orientation: landscape) {
-	/* Story panel */
-	.grid-layout .story-panel {
-		grid-column: main-start / side-end;
-		grid-row: main-start / foot-end;
-	}
-
-	/* Header */
-	.grid-layout header {
-		grid-area: head;
-		height: 60px;
-		padding: 0;
-	}
-
-	/* Controls */
-	.grid-layout .float-right-bottom {
-		grid-column: 9 / side-end;
-		grid-row: side-end / foot-end;
-		align-self: center;
-		justify-self: end;
-		display: grid;
-		justify-content: end;
-		margin-top: 10px;
-	}
-
-	/* Time */
-	.grid-layout .float-mid-bottom {
-		grid-template-columns: auto max-content;
-		grid-template-rows: auto auto;
-		grid-column: main-start / side-end;
-		grid-row: extf-start / foot-end;
-		height: auto;
-		align-self: end;
-		display: grid;
-		align-items: initial;
-		justify-items: start;
-		gap: 10px 5px;
-		width: 100%;
-		margin: 0;
 	}
 }
