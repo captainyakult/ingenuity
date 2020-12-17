@@ -1,29 +1,17 @@
+.story-back-button {
+	border-bottom: 1px solid var(--grayDark);
+	padding-bottom: 10px;
+	width: 100%;
+}
 .story-back-button .container {
 	display: inline-block;
 	background-color: var(--grayDarkAlpha);
 	border-radius: 3px;
 }
 
-/* Phones, 991px and down */
-@media only screen and (max-width: 991px) {
-	.story-back-button {
-		border-bottom: 1px solid var(--grayDark);
-		padding-bottom: 10px;
-		width: 100%;
-	}
-}
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
+/* Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) {
 	.story-back-button {
 		display: none;
-	}
-}
-
-/* Mobile landscape, panorama with height less than 600px */
-@media only screen and (max-height: 600px) and (orientation: landscape) {
-	.story-back-button {
-		border-bottom: 1px solid var(--grayDark);
-		padding-bottom: 10px;
-		width: 100%;
 	}
 }
