@@ -58,6 +58,7 @@ h3.semi,
 h4.semi,
 h5.semi {
 	letter-spacing: -0.02em;
+	font-weight: 600;
 }
 .display {
 	font-size: 48px;

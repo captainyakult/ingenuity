@@ -53,6 +53,23 @@ class InfoPanel extends BaseComponent {
 		this._div.appendChild(this._children.toggle);
 
 		this._setVariables(this._div);
+		this._updateFonts();
+
+		window.addEventListener('resize', () => {
+			this._updateFonts();
+		});
+	}
+
+	/**
+	 * Update fonts.
+	 */
+	_updateFonts() {
+		if (this._app.isMobile() || this._app.isLandscape()) {
+			this._children.panelContent.classList.add('small');
+		}
+		else {
+			this._children.panelContent.classList.remove('small');
+		}
 	}
 }
 
