@@ -77,8 +77,8 @@
 }
 
 
-/* Phones, 991px and down */
-@media only screen and (max-width: 991px) {
+/* 480x320 phones and above */
+@media only screen and (min-width: 320px) {
 	.carousel {
 		pointer-events: none;
 		--story-height: calc((var(--vh) - 16px) * 3 / 5 + 8px);
@@ -189,55 +189,10 @@
 	}
 }
 
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
-	.carousel {
-		height: calc(100% - 85px);
-	}
-	.carousel .slide .container {
-		padding-right: 20px;
-	}
-	.carousel .slide .container:hover {
-		background: linear-gradient(90deg, rgba(37, 37, 39, 0.2) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.2) 100%);
-		background-size: 200% 100%;
-		animation: gradient 10s ease 1;
-		animation-fill-mode: both;
-	}
-	body.hover .carousel .container:hover::after {
-		content: '';
-		width: 1px;
-		height: 100%;
-		position: absolute;
-		top: 0;
-		right: 0;
-		background: linear-gradient(180deg, rgba(149, 149, 157, 0) 0%, rgba(149, 149, 157, 0.5) 50%, rgba(149, 149, 157, 0) 100%);
-	}
-	.carousel .slide {
-		height: calc(100vh - 85px);
-	}
-	.carousel .slide .content {
-		padding-right: 0;
-	}
-	.carousel .title {
-		margin-bottom: 15px;
-	}
-	.carousel .slide .content .touchdown {
-		margin-bottom: 20px;
-	}
-	.carousel .description {
-		display: block;
-	}
-	.carousel .description.mobile {
-		display: none;
-	}
-	.carousel .hint-button,
-	.carousel .collapse-button {
-		display: none;
-	}
-}
-
-/* Mobile landscape, panorama with height less than 600px */
-@media only screen and (max-height: 600px) and (orientation: landscape) {
+/* Landscape. 480x320 phones and above */
+@media only screen and (min-width: 320px) and (orientation: landscape),
+/* Portrait. Portrait tablets/iPad and above */
+only screen and (min-width: 641px) and (orientation: portrait) {
 	.carousel {
 		pointer-events: none;
 		width: calc(100% + 20px); /* Add neg margin back */
@@ -288,7 +243,7 @@
 	.carousel .description.mobile {
 		display: block;
 	}
-	
+
 	/* Buttons */
 	.carousel .navigation-button {
 		display: none;
@@ -350,5 +305,82 @@
 		animation-fill-mode: both;
 		animation-direction: alternate;
 		display: block;
+	}
+}
+
+/* Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) {
+	.carousel {
+		width: 100%;
+		height: calc(100% - 85px);
+	}
+	.carousel .track {
+		pointer-events: auto;
+		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+	.carousel .slide .container {
+		padding-right: 20px;
+		padding-bottom: 0;
+		pointer-events: auto;
+		align-items: normal;
+		align-content: normal;
+	}
+	.carousel .slide .container:hover {
+		background: linear-gradient(90deg, rgba(37, 37, 39, 0.2) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.2) 100%);
+		background-size: 200% 100%;
+		animation: gradient 10s ease 1;
+		animation-fill-mode: both;
+	}
+	body.hover .carousel .container:hover::after {
+		content: '';
+		width: 1px;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		background: linear-gradient(180deg, rgba(149, 149, 157, 0) 0%, rgba(149, 149, 157, 0.5) 50%, rgba(149, 149, 157, 0) 100%);
+	}
+	.carousel .slide {
+		height: calc(100vh - 85px);
+	}
+	.carousel .slide .content {
+		background: none;
+		align-content: center;
+		margin: 10px 0;
+		padding: 0 0 0 10%;
+	}
+	.carousel .title {
+		margin-bottom: 15px;
+		margin-right: 0;
+		font-size: 36px;
+		line-height: 120%;
+		font-weight: 100;
+	}
+	.carousel .slide .content .touchdown {
+		margin-bottom: 20px;
+	}
+	.carousel .description {
+		display: block;
+	}
+	.carousel .description.mobile {
+		display: none;
+	}
+	.carousel .phase .label {
+		display: block;
+	}
+	.carousel.expand .body,
+	.carousel.collapse .body,
+	.carousel.expand .footer,
+	.carousel.collapse .footer {
+		animation: none;
+	}
+
+	/* Buttons */
+	.carousel .navigation-button {
+		display: block;
+	}
+	.carousel.expand .hint-button,
+	.carousel .collapse-button {
+		display: none;
 	}
 }
