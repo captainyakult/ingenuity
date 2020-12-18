@@ -195,6 +195,8 @@ class HomeView extends BaseView {
 		// Register callback for photo mode
 		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
 
+		this._app.getComponent('infoPanel').onRouteChange();
+
 		this._firstLoad = false;
 		await this.updateCamera(params.target);
 	}

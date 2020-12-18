@@ -1,5 +1,8 @@
 import { BaseComponent } from 'es6-ui-library';
+import 'overlayscrollbars/css/OverlayScrollbars.css';
 import '../css/info_panel.css';
+
+import OverlayScrollbars from 'overlayscrollbars';
 
 /**
  * Info panel class.
@@ -26,7 +29,11 @@ class InfoPanel extends BaseComponent {
 
 		};
 
-		this._isVisible = false;
+		/**
+		 * Scrollbar library instance.
+		 * @type {OverlayScrollbars}
+		 */
+		this._scrollbar = null;
 	}
 
 	/**
@@ -58,6 +65,37 @@ class InfoPanel extends BaseComponent {
 		window.addEventListener('resize', () => {
 			this._updateFonts();
 		});
+	}
+
+	/**
+	 * Update content on route change
+	 * @param {string} objectId
+	 */
+	onRouteChange() {
+		// Scrollbar
+		if (this._scrollbar === null) {
+			// Setup Scrollbar
+			this._scrollbar = new OverlayScrollbars(document.getElementById('info-panel-overlay'), {
+				className: 'os-theme-dark',
+				resize: 'none',
+				sizeAutoCapable: false,
+				clipAlways: false,
+				normalizeRTL: false,
+				paddingAbsolute: true,
+				autoUpdate: false,
+				overflowBehavior: {
+					x: 'hidden',
+					y: 'scroll'
+				},
+				scrollbars: {
+					clickScrolling: true
+				}
+			});
+		}
+		else {
+			// Reset scroll to top
+			this._scrollbar.scroll(0);
+		}
 	}
 
 	/**

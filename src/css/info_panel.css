@@ -1,3 +1,4 @@
+/* Info panel */
 .info-panel .panel-overlay {
 	position: fixed;
 	top: 0;
@@ -7,8 +8,9 @@
 	width: 100%;
 	z-index: 10;
 	pointer-events: all;
-	overflow-y: auto;
 }
+
+/* Animations */
 .info-panel .panel-overlay.active {
 	display: block;
 }
@@ -16,6 +18,7 @@
 	display: none;
 }
 
+/* Info panel content */
 .info-panel h1 {
 	padding-bottom: 20px;
 	border-bottom: 1px solid var(--gray);
@@ -43,6 +46,27 @@
 }
 body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
 	opacity: 1;
+}
+
+/* Scrollbar CSS override */
+.os-theme-dark > .os-scrollbar,
+.os-scrollbar-vertical,
+.os-host-resize-disabled.os-host-scrollbar-horizontal-hidden > .os-scrollbar-vertical {
+	right: 6px;
+	top: 40px;
+	bottom: 40px;
+}
+.os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
+	background: var(--grayDark);
+	width: 4px;
+}
+.os-theme-dark > .os-scrollbar:active > .os-scrollbar-track > .os-scrollbar-handle,
+.os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
+	background: var(--gray);
+	width: 6px;
+}
+.os-theme-dark > .os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
+	min-height: 60px;
 }
 
 /* Phones, 991px and down */
