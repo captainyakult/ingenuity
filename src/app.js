@@ -32,6 +32,7 @@ import ClockShortcut from './components/clock_shortcut';
 import TimeController from './components/time_controller';
 import StoryPanel from './components/story_panel';
 import StoryBackButton from './components/story_back_button';
+import InfoPanel from './components/info_panel';
 
 class App extends BaseApp {
 	/**
@@ -146,6 +147,8 @@ class App extends BaseApp {
 		settings.registerCallback('unitchange', storyPanel.onUnitChange);
 
 		await this.addComponent('storyBackButton', StoryBackButton, document.getElementById('story-back-button'));
+
+		await this.addComponent('infoPanel', InfoPanel, document.getElementById('info-panel'));
 	}
 
 	/**

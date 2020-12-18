@@ -14,7 +14,7 @@ class HomeView extends BaseView {
 	constructor(div, app) {
 		super(div, app);
 
-		this._components = ['clock', 'timeController', 'breadcrumb', 'clockShortcut', 'settings', 'storyPanel', 'storyBackButton'];
+		this._components = ['clock', 'timeController', 'breadcrumb', 'clockShortcut', 'settings', 'storyPanel', 'storyBackButton', 'infoPanel'];
 
 		this._rules = {
 			rate: {

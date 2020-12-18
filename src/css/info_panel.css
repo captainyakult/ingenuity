@@ -1,0 +1,16 @@
+.info-panel .panel-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: black;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	pointer-events: all;
+}
+.info-panel .panel-overlay.active {
+	display: block;
+}
+.info-panel .panel-overlay.hidden {
+	display: none;
+}

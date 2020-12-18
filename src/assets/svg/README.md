@@ -15,6 +15,7 @@
 * Search and replace -hover by :hover
 * Prepend body.hover for every hover statement and add hover class to sprite.html body
 * Create optional mirrored icons for arrow up and arrow left by copying down and right and adding transform: rotate(180deg);
+* Fix color for icon-box to #252527
 * Test sprite.html in your browser
 
 # Modified files
