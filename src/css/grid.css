@@ -48,7 +48,9 @@
 }
 
 /* Landscape. 480x320 phones and above */
-@media only screen and (min-width: 320px) and (orientation: landscape) {
+@media only screen and (min-width: 320px) and (orientation: landscape),
+/* Portrait. Portrait tablets/iPad and above */
+screen and (min-width: 641px) and (orientation: portrait) {
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
