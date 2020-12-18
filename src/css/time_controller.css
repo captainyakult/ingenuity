@@ -36,8 +36,8 @@ body.hover .time-controller .next-rate:hover .container {
 	white-space: nowrap;
 }
 
-/* Phones, 991px and down */
-@media only screen and (max-width: 991px) {
+/* 480x320 phones and above */
+@media only screen and (min-width: 320px) {
 	.time-controller .prev-rate .container,
 	.time-controller .next-rate .container {
 		height: 22px;
@@ -59,33 +59,35 @@ body.hover .time-controller .next-rate:hover .container {
 	}
 }
 
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
-	.time-controller .prev-rate .container,
-	.time-controller .next-rate .container {
-		height: 10px;
-	}
-}
-
-/* Mobile landscape, panorama with height less than 600px */
-@media only screen and (max-height: 600px) and (orientation: landscape) {
-	.time-controller .prev-rate .container,
-	.time-controller .next-rate .container {
-		height: 22px;
-	}
-	.time-controller .vertical-line {
-		height: 29px;
-	}
-	.time-controller {
-		padding-top: 10px;
-		margin-bottom: 10px;
-		border-top: 1px solid var(--grayDark);
-	}
+/* Landscape. 480x320 phones and above */
+@media only screen and (min-width: 320px) and (orientation: landscape),
+/* Portrait. Portrait tablets/iPad and above */
+only screen and (min-width: 641px) and (orientation: portrait) {
 	.time-controller .prev-rate,
 	.time-controller .next-rate {
 		width: 75px;
 	}
+}
+
+/* Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) {
+	.time-controller .prev-rate .container,
+	.time-controller .next-rate .container {
+		height: 10px;
+	}
+	.time-controller .vertical-line {
+		height: 20px;
+	}
+	.time-controller {
+		padding-top: 0;
+		margin-bottom: 0;
+		border-top: none;
+	}
+	.time-controller .prev-rate,
+	.time-controller .next-rate {
+		width: 80px;
+	}
 	.time-controller .rate-container {
-		margin-left: 8px;
+		margin-left: 0;
 	}
 }
