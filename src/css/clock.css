@@ -3,7 +3,6 @@
 	opacity: 0.6;
 	display: grid;
 	grid-template-columns: auto auto auto;
-	gap: 5px;
 	white-space: nowrap;
 }
 .clock .datetime-container .display-container.hidden {
@@ -30,8 +29,8 @@
 	padding: 0;
 }
 
-/* Phones, 991px and down */
-@media only screen and (max-width: 991px) {
+/* 480x320 phones and above */
+@media only screen and (min-width: 320px) {
 	.clock .datetime-container {
 		grid-column: 2;
 		grid-row: 1;
@@ -47,8 +46,8 @@
 	}
 }
 
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
+/* Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) {
 	.clock .datetime-container {
 		grid-row: 2;
 		grid-column: 1;
@@ -56,6 +55,7 @@
 	}
 	.clock .datetime-container .display-container {
 		justify-content: start;
+		gap: 5px;
 	}
 	.clock .hour-input {
 		margin-left: 8px;
@@ -63,16 +63,8 @@
 	.alert {
 		outline-offset: 0;
 	}
-}
-
-/* Mobile landscape, panorama with height less than 600px */
-@media only screen and (max-height: 600px) and (orientation: landscape) {
-	.clock .datetime-container {
-		grid-column: 2;
-		grid-row: 1;
-	}
-	.clock .datetime-container .display-container {
-		justify-content: end;
-		margin: 0;
+	.clock .datetime-container form,
+	.clock .datetime-container input {
+		text-align: left;
 	}
 }
