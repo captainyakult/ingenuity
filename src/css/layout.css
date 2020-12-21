@@ -44,16 +44,6 @@ body {
 	display: grid;
 }
 
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
-	/* Story panel */
-	.story-panel {
-		margin-left: -20px;
-		margin-top: 65px;
-		margin-bottom: 20px;
-	}
-}
-
 .story-back-button {
 	grid-row: 1;
 	grid-column: span 2;
@@ -135,5 +125,12 @@ only screen and (min-width: 641px) and (orientation: portrait) {
 	}
 	.time-controller .rate-container {
 		grid-template-columns: auto auto 90px 2px 90px auto;
+	}
+
+	/* Story panel */
+	.story-panel {
+		margin-left: -20px;
+		margin-top: 65px;
+		margin-bottom: 20px;
 	}
 }
