@@ -36,6 +36,7 @@ class InfoPanel extends BaseComponent {
 		this._scrollbar = null;
 
 		this.openPanel = this.openPanel.bind(this);
+		this.closePanel = this.closePanel.bind(this);
 	}
 
 	/**
@@ -49,9 +50,7 @@ class InfoPanel extends BaseComponent {
 		// Load info panel html
 		await this.loadHTML('info.html');
 		// Add on click function
-		this._children.closeButton.addEventListener('click', () => {
-			this.setState({ visibleClass: 'hidden' });
-		});
+		this._children.closeButton.addEventListener('click', this.closePanel);
 
 		// Add toggle button
 		this._children.toggle = document.createElement('div');
@@ -127,7 +126,18 @@ class InfoPanel extends BaseComponent {
 	 */
 	openPanel() {
 		this._children.infoPanelOverlay.style.display = 'block';
+		this._app.getManager('time').pause();
 		this.setState({ visibleClass: 'active' });
+	}
+
+	/**
+	 * Closes info panel.
+	 */
+	closePanel() {
+		if (this._app.getManager('time').previousTimeRate !== 0) {
+			this._app.getManager('time').play();
+		}
+		this.setState({ visibleClass: 'hidden' });
 	}
 }
 
