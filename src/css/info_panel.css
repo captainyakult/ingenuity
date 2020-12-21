@@ -11,11 +11,26 @@
 }
 
 /* Animations */
+.info-panel .panel-overlay {
+	display: none;
+}
 .info-panel .panel-overlay.active {
+	animation-name: fade-in;
+	animation-duration: 0.25s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+	pointer-events: all;
 	display: block;
 }
 .info-panel .panel-overlay.hidden {
-	display: none;
+	animation-name: fade-out;
+	animation-duration: 0.25s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+	pointer-events: none;
+	display: block;
 }
 
 /* Info panel content */
@@ -100,6 +115,9 @@ body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
 		width: 55%;
 		margin: auto;
 		padding: 4% 0;
+	}
+	.info-panel .toggle {
+		opacity: 0.75;
 	}
 }
 

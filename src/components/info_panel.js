@@ -18,7 +18,7 @@ class InfoPanel extends BaseComponent {
 		super(app, div);
 
 		this._state = {
-			visibleClass: 'hidden'
+			visibleClass: ''
 		};
 
 		/**
@@ -58,6 +58,18 @@ class InfoPanel extends BaseComponent {
 		this._children.toggle.className = 'icon icon-info clickable toggle';
 		this._children.toggle.addEventListener('click', this.openPanel);
 		this._div.appendChild(this._children.toggle);
+
+		// Add animation end callback
+		this._children.infoPanelOverlay.addEventListener('animationend', () => {
+			// Listen to css animation end to update div display
+			const computedStyle = window.getComputedStyle(this._children.infoPanelOverlay);
+			if (computedStyle.opacity === '0') {
+				this._children.infoPanelOverlay.style.display = 'none';
+			}
+			else {
+				this._children.infoPanelOverlay.style.display = 'block';
+			}
+		}, true);
 
 		this._setVariables(this._div);
 		this._updateFonts();
@@ -114,6 +126,7 @@ class InfoPanel extends BaseComponent {
 	 * Opens info panel.
 	 */
 	openPanel() {
+		this._children.infoPanelOverlay.style.display = 'block';
 		this.setState({ visibleClass: 'active' });
 	}
 }
