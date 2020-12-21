@@ -45,8 +45,8 @@
 	}
 }
 
-/* Big landscape tablets, laptops/desktops, and above */
-@media only screen and (min-width: 1025px) {
+/* Exclude panorama. Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) and (min-height: 600px) {
 	.settings .zoom {
 		grid-template-rows: 30px 2px 30px;
 		grid-template-columns: 30px;

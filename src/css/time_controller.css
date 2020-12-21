@@ -61,16 +61,16 @@ body.hover .time-controller .next-rate:hover .container {
 
 /* Landscape. 480x320 phones and above */
 @media only screen and (min-width: 320px) and (orientation: landscape),
-/* Portrait. Portrait tablets/iPad and above */
-only screen and (min-width: 641px) and (orientation: portrait) {
+	/* Portrait. Portrait tablets/iPad and above */
+	only screen and (min-width: 641px) and (orientation: portrait) {
 	.time-controller .prev-rate,
 	.time-controller .next-rate {
 		width: 75px;
 	}
 }
 
-/* Big landscape tablets, laptops/desktops, and above */
-@media only screen and (min-width: 1025px) {
+/* Exclude panorama. Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) and (min-height: 600px) {
 	.time-controller .prev-rate .container,
 	.time-controller .next-rate .container {
 		height: 10px;

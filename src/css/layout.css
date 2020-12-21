@@ -101,8 +101,8 @@ only screen and (min-width: 641px) and (orientation: portrait) {
 	}
 }
 
-/* Big landscape tablets, laptops/desktops, and above */
-@media only screen and (min-width: 1025px) {
+/* Exclude panorama. Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) and (min-height: 600px) {
 	.clock {
 		grid-column: 1;
 		align-self: center;
