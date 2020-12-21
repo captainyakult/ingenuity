@@ -34,6 +34,8 @@ class InfoPanel extends BaseComponent {
 		 * @type {OverlayScrollbars}
 		 */
 		this._scrollbar = null;
+
+		this.openPanel = this.openPanel.bind(this);
 	}
 
 	/**
@@ -53,10 +55,8 @@ class InfoPanel extends BaseComponent {
 
 		// Add toggle button
 		this._children.toggle = document.createElement('div');
-		this._children.toggle.className = 'icon icon-info clickable';
-		this._children.toggle.addEventListener('click', () => {
-			this.setState({ visibleClass: 'active' });
-		});
+		this._children.toggle.className = 'icon icon-info clickable toggle';
+		this._children.toggle.addEventListener('click', this.openPanel);
 		this._div.appendChild(this._children.toggle);
 
 		this._setVariables(this._div);
@@ -108,6 +108,13 @@ class InfoPanel extends BaseComponent {
 		else {
 			this._children.panelContent.classList.remove('small');
 		}
+	}
+
+	/**
+	 * Opens info panel.
+	 */
+	openPanel() {
+		this.setState({ visibleClass: 'active' });
 	}
 }
 

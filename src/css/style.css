@@ -161,6 +161,7 @@ button {
 body.hover .icon-bg:hover {
 	background: var(--grayAlpha);
 }
+body.hover .icon-info:hover,
 body.hover .icon-plus:hover,
 body.hover .icon-minus:hover,
 body.hover .icon-box:hover .icon-natural-light,

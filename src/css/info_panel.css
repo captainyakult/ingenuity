@@ -85,10 +85,17 @@ body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
 		font-size: 29px; /* h2 > h3 */
 		line-height: 95%;
 	}
+	.info-panel .toggle {
+		display: none;
+	}
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
 @media only screen and (min-width: 992px) {
+	.info-panel {
+		grid-column: 5;
+		grid-row: 1;
+	}
 	.info-panel .panel-content {
 		width: 55%;
 		margin: auto;
@@ -110,5 +117,8 @@ body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
 	.info-panel .panel-content h2 {
 		font-size: 29px; /* h2 > h3 */
 		line-height: 95%;
+	}
+	.info-panel .toggle {
+		display: none;
 	}
 }

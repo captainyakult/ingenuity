@@ -64,6 +64,8 @@
 .header .credits {
 	opacity: 0.25;
 	justify-self: right;
+	grid-column: 4;
+	grid-row: 1;
 }
 .header .credits em {
 	font-style: normal;
@@ -95,7 +97,7 @@
 
 	.header .credits {
 		text-align: right;
-		align-self: start;
+		align-self: center;
 	}
 	.header .credits span {
 		display: block;
@@ -120,6 +122,9 @@
 		margin-top: 40px;
 		left: 50%;
 		transform: translateX(-50%);
+	}
+	.header .credits {
+		margin-right: 10px;
 	}
 }
 
