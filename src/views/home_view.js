@@ -23,6 +23,7 @@ class HomeView extends BaseView {
 			}
 		};
 
+		this._isMobileMode = this._app.isMobile() || this._app.isTablet() || this._app.isLandscape();
 		this._controlsTimeout = 30 * 1000; // in milliseconds
 		this._isDragging = false;
 		this._controlsVisible = false;
@@ -41,7 +42,7 @@ class HomeView extends BaseView {
 			// Show bottom panel
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
-				if (this._app.isMobile() || this._app.isTablet()) {
+				if (this._isMobileMode) {
 					this._showSettings();
 					this._app.getComponent('storyPanel').hide();
 				}
@@ -53,7 +54,7 @@ class HomeView extends BaseView {
 				this._timer = setTimeout(() => {
 					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
 						this._hideControls();
-						if (this._app.isMobile() || this._app.isTablet()) {
+						if (this._isMobileMode) {
 							this._hideSettings();
 						}
 						this._app.getComponent('storyPanel').show();
@@ -86,7 +87,7 @@ class HomeView extends BaseView {
 				this._timer = setTimeout(() => {
 					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
 						this._hideControls();
-						if (this._app.isMobile() || this._app.isTablet()) {
+						if (this._isMobileMode) {
 							this._hideSettings();
 						}
 						this._app.getComponent('storyPanel').show();
@@ -98,8 +99,7 @@ class HomeView extends BaseView {
 			// Show bottom panel and hide story panel
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
-				console.log('bottom', this._app.isMobile(), this._app.isTablet())
-				if (this._app.isMobile() || this._app.isTablet()) {
+				if (this._isMobileMode) {
 					this._showSettings();
 					this._app.getComponent('storyPanel').hide();
 				}
@@ -111,7 +111,7 @@ class HomeView extends BaseView {
 				this._timer = setTimeout(() => {
 					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
 						this._hideControls();
-						if (this._app.isMobile() || this._app.isTablet()) {
+						if (this._isMobileMode) {
 							this._hideSettings();
 						}
 						this._app.getComponent('storyPanel').show();
@@ -132,7 +132,7 @@ class HomeView extends BaseView {
 				this._timer = setTimeout(() => {
 					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
 						this._hideControls();
-						if (this._app.isMobile() || this._app.isTablet()) {
+						if (this._isMobileMode) {
 							this._hideSettings();
 						}
 						this._app.getComponent('storyPanel').show();
@@ -146,21 +146,24 @@ class HomeView extends BaseView {
 				return;
 			}
 
-			// Mobile
-			if (this._app.isMobile() || this._app.isTablet()) {
-				if (this._app.getComponent('storyPanel').isVisible() && this._controlsVisible) {
-					this.resetStoryPanelMobile();
+			const isMobileMode = this._app.isMobile() || this._app.isTablet() || this._app.isLandscape();
+
+			if (this._isMobileMode !== isMobileMode) {
+				this._isMobileMode = isMobileMode;
+				// Mobile
+				if (this._isMobileMode) {
+					if (this._app.getComponent('storyPanel').isVisible()
+						&& (this._controlsVisible || this._app.getComponent('settings').isVisible())) {
+						this.resetStoryPanelMobile();
+					}
 				}
-				else if (this._app.getComponent('storyPanel').isVisible() && this._app.getComponent('settings').isVisible()) {
-					this.resetStoryPanelMobile();
-				}
-			}
-			else { // Desktop
-				if (!this._app.getComponent('storyPanel').isVisible()) {
-					this._app.getComponent('storyPanel').show();
-				}
-				if (!this._app.getComponent('settings').isVisible()) {
-					this._app.getComponent('settings').show();
+				else { // Desktop
+					if (!this._app.getComponent('storyPanel').isVisible()) {
+						this._app.getComponent('storyPanel').show();
+					}
+					if (!this._app.getComponent('settings').isVisible()) {
+						this._app.getComponent('settings').show();
+					}
 				}
 			}
 		});
