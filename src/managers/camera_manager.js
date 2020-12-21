@@ -33,6 +33,13 @@ class CameraManager extends BaseCameraManager {
 		// if (div instanceof Pioneer.DivComponent) {
 		// 	this.__element('target').innerHTML = div.getDiv().innerHTML;
 		// }
+
+		const cameraComponent = cameraEntity.getComponentByType('camera');
+		this._pioneer.addCallback(() => {
+			const distance = cameraEntity.getPosition().magnitude();
+			cameraComponent.setNearDistance(Math.max(0.001, distance * 0.1));
+			cameraComponent.setMidDistance(Math.max(0.1, distance * 10));
+		}, true);
 	}
 }
 
