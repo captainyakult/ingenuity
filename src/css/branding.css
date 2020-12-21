@@ -86,6 +86,9 @@
 		opacity: 0.25;
 		text-align: right;
 		margin-top: -10px;
+		font-size: 14px; /* small */
+		line-height: 150%;
+		letter-spacing: 0;
 	}
 
 	.header .version {
@@ -137,6 +140,9 @@
 		opacity: 0.25;
 		text-align: right;
 		margin-top: -10px;
+		font-size: 14px; /* small */
+		line-height: 150%;
+		letter-spacing: 0;
 	}
 	.header .version {
 		position: absolute;
