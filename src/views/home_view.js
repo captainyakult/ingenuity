@@ -14,7 +14,7 @@ class HomeView extends BaseView {
 	constructor(div, app) {
 		super(div, app);
 
-		this._components = ['clock', 'timeController', 'breadcrumb', 'clockShortcut', 'settings', 'storyPanel', 'storyBackButton'];
+		this._components = ['clock', 'timeController', 'breadcrumb', 'clockShortcut', 'settings', 'storyPanel', 'storyBackButton', 'infoPanel'];
 
 		this._rules = {
 			rate: {
@@ -194,6 +194,8 @@ class HomeView extends BaseView {
 
 		// Register callback for photo mode
 		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
+
+		this._app.getComponent('infoPanel').onRouteChange();
 
 		this._firstLoad = false;
 		await this.updateCamera(params.target);
