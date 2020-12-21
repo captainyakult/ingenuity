@@ -189,7 +189,7 @@ class HomeView extends BaseView {
 		}
 
 		// Collapse on first load
-		if (this._firstLoad && (this._app.isMobile() || this._app.isTablet())) {
+		if (this._firstLoad && (this._isMobileMode)) {
 			this._app.getComponent('storyPanel').collapse();
 		}
 
@@ -228,7 +228,7 @@ class HomeView extends BaseView {
 		}
 		else {
 			this._app.getComponent('storyPanel').show();
-			if (this._app.isMobile() || this._app.isTablet()) {
+			if (this._isMobileMode) {
 				this._hideSettings();
 			}
 		}
