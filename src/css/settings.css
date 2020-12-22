@@ -34,6 +34,9 @@
 
 /* Portrait. Portrait tablets/iPad and above */
 @media only screen and (min-width: 641px) and (orientation: portrait) {
+	.settings {
+		margin-right: 0;
+	}
 	.settings .zoom {
 		grid-template-columns: 30px 2px 30px;
 		grid-template-rows: 30px;

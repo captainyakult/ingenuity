@@ -59,7 +59,13 @@
 .info-panel .panel-content .icon-plus {
 	opacity: 0.4;
 }
-body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
+body.hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
+	opacity: 1;
+}
+.info-panel li a {
+	opacity: 0.75;
+}
+body.hover .info-panel li:hover a {
 	opacity: 1;
 }
 
@@ -76,7 +82,7 @@ body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
 	width: 4px;
 }
 .os-theme-dark > .os-scrollbar:active > .os-scrollbar-track > .os-scrollbar-handle,
-.os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
+body.hover .os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
 	background: var(--gray);
 	width: 6px;
 }
@@ -103,6 +109,12 @@ body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
 	.info-panel .toggle {
 		display: none;
 	}
+	.info-panel .panel-content p .inline {
+		vertical-align: middle;
+		transform: scale(0.75);
+		transform-origin: center center;
+		margin: 0;
+	}
 }
 
 /* Laptops/desktops, large devices, and screens with width >= 992px */
@@ -118,6 +130,9 @@ body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
 	}
 	.info-panel .toggle {
 		opacity: 0.75;
+	}
+	.info-panel .panel-content p .inline {
+		margin: 0 5px;
 	}
 }
 
@@ -138,5 +153,11 @@ body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
 	}
 	.info-panel .toggle {
 		display: none;
+	}
+	.info-panel .panel-content p .inline {
+		vertical-align: middle;
+		transform: scale(0.75);
+		transform-origin: center center;
+		margin: 0;
 	}
 }

@@ -108,8 +108,8 @@ screen and (min-width: 641px) and (orientation: portrait) {
 
 	/* Controls */
 	.grid-layout .float-right-bottom {
-		grid-column: side-start / side-end;
-		grid-row: side-start / foot-end;
+		grid-column: 9 / side-end;
+		grid-row: side-end / foot-end;
 		align-self: end;
 		justify-self: end;
 		width: 30px;
