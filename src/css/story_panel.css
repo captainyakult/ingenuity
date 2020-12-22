@@ -75,13 +75,31 @@
 		background-position: 100% 50%;
 	}
 }
-
+@keyframes mobile-gradient {
+	0% {
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.0) 25%, rgba(37, 37, 39, 0.0) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+	25% {
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.0) 25%, rgba(37, 37, 39, 0.05) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+	50% {
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.04) 25%, rgba(37, 37, 39, 0.2) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+	75% {
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.075) 25%, rgba(37, 37, 39, 0.35) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+	100% {
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.1) 25%, rgba(37, 37, 39, 0.4) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	}
+}
 
 /* 480x320 phones and above */
 @media only screen and (min-width: 320px) {
 	.carousel {
 		pointer-events: none;
 		--story-height: calc((var(--vh) - 16px) * 3 / 5 + 8px);
+		height: var(--story-height);
+		align-self: end;
 	}
 	.carousel .track {
 		pointer-events: none;
@@ -97,15 +115,15 @@
 		align-items: end;
 		pointer-events: none;
 		align-content: end;
-		padding-bottom: 20px;
 	}
 	.carousel .slide .content {
-		padding: 0 10px 0 20px;
+		padding: 0 20px;
 		margin: 0;
 		align-content: end;
 		pointer-events: all;
 		position: relative;
 		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		padding-bottom: 20px;
 	}
 	.carousel .body {
 		overflow: hidden;
@@ -187,6 +205,20 @@
 		animation-direction: alternate;
 		display: block;
 	}
+
+	/* Background */
+	.carousel.scrolling-done .slide .container .content {
+		animation-name: mobile-gradient;
+		animation-duration: 0.2s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.hidden .slide .container .content,
+	.carousel.scrolling .slide .container .content {
+		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		animation: none;
+	}
 }
 
 /* Landscape. 480x320 phones and above */
@@ -233,6 +265,7 @@
 	.carousel {
 		width: 100%;
 		height: calc(100% - 85px);
+		align-self: auto;
 	}
 	.carousel .track {
 		pointer-events: auto;
@@ -246,9 +279,9 @@
 		align-content: normal;
 	}
 	.carousel .slide .container:hover {
-		background: linear-gradient(90deg, rgba(37, 37, 39, 0.2) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.2) 100%);
+		background: linear-gradient(90deg, rgba(37, 37, 39, 0.4) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.4) 100%);
 		background-size: 200% 100%;
-		animation: gradient 10s ease 1;
+		animation: gradient 6s ease 1;
 		animation-fill-mode: both;
 	}
 	body.hover .carousel .container:hover::after {
@@ -288,6 +321,7 @@
 	.carousel .phase .label {
 		display: block;
 	}
+	.carousel.scrolling-done .slide .container .content,
 	.carousel.expand .body,
 	.carousel.collapse .body,
 	.carousel.expand .footer,
