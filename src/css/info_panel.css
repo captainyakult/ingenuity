@@ -1,0 +1,142 @@
+/* Info panel */
+.info-panel .panel-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.9);
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	pointer-events: all;
+}
+
+/* Animations */
+.info-panel .panel-overlay {
+	display: none;
+}
+.info-panel .panel-overlay.active {
+	animation-name: fade-in;
+	animation-duration: 0.25s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+	pointer-events: all;
+	display: block;
+}
+.info-panel .panel-overlay.hidden {
+	animation-name: fade-out;
+	animation-duration: 0.25s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-fill-mode: both;
+	pointer-events: none;
+	display: block;
+}
+
+/* Info panel content */
+.info-panel h1 {
+	padding-bottom: 20px;
+	border-bottom: 1px solid var(--gray);
+	margin-bottom: 20px;
+}
+.info-panel .panel-content p {
+	text-align: justify;
+}
+.info-panel .close-button {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+.info-panel .panel-content p .inline {
+	vertical-align: middle;
+	margin: 0 5px;
+}
+.info-panel .panel-content .icon-flood-light {
+	margin: 7px;
+	opacity: 0.4;
+}
+.info-panel .panel-content .icon-minus,
+.info-panel .panel-content .icon-plus {
+	opacity: 0.4;
+}
+body:hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
+	opacity: 1;
+}
+
+/* Scrollbar CSS override */
+.os-theme-dark > .os-scrollbar,
+.os-scrollbar-vertical,
+.os-host-resize-disabled.os-host-scrollbar-horizontal-hidden > .os-scrollbar-vertical {
+	right: 6px;
+	top: 40px;
+	bottom: 40px;
+}
+.os-theme-dark > .os-scrollbar > .os-scrollbar-track > .os-scrollbar-handle {
+	background: var(--grayDark);
+	width: 4px;
+}
+.os-theme-dark > .os-scrollbar:active > .os-scrollbar-track > .os-scrollbar-handle,
+.os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
+	background: var(--gray);
+	width: 6px;
+}
+.os-theme-dark > .os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
+	min-height: 60px;
+}
+
+/* Phones, 991px and down */
+@media only screen and (max-width: 991px) {
+	.info-panel .panel-content {
+		width: 100%;
+		margin: auto;
+		padding: 60px 30px 80px 20px;
+	}
+	.info-panel .panel-content h1 {
+		font-size: 36px; /* h1 > h2 */
+		line-height: 120%;
+		width: calc(100% - 40px);
+	}
+	.info-panel .panel-content h2 {
+		font-size: 29px; /* h2 > h3 */
+		line-height: 95%;
+	}
+	.info-panel .toggle {
+		display: none;
+	}
+}
+
+/* Laptops/desktops, large devices, and screens with width >= 992px */
+@media only screen and (min-width: 992px) {
+	.info-panel {
+		grid-column: 5;
+		grid-row: 1;
+	}
+	.info-panel .panel-content {
+		width: 55%;
+		margin: auto;
+		padding: 4% 0;
+	}
+	.info-panel .toggle {
+		opacity: 0.75;
+	}
+}
+
+/* Mobile landscape, panorama with height less than 600px */
+@media only screen and (max-height: 600px) and (orientation: landscape) {
+	.info-panel .panel-content {
+		width: 65%;
+		margin: auto;
+		padding: 40px 0 80px;
+	}
+	.info-panel .panel-content h1 {
+		font-size: 36px; /* h1 > h2 */
+		line-height: 120%;
+	}
+	.info-panel .panel-content h2 {
+		font-size: 29px; /* h2 > h3 */
+		line-height: 95%;
+	}
+	.info-panel .toggle {
+		display: none;
+	}
+}

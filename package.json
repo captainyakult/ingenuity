@@ -19,7 +19,8 @@
 	"homepage": "https://github.jpl.nasa.gov/VTAD/mars2020",
 	"dependencies": {
 		"moment": "^2.29.1",
-		"moment-timezone": "^0.5.31"
+		"moment-timezone": "^0.5.31",
+		"overlayscrollbars": "^1.13.1"
 	},
 	"devDependencies": {
 		"copy-webpack-plugin": "latest",

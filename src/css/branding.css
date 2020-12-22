@@ -64,6 +64,8 @@
 .header .credits {
 	opacity: 0.25;
 	justify-self: right;
+	grid-column: 4;
+	grid-row: 1;
 }
 .header .credits em {
 	font-style: normal;
@@ -84,6 +86,9 @@
 		opacity: 0.25;
 		text-align: right;
 		margin-top: -10px;
+		font-size: 14px; /* small */
+		line-height: 150%;
+		letter-spacing: 0;
 	}
 
 	.header .version {
@@ -95,7 +100,7 @@
 
 	.header .credits {
 		text-align: right;
-		align-self: start;
+		align-self: center;
 	}
 	.header .credits span {
 		display: block;
@@ -121,6 +126,9 @@
 		left: 50%;
 		transform: translateX(-50%);
 	}
+	.header .credits {
+		margin-right: 10px;
+	}
 }
 
 /* Mobile landscape, panorama with height less than 600px */
@@ -132,6 +140,9 @@
 		opacity: 0.25;
 		text-align: right;
 		margin-top: -10px;
+		font-size: 14px; /* small */
+		line-height: 150%;
+		letter-spacing: 0;
 	}
 	.header .version {
 		position: absolute;

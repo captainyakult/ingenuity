@@ -55,4 +55,7 @@
 		height: 2px;
 		width: 22px;
 	}
+	.settings .info-panel {
+		display: none;
+	}
 }

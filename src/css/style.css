@@ -58,6 +58,7 @@ h3.semi,
 h4.semi,
 h5.semi {
 	letter-spacing: -0.02em;
+	font-weight: 600;
 }
 .display {
 	font-size: 48px;
@@ -160,6 +161,7 @@ button {
 body.hover .icon-bg:hover {
 	background: var(--grayAlpha);
 }
+body.hover .icon-info:hover,
 body.hover .icon-plus:hover,
 body.hover .icon-minus:hover,
 body.hover .icon-box:hover .icon-natural-light,
