@@ -19,7 +19,7 @@
 .carousel .navigation-button:focus {
 	outline: 0;
 }
-.carousel .navigation-button:hover {
+body.hover .carousel .navigation-button:hover {
 	background: transparent;
 }
 
@@ -227,7 +227,7 @@
 	.carousel .slide .container {
 		padding-right: 20px;
 	}
-	.carousel .slide .container:hover {
+	body.hover .carousel .slide .container:hover {
 		background: linear-gradient(90deg, rgba(37, 37, 39, 0.4) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.4) 100%);
 		background-size: 200% 100%;
 		animation: gradient 6s ease 1;

@@ -103,6 +103,14 @@ button {
 	border: 0;
 }
 
+a:active,
+a:visited,
+a {
+	color: var(--white);
+	text-decoration: none;
+	pointer-events: all;
+}
+
 /* Support line break in text */
 .line-break-text {
 	white-space: pre-line;
