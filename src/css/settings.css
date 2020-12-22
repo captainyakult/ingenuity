@@ -27,6 +27,9 @@
 
 /* Mobile landscape, panorama with height less than 600px */
 @media only screen and (max-height: 600px) and (orientation: landscape) {
+	.settings {
+		margin-right: 0;
+	}
 	.settings .zoom {
 		display: grid;
 		grid-template-columns: 30px 2px 30px;

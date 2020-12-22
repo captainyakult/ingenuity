@@ -105,7 +105,7 @@
 	.grid-layout .float-right-bottom {
 		grid-column: 9 / side-end;
 		grid-row: side-end / foot-end;
-		align-self: center;
+		align-self: end;
 		justify-self: end;
 		display: grid;
 		justify-content: end;
