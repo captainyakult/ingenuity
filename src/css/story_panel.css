@@ -226,11 +226,11 @@
 	/* Portrait. Portrait tablets/iPad and above */
 	only screen and (min-width: 641px) and (orientation: portrait) {
 	.carousel {
-		width: calc(100% + 20px); /* Add neg margin back */
+		width: calc(100% + 40px); /* Add neg margin back */
 		--story-height: calc((var(--vh) - 16px) * 4 / 5 + 12px);
 	}
 	.carousel .slide .content {
-		padding: 0 20px;
+		padding: 0 20px 20px;
 	}
 	.carousel .footer {
 		overflow: hidden;
@@ -240,8 +240,8 @@
 	.carousel .collapse-button {
 		position: absolute;
 		top: auto;
-		bottom: 0;
-		right: 0;
+		bottom: 20px;
+		right: 20px;
 	}
 
 	.carousel.expand .footer {
