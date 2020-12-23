@@ -93,11 +93,13 @@ body.hover .carousel .navigation-button:hover {
 	}
 }
 
-/* Phones, 991px and down */
-@media only screen and (max-width: 991px) {
+/* 480x320 phones and above */
+@media only screen and (min-width: 320px) {
 	.carousel {
 		pointer-events: none;
 		--story-height: calc((var(--vh) - 16px) * 3 / 5 + 8px);
+		height: var(--story-height);
+		align-self: end;
 	}
 	.carousel .track {
 		pointer-events: none;
@@ -219,13 +221,68 @@ body.hover .carousel .navigation-button:hover {
 	}
 }
 
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
+/* Landscape. 480x320 phones and above */
+@media only screen and (min-width: 320px) and (orientation: landscape),
+	/* Portrait. Portrait tablets/iPad and above */
+	only screen and (min-width: 641px) and (orientation: portrait) {
 	.carousel {
+		width: calc(100% + 40px); /* Add neg margin back */
+		--story-height: calc((var(--vh) - 16px) * 4 / 5 + 12px);
+	}
+	.carousel .slide .content {
+		padding: 0 20px 20px;
+	}
+	.carousel .footer {
+		overflow: hidden;
+	}
+	.carousel .title {
+		margin-right: 40px;
+	}
+	.carousel .description.mobile {
+		margin-right: 40px;
+	}
+
+	/* Buttons */
+	.carousel .collapse-button {
+		position: absolute;
+		top: auto;
+		bottom: 20px;
+		right: 20px;
+	}
+
+	.carousel.expand .footer {
+		animation-name: develop;
+		animation-duration: 1.0s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+	.carousel.collapse .footer {
+		animation-name: shrink;
+		animation-duration: 0.4s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: 1;
+		animation-fill-mode: both;
+	}
+}
+
+/* Exclude panorama. Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) and (min-height: 600px) {
+	.carousel {
+		width: 100%;
 		height: calc(100% - 85px);
+		align-self: auto;
+	}
+	.carousel .track {
+		pointer-events: auto;
+		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 	.carousel .slide .container {
 		padding-right: 20px;
+		padding-bottom: 0;
+		pointer-events: auto;
+		align-items: normal;
+		align-content: normal;
 	}
 	body.hover .carousel .slide .container:hover {
 		background: linear-gradient(90deg, rgba(37, 37, 39, 0.4) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.4) 100%);
@@ -246,10 +303,17 @@ body.hover .carousel .navigation-button:hover {
 		height: calc(100vh - 85px);
 	}
 	.carousel .slide .content {
-		padding-right: 0;
+		background: none;
+		align-content: center;
+		margin: 10px 0;
+		padding: 0 0 0 10%;
 	}
 	.carousel .title {
 		margin-bottom: 15px;
+		margin-right: 0;
+		font-size: 36px;
+		line-height: 120%;
+		font-weight: 100;
 	}
 	.carousel .slide .content .touchdown {
 		margin-bottom: 20px;
@@ -260,139 +324,23 @@ body.hover .carousel .navigation-button:hover {
 	.carousel .description.mobile {
 		display: none;
 	}
-	.carousel .hint-button,
-	.carousel .collapse-button {
-		display: none;
-	}
-}
-
-/* Mobile landscape, panorama with height less than 600px */
-@media only screen and (max-height: 600px) and (orientation: landscape) {
-	.carousel {
-		pointer-events: none;
-		width: calc(100% + 40px); /* Add neg margin back */
-		--story-height: calc((var(--vh) - 16px) * 4 / 5 + 12px);
-	}
-	.carousel .track {
-		pointer-events: none;
-		background: none;
-	}
-	.carousel .slide {
-		height: var(--story-height);
-	}
-	.carousel .slide.hidden * {
-		pointer-events: none;
-	}
-	.carousel .slide .container {
-		align-items: end;
-		pointer-events: none;
-		align-content: end;
-	}
-	.carousel .slide .content {
-		padding: 0 20px;
-		margin: 0;
-		align-content: end;
-		pointer-events: all;
-		position: relative;
-		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
-		padding-bottom: 20px;
-	}
-	.carousel .footer,
-	.carousel .body {
-		overflow: hidden;
-	}
-
-	/* Content */
-	.carousel .title {
-		font-size: 24px;
-		line-height: 95%;
-		margin-bottom: 10px;
-		margin-right: 25px;
-	}
 	.carousel .phase .label {
-		display: none;
-	}
-	.carousel .description {
-		display: none;
-	}
-	.carousel .description.mobile {
 		display: block;
 	}
-	
+	.carousel.scrolling-done .slide .container .content,
+	.carousel.expand .body,
+	.carousel.collapse .body,
+	.carousel.expand .footer,
+	.carousel.collapse .footer {
+		animation: none;
+	}
+
 	/* Buttons */
 	.carousel .navigation-button {
-		display: none;
-	}
-	.carousel .collapse-button {
-		position: absolute;
-		top: auto;
-		bottom: 20px;
-		right: 20px;
-		outline: none;
-	}
-	.carousel .hint-button {
-		position: absolute;
-		top: -30px;
-		left: 50%;
-		transform: rotate(-90deg) translateY(-50%) scale(1);
-		pointer-events: none;
-		display: none;
-	}
-
-	/* Animations */
-	@keyframes shrink {
-		0% {
-			max-height: var(--story-height);
-		}
-		100% {
-			max-height: 0;
-		}
-	}
-	@keyframes develop {
-		0% {
-			max-height: 0;
-		}
-		100% {
-			max-height: var(--story-height);
-		}
-	}
-	.carousel.expand .footer,
-	.carousel.expand .body {
-		animation-name: develop;
-		animation-duration: 1.0s;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: 1;
-		animation-fill-mode: both;
-	}
-	.carousel.collapse .footer,
-	.carousel.collapse .body {
-		animation-name: shrink;
-		animation-duration: 0.4s;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: 1;
-		animation-fill-mode: both;
-	}
-	.carousel.expand .hint-button {
-		animation-name: pulse;
-		animation-duration: 0.75s;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: 8;
-		animation-fill-mode: both;
-		animation-direction: alternate;
 		display: block;
 	}
-
-	/* Background */
-	.carousel.scrolling-done .slide .container .content {
-		animation-name: mobile-gradient;
-		animation-duration: 0.2s;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: 1;
-		animation-fill-mode: both;
-	}
-	.carousel.hidden .slide .container .content,
-	.carousel.scrolling .slide .container .content {
-		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
-		animation: none;
+	.carousel.expand .hint-button,
+	.carousel .collapse-button {
+		display: none;
 	}
 }

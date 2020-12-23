@@ -1,7 +1,7 @@
 /* Shared properties */
 
-/* Phones, 991px and down */
-@media only screen and (max-width: 991px) {
+/* 480x320 phones and above */
+@media only screen and (min-width: 320px) {
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
@@ -18,7 +18,7 @@
 	/* Controls */
 	.grid-layout .float-right-bottom {
 		grid-column: extf-end / side-end;
-		grid-row: extf-start / foot-end;
+		grid-row: foot-start / foot-end;
 		align-self: end;
 		justify-self: start;
 		width: 100%;
@@ -47,47 +47,10 @@
 	}
 }
 
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
-	/* Story panel */
-	.grid-layout .story-panel {
-		grid-column: main-start / extd-end;
-		grid-row: head-start / foot-end;
-	}
-
-	/* Header */
-	.grid-layout header {
-		grid-area: head;
-		height: 65px;
-	}
-
-	/* Controls */
-	.grid-layout .float-right-bottom {
-		grid-column: side-start / side-end;
-		grid-row: side-start / foot-end;
-		align-self: end;
-		justify-self: end;
-		width: 30px;
-		margin-bottom: 25px;
-	}
-
-	/* Time */
-	.grid-layout .float-mid-bottom {
-		grid-template-columns: minmax(250px, 30%) 70%;
-		grid-template-rows: 50% 50%;
-		grid-column: extd-end / side-start;
-		grid-row: foot-start / foot-end;
-		align-self: center;
-		align-items: center;
-		justify-items: start;
-		height: auto;
-		display: grid;
-		gap: 0 30px;
-	}
-}
-
-/* Mobile landscape, panorama with height less than 600px */
-@media only screen and (max-height: 600px) and (orientation: landscape) {
+/* Landscape. 480x320 phones and above */
+@media only screen and (min-width: 320px) and (orientation: landscape),
+/* Portrait. Portrait tablets/iPad and above */
+screen and (min-width: 641px) and (orientation: portrait) {
 	/* Story panel */
 	.grid-layout .story-panel {
 		grid-column: main-start / side-end;
@@ -104,12 +67,12 @@
 	/* Controls */
 	.grid-layout .float-right-bottom {
 		grid-column: 9 / side-end;
-		grid-row: side-end / foot-end;
-		align-self: end;
+		grid-row: foot-start / foot-end;
 		justify-self: end;
 		display: grid;
+		align-items: center;
 		justify-content: end;
-		margin-top: 10px;
+		height: 51px;
 	}
 
 	/* Time */
@@ -126,5 +89,46 @@
 		gap: 10px 5px;
 		width: 100%;
 		margin: 0;
+	}
+}
+
+/* Exclude panorama. Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) and (min-height: 600px) {
+	/* Story panel */
+	.grid-layout .story-panel {
+		grid-column: main-start / extd-end;
+		grid-row: head-start / foot-end;
+	}
+
+	/* Header */
+	.grid-layout header {
+		grid-area: head;
+		height: 65px;
+	}
+
+	/* Controls */
+	.grid-layout .float-right-bottom {
+		grid-column: 9 / side-end;
+		grid-row: side-start / foot-end;
+		align-self: end;
+		justify-self: end;
+		width: 30px;
+		margin-bottom: 25px;
+		height: 100%;
+		align-items: end;
+	}
+
+	/* Time */
+	.grid-layout .float-mid-bottom {
+		grid-template-columns: minmax(250px, 30%) 70%;
+		grid-template-rows: 50% 50%;
+		grid-column: extd-end / side-start;
+		grid-row: foot-start / foot-end;
+		align-self: center;
+		align-items: center;
+		justify-items: start;
+		height: auto;
+		display: grid;
+		gap: 0 30px;
 	}
 }
