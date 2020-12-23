@@ -24,7 +24,7 @@ class StoryPanel extends Carousel {
 				speedUnit: 'km/h'
 			},
 			imperial: {
-				distanceUnit: 'mi',
+				distanceUnit: 'miles',
 				speedUnit: 'mph'
 			}
 		};
