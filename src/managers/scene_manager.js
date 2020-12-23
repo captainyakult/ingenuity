@@ -110,7 +110,7 @@ class SceneManager extends BaseSceneManager {
 	 * Creates the CMTS for mars.
 	 * @private
 	 */
-	_createCMTS() {
+	async _createCMTS() {
 		this._pioneer.registerComponentType('cmts', CMTSComponent);
 		const mars = this._scene.getEntity('mars');
 		// Get the spheroid from the spheroid coomponent.
@@ -130,6 +130,11 @@ class SceneManager extends BaseSceneManager {
 		cmts.setPlanetographic(false);
 
 		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 12, 1590, 2748, 1592, 2749);
+
+		// Add loading icon
+		this.addLoading('mars', 'cmts');
+		await this.terrainIsReady(cmts);
+		this.removeLoading('mars', 'cmts');
 	}
 
 	/**

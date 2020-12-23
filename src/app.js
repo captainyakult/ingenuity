@@ -6,6 +6,7 @@ import 'es6-ui-library/css/grid_layout.css';
 import 'es6-ui-library/css/style.css';
 import 'es6-ui-library/css/animation.css';
 import 'es6-ui-library/css/settings.css';
+import 'es6-ui-library/css/load_icon.css';
 import './css/font.css';
 import './css/grid.css';
 import './css/sprite.css';
@@ -17,7 +18,7 @@ import './css/settings.css';
 
 // Import UI library managers
 import {
-	BaseApp, TimeManager, Settings
+	BaseApp, TimeManager, Settings, LoadIcon
 } from 'es6-ui-library';
 
 // Overriden managers
@@ -112,6 +113,8 @@ class App extends BaseApp {
 		// Camera manager
 		const cameraManager = this.addManager('camera', CameraManager, this._pioneer, this._scene);
 		cameraManager.createViewportAndCamera();
+		cameraManager.registerCallback('loading', sceneManager.addLoading);
+		cameraManager.registerCallback('loaded', sceneManager.removeLoading);
 
 		sceneManager.setupDynamicEnvironmentMap();
 
@@ -149,6 +152,10 @@ class App extends BaseApp {
 		await this.addComponent('storyBackButton', StoryBackButton, document.getElementById('story-back-button'));
 
 		await this.addComponent('infoPanel', InfoPanel, document.getElementById('info-panel'));
+
+		const loadIcon = await this.addComponent('loadIcon', LoadIcon, document.getElementById('load-icon'));
+		this._managers.scene.registerCallback('loading', loadIcon.show);
+		this._managers.scene.registerCallback('loaded', loadIcon.hide);
 	}
 
 	/**
