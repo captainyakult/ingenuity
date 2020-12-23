@@ -19,6 +19,27 @@ class CameraManager extends BaseCameraManager {
 			up: false,
 			distance: distance
 		});
+
+		// Manage loading of components
+		for (let i = this._callbacks.loading.length - 1; i >= 0; i--) {
+			const callback = this._callbacks.loading[i];
+			callback(name, 'camera');
+		}
+		const promises = [];
+		const components = ['model', 'wmts', 'spheroid'];
+		for (let i = 0; i < components.length; i++) {
+			const component = this._defaultScene.get(name, components[i]);
+			if (component !== null) {
+				promises.push(component.getLoadedPromise());
+			}
+		}
+		Promise.all(promises).then(() => {
+			for (let i = this._callbacks.loaded.length - 1; i >= 0; i--) {
+				const callback = this._callbacks.loaded[i];
+				callback(name, 'camera');
+			}
+		});
+
 		const orbit = cameraEntity.get('orbit');
 		if (orbit instanceof Pioneer.OrbitController) {
 			orbit.slowWhenCloseToParent(true);
