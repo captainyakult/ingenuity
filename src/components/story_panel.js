@@ -89,7 +89,7 @@ class StoryPanel extends Carousel {
 			<div class="body">
 				<div class="distance {{textClass}}"><span key="distanceValue_${info.index}" class="value semi">{{distance}}</span><span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
 				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span key="altitudeValue_${info.index}" class="value semi">{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
-				<div class="velocity {{textClass}}"><span class="label semi">Velocity: </span><span key="velocityValue_${info.index}" class="value semi">{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
+				<div class="velocity {{textClass}} {{touchdownClass}}"><span class="label semi">Velocity: </span><span key="velocityValue_${info.index}" class="value semi">{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 				<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
 				<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
 			</div>
