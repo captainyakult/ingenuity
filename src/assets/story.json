@@ -4,33 +4,81 @@
 		"title": "Cruise Stage Separation",
 		"description": "About ten minutes before entering the atmosphere, the spacecraft sheds its Cruise Stage, which houses solar panels, radios, and fuel tanks during its flight to Mars.",
 		"mobileDescription": "The spacecraft sheds the cruise stage, which houses the solar panels, fuel tanks.",
-		"timestamp": -60.000
+		"timestamp": -60.000,
+		"camera": [
+			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover"
+				]
+			}
+		]
 	},
 	{
 		"id": "de-spin",
 		"title": "De-Spin",
 		"description": "The spacecraft uses thrusters to stop its 2 RPM spin and then face the optimum entry attitude.",
-		"timestamp": 20.500
+		"timestamp": 20.500,
+		"camera": [
+			{
+				"func": "alignWithTarget",
+				"params": [
+					"sc_perseverance_rover",
+					"sc_perseverance_landing_site",
+					{ "verticalOffset": -10, "horizontalOffset": -5 }
+				]
+			}
+		]
 	},
 	{
 		"id": "cruise_balance_masses_ejected",
 		"title": "Cruise Balance Masses Ejected",
 		"description": "Five minutes before entering the Martian atmosphere, the spacecraft drops two 70 kg balance masses in order to create the desired lift-to-drag ratio.",
 		"mobileDescription": "The spacecraft drops mass for aerodynamics in the atmosphere.",
-		"timestamp": 56.395
+		"timestamp": 56.395,
+		"camera": [
+			{
+				"func": "alignWithTarget",
+				"params": [
+					"sc_perseverance_rover",
+					"sc_perseverance_landing_site",
+					{ "verticalOffset": -10, "horizontalOffset": -5, "distance": 0.1 }
+				]
+			}
+		]
 	},
 	{
 		"id": "entry_interface_point",
 		"title": "Entry Interface Point",
 		"description": "The spacecraft enters the Martian atmosphere, drastically slowing it down while also heating it up.",
-		"timestamp": 540.085
+		"timestamp": 540.085,
+		"camera": [
+			{
+				"func": "alignWithTarget",
+				"params": [
+					"sc_perseverance_rover",
+					"sc_perseverance_landing_site",
+					{ "verticalOffset": -10, "horizontalOffset": -5 }
+				]
+			}
+		]
 	},
 	{
 		"id": "guidance_start",
 		"title": "Guidance Start",
 		"description": "As it begins to descend through the atmosphere, the spacecraft encounters pockets of air that are more or less dense, which can nudge it off course. To compensate, it fires small thrusters on its backshell that adjust its angle and direction of lift.",
 		"mobileDescription": "The spacecraft fires thrusters to stay on course.",
-		"timestamp": 594.875
+		"timestamp": 594.875,
+		"camera": [
+			{
+				"func": "alignWithTarget",
+				"params": [
+					"sc_perseverance_rover",
+					"earth",
+					{ "verticalOffset": 10, "distance": 0.05 }
+				]
+			}
+		]
 	},
 	{
 		"id": "heading_alignment",
