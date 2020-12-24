@@ -40,6 +40,11 @@ class HomeView extends BaseView {
 			}
 			this._isDragging = true;
 
+			// Turn off guided camera
+			if (event.target.id === 'main-viewport') {
+				this._app.getComponent('settings').stopGuidedCamera();
+			}
+
 			// Show bottom panel
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
@@ -207,7 +212,7 @@ class HomeView extends BaseView {
 	}
 
 	/**
-	 * Transition to a target.
+	 * Update camera.
 	 * @param {string} target
 	 * @param {string} phaseId
 	 */
@@ -217,7 +222,8 @@ class HomeView extends BaseView {
 		}
 
 		const info = this._app.getComponent('storyPanel').currentInfo;
-		if (info.camera) {
+		if (info.camera && this._app.getComponent('settings').getState('isGuidedCamera')) {
+			this._target = target;
 			if (this._id !== phaseId) {
 				this._id = phaseId;
 				for (let i = 0; i < info.camera.length; i++) {
