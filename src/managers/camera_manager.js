@@ -110,11 +110,12 @@ class CameraManager extends BaseCameraManager {
 		await this.goToEntity(id, { destination: dest, cinematic, minRadius, destinationUp: up, duration });
 	}
 
-	async viewFromBehind(id, { scene = undefined, distance = undefined, cinematic = false, duration = 0.75 } = {}) {
+	async viewFromBehind(id, { scene = undefined, planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75 } = {}) {
 		// Entities
 		const scEntity = this._defaultScene.get(id);
 		await SceneHelpers.waitTillEntitiesInPlace(this._defaultScene, new Set([scEntity.getName()]));
 		// const targetEntity = this._defaultScene.get(target);
+		const planeEntity = this._defaultScene.get(planeId);
 
 		const scRadius = scEntity.getOcclusionRadius();
 		const minRadius = 1.2 * scRadius;
@@ -127,7 +128,7 @@ class CameraManager extends BaseCameraManager {
 
 		// Parent up
 		const up = new Pioneer.Vector3();
-		scEntity.getParent().getOrientation().getAxis(up, 2);
+		planeEntity.getOrientation().getAxis(up, 2);
 		up.normalize(up);
 
 		// Horizontal
@@ -141,16 +142,22 @@ class CameraManager extends BaseCameraManager {
 		// const distToFit = Cameras.getDistanceToFitEntities(this._cameraEntity, cameraOrientation, scEntity, [scEntity, targetEntity]);
 		// const dist = distToFit * 1.3;
 		// dest.mult(dest, dist);
-		dest.mult(dest, minRadius * 10);
+		if (distance === undefined) {
+			dest.mult(dest, 10 * scRadius);
+		}
+		else {
+			dest.mult(dest, distance);
+		}
 
 		await this.goToEntity(id, { destination: dest, cinematic, minRadius, destinationUp: up, duration });
 	}
 
-	async viewFromSide(id, { scene = undefined, distance = undefined, cinematic = false, duration = 0.75 } = {}) {
+	async viewFromSide(id, { scene = undefined, planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75 } = {}) {
 		// Entities
 		const scEntity = this._defaultScene.get(id);
 		await SceneHelpers.waitTillEntitiesInPlace(this._defaultScene, new Set([scEntity.getName()]));
 		// const targetEntity = this._defaultScene.get(target);
+		const planeEntity = this._defaultScene.get(planeId);
 
 		const scRadius = scEntity.getOcclusionRadius();
 		const minRadius = 1.2 * scRadius;
@@ -159,14 +166,17 @@ class CameraManager extends BaseCameraManager {
 		const dest = new Pioneer.Vector3();
 		const forward = new Pioneer.Vector3();
 		scEntity.getOrientation().getAxis(forward, 2);
-		
-		dest.cross(forward, )
+		forward.normalize(forward);
+		const scPosition = new Pioneer.Vector3();
+		scEntity.getPositionRelativeToEntity(scPosition, Pioneer.Vector3.Zero, planeEntity);
+		scPosition.normalize(scPosition);
+		dest.cross(forward, scPosition);
 		dest.normalize(dest);
 		dest.mult(dest, -1);
 
-		// Parent up
+		// Position up
 		const up = new Pioneer.Vector3();
-		scEntity.getParent().getOrientation().getAxis(up, 2);
+		up.copy(scPosition);
 		up.normalize(up);
 
 		// Horizontal
@@ -175,12 +185,12 @@ class CameraManager extends BaseCameraManager {
 		horizontal.normalize(horizontal);
 
 		// Distance
-		// const cameraOrientation = new Pioneer.Quaternion();
-		// cameraOrientation.setFromAxes(horizontal, dest, undefined);
-		// const distToFit = Cameras.getDistanceToFitEntities(this._cameraEntity, cameraOrientation, scEntity, [scEntity, targetEntity]);
-		// const dist = distToFit * 1.3;
-		// dest.mult(dest, dist);
-		dest.mult(dest, minRadius * 10);
+		if (distance === undefined) {
+			dest.mult(dest, 10 * scRadius);
+		}
+		else {
+			dest.mult(dest, distance);
+		}
 
 		await this.goToEntity(id, { destination: dest, cinematic, minRadius, destinationUp: up, duration });
 	}
