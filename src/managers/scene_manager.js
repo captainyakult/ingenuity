@@ -161,6 +161,8 @@ class SceneManager extends BaseSceneManager {
 		if (dynEnvMap instanceof Pioneer.DynamicEnvironmentMapComponent) {
 			this._scene.get('sc_perseverance_rover', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 			this._scene.get('sc_perseverance_cruise_stage', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
+			this._scene.get('sc_perseverance_chutecap', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
+			this._scene.get('sc_perseverance_parachute', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 			this._scene.get('sc_perseverance_backshell', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 			this._scene.get('sc_perseverance_heat_shield', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 			this._scene.get('sc_perseverance_descent_stage', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
