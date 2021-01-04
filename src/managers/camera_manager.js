@@ -73,12 +73,12 @@ class CameraManager extends BaseCameraManager {
 		const scRadius = scEntity.getOcclusionRadius();
 		const minRadius = 1.2 * scRadius;
 
-		// Landing site view
+		// Target view
 		const dest = new Pioneer.Vector3();
 		scEntity.getPositionRelativeToEntity(dest, Pioneer.Vector3.Zero, targetEntity);
 		dest.normalize(dest);
 
-		// Landing site up
+		// Target up
 		const up = new Pioneer.Vector3();
 		targetEntity.getPositionRelativeToEntity(up, Pioneer.Vector3.Zero, planeEntity);
 		up.normalize(up);
@@ -89,15 +89,20 @@ class CameraManager extends BaseCameraManager {
 		horizontal.normalize(horizontal);
 
 		// Offset dest vector so target is below or above
-		const orientationOffset = new Pioneer.Quaternion();
-		let angleOffset = Pioneer.MathUtils.degToRad(verticalOffset);
-		orientationOffset.setFromAxisAngle(horizontal, angleOffset);
-		dest.rotate(orientationOffset, dest);
+		if (verticalOffset !== 0) {
+			const orientationOffset = new Pioneer.Quaternion();
+			const angleOffset = Pioneer.MathUtils.degToRad(verticalOffset);
+			orientationOffset.setFromAxisAngle(horizontal, angleOffset);
+			dest.rotate(orientationOffset, dest);
+		}
 
 		// Offset dest vector so target is on the left or right
-		angleOffset = Pioneer.MathUtils.degToRad(horizontalOffset);
-		orientationOffset.setFromAxisAngle(up, angleOffset);
-		dest.rotate(orientationOffset, dest);
+		if (horizontalOffset !== 0) {
+			const orientationOffset = new Pioneer.Quaternion();
+			const angleOffset = Pioneer.MathUtils.degToRad(horizontalOffset);
+			orientationOffset.setFromAxisAngle(up, angleOffset);
+			dest.rotate(orientationOffset, dest);
+		}
 
 		// Distance
 		if (distance === undefined) {
@@ -110,11 +115,10 @@ class CameraManager extends BaseCameraManager {
 		await this.goToEntity(id, { destination: dest, cinematic, minRadius, destinationUp: up, duration });
 	}
 
-	async viewFromBehind(id, { scene = undefined, planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75 } = {}) {
+	async viewFromBehind(id, { upMode = 'planetUp', planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75, verticalOffset = 0, horizontalOffset = 0 } = {}) {
 		// Entities
 		const scEntity = this._defaultScene.get(id);
 		await SceneHelpers.waitTillEntitiesInPlace(this._defaultScene, new Set([scEntity.getName()]));
-		// const targetEntity = this._defaultScene.get(target);
 		const planeEntity = this._defaultScene.get(planeId);
 
 		const scRadius = scEntity.getOcclusionRadius();
@@ -126,13 +130,39 @@ class CameraManager extends BaseCameraManager {
 		dest.normalize(dest);
 		dest.mult(dest, -1);
 
-		// Parent up
+		// Up vector modes
 		const up = new Pioneer.Vector3();
-		planeEntity.getOrientation().getAxis(up, 2);
-		up.normalize(up);
+		if (upMode === 'planetUp') {
+			planeEntity.getOrientation().getAxis(up, 2);
+			up.normalize(up);
+		}
+		else if (upMode === 'surfaceUp') {
+			up.copy(scEntity.getPosition());
+			up.normalize(up);
+		}
 
 		// Horizontal
 		const horizontal = new Pioneer.Vector3();
+		horizontal.cross(dest, up);
+		horizontal.normalize(horizontal);
+
+		// Offset dest vector so target is below or above
+		if (verticalOffset !== 0) {
+			const orientationOffset = new Pioneer.Quaternion();
+			const angleOffset = Pioneer.MathUtils.degToRad(verticalOffset);
+			orientationOffset.setFromAxisAngle(horizontal, angleOffset);
+			dest.rotate(orientationOffset, dest);
+		}
+
+		// Offset dest vector so target is on the left or right
+		if (horizontalOffset !== 0) {
+			const orientationOffset = new Pioneer.Quaternion();
+			const angleOffset = Pioneer.MathUtils.degToRad(horizontalOffset);
+			orientationOffset.setFromAxisAngle(up, angleOffset);
+			dest.rotate(orientationOffset, dest);
+		}
+
+		// Update horizontal axis
 		horizontal.cross(dest, up);
 		horizontal.normalize(horizontal);
 
@@ -142,6 +172,7 @@ class CameraManager extends BaseCameraManager {
 		// const distToFit = Cameras.getDistanceToFitEntities(this._cameraEntity, cameraOrientation, scEntity, [scEntity, targetEntity]);
 		// const dist = distToFit * 1.3;
 		// dest.mult(dest, dist);
+
 		if (distance === undefined) {
 			dest.mult(dest, 10 * scRadius);
 		}
