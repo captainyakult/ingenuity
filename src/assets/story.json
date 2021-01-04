@@ -147,7 +147,17 @@
 		"title": "TRN Image Acquisition Begins",
 		"description": "Terrain Relative Navigation enables the spacecraft to change course based on pictures taken of the ground.  The onboard computer compares the pictures to previous maps, and changes course if necessary for safer landing zones.",
 		"mobileDescription": "The spacecraft takes pictures of the ground to see where it is and change course if necessary.",
-		"timestamp": 864.305
+		"timestamp": 864.305,
+		"camera": [
+			{
+				"func": "alignWithTarget",
+				"params": [
+					"sc_perseverance_rover",
+					"sc_perseverance_landing_site",
+					{ "verticalOffset": -10, "horizontalOffset": 0, "distance": 0.05 }
+				]
+			}
+		]
 	},
 	{
 		"id": "TRN_valid_solution",
