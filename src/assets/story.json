@@ -175,7 +175,7 @@
 				"params": [
 					"sc_perseverance_rover",
 					"sun",
-					{ "verticalOffset": 10, "distance": 0.05 }
+					{ "verticalOffset": 8, "horizontalOffset": 10, "distance": 0.03 }
 				]
 			}
 		]
