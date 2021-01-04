@@ -84,27 +84,61 @@
 		"id": "heading_alignment",
 		"title": "Heading Alignment",
 		"description": "The guided entry algorithm corrects any remaining cross-range error.",
-		"timestamp": 679.750
+		"timestamp": 679.750,
+		"camera": [
+			{
+				"func": "viewFromSide",
+				"params": [
+					"sc_perseverance_rover"
+				]
+			}
+		]
 	},
 	{
 		"id": "begin_SUFR",
 		"title": "Begin SUFR",
 		"description": "The spacecraft executes the “Straighten Up and Fly Right” maneuver, ejecting six more balance masses and setting the angle of attack to zero.",
-		"timestamp":766.250
+		"timestamp":766.250,
+		"camera": [
+			{
+				"func": "viewFromSide",
+				"params": [
+					"sc_perseverance_rover"
+				]
+			}
+		]
 	},
 	{
 		"id": "parachute_deploy",
 		"title": "Parachute Deploy",
 		"description": "The parachute is triggered by calculating the distance to the landing site, and opening at the optimum time to hit a smaller target area.  This is called a “Range Trigger.”",
 		"mobileDescription": "",
-		"timestamp": 783.275
+		"timestamp": 783.275,
+		"camera": [
+			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover",
+					{ "upMode": "surfaceUp", "horizontalOffset": -25, "verticalOffset": 10, "distance": 0.1 }
+				]
+			}
+		]
 	},
 	{
 		"id": "heat_shield_separation",
 		"title": "Heat Shield Separation",
 		"description": "Twenty seconds after parachute deploy, the heat shield separates and drops away, and the rover is exposed to the atmosphere of Mars.  Cameras and instruments begin taking data.",
 		"mobileDescription": "",
-		"timestamp": 804.269
+		"timestamp": 804.269,
+		"camera": [
+			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover",
+					{ "distance": 0.2 }
+				]
+			}
+		]
 	},
 	{
 		"id": "TRN_image_acquisition_begins",
