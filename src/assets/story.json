@@ -89,7 +89,8 @@
 			{
 				"func": "viewFromSide",
 				"params": [
-					"sc_perseverance_rover"
+					"sc_perseverance_rover",
+					{ "forwardVector": "z-axis" }
 				]
 			}
 		]
@@ -103,7 +104,8 @@
 			{
 				"func": "viewFromSide",
 				"params": [
-					"sc_perseverance_rover"
+					"sc_perseverance_rover",
+					{ "forwardVector": "z-axis" }
 				]
 			}
 		]
@@ -185,13 +187,31 @@
 		"title": "Descent Stage Throttle Down",
 		"description": "When the rover is 21 meters (69 feet) above the ground, half the engines turn off and the descent stage levels off to reach the final velocity of 2.7 km/hr (1.67 mi/hr).",
 		"mobileDescription": "The rockets power down to achieve 2.7 km/hr (1.67 mi/hr).",
-		"timestamp": 930.813
+		"timestamp": 930.813,
+		"camera": [
+			{
+				"func": "viewFromSide",
+				"params": [
+					"sc_perseverance_rover",
+					{ "distance": 0.03, "horizontalOffset": 70 }
+				]
+			}
+		]
 	},
 	{
 		"id": "rover_separation",
 		"title": "Rover Separation",
 		"description": "The rover is released from the descent stage and lowered on a set of cables that extend to over 20 feet of length.  The rover unlocks and deploys its wheels as this happens.",
-		"timestamp": 933.345
+		"timestamp": 933.345,
+		"camera": [
+			{
+				"func": "viewFromSide",
+				"params": [
+					"sc_perseverance_rover",
+					{ "distance": 0.05, "horizontalOffset": 70 }
+				]
+			}
+		]
 	},
 	{
 		"id": "touchdown_flyaway",

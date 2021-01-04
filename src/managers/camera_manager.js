@@ -63,7 +63,7 @@ class CameraManager extends BaseCameraManager {
 	// 	}, true);
 	// }
 
-	async alignWithTarget(id, target, { scene = undefined, planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75, verticalOffset = 0, horizontalOffset = 0 } = {}) {
+	async alignWithTarget(id, target, { planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75, verticalOffset = 0, horizontalOffset = 0 } = {}) {
 		// Entities
 		const scEntity = this._defaultScene.get(id);
 		await SceneHelpers.waitTillEntitiesInPlace(this._defaultScene, new Set([scEntity.getName()]));
@@ -195,7 +195,7 @@ class CameraManager extends BaseCameraManager {
 		await this.goToEntity(id, { destination: dest, cinematic, minRadius, destinationUp: up, duration });
 	}
 
-	async viewFromSide(id, { scene = undefined, planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75 } = {}) {
+	async viewFromSide(id, { planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75, verticalOffset = 0, horizontalOffset = 0, forwardVector = 'x-axis' } = {}) {
 		// Entities
 		const scEntity = this._defaultScene.get(id);
 		await SceneHelpers.waitTillEntitiesInPlace(this._defaultScene, new Set([scEntity.getName()]));
@@ -208,7 +208,14 @@ class CameraManager extends BaseCameraManager {
 		// View from side
 		const dest = new Pioneer.Vector3();
 		const forward = new Pioneer.Vector3();
-		scEntity.getOrientation().getAxis(forward, 2);
+		let forwardIndex = 0;
+		if (forwardVector === 'z-axis') {
+			forwardIndex = 2;
+		}
+		else if (forwardVector === 'y-axis') {
+			forwardIndex = 1;
+		}
+		scEntity.getOrientation().getAxis(forward, forwardIndex);
 		forward.normalize(forward);
 		const scPosition = new Pioneer.Vector3();
 		scEntity.getPositionRelativeToEntity(scPosition, Pioneer.Vector3.Zero, planeEntity);
@@ -219,7 +226,7 @@ class CameraManager extends BaseCameraManager {
 
 		// Position up
 		const up = new Pioneer.Vector3();
-		up.copy(scPosition);
+		scEntity.getPositionRelativeToEntity(up, Pioneer.Vector3.Zero, planeEntity);
 		up.normalize(up);
 
 		// Horizontal
@@ -229,6 +236,29 @@ class CameraManager extends BaseCameraManager {
 
 		// Make sure up is orthogonal
 		up.cross(horizontal, dest);
+
+		// Offset dest vector so target is below or above
+		if (verticalOffset !== 0) {
+			const orientationOffset = new Pioneer.Quaternion();
+			const angleOffset = Pioneer.MathUtils.degToRad(verticalOffset);
+			orientationOffset.setFromAxisAngle(horizontal, angleOffset);
+			dest.rotate(orientationOffset, dest);
+		}
+
+		// TODO: Optional: Update up after rotation
+		// up.cross(horizontal, dest);
+
+		// Offset dest vector so target is on the left or right
+		if (horizontalOffset !== 0) {
+			const orientationOffset = new Pioneer.Quaternion();
+			const angleOffset = Pioneer.MathUtils.degToRad(horizontalOffset);
+			orientationOffset.setFromAxisAngle(up, angleOffset);
+			dest.rotate(orientationOffset, dest);
+		}
+
+		// Update horizontal axis
+		horizontal.cross(dest, up);
+		horizontal.normalize(horizontal);
 
 		// Distance
 		if (distance === undefined) {
