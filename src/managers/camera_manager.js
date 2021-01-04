@@ -88,6 +88,9 @@ class CameraManager extends BaseCameraManager {
 		horizontal.cross(dest, up);
 		horizontal.normalize(horizontal);
 
+		// Make sure up is orthogonal
+		up.cross(horizontal, dest);
+
 		// Offset dest vector so target is below or above
 		if (verticalOffset !== 0) {
 			const orientationOffset = new Pioneer.Quaternion();
@@ -95,6 +98,9 @@ class CameraManager extends BaseCameraManager {
 			orientationOffset.setFromAxisAngle(horizontal, angleOffset);
 			dest.rotate(orientationOffset, dest);
 		}
+
+		// TODO: Optional: Update up after rotation
+		// up.cross(horizontal, dest);
 
 		// Offset dest vector so target is on the left or right
 		if (horizontalOffset !== 0) {
@@ -146,6 +152,9 @@ class CameraManager extends BaseCameraManager {
 		horizontal.cross(dest, up);
 		horizontal.normalize(horizontal);
 
+		// Make sure up is orthogonal
+		up.cross(horizontal, dest);
+
 		// Offset dest vector so target is below or above
 		if (verticalOffset !== 0) {
 			const orientationOffset = new Pioneer.Quaternion();
@@ -153,6 +162,9 @@ class CameraManager extends BaseCameraManager {
 			orientationOffset.setFromAxisAngle(horizontal, angleOffset);
 			dest.rotate(orientationOffset, dest);
 		}
+
+		// TODO: Optional: Update up after rotation
+		// up.cross(horizontal, dest);
 
 		// Offset dest vector so target is on the left or right
 		if (horizontalOffset !== 0) {
@@ -214,6 +226,9 @@ class CameraManager extends BaseCameraManager {
 		const horizontal = new Pioneer.Vector3();
 		horizontal.cross(dest, up);
 		horizontal.normalize(horizontal);
+
+		// Make sure up is orthogonal
+		up.cross(horizontal, dest);
 
 		// Distance
 		if (distance === undefined) {
