@@ -233,6 +233,15 @@
 		"id": "descent_stage_engine_cutoff",
 		"title": "Descent Stage Engine Cutoff",
 		"description": "The Descent Stage flies away at a 45 degree angle and expends the remaining fuel, then crashes into the terrain with no remaining fuel.",
-		"timestamp": 956.855
+		"timestamp": 956.855,
+		"camera": [
+			{
+				"func": "viewFromSide",
+				"params": [
+					"sc_perseverance_rover",
+					{ "distance": 0.007, "horizontalOffset": 60, "verticalOffset": 15 }
+				]
+			}
+		]
 	}
 ]
