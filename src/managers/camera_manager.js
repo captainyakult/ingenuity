@@ -143,7 +143,7 @@ class CameraManager extends BaseCameraManager {
 			up.normalize(up);
 		}
 		else if (upMode === 'surfaceUp') {
-			up.copy(scEntity.getPosition());
+			scEntity.getPositionRelativeToEntity(up, Pioneer.Vector3.Zero, planeEntity);
 			up.normalize(up);
 		}
 
