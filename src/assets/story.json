@@ -227,7 +227,29 @@
 		"id": "touchdown_flyaway",
 		"title": "Touchdown - Flyaway",
 		"description": "The rover touches down on Mars. As soon as the rover senses that its wheels have touched the ground, it quickly cuts the cables. This frees the descent stage to fly off a safe distance away from Perseverance.",
-		"timestamp": 949.453
+		"timestamp": 949.453,
+		"camera": [
+			{
+				"func": "viewFromSide",
+				"params": [
+					"sc_perseverance_rover",
+					{ "distance": 0.05 }
+				]
+			},
+			{
+				"func": "waitFor",
+				"params": [
+					1000
+				]
+			},
+			{
+				"func": "viewFromSide",
+				"params": [
+					"sc_perseverance_rover",
+					{ "horizontalOffset": -90, "distance": 0.1, "duration": 4 }
+				]
+			}
+		]
 	},
 	{
 		"id": "descent_stage_engine_cutoff",
@@ -235,6 +257,25 @@
 		"description": "The Descent Stage flies away at a 45 degree angle and expends the remaining fuel, then crashes into the terrain with no remaining fuel.",
 		"timestamp": 956.855,
 		"camera": [
+			{
+				"func": "waitFor",
+				"params": [
+					3000
+				]
+			},
+			{
+				"func": "viewFromSide",
+				"params": [
+					"sc_perseverance_rover",
+					{ "horizontalOffset": -90, "distance": 0.01, "duration": 4 }
+				]
+			},
+			{
+				"func": "waitFor",
+				"params": [
+					5000
+				]
+			},
 			{
 				"func": "viewFromSide",
 				"params": [

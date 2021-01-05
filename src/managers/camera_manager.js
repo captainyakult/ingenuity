@@ -1,6 +1,6 @@
 import * as Pioneer from 'pioneer-js';
 import { Cameras, SceneHelpers } from 'pioneer-scripts';
-import { CameraManager as BaseCameraManager } from 'es6-ui-library';
+import { CameraManager as BaseCameraManager, AppUtils } from 'es6-ui-library';
 
 /**
  * The Camera Manager class.
@@ -269,6 +269,10 @@ class CameraManager extends BaseCameraManager {
 		}
 
 		await this.goToEntity(id, { destination: dest, cinematic, minRadius, destinationUp: up, duration });
+	}
+
+	async waitFor(ms) {
+		await AppUtils.waitFor(ms);
 	}
 }
 
