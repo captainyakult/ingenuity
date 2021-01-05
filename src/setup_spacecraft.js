@@ -403,9 +403,9 @@ export class SetupSpacecraft {
 				}
 				// Add entry burn model.
 				const entryBurnModel = entity.addComponent('model', 'entryBurn');
-				if (entryBurnModel instanceof Pioneer.ModelComponent) {
+				if (model instanceof Pioneer.ModelComponent && entryBurnModel instanceof Pioneer.ModelComponent) {
 					entryBurnModel.setUrl('assets/models/Entry_Burn/edl2020_entryBurn.gltf');
-					entryBurnModel.setRotation(entity.get('model', 0).getRotation());
+					entryBurnModel.setRotation(model.getRotation());
 					entryBurnModel.setMeshCreatedCallback(async () => {
 						const oldMaterial = entryBurnModel.getMaterial('effects.003');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
@@ -527,15 +527,16 @@ export class SetupSpacecraft {
 				}
 				// Add the model animations.
 				const modelAnimate = entity.addController('modelAnimate');
-				if (modelAnimate instanceof Pioneer.ModelAnimateController) {
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_l', 'susp_arm_f_lAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_f_r', 'susp_arm_f_rAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_l', 'susp_arm_m_lAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_m_r', 'susp_arm_m_rAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_l', 'susp_arm_b_lAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_arm_b_r', 'susp_arm_b_rAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_l', 'susp_steer_f_lAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
-					modelAnimate.setAnimation(entity.get('model'), 'susp_steer_f_r', 'susp_steer_f_rAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+				const model = entity.get('model');
+				if (model instanceof Pioneer.ModelComponent && modelAnimate instanceof Pioneer.ModelAnimateController) {
+					modelAnimate.setAnimation(model, 'susp_arm_f_l', 'susp_arm_f_lAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(model, 'susp_arm_f_r', 'susp_arm_f_rAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(model, 'susp_arm_m_l', 'susp_arm_m_lAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(model, 'susp_arm_m_r', 'susp_arm_m_rAction.002', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(model, 'susp_arm_b_l', 'susp_arm_b_lAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(model, 'susp_arm_b_r', 'susp_arm_b_rAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(model, 'susp_steer_f_l', 'susp_steer_f_lAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
+					modelAnimate.setAnimation(model, 'susp_steer_f_r', 'susp_steer_f_rAction.001', new Pioneer.Interval(T0 + 933.497 + 1.000, T0 + 933.497 + 5.000));
 				}
 				// Add coverage for the offsets of the rover mesh so that it lines up with the IGP point.
 				const coverage = entity.addController('coverage');
@@ -640,9 +641,10 @@ export class SetupSpacecraft {
 			postCreateFunction: async (entity) => {
 				// Add thruster and plume models.
 				const thrustersModel = entity.addComponent('model');
-				if (thrustersModel instanceof Pioneer.ModelComponent) {
+				const model = entity.get('model', 0);
+				if (model instanceof Pioneer.ModelComponent && thrustersModel instanceof Pioneer.ModelComponent) {
 					thrustersModel.setUrl('assets/models/SkyCrane_Thrusters/edl2020_skyCraneThrusters.gltf');
-					thrustersModel.setRotation(entity.get('model', 0).getRotation());
+					thrustersModel.setRotation(model.getRotation());
 					thrustersModel.setMeshCreatedCallback(async () => {
 						const oldMaterial = thrustersModel.getMaterial('effects');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
@@ -661,9 +663,9 @@ export class SetupSpacecraft {
 					});
 				}
 				const plumesModel = entity.addComponent('model');
-				if (plumesModel instanceof Pioneer.ModelComponent) {
+				if (model instanceof Pioneer.ModelComponent && plumesModel instanceof Pioneer.ModelComponent) {
 					plumesModel.setUrl('assets/models/SkyCrane_Plumes/edl2020_skyCranePlumes.gltf');
-					plumesModel.setRotation(entity.get('model', 0).getRotation());
+					plumesModel.setRotation(model.getRotation());
 					plumesModel.setMeshCreatedCallback(async () => {
 						const oldMaterial = plumesModel.getMaterial('Plumes2');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
