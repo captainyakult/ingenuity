@@ -70,6 +70,7 @@ export class SetupSpacecraft {
 			label: 'Cruise Stage',
 			model: {
 				url: 'assets/models/CruiseStage/edl2020_cruiseStage.gltf',
+				useCompressedTextures: true,
 				rotate: [
 					{ x: -90 }
 				]
@@ -184,6 +185,7 @@ export class SetupSpacecraft {
 			label: 'Backshell',
 			model: {
 				url: 'assets/models/Backshell/edl2020_backshell.gltf',
+				useCompressedTextures: true,
 				rotate: [
 					{ x: -90 }
 				]
@@ -241,6 +243,7 @@ export class SetupSpacecraft {
 			radius: 0.0001,
 			model: {
 				url: 'assets/models/ChuteCap/edl2020_chuteCap.gltf',
+				useCompressedTextures: true,
 				rotate: [
 					{ x: -90 }
 				]
@@ -268,6 +271,7 @@ export class SetupSpacecraft {
 			label: 'Parachute',
 			model: {
 				url: 'assets/models/Chute/edl2020_chute.gltf',
+				useCompressedTextures: true,
 				rotate: [
 					{ x: -90 }
 				]
@@ -310,6 +314,7 @@ export class SetupSpacecraft {
 			label: 'Heat Shield',
 			model: {
 				url: 'assets/models/HeatShield/edl2020_heatshield.gltf',
+				useCompressedTextures: true,
 				rotate: [
 					{ x: -90 }
 				]
@@ -478,6 +483,7 @@ export class SetupSpacecraft {
 			label: 'Perseverance',
 			model: {
 				url: 'assets/models/Perse/edl2020_perse.gltf',
+				useCompressedTextures: true,
 				rotate: [
 					{ x: -90 }
 				]
@@ -561,6 +567,7 @@ export class SetupSpacecraft {
 			label: 'Descent Stage',
 			model: {
 				url: 'assets/models/SkyCrane/edl2020_skyCrane.gltf',
+				useCompressedTextures: true,
 				rotate: [
 					{ x: -90 }
 				]
