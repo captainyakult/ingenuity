@@ -64,6 +64,7 @@ class StoryPanel extends Carousel {
 
 		this._settings.navigationButtons.prev.text = 'Scroll for previous phase';
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
+		this._settings.navigationButtons.end.text = 'End of simulation.<br> Scroll back up to see previous phases or hit "Replay" to start again';
 		this._settings.timeout = 500;
 
 		this._info = null;
@@ -347,9 +348,12 @@ class StoryPanel extends Carousel {
 		const button = document.createElement('button');
 		button.setAttribute('type', 'button');
 		button.classList.add('navigation-button', buttonType, 'small');
-		button.textContent = this._settings.navigationButtons[buttonType].text;
+		button.innerHTML = this._settings.navigationButtons[buttonType].text;
 		button.addEventListener('click', () => {
-			if (buttonType === 'next') {
+			if (buttonType === 'end') {
+				this.goToFirstSlide();
+			}
+			else if (buttonType === 'next') {
 				this.goToNextSlide();
 			}
 			else {

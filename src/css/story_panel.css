@@ -22,6 +22,9 @@
 body.hover .carousel .navigation-button:hover {
 	background: transparent;
 }
+.carousel .track > .slide:last-child .navigation-button.end {
+	display: none;
+}
 
 /* Slide content */
 .carousel .slide .content {
@@ -342,5 +345,8 @@ body.hover .carousel .navigation-button:hover {
 	.carousel.expand .hint-button,
 	.carousel .collapse-button {
 		display: none;
+	}
+	.carousel .track > .slide:last-child .navigation-button.end {
+		display: block;
 	}
 }
