@@ -66,8 +66,15 @@ class StoryPanel extends Carousel {
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
 		this._settings.timeout = 500;
 
+		this._info = null;
+		this._currentInfo = null;
+
 		this.update = this.update.bind(this);
 		this.onUnitChange = this.onUnitChange.bind(this);
+	}
+
+	get currentInfo() {
+		return this._currentInfo;
 	}
 
 	/**
@@ -119,13 +126,13 @@ class StoryPanel extends Carousel {
 	 */
 	async init() {
 		// Populate panel with all slides once since it doesn't change.
-		const info = await AppUtils.loadJSON('./assets/story.json');
+		this._info = await AppUtils.loadJSON('./assets/story.json');
 
 		const startTime = this._app.getManager('time').etToMoment(this._app.dateConstants.EDLStart).valueOf();
 
-		info.forEach(({ id, title, description, mobileDescription, timestamp }, index) => {
-			const nextInfo = index + 1 < info.length
-				? info[index + 1]
+		this._info.forEach(({ id, title, description, mobileDescription, timestamp }, index) => {
+			const nextInfo = index + 1 < this._info.length
+				? this._info[index + 1]
 				: null;
 			const time = startTime + timestamp * 1000;
 			this._timestamps.push(time);
@@ -239,6 +246,7 @@ class StoryPanel extends Carousel {
 	async onRouteChange(params) {
 		// Go to slide using id, or first slide if no id
 		const index = Math.max(0, this._children.slides.findIndex(x => x.dataset.id === params.id));
+		this._currentInfo = this._info[index];
 		this.goToSlide(index);
 		const time = params.time ? params.time : this._timestamps[index];
 		this._app.getManager('time').setTime(time);

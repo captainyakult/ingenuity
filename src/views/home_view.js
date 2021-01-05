@@ -28,6 +28,7 @@ class HomeView extends BaseView {
 		this._isDragging = false;
 		this._controlsVisible = false;
 		this._firstLoad = true;
+		this._id = null;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -38,6 +39,11 @@ class HomeView extends BaseView {
 				return;
 			}
 			this._isDragging = true;
+
+			// Turn off guided camera
+			if (event.target.id === 'main-viewport') {
+				this._app.getComponent('settings').stopGuidedCamera();
+			}
 
 			// Show bottom panel
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
@@ -202,20 +208,35 @@ class HomeView extends BaseView {
 		this._app.getComponent('infoPanel').onRouteChange();
 
 		this._firstLoad = false;
-		await this.updateCamera(params.target);
+		await this.updateCamera(params.target, params.id);
 	}
 
 	/**
-	 * Transition to a target.
+	 * Update camera.
 	 * @param {string} target
+	 * @param {string} phaseId
 	 */
-	async updateCamera(target) {
+	async updateCamera(target, phaseId) {
 		if (!target) {
 			target = 'sc_perseverance_rover';
 		}
-		if (this._target !== target) {
+
+		const info = this._app.getComponent('storyPanel').currentInfo;
+		if (info.camera && this._app.getComponent('settings').getState('isGuidedCamera')) {
 			this._target = target;
-			await this._app.getManager('camera').goToEntity(target);
+			if (this._id !== phaseId) {
+				this._id = phaseId;
+				for (let i = 0; i < info.camera.length; i++) {
+					const preset = info.camera[i];
+					await this._app.getManager('camera')[preset.func](...preset.params);
+				}
+			}
+		}
+		else {
+			if (this._target !== target) {
+				this._target = target;
+				await this._app.getManager('camera').goToEntity(target);
+			}
 		}
 	}
 
