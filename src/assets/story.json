@@ -9,7 +9,7 @@
 			{
 				"func": "viewFromBehind",
 				"params": [
-					"sc_perseverance_rover"
+					"sc_perseverance"
 				]
 			}
 		]
@@ -23,7 +23,7 @@
 			{
 				"func": "alignWithTarget",
 				"params": [
-					"sc_perseverance_rover",
+					"sc_perseverance",
 					"sc_perseverance_landing_site",
 					{ "verticalOffset": -10, "horizontalOffset": -5 }
 				]
@@ -40,7 +40,7 @@
 			{
 				"func": "alignWithTarget",
 				"params": [
-					"sc_perseverance_rover",
+					"sc_perseverance",
 					"sc_perseverance_landing_site",
 					{ "verticalOffset": -10, "horizontalOffset": -5, "distance": 0.1 }
 				]
@@ -56,7 +56,7 @@
 			{
 				"func": "alignWithTarget",
 				"params": [
-					"sc_perseverance_rover",
+					"sc_perseverance",
 					"sc_perseverance_landing_site",
 					{ "verticalOffset": -10, "horizontalOffset": -5 }
 				]
@@ -73,7 +73,7 @@
 			{
 				"func": "alignWithTarget",
 				"params": [
-					"sc_perseverance_rover",
+					"sc_perseverance",
 					"earth",
 					{ "verticalOffset": 10, "distance": 0.05 }
 				]
@@ -89,7 +89,7 @@
 			{
 				"func": "viewFromSide",
 				"params": [
-					"sc_perseverance_rover",
+					"sc_perseverance",
 					{ "forwardVector": "z-axis" }
 				]
 			}
@@ -104,7 +104,7 @@
 			{
 				"func": "viewFromSide",
 				"params": [
-					"sc_perseverance_rover",
+					"sc_perseverance",
 					{ "forwardVector": "z-axis" }
 				]
 			}
@@ -120,7 +120,7 @@
 			{
 				"func": "viewFromBehind",
 				"params": [
-					"sc_perseverance_rover",
+					"sc_perseverance",
 					{ "upMode": "surfaceUp", "horizontalOffset": -15, "verticalOffset": 10, "distance": 0.1 }
 				]
 			}
