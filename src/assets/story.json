@@ -42,7 +42,7 @@
 				"params": [
 					"sc_perseverance",
 					"sc_perseverance_landing_site",
-					{ "verticalOffset": -10, "horizontalOffset": -5, "distance": 0.1 }
+					{ "verticalOffset": -10, "horizontalOffset": -5, "distance": 0.05 }
 				]
 			}
 		]
@@ -75,7 +75,7 @@
 				"params": [
 					"sc_perseverance",
 					"earth",
-					{ "verticalOffset": 10, "distance": 0.05 }
+					{ "verticalOffset": 10, "distance": 0.03 }
 				]
 			}
 		]
@@ -137,7 +137,7 @@
 				"func": "viewFromBehind",
 				"params": [
 					"sc_perseverance_rover",
-					{ "upMode": "surfaceUp", "horizontalOffset": -15, "verticalOffset": 10, "distance": 0.15 }
+					{ "upMode": "surfaceUp", "horizontalOffset": -15, "verticalOffset": 20, "distance": 0.15 }
 				]
 			}
 		]
@@ -172,6 +172,32 @@
 					"sc_perseverance_landing_site",
 					{ "verticalOffset": -10, "horizontalOffset": 0, "distance": 0.05 }
 				]
+			},
+			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover",
+					{ "verticalOffset": 170, "duration": 2 }
+				],
+				"timestamp": 881.156
+			}
+		],
+		"reverseCamera": [
+			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover",
+					{ "verticalOffset": 170 }
+				]
+			},
+			{
+				"func": "alignWithTarget",
+				"params": [
+					"sc_perseverance_rover",
+					"sc_perseverance_landing_site",
+					{ "verticalOffset": -10, "horizontalOffset": 0, "distance": 0.05, "duration": 2 }
+				],
+				"timestamp": 883.156
 			}
 		]
 	},
@@ -183,12 +209,38 @@
 		"timestamp": 889.035,
 		"camera": [
 			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover",
+					{ "verticalOffset": 170 }
+				]
+			},
+			{
+				"func": "alignWithTarget",
+				"params": [
+					"sc_perseverance_rover",
+					"sun",
+					{ "verticalOffset": 8, "horizontalOffset": 10, "distance": 0.03, "duration": 1 }
+				],
+				"timestamp": 891.156
+			}
+		],
+		"reverseCamera": [
+			{
 				"func": "alignWithTarget",
 				"params": [
 					"sc_perseverance_rover",
 					"sun",
 					{ "verticalOffset": 8, "horizontalOffset": 10, "distance": 0.03 }
 				]
+			},
+			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover",
+					{ "verticalOffset": 170, "duration": 1 }
+				],
+				"timestamp": 892.156
 			}
 		]
 	},
@@ -203,7 +255,7 @@
 				"func": "viewFromSide",
 				"params": [
 					"sc_perseverance_rover",
-					{ "distance": 0.03, "horizontalOffset": 70 }
+					{ "distance": 0.015, "horizontalOffset": 80, "verticalOffset": -5 }
 				]
 			}
 		]
