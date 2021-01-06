@@ -1,4 +1,4 @@
-import { BaseView } from 'es6-ui-library';
+import { BaseView, AppUtils } from 'es6-ui-library';
 import moment from 'moment-timezone';
 import * as Pioneer from 'pioneer-js';
 
@@ -29,6 +29,7 @@ class HomeView extends BaseView {
 		this._controlsVisible = false;
 		this._firstLoad = true;
 		this._id = null;
+		this._cameraInterval = null;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -222,16 +223,65 @@ class HomeView extends BaseView {
 		}
 
 		const info = this._app.getComponent('storyPanel').currentInfo;
-		if (info.camera && this._app.getComponent('settings').getState('isGuidedCamera')) {
+
+		clearInterval(this._cameraInterval);
+		const rate = this._app.getManager('time').getTimeRate();
+
+		// Get the presets depending on time rate
+		const presets = rate < 0
+			? info.reverseCamera || info.camera
+			: info.camera;
+
+		// Preset camera
+		if (presets && this._app.getComponent('settings').getState('isGuidedCamera')) {
 			this._target = target;
+			// Only update camera if story phase changes
 			if (this._id !== phaseId) {
 				this._id = phaseId;
-				for (let i = 0; i < info.camera.length; i++) {
-					const preset = info.camera[i];
-					await this._app.getManager('camera')[preset.func](...preset.params);
-				}
+				let i = 0;
+				const startTime = this._app.getManager('time').etToMoment(this._app.dateConstants.EDLStart).valueOf();
+
+				// Execute a camera preset
+				const executePreset = async () => {
+					// End of phase, clear interval
+					if (i >= presets.length) {
+						clearInterval(this._cameraInterval);
+						return;
+					}
+					const preset = presets[i];
+					const options = preset.params[preset.length - 1];
+					if (AppUtils.isObject(options) && ('duration' in options)) {
+						preset.params[preset.length - 1].duration = options.duration * 1.0 / rate;
+					}
+					// Preset has timestamp
+					if ('timestamp' in preset) {
+						// Get current timestamp from current time - EDL start time
+						const timestamp = this._app.getManager('time').getTime().valueOf() - startTime;
+						// Current timestamp is at or more than preset's timestamp
+						if (rate < 0) {
+							if (timestamp <= preset.timestamp * 1000) {
+								i++;
+								await this._app.getManager('camera')[preset.func](...preset.params);
+							}
+						}
+						else {
+							if (timestamp >= preset.timestamp * 1000) {
+								i++;
+								await this._app.getManager('camera')[preset.func](...preset.params);
+							}
+						}
+					}
+					// Preset doesn't have timestamp
+					else {
+						i++;
+						await this._app.getManager('camera')[preset.func](...preset.params);
+					}
+				};
+				// Execute each camera preset in a phase on an interval
+				this._cameraInterval = setInterval(executePreset, 30);
 			}
 		}
+		// Normal camera
 		else {
 			if (this._target !== target) {
 				this._target = target;
