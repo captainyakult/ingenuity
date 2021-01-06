@@ -177,7 +177,7 @@
 				"func": "viewFromBehind",
 				"params": [
 					"sc_perseverance_rover",
-					{ "verticalOffset": 170, "duration": 2 }
+					{ "upMode": "surfaceUp", "verticalOffset": 170, "duration": 2 }
 				],
 				"timestamp": 881.156
 			}
@@ -187,7 +187,7 @@
 				"func": "viewFromBehind",
 				"params": [
 					"sc_perseverance_rover",
-					{ "verticalOffset": 170 }
+					{ "upMode": "surfaceUp", "verticalOffset": 170 }
 				]
 			},
 			{
@@ -212,35 +212,33 @@
 				"func": "viewFromBehind",
 				"params": [
 					"sc_perseverance_rover",
-					{ "verticalOffset": 170 }
-				]
-			},
-			{
-				"func": "alignWithTarget",
-				"params": [
-					"sc_perseverance_rover",
-					"sun",
-					{ "verticalOffset": 8, "horizontalOffset": 10, "distance": 0.03, "duration": 1 }
-				],
-				"timestamp": 891.156
-			}
-		],
-		"reverseCamera": [
-			{
-				"func": "alignWithTarget",
-				"params": [
-					"sc_perseverance_rover",
-					"sun",
-					{ "verticalOffset": 8, "horizontalOffset": 10, "distance": 0.03 }
+					{ "upMode": "surfaceUp", "verticalOffset": 170 }
 				]
 			},
 			{
 				"func": "viewFromBehind",
 				"params": [
 					"sc_perseverance_rover",
-					{ "verticalOffset": 170, "duration": 1 }
+					{ "upMode": "surfaceUp", "duration": 3 }
 				],
-				"timestamp": 892.156
+				"timestamp": 894.156
+			}
+		],
+		"reverseCamera": [
+			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover",
+					{ "upMode": "surfaceUp" }
+				]
+			},
+			{
+				"func": "viewFromBehind",
+				"params": [
+					"sc_perseverance_rover",
+					{ "upMode": "surfaceUp", "verticalOffset": 170, "duration": 3 }
+				],
+				"timestamp": 897.156
 			}
 		]
 	},
