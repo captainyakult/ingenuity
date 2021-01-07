@@ -17,6 +17,7 @@
 
 .clock .time {
 	margin-left: 10px;
+	min-width: 62px;
 }
 
 /* Input */
