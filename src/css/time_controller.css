@@ -19,17 +19,21 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-body.hover .time-controller .next-rate:hover .icon-forward,
-body.hover .time-controller .prev-rate:hover .icon-backward {
-	opacity: 1.0;
+@media (hover: hover) {
+	.time-controller .next-rate:hover .icon-forward,
+	.time-controller .prev-rate:hover .icon-backward {
+		opacity: 1.0;
+	}
 }
 .time-controller .prev-rate .container,
 .time-controller .next-rate .container {
 	background-color: var(--grayDarkAlpha);
 }
-body.hover .time-controller .prev-rate:hover .container,
-body.hover .time-controller .next-rate:hover .container {
-	background-color: var(--grayAlpha);
+@media (hover: hover) {
+	.time-controller .prev-rate:hover .container,
+	.time-controller .next-rate:hover .container {
+		background-color: var(--grayAlpha);
+	}
 }
 
 .time-controller .rate-display-label {

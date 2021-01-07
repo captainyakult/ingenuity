@@ -166,15 +166,17 @@ a {
 	background: var(--grayDarkAlpha);
 	border-radius: 3px;
 }
-body.hover .icon-bg:hover {
-	background: var(--grayAlpha);
-}
-body.hover .icon-info:hover,
-body.hover .icon-plus:hover,
-body.hover .icon-minus:hover,
-body.hover .icon-box:hover .icon-natural-light,
-body.hover .icon-box:hover .icon-flood-light {
-	opacity: 1;
+@media (hover: hover) {
+	.icon-bg:hover {
+		background: var(--grayAlpha);
+	}
+	.icon-info:hover,
+	.icon-plus:hover,
+	.icon-minus:hover,
+	.icon-box:hover .icon-natural-light,
+	.icon-box:hover .icon-flood-light {
+		opacity: 1;
+	}
 }
 
 /* Pioneer CSS */
