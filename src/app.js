@@ -130,7 +130,7 @@ class App extends BaseApp {
 	async createComponents() {
 		this.addView('home', HomeView, document.querySelector('.ui'));
 
-		const clock = await this.addComponent('clock', Clock, document.getElementById('clock'));
+		const clock = await this.addComponent('clock', Clock, document.getElementById('clock'), { allowEdit: false });
 		this._managers.time.registerCallback('update', clock.update);
 		this._managers.time.registerCallback('earthreceivedtime', clock.update);
 		clock.setEnabled(true);

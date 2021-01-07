@@ -12,9 +12,10 @@ class Clock extends BaseClock {
 	 * Constructor.
 	 * @param {BaseApplication} app
 	 * @param {HTMLDivElement} div
+	 * @param {object} [options={}]
 	 */
-	constructor(app, div) {
-		super(app, div);
+	constructor(app, div, options = {}) {
+		super(app, div, options);
 
 		this._handleTimeUpdate = this._handleTimeUpdate.bind(this);
 		this.setTimeCallback(this._handleTimeUpdate);
@@ -30,8 +31,6 @@ class Clock extends BaseClock {
 		this._children.date.classList.add('semi');
 		this._children.time.classList.add('semi');
 		this._children.meridiem.classList.add('semi');
-		this._children.timeInput.classList.add('semi');
-		this._children.timeForm.classList.add('semi');
 		this._updateFonts();
 
 		window.addEventListener('resize', () => {
@@ -58,15 +57,11 @@ class Clock extends BaseClock {
 			this._children.date.classList.add('small');
 			this._children.time.classList.add('small');
 			this._children.meridiem.classList.add('small');
-			this._children.timeInput.classList.add('small');
-			this._children.timeForm.classList.add('small');
 		}
 		else {
 			this._children.date.classList.remove('small');
 			this._children.time.classList.remove('small');
 			this._children.meridiem.classList.remove('small');
-			this._children.timeInput.classList.remove('small');
-			this._children.timeForm.classList.remove('small');
 		}
 	}
 }
