@@ -8,11 +8,12 @@
 .clock-shortcut .container.hidden {
 	display: none;
 }
-body.hover .clock-shortcut .container:hover {
-	background-color: var(--grayAlpha);
-	cursor: pointer;
+@media (hover: hover) {
+	.clock-shortcut .container:hover {
+		background-color: var(--grayAlpha);
+		cursor: pointer;
+	}
 }
-
 .clock-shortcut .replay-container,
 .clock-shortcut .live-container {
 	display: grid;
@@ -22,8 +23,10 @@ body.hover .clock-shortcut .container:hover {
 	align-items: center;
 	justify-content: start;
 }
-body.hover .clock-shortcut .live-container:hover {
-	background-color: var(--liveAlpha);
+@media (hover: hover) {
+	.clock-shortcut .live-container:hover {
+		background-color: var(--liveAlpha);
+	}
 }
 
 .clock-shortcut .live-container.active {
@@ -31,28 +34,36 @@ body.hover .clock-shortcut .live-container:hover {
 	margin-left: 8px;
 	padding-left: 0;
 }
-body.hover .clock-shortcut .live-container.active:hover {
-	background-color: transparent;
-	cursor: auto;
+@media (hover: hover) {
+	.clock-shortcut .live-container.active:hover {
+		background-color: transparent;
+		cursor: auto;
+	}
 }
 
 /* Text */
 .clock-shortcut .text {
 	color: var(--gray);
 }
-body.hover .clock-shortcut .container:hover .text {
-	color: var(--white);
+@media (hover: hover) {
+	.clock-shortcut .container:hover .text {
+		color: var(--white);
+	}
 }
 .clock-shortcut .active .live {
 	color: var(--live);
 }
-body.hover .clock-shortcut .container.active:hover .live {
-	color: var(--live);
+@media (hover: hover) {
+	.clock-shortcut .container.active:hover .live {
+		color: var(--live);
+	}
 }
 
 /* Icon */
-body.hover .clock-shortcut .live-container:hover .icon.icon-back-to-live {
-	background-position: -26px -61px;
+@media (hover: hover) {
+	.clock-shortcut .live-container:hover .icon.icon-back-to-live {
+		background-position: -26px -61px;
+	}
 }
 
 /* Landscape. 480x320 phones and above */

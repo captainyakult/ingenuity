@@ -19,8 +19,10 @@
 .carousel .navigation-button:focus {
 	outline: 0;
 }
-body.hover .carousel .navigation-button:hover {
-	background: transparent;
+@media (hover: hover) {
+	.carousel .navigation-button:hover {
+		background: transparent;
+	}
 }
 
 /* Slide content */
@@ -284,20 +286,22 @@ body.hover .carousel .navigation-button:hover {
 		align-items: normal;
 		align-content: normal;
 	}
-	body.hover .carousel .slide .container:hover {
-		background: linear-gradient(90deg, rgba(37, 37, 39, 0.4) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.4) 100%);
-		background-size: 200% 100%;
-		animation: gradient 6s ease 1;
-		animation-fill-mode: both;
-	}
-	body.hover .carousel .container:hover::after {
-		content: '';
-		width: 1px;
-		height: 100%;
-		position: absolute;
-		top: 0;
-		right: 0;
-		background: linear-gradient(180deg, rgba(149, 149, 157, 0) 0%, rgba(149, 149, 157, 0.5) 50%, rgba(149, 149, 157, 0) 100%);
+	@media (hover: hover) {
+		.carousel .slide .container:hover {
+			background: linear-gradient(90deg, rgba(37, 37, 39, 0.4) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.4) 100%);
+			background-size: 200% 100%;
+			animation: gradient 6s ease 1;
+			animation-fill-mode: both;
+		}
+		.carousel .container:hover::after {
+			content: '';
+			width: 1px;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			right: 0;
+			background: linear-gradient(180deg, rgba(149, 149, 157, 0) 0%, rgba(149, 149, 157, 0.5) 50%, rgba(149, 149, 157, 0) 100%);
+		}
 	}
 	.carousel .slide {
 		height: calc(100vh - 85px);

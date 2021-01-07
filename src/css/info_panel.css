@@ -60,14 +60,18 @@
 .info-panel .panel-content .icon-plus {
 	opacity: 0.4;
 }
-body.hover .info-panel .panel-content .icon-box:hover .icon-flood-light {
-	opacity: 1;
+@media (hover: hover) {
+	.info-panel .panel-content .icon-box:hover .icon-flood-light {
+		opacity: 1;
+	}
 }
 .info-panel li a {
 	opacity: 0.75;
 }
-body.hover .info-panel li:hover a {
-	opacity: 1;
+@media (hover: hover) {
+	.info-panel li:hover a {
+		opacity: 1;
+	}
 }
 
 /* Scrollbar CSS override */
@@ -82,10 +86,15 @@ body.hover .info-panel li:hover a {
 	background: var(--grayDark);
 	width: 4px;
 }
-.os-theme-dark > .os-scrollbar:active > .os-scrollbar-track > .os-scrollbar-handle,
-body.hover .os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
+.os-theme-dark > .os-scrollbar:active > .os-scrollbar-track > .os-scrollbar-handle {
 	background: var(--gray);
 	width: 6px;
+}
+@media (hover: hover) {
+	.os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
+		background: var(--gray);
+		width: 6px;
+	}
 }
 .os-theme-dark > .os-scrollbar-vertical > .os-scrollbar-track > .os-scrollbar-handle {
 	min-height: 60px;
