@@ -125,13 +125,13 @@ class SceneManager extends BaseSceneManager {
 		const cmts = mars.addComponent('cmts');
 		cmts.setMaxLevel(12);
 		cmts.setLightSource(this._scene.get('sun', 'lightSource'));
-		cmts.setRadii(3396.190 - 0.01549952582, 3396.190 - 0.01549952582); // Offset to get the rover landing on its wheels.
+		cmts.setRadii(3396.190 - 0.01469, 3396.190 - 0.01469); // Offset to get the rover landing on its wheels.
 		cmts.setBaseUrl('color', '$DYNAMIC_ASSETS_URL/cmts/mars/color');
 		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height');
 		cmts.setHeightScale(1);
 		cmts.setPlanetographic(false);
 
-		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 12, 1590, 2748, 1592, 2749);
+		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 12, 1590, 2747, 1592, 2749);
 
 		// Add loading icon
 		this.addLoading('mars', 'cmts');

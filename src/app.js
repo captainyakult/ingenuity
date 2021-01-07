@@ -65,7 +65,7 @@ class App extends BaseApp {
 			start: 666952082.000, // Cruise state separation is 60s before start of EDL (ET seconds)
 			EDLStart: 666952142.000, // ET seconds
 			landing: 666953087, // ET seconds
-			end: 666952142.000 + 950.222 + 16.000 // ET seconds
+			end: 666952142.000 + 969.000 + 3.000 // ET seconds, 3 seconds after descent stage lands.
 		};
 	}
 
