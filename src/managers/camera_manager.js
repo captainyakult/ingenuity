@@ -7,6 +7,19 @@ import { CameraManager as BaseCameraManager, AppUtils } from 'es6-ui-library';
  */
 class CameraManager extends BaseCameraManager {
 	/**
+	 * Constructor.
+	 * @param {BaseApplication} app - Main app
+	 * @param {Pioneer.Engine} pioneer - The pioneer engine
+	 * @param {Pioneer.Scene} scene - The default scene to use
+	 */
+	constructor(app, pioneer, scene) {
+		super(app, pioneer, scene);
+
+		// Set max distance to Mars radius
+		this._defaultMaxDistance = this._defaultScene.get('mars').getExtentsRadius();
+	}
+
+	/**
 	 * Moves the camera to an entity.
 	 * @param {string} name
 	 */
