@@ -106,7 +106,7 @@
 	height: 30px;
 	background-position: -230px -119px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-km:hover {
 		width: 30px;
 		height: 30px;
@@ -118,7 +118,7 @@
 	height: 30px;
 	background-position: -322px -119px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-mi:hover {
 		width: 30px;
 		height: 30px;
