@@ -195,11 +195,6 @@ class HomeView extends BaseView {
 			this._app.getManager('time').setTime(startTime);
 		}
 
-		// Collapse on first load
-		if (this._firstLoad && this._isMobileMode) {
-			this._app.getComponent('storyPanel').collapse();
-		}
-
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);
 
