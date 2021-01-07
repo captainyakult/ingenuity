@@ -106,24 +106,20 @@
 	height: 30px;
 	background-position: -230px -119px;
 }
-@media (hover: hover) {
-	.icon-km:hover {
-		width: 30px;
-		height: 30px;
-		background-position: -276px -119px;
-	}
+body.hover.icon-km:hover {
+	width: 30px;
+	height: 30px;
+	background-position: -276px -119px;
 }
 .icon-mi {
 	width: 30px;
 	height: 30px;
 	background-position: -322px -119px;
 }
-@media (hover: hover) {
-	.icon-mi:hover {
-		width: 30px;
-		height: 30px;
-		background-position: -368px -119px;
-	}
+body.hover .icon-mi:hover {
+	width: 30px;
+	height: 30px;
+	background-position: -368px -119px;
 }
 .icon-lighting {
 	width: 54px;
