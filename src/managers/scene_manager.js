@@ -16,7 +16,7 @@ class SceneManager extends BaseSceneManager {
 		super(app, engine);
 		this._entityInfo = {
 			sc_perseverance_landing_site: {
-				clickable: true,
+				clickable: false,
 				label: true
 			},
 			sc_perseverance: {
