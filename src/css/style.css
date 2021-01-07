@@ -177,6 +177,9 @@ a {
 	.icon-box:hover .icon-flood-light {
 		opacity: 1;
 	}
+	.icon-box.guided-camera:hover {
+		color: var(--white);
+	}
 }
 
 /* Pioneer CSS */
