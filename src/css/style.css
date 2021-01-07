@@ -166,7 +166,7 @@ a {
 	background: var(--grayDarkAlpha);
 	border-radius: 3px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-bg:hover {
 		background: var(--grayAlpha);
 	}

@@ -60,7 +60,7 @@
 .info-panel .panel-content .icon-plus {
 	opacity: 0.4;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.info-panel .panel-content .icon-box:hover .icon-flood-light {
 		opacity: 1;
 	}
@@ -68,7 +68,7 @@
 .info-panel li a {
 	opacity: 0.75;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.info-panel li:hover a {
 		opacity: 1;
 	}
@@ -90,7 +90,7 @@
 	background: var(--gray);
 	width: 6px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.os-theme-dark > .os-scrollbar:hover > .os-scrollbar-track > .os-scrollbar-handle {
 		background: var(--gray);
 		width: 6px;
