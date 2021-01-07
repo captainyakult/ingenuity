@@ -5,6 +5,7 @@
 }
 .settings .zoom {
 	display: grid;
+	margin: 0;
 }
 
 /* 480x320 phones and above */
@@ -22,8 +23,7 @@
 /* Landscape. 480x320 phones and above */
 @media only screen and (min-width: 320px) and (orientation: landscape) {
 	.settings .zoom {
-		grid-template-columns: 30px 2px 30px;
-		grid-template-rows: 30px;
+		display: flex;
 	}
 	.settings .horizontal-line {
 		height: 22px;
@@ -38,8 +38,7 @@
 		margin-right: 0;
 	}
 	.settings .zoom {
-		grid-template-columns: 30px 2px 30px;
-		grid-template-rows: 30px;
+		display: flex;
 	}
 	.settings .horizontal-line {
 		height: 22px;
