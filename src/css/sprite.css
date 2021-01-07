@@ -3,7 +3,7 @@
 	background-repeat: no-repeat;
 	background-image: url(./assets/svg/sprite.svg);
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-checkbox:hover {
 		width: 15px;
 		height: 15px;
@@ -25,7 +25,7 @@
 	height: 15px;
 	background-position: -93px 0;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-radio-circle:hover {
 		width: 15px;
 		height: 15px;
@@ -77,7 +77,7 @@
 	height: 30px;
 	background-position: 0 -119px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-box:hover {
 		width: 30px;
 		height: 30px;
@@ -94,7 +94,7 @@
 	height: 30px;
 	background-position: -138px -119px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-hide:hover {
 		width: 30px;
 		height: 30px;
@@ -130,7 +130,7 @@
 	height: 30px;
 	background-position: -414px -119px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-lighting:hover {
 		width: 54px;
 		height: 30px;
@@ -142,7 +142,7 @@
 	height: 30px;
 	background-position: -598px -119px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-fullscreen:hover {
 		width: 30px;
 		height: 30px;
@@ -154,7 +154,7 @@
 	height: 30px;
 	background-position: -690px -119px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-expand:hover {
 		width: 30px;
 		height: 30px;
@@ -183,7 +183,7 @@
 	background-position: -92px -165px;
 	transform: rotate(180deg);
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-controls:hover {
 		width: 30px;
 		height: 30px;
@@ -200,7 +200,7 @@
 	height: 30px;
 	background-position: -230px -165px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-expand-side:hover {
 		width: 30px;
 		height: 30px;
@@ -242,7 +242,7 @@
 	height: 30px;
 	background-position: -598px -165px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-collapse:hover {
 		width: 30px;
 		height: 30px;
@@ -254,7 +254,7 @@
 	height: 30px;
 	background-position: -690px -165px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-collapse-side:hover {
 		width: 30px;
 		height: 30px;
@@ -286,7 +286,7 @@
 	height: 30px;
 	background-position: -230px -211px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-pause:hover {
 		width: 30px;
 		height: 30px;
@@ -298,7 +298,7 @@
 	height: 30px;
 	background-position: -322px -211px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-play:hover {
 		width: 30px;
 		height: 30px;
@@ -310,7 +310,7 @@
 	height: 30px;
 	background-position: -414px -211px;
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.icon-telescope:hover {
 		width: 30px;
 		height: 30px;

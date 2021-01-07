@@ -13,7 +13,7 @@
 * Change path of sprite.css in sprite.html to ../css/sprite.css
 * Search and remove the -fixed
 * Search and replace -hover by :hover
-* Wrap every :hover with @media (hover: hover) {}
+* Wrap every :hover with @media (pointer: fine) and (hover: hover) {}
 * Add hover class to sprite.html body
 * Create optional mirrored icons for arrow up and arrow left by copying down and right and adding transform: rotate(180deg);
 * Fix color for icon-box to #252527

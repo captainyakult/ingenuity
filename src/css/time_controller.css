@@ -19,7 +19,7 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.time-controller .next-rate:hover .icon-forward,
 	.time-controller .prev-rate:hover .icon-backward {
 		opacity: 1.0;
@@ -29,7 +29,7 @@
 .time-controller .next-rate .container {
 	background-color: var(--grayDarkAlpha);
 }
-@media (hover: hover) {
+@media (pointer: fine) and (hover: hover) {
 	.time-controller .prev-rate:hover .container,
 	.time-controller .next-rate:hover .container {
 		background-color: var(--grayAlpha);
