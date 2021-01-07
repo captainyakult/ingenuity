@@ -131,7 +131,7 @@ class SceneManager extends BaseSceneManager {
 		cmts.setHeightScale(1);
 		cmts.setPlanetographic(false);
 
-		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 12, 1590, 2748, 1592, 2749);
+		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 12, 1590, 2747, 1592, 2749);
 
 		// Add loading icon
 		this.addLoading('mars', 'cmts');

@@ -217,13 +217,13 @@ export class SetupSpacecraft {
 						position: new Pioneer.Vector3(700.8357588368021, 3142.16472493506, 1075.087115041164)
 					});
 					keyframe.addPositionKeyframe(T0 + 889.035 + 53.432, { // Fly away further.
-						position: new Pioneer.Vector3(700.9784361453491, 3140.3309044053594, 1073.4985109483948)
+						position: new Pioneer.Vector3(700.9751720226715, 3140.3162813801828, 1073.493512177173)
 					});
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
-					fixedGround.setPosition(new Pioneer.Vector3(700.9784361453491, 3140.3309044053594, 1073.4985109483948));
+					fixedGround.setPosition(new Pioneer.Vector3(700.9751720226715, 3140.3162813801828, 1073.493512177173));
 					// UPDATE: Backshell orientation at T0 + 889.035 + 53.432.
 					fixedGround.setOrientation(new Pioneer.Quaternion(0.7937387940233991, -0.4012801395784579, -0.45623782291500575, 0.02828471997296891));
 					fixedGround.setParent(mars);
@@ -443,14 +443,14 @@ export class SetupSpacecraft {
 						position: new Pioneer.Vector3(702.4418208779947, 3145.9844968597126, 1076.5851208833976)
 					});
 					keyframe.addPositionKeyframe(T0 + 804.269 + 50, { // Fly away further.
-						position: new Pioneer.Vector3(699.9106704567893, 3140.6106400058807, 1073.3847759177113)
+						position: new Pioneer.Vector3(699.9075237211689, 3140.5965201020313, 1073.3799500759983)
 					});
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
 					fixedGround.setParent(mars);
-					fixedGround.setPosition(new Pioneer.Vector3(699.9106704567893, 3140.6106400058807, 1073.3847759177113));
+					fixedGround.setPosition(new Pioneer.Vector3(699.9075237211689, 3140.5965201020313, 1073.3799500759983));
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 804.269 + 50, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
