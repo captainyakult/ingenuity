@@ -104,8 +104,6 @@ class SceneManager extends BaseSceneManager {
 		Entity.create('sc_maven', this._scene);
 		Entity.create('sc_mars_reconnaissance_orbiter', this._scene);
 		SetupSpacecraft.setup(this._scene);
-
-		this._pioneer.getConfig().setValue('gammaCorrection', 2.0);
 	}
 
 	/**
