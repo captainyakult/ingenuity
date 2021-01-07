@@ -141,6 +141,8 @@ class App extends BaseApp {
 
 		const timeController = await this.addComponent('timeController', TimeController, document.getElementById('time-controller'));
 		this._managers.time.registerCallback('ratechange', timeController.onRateChange);
+		this._managers.time.registerCallback('forcedpause', timeController.onForcedPause);
+		this._managers.time.registerCallback('forcedpauseresume', timeController.onForcedPauseResume);
 		timeController.setEnabled(true);
 
 		const settings = await this.addComponent('settings', Settings, document.getElementById('settings'), { isMetric: false });
