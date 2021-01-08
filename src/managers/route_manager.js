@@ -21,7 +21,6 @@ class RouteManager extends BaseRouteManager {
 				this._router.navigate(newRoute);
 			})
 			.on('/home', (params, query) => {
-				console.log('/home');
 				this.resetView('home');
 				if (query) {
 					query = this.parseQuery(query);
