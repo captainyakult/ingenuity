@@ -12,6 +12,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 		app.getManager('router').start();
 	}
 	catch (error) {
-		console.log(error);
+		console.error(error);
 	}
 });
