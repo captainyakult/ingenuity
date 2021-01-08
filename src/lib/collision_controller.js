@@ -14,7 +14,7 @@ class CollisionController extends Pioneer.BaseController {
 	constructor(type, name, entity) {
 		super(type, name, entity);
 		this._collisionEntity = null;
-		this._threshold = -2.2;
+		this._threshold = -2.231;
 
 		// Let the base controller know that this changes the position
 		this.addModifiedState('position');
