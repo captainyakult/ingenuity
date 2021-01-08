@@ -34,6 +34,7 @@ class HomeView extends BaseView {
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
 		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
+		this.onLoaded = this.onLoaded.bind(this);
 
 		window.addEventListener('mousedown', (event) => {
 			if (this._app.isTouch()) {
@@ -181,9 +182,6 @@ class HomeView extends BaseView {
 	 * @param {object} params - Parameters and queries from url
 	 */
 	async init(params) {
-		console.log('home view');
-		console.log(params);
-
 		this._resetStatus();
 
 		this._app.getManager('time').resetLimits();
@@ -205,6 +203,29 @@ class HomeView extends BaseView {
 
 		this._firstLoad = false;
 		await this.updateCamera(params.target, params.id);
+	}
+
+	/**
+	 * Update time rate on scene loaded.
+	 */
+	onLoaded() {
+		// Remove callback
+		this._app.getManager('scene').removeCallback('loaded', this.onLoaded);
+		super.updateTimeRate(this._app.getManager('router').query);
+	}
+
+	/**
+	 * Overwritten updateTimeRate.
+	 */
+	updateTimeRate(query) {
+		const sceneManager = this._app.getManager('scene');
+		if (sceneManager.isLoading) {
+			// Add callback
+			sceneManager.registerCallback('loaded', this.onLoaded);
+		}
+		else {
+			super.updateTimeRate(query);
+		}
 	}
 
 	/**
