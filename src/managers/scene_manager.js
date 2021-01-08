@@ -16,7 +16,7 @@ class SceneManager extends BaseSceneManager {
 		super(app, engine);
 		this._entityInfo = {
 			sc_perseverance_landing_site: {
-				clickable: true,
+				clickable: false,
 				label: true
 			},
 			sc_perseverance: {
@@ -76,6 +76,12 @@ class SceneManager extends BaseSceneManager {
 				label: true
 			}
 		};
+
+		/**
+		 * Check for label click if camera is still in transition.
+		 * @type {boolean}
+		 */
+		this._isTransitioning = false;
 	}
 
 	/**
@@ -198,8 +204,13 @@ class SceneManager extends BaseSceneManager {
 					const div = divComponent.getDiv();
 					if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].clickable === true) {
 						div.addEventListener('click', async (event) => {
+							// Don't execute further if it's already in transition
+							if (this._isTransitioning) {
+								return;
+							}
+							this._isTransitioning = true;
 							await this._app.getManager('camera').goToEntity(entity.getName());
-							this._target = entity.getName();
+							this._isTransitioning = false;
 							event.preventDefault();
 						}, false);
 						div.addEventListener('mouseup', (event) => {
