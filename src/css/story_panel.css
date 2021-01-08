@@ -46,9 +46,12 @@
 .carousel .track > .slide:last-child .content .description span {
 	opacity: 0.6;
 }
-.carousel .track > .slide:last-child .content .descriptionn a {
+.carousel .track > .slide:last-child .content .description a:visited,
+.carousel .track > .slide:last-child .content .description a:active,
+.carousel .track > .slide:last-child .content .description a {
 	opacity: 1;
 	pointer-events: all;
+	text-decoration: underline;
 }
 .carousel .slide.hidden {
 	opacity: 0;
