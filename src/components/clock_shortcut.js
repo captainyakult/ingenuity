@@ -50,11 +50,16 @@ class ClockShortcut extends BaseClockShortcut {
 	/**
 	 * Change time rate to 1s/s and time to start time.
 	 */
-	_replay() {
+	async _replay() {
 		const navigated = this._app.getManager('router').navigate('home');
 		if (!navigated) {
 			this._app.getManager('time').setTimeRate(1);
 			this._app.getManager('time').setToStart();
+		}
+		// Make sure camera returns to rover on replay
+		const cameraTarget = this._app.getManager('camera').cameraEntity.getParent().getName();
+		if (cameraTarget !== 'sc_perseverance_rover') {
+			await this._app.getManager('camera').goToEntity('sc_perseverance_rover');
 		}
 	}
 
