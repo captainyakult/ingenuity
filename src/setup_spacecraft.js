@@ -30,6 +30,34 @@ export class SetupSpacecraft {
 				url: 'assets/dynamo/sc_perseverance/ori',
 				customUrl: true
 			}],
+			coverages: [{
+				// When rover separates from descent stage, change the label and trail.
+				coverage: [T0 + 933.497, Number.POSITIVE_INFINITY],
+				enter: (entity) => {
+					const div = entity.get('div');
+					if (div instanceof Pioneer.DivComponent) {
+						div.getDiv().innerHTML = 'Descent Stage';
+					}
+					const trail = entity.get('trail');
+					if (trail instanceof Pioneer.TrailComponent) {
+						trail.setRelativeTime(false);
+						trail.setStartTime(T0);
+						trail.setEndTime(T0 + 933.497); // rover separation
+					}
+				},
+				exit: (entity) => {
+					const div = entity.get('div');
+					if (div instanceof Pioneer.DivComponent) {
+						div.getDiv().innerHTML = 'Mars 2020';
+					}
+					const trail = entity.get('trail');
+					if (trail instanceof Pioneer.TrailComponent) {
+						trail.setRelativeTime(true);
+						trail.setStartTime(10000000.0);
+						trail.setEndTime(0);
+					}
+				}
+			}],
 			postCreateFunction: (entity) => {
 				// Make the trail relative to mars orientation.
 				const trail = entity.get('trail');
