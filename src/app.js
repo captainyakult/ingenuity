@@ -78,8 +78,8 @@ class App extends BaseApp {
 		this._pioneer.getDownloader().setReplacement('DYNAMIC_ASSETS_URL', window.config.dynamicAssetsUrl);
 		// Set the time to 'now'
 		this._pioneer.setTime(Pioneer.TimeUtils.now());
-		// Set the timerate to realtime
-		this._pioneer.setTimeRate(1.0);
+		// Pause time
+		this._pioneer.setTimeRate(0);
 
 		// Update css vh variable
 		const vh = window.innerHeight;
