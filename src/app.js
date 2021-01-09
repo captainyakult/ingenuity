@@ -1,4 +1,5 @@
 import * as Pioneer from 'pioneer-js';
+import CollisionController from './lib/collision_controller';
 import moment from 'moment-timezone';
 
 // Import css
@@ -80,6 +81,8 @@ class App extends BaseApp {
 		this._pioneer.setTime(Pioneer.TimeUtils.now());
 		// Pause time
 		this._pioneer.setTimeRate(0);
+
+		this._pioneer.registerControllerType('collision', CollisionController);
 
 		// Update css vh variable
 		const vh = window.innerHeight;

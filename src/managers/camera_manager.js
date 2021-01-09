@@ -17,6 +17,16 @@ class CameraManager extends BaseCameraManager {
 
 		// Set max distance to Mars radius
 		this._defaultMaxDistance = this._defaultScene.get('mars').getExtentsRadius();
+		this._afterLoad = this._afterLoad.bind(this);
+		this._callbacks.loaded.push(this._afterLoad);
+	}
+
+	/**
+	 * After objects are loaded camera callback.
+	 */
+	async _afterLoad() {
+		const collisionController = this._cameraEntity.addController('collision');
+		collisionController.setCollisionEntity(this._app.getManager('scene')._scene.get('mars'));
 	}
 
 	/**
