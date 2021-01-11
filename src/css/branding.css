@@ -77,8 +77,8 @@
 	font-weight: 600;
 }
 
-/* Phones, 991px and down */
-@media only screen and (max-width: 991px)  {
+/* 480x320 phones and above */
+@media only screen and (min-width: 320px) {
 	.header .disclaimer {
 		grid-column: 4;
 		grid-row: 2;
@@ -110,41 +110,24 @@
 	}
 }
 
-/* Laptops/desktops, large devices, and screens with width >= 992px */
-@media only screen and (min-width: 992px) {
-	.header .disclaimer {
-		position: absolute;
-		margin: auto;
-		margin-top: 20px;
-		left: 50%;
-		transform: translateX(-50%);
-		top: 0;
-	}
-	.header .version {
-		position: absolute;
-		margin: auto;
-		margin-top: 40px;
-		left: 50%;
-		transform: translateX(-50%);
-		top: 0;
-	}
-	.header .credits {
-		margin-right: 10px;
-	}
-}
-
-/* Mobile landscape, panorama with height less than 600px */
-@media only screen and (max-height: 600px) and (orientation: landscape) {
+/* Landscape. 480x320 phones and above */
+@media only screen and (min-width: 320px) and (orientation: landscape),
+/* Portrait. Portrait tablets/iPad and above */
+screen and (min-width: 641px) and (orientation: portrait) {
 	.header .disclaimer {
 		grid-column: 4;
 		grid-row: 2;
 		justify-self: end;
 		opacity: 0.25;
 		text-align: right;
-		margin-top: -10px;
+		margin: -10px 0 0;
 		font-size: 14px; /* small */
 		line-height: 150%;
 		letter-spacing: 0;
+		position: relative;
+		left: auto;
+		top: auto;
+		transform: none;
 	}
 	.header .version {
 		position: absolute;
@@ -155,5 +138,30 @@
 		grid-row: unset;
 		grid-column: unset;
 	}
+}
 
+/* Exclude panorama. Big landscape tablets, laptops/desktops, and above */
+@media only screen and (min-width: 1025px) and (min-height: 600px) {
+	.header .disclaimer {
+		position: absolute;
+		margin: auto;
+		margin-top: 20px;
+		left: 50%;
+		transform: translateX(-50%);
+		top: 0;
+		grid-row: unset;
+		grid-column: unset;
+		font-size: 16px; /* normal */
+	}
+	.header .version {
+		position: absolute;
+		margin: auto;
+		margin-top: 50px;
+		left: 50%;
+		transform: translateX(-50%);
+		top: 0;
+	}
+	.header .credits {
+		margin-right: 10px;
+	}
 }
