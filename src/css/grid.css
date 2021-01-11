@@ -120,7 +120,7 @@ screen and (min-width: 641px) and (orientation: portrait) {
 
 	/* Time */
 	.grid-layout .float-mid-bottom {
-		grid-template-columns: minmax(250px, 30%) 70%;
+		grid-template-columns: minmax(240px, 30%) 70%;
 		grid-template-rows: 50% 50%;
 		grid-column: extd-end / side-start;
 		grid-row: foot-start / foot-end;
