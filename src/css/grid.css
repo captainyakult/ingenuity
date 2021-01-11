@@ -114,7 +114,7 @@ screen and (min-width: 641px) and (orientation: portrait) {
 		justify-self: end;
 		width: 30px;
 		margin-bottom: 25px;
-		height: 100%;
+		height: auto;
 		align-items: end;
 	}
 
@@ -129,6 +129,7 @@ screen and (min-width: 641px) and (orientation: portrait) {
 		justify-items: start;
 		height: auto;
 		display: grid;
-		gap: 0 30px;
+		gap: 0 10px;
 	}
 }
+
