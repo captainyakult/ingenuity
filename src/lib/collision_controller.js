@@ -1,4 +1,4 @@
-/** @module mrn */
+/** @module mars2020 */
 import * as Pioneer from 'pioneer-js';
 
 /** The collision controller.
@@ -20,10 +20,17 @@ class CollisionController extends Pioneer.BaseController {
 		this.addModifiedState('position');
 	}
 
+	/**
+	 * Gets the threshold value.
+	 */
 	getThreshold() {
 		return this._threshold;
 	}
 
+	/**
+	 * Sets the threshold value in km.
+	 * @param {number} threshold
+	 */
 	setThreshold(threshold) {
 		this._threshold = threshold;
 	}
