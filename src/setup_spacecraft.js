@@ -12,6 +12,26 @@ export class SetupSpacecraft {
 	static setup(scene) {
 		const mars = scene.get('mars');
 
+		// Make the landing site disappear after Perseverance has separated from the descent stage.
+		const landingSite = scene.getEntity('sc_perseverance_landing_site');
+		landingSite.setCanOcclude(false);
+		const coverageController = landingSite.addController('coverage');
+		if (coverageController instanceof Pioneer.CoverageController) {
+			coverageController.addCoverage(new Pioneer.Interval(T0 + 933.497, Number.POSITIVE_INFINITY), (entity) => {
+				// Enter
+				const div = landingSite.get('div');
+				if (div instanceof Pioneer.DivComponent) {
+					div.setEnabled(false);
+				}
+			}, (entity) => {
+				// Exit
+				const div = landingSite.get('div');
+				if (div instanceof Pioneer.DivComponent) {
+					div.setEnabled(true);
+				}
+			});
+		}
+
 		// Create Perseverance parent.
 		const perseverance = Entity.createFromOptions('sc_perseverance', {
 			radius: 0.00225,
