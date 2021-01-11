@@ -39,7 +39,7 @@ class TimeController extends BaseTimeController {
 		this._children.decreaseContainer.classList.add('bg-color', 'gray', 'dark');
 		this._children.increaseContainer.classList.add('bg-color', 'gray', 'dark');
 		this._children.label.classList.add('semi');
-		this._children.rateDisplay.classList.add('semi');
+		this._children.rateDisplay.classList.add('semi', 'small');
 
 		this._updateFonts();
 
@@ -55,10 +55,12 @@ class TimeController extends BaseTimeController {
 		if (this._app.isMobile() || this._app.isLandscape()) {
 			this._children.label.classList.add('tiny');
 			this._children.rateDisplay.classList.add('tiny');
+			this._children.rateDisplay.classList.remove('small');
 		}
 		else {
 			this._children.label.classList.remove('tiny');
 			this._children.rateDisplay.classList.remove('tiny');
+			this._children.rateDisplay.classList.add('small');
 		}
 	}
 }
