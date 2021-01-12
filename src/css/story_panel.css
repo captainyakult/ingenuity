@@ -369,7 +369,8 @@
 	.carousel .navigation-button {
 		display: block;
 	}
-	.carousel.expand .mobile-hint,
+	.carousel.expand .slide .mobile-hint,
+	.carousel .slide .mobile-hint,
 	.carousel .collapse-button {
 		display: none;
 	}
