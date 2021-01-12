@@ -154,19 +154,25 @@ class StoryPanel extends Carousel {
 		this._updateFonts();
 
 		this._interval = setInterval(() => {
-			// Return if not needed
+			const mars = this._app.pioneer.get('main', 'mars');
+			const landingSite = this._app.pioneer.get('main', 'sc_perseverance_landing_site');
+			const marsSpheroid = this._app.pioneer.get('main', 'mars', 'spheroid').getSpheroid();
 
 			// Update distance
 			const distance = this._app.getManager('scene').getDistance('sc_perseverance_rover', 'sc_perseverance_landing_site', { subtractRadius: false });
 
 			// Update velocity
-			const velocity = this._app.getManager('scene').getSpeed('sc_perseverance_rover', 'mars');
+			const velocity = this._app.getManager('scene').getSpeed('sc_perseverance_rover', 'sc_perseverance_landing_site');
+			// const eqRadius = mars.get('spheroid').getEquatorialRadius();
+			// const landingLLA = Pioneer.LatLonAlt.pool.get();
+			// const landingPosition = landingSite.getPosition(); // todo cleanup
+			// landingPosition.rotateInverse(mars.getOrientation(), landingSite.getPosition());
+			// marsSpheroid.llaFromXYZ(landingLLA, landingPosition, false);
+			// const temp = Math.cos(landingLLA.lat) * eqRadius;
 
 			// Update altitude
-			const marsSpheroid = this._app.pioneer.get('main', 'mars', 'spheroid').getSpheroid();
 			const lla = Pioneer.LatLonAlt.pool.get();
 			const position = Pioneer.Vector3.pool.get();
-			const mars = this._app.pioneer.get('main', 'mars');
 			const perseverance = this._app.pioneer.get('main', 'sc_perseverance_rover');
 			perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
 			// Rotate inverse into the Mars frame
