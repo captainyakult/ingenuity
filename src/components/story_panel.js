@@ -168,10 +168,12 @@ class StoryPanel extends Carousel {
 			const position = Pioneer.Vector3.pool.get();
 			const mars = this._app.pioneer.get('main', 'mars');
 			const perseverance = this._app.pioneer.get('main', 'sc_perseverance_rover');
-
 			perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
-
+			// Rotate inverse into the Mars frame
+			position.rotateInverse(mars.getOrientation(), position);
 			marsSpheroid.llaFromXYZ(lla, position, false);
+			// Subtract elevation from landing site
+			const alt = Math.max(0, lla.alt - -2.2130185476344195);
 
 			Pioneer.Vector3.pool.release(position);
 			Pioneer.LatLonAlt.pool.release(lla);
@@ -181,7 +183,7 @@ class StoryPanel extends Carousel {
 			this.setState({
 				distance: this._formatDistance(distance, `distanceValue_${currentIndex}`),
 				velocity: this._formatSpeed(velocity, `velocityValue_${currentIndex}`),
-				altitude: this._formatDistance(lla.alt, `altitudeValue_${currentIndex}`)
+				altitude: this._formatDistance(alt, `altitudeValue_${currentIndex}`)
 			});
 		}, 200);
 	}
