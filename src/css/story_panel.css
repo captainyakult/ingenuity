@@ -76,7 +76,7 @@
 
 @keyframes pulse {
 	0% {
-		opacity: 0.0;
+		opacity: 0.25;
 	}
 	75% {
 		opacity: 0.5;
@@ -174,14 +174,6 @@
 		right: 10px;
 		outline: none;
 	}
-	.carousel .hint-button {
-		position: absolute;
-		top: -30px;
-		left: 50%;
-		transform: rotate(-90deg) translateY(-50%) scale(1);
-		pointer-events: none;
-		display: none;
-	}
 
 	/* Animations */
 	@keyframes shrink {
@@ -214,14 +206,32 @@
 		animation-iteration-count: 1;
 		animation-fill-mode: both;
 	}
-	.carousel.expand .hint-button {
+
+	/* Mobile hint */
+	.carousel .slide .mobile-hint {
+		display: none;
+	}
+	.carousel.expand .slide .mobile-hint {
+		display: block;
+		margin: auto;
+	}
+	.carousel.expand .slide.active .mobile-hint {
 		animation-name: pulse;
 		animation-duration: 0.75s;
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 8;
 		animation-fill-mode: both;
 		animation-direction: alternate;
-		display: block;
+	}
+	.carousel .mobile-hint .icon.up {
+		transform: rotate(-90deg);
+	}
+	.carousel .mobile-hint .icon.down {
+		transform: rotate(90deg);
+	}
+	.carousel.expand .slide:last-child .mobile-hint .icon.up,
+	.carousel.expand .slide:first-child .mobile-hint .icon.down {
+		display: none;
 	}
 
 	/* Background */
@@ -359,7 +369,7 @@
 	.carousel .navigation-button {
 		display: block;
 	}
-	.carousel.expand .hint-button,
+	.carousel.expand .mobile-hint,
 	.carousel .collapse-button {
 		display: none;
 	}

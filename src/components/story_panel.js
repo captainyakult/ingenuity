@@ -142,6 +142,10 @@ class StoryPanel extends Carousel {
 			this.addSlide({
 				id,
 				text: this._createSlideContent({ id, title, description, mobileDescription, index }, nextInfo)
+			},
+			{
+				isFirst: index === 0,
+				isLast: index === this._info.length - 1
 			});
 		});
 
