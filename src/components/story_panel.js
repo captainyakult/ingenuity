@@ -62,9 +62,13 @@ class StoryPanel extends Carousel {
 			await this._app.getManager('router').navigate(query);
 		};
 
+		// Override settings
 		this._settings.navigationButtons.prev.text = 'Scroll for previous phase';
 		this._settings.navigationButtons.next.text = 'Scroll for next phase';
 		this._settings.timeout = 500;
+		this._settings.hintText.default = 'Swipe for next/previous phase';
+		this._settings.hintText.first = 'Swipe up for next phase';
+		this._settings.hintText.last = 'End of simulation';
 
 		this._info = null;
 		this._currentInfo = null;
@@ -142,6 +146,10 @@ class StoryPanel extends Carousel {
 			this.addSlide({
 				id,
 				text: this._createSlideContent({ id, title, description, mobileDescription, index }, nextInfo)
+			},
+			{
+				isFirst: index === 0,
+				isLast: index === this._info.length - 1
 			});
 		});
 
