@@ -104,6 +104,11 @@ class HomeView extends BaseView {
 			}
 		});
 		window.addEventListener('touchstart', (event) => {
+			// Turn off guided camera
+			if (event.target.id === 'main-viewport') {
+				this._app.getComponent('settings').stopGuidedCamera();
+			}
+
 			// Show bottom panel and hide story panel
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
@@ -289,6 +294,7 @@ class HomeView extends BaseView {
 						}
 						else {
 							if (timestamp >= preset.timestamp * 1000) {
+								console.log('')
 								i++;
 								await this._app.getManager('camera')[preset.func](...preset.params);
 							}
