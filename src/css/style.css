@@ -174,11 +174,10 @@ a {
 	.icon-plus:hover,
 	.icon-minus:hover,
 	.icon-box:hover .icon-natural-light,
-	.icon-box:hover .icon-flood-light {
+	.icon-box:hover .icon-flood-light,
+	.icon-box:hover .icon-auto-cam,
+	.icon-box:hover .icon-free-cam {
 		opacity: 1;
-	}
-	.icon-box.guided-camera:hover {
-		color: var(--white);
 	}
 }
 
