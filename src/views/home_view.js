@@ -277,9 +277,9 @@ class HomeView extends BaseView {
 						return;
 					}
 					const preset = presets[i];
-					const options = preset.params[preset.length - 1];
-					if (AppUtils.isObject(options) && ('duration' in options)) {
-						preset.params[preset.length - 1].duration = options.duration * 1.0 / rate;
+					const options = preset.params[preset.params.length - 1];
+					if (AppUtils.isObject(options) && ('duration' in options) && rate !== 0) {
+						preset.params[preset.params.length - 1].duration = options.duration * 1.0 / rate;
 					}
 					// Preset has timestamp
 					if ('timestamp' in preset) {
@@ -294,7 +294,7 @@ class HomeView extends BaseView {
 						}
 						else {
 							if (timestamp >= preset.timestamp * 1000) {
-								console.log('')
+								console.log('---execute', i)
 								i++;
 								await this._app.getManager('camera')[preset.func](...preset.params);
 							}
