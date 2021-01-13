@@ -81,6 +81,13 @@ body::after{
 	z-index:-1;
 	content: url(./assets/png/1.png) url(./assets/png/2.png) url(./assets/png/3.png) url(./assets/png/4.png) url(./assets/png/5.png) url(./assets/png/6.png) url(./assets/png/7.png) url(./assets/png/8.png) url(./assets/png/9.png) url(./assets/png/10.png) url(./assets/png/11.png) url(./assets/png/12.png);
 }
+
+.carousel .slide.active:hover {
+	animation-iteration-count: infinite;
+	animation-name: animated-cursor;
+	cursor: url(./assets/png/1.png), auto;
+}
+
 @keyframes animated-cursor {
 	0% {
 		cursor: url(./assets/png/1.png), auto;
