@@ -28,13 +28,16 @@ class HomeView extends BaseView {
 		this._isDragging = false;
 		this._controlsVisible = false;
 		this._firstLoad = true;
-		this._id = null;
+		this._phaseId = null;
 		this._cameraInterval = null;
+		this._autoCamIndex = null;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
 		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
+		this._autoCameraUpdate = this._autoCameraUpdate.bind(this);
+		this._app.pioneer.addCallback(this._autoCameraUpdate, true);
 
 		window.addEventListener('mousedown', (event) => {
 			if (this._app.isTouch()) {
@@ -204,17 +207,18 @@ class HomeView extends BaseView {
 		// Register callback for photo mode
 		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
 		this._app.getComponent('settings').registerCallback('guidedcamerachange', async (isGuidedCamera) => {
-			const phaseId = this._id;
-			if (isGuidedCamera) {
-				this._id = null;
+			if (!isGuidedCamera) {
+				this._autoCamIndex = null;
 			}
-			await this.updateCamera(null, phaseId);
 		});
 
 		this._app.getComponent('infoPanel').onRouteChange();
 
 		this._firstLoad = false;
-		await this.updateCamera(params.target, params.id);
+		this._phaseId = params.id;
+		if (!this._app.getComponent('settings').getState('isGuidedCamera')) {
+			await this.updateCamera(params.target);
+		}
 	}
 
 	/**
@@ -243,78 +247,70 @@ class HomeView extends BaseView {
 	/**
 	 * Update camera.
 	 * @param {string} target
-	 * @param {string} phaseId
 	 */
-	async updateCamera(target, phaseId) {
+	async updateCamera(target) {
 		if (!target) {
 			target = 'sc_perseverance_rover';
 		}
 
-		const info = this._app.getComponent('storyPanel').currentInfo;
+		// Preset camera
+		if (this._target !== target) {
+			this._target = target;
+			await this._app.getManager('camera').goToEntity(target);
+		}
+	}
 
-		clearInterval(this._cameraInterval);
+	async _autoCameraUpdate() {
+		// Not ready yet
+		// Or not auto mode
+		if (this._phaseId === null || !this._app.getComponent('settings').getState('isGuidedCamera')) {
+			return;
+		}
+
+		// Get info
+		const info = this._app.getComponent('storyPanel').currentInfo;
 		const rate = this._app.getManager('time').getTimeRate();
+		const startTime = this._app.getManager('time').etToMoment(this._app.dateConstants.EDLStart).valueOf();
+		const timestamp = this._app.getManager('time').getTime().valueOf() - startTime;
 
 		// Get the presets depending on time rate
 		const presets = rate < 0
 			? info.reverseCamera || info.camera
 			: info.camera;
 
-		// Preset camera
-		if (presets && this._app.getComponent('settings').getState('isGuidedCamera')) {
-			this._target = target;
-			// Only update camera if story phase changes
-			if (this._id !== phaseId) {
-				this._id = phaseId;
-				let i = 0;
-				const startTime = this._app.getManager('time').etToMoment(this._app.dateConstants.EDLStart).valueOf();
-
-				// Execute a camera preset
-				const executePreset = async () => {
-					// End of phase, clear interval
-					if (i >= presets.length) {
-						clearInterval(this._cameraInterval);
-						return;
+		// Find the closest camera
+		let closestIndex = 0;
+		for (let i = 0; i < presets.length; i++) {
+			const preset = presets[i];
+			if (rate < 0) {
+				if (timestamp <= preset.timestamp * 1000) {
+					if (preset.timestamp < presets[closestIndex].timestamp) {
+						closestIndex = i;
 					}
-					const preset = presets[i];
-					const options = preset.params[preset.params.length - 1];
-					if (AppUtils.isObject(options) && ('duration' in options) && rate !== 0) {
-						preset.params[preset.params.length - 1].duration = options.duration * 1.0 / rate;
+				}
+			}
+			else {
+				if (timestamp >= preset.timestamp * 1000) {
+					if (preset.timestamp > presets[closestIndex].timestamp) {
+						closestIndex = i;
 					}
-					// Preset has timestamp
-					if ('timestamp' in preset) {
-						// Get current timestamp from current time - EDL start time
-						const timestamp = this._app.getManager('time').getTime().valueOf() - startTime;
-						// Current timestamp is at or more than preset's timestamp
-						if (rate < 0) {
-							if (timestamp <= preset.timestamp * 1000) {
-								i++;
-								await this._app.getManager('camera')[preset.func](...preset.params);
-							}
-						}
-						else {
-							if (timestamp >= preset.timestamp * 1000) {
-								i++;
-								await this._app.getManager('camera')[preset.func](...preset.params);
-							}
-						}
-					}
-					// Preset doesn't have timestamp
-					else {
-						i++;
-						await this._app.getManager('camera')[preset.func](...preset.params);
-					}
-				};
-				// Execute each camera preset in a phase on an interval
-				this._cameraInterval = setInterval(executePreset, 30);
+				}
 			}
 		}
-		// Normal camera
-		else {
-			if (this._target !== target) {
-				this._target = target;
-				await this._app.getManager('camera').goToEntity(target);
+		// Launch camera transition
+		if (this._phaseId + '-' + closestIndex !== this._autoCamIndex) {
+			// Save it, we dont want to launch it again
+			// Unless we cleared auto mode and came back
+			this._autoCamIndex = this._phaseId + '-' + closestIndex;
+			const preset = presets[closestIndex];
+
+			// Check rate to adjust duration
+			const options = preset.params[preset.params.length - 1];
+			if (AppUtils.isObject(options) && ('duration' in options) && rate !== 0) {
+				preset.params[preset.params.length - 1].duration = options.duration * 1.0 / rate;
 			}
+
+			await this._app.getManager('camera')[preset.func](...preset.params);
 		}
 	}
 
