@@ -21,10 +21,12 @@ class StoryPanel extends Carousel {
 		this._units = {
 			metric: {
 				distanceUnit: 'km',
+				precisionUnit: 'm',
 				speedUnit: 'km/h'
 			},
 			imperial: {
 				distanceUnit: 'miles',
+				precisionUnit: 'ft',
 				speedUnit: 'mph'
 			}
 		};
@@ -39,6 +41,7 @@ class StoryPanel extends Carousel {
 			touchdownClass: '',
 			isMetric: false,
 			...this._units.imperial,
+			altitudeUnit: 'miles',
 			textClass: ''
 		};
 
@@ -99,7 +102,7 @@ class StoryPanel extends Carousel {
 			<h2 class="title">${info.title}</h2>
 			<div class="body">
 				<div class="distance {{textClass}}"><span key="distanceValue_${info.index}" class="value semi">{{distance}}</span><span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
-				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span key="altitudeValue_${info.index}" class="value semi">{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
+				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span key="altitudeValue_${info.index}" class="value semi">{{altitude}}</span><span class="unit">{{altitudeUnit}}</span></div>
 				<div class="velocity {{textClass}} {{touchdownClass}}"><span class="label semi">Velocity: </span><span key="velocityValue_${info.index}" class="value semi">{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 				<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
 				<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
@@ -187,11 +190,14 @@ class StoryPanel extends Carousel {
 			Pioneer.LatLonAlt.pool.release(lla);
 
 			const { currentIndex } = this._state;
+
 			// Update state
 			this.setState({
 				distance: this._formatDistance(distance, `distanceValue_${currentIndex}`),
 				velocity: this._formatSpeed(velocity, `velocityValue_${currentIndex}`),
-				altitude: this._formatDistance(alt, `altitudeValue_${currentIndex}`)
+				altitude: this._formatDistance(alt, `altitudeValue_${currentIndex}`),
+				distanceUnit: this._formatUnit(distance),
+				altitudeUnit: this._formatUnit(alt)
 			});
 		}, 200);
 	}
@@ -204,9 +210,19 @@ class StoryPanel extends Carousel {
 	 */
 	_formatDistance(distance, elementKey) {
 		distance = Number.parseFloat(distance);
+
 		if (!this._state.isMetric) {
-			distance = distance * AppUtils.conversionTable.kmToMi;
+			distance *= AppUtils.conversionTable.kmToMi;
+			if (distance < 1.0) {
+				distance *= AppUtils.conversionTable.miToFt;
+			}
 		}
+		else {
+			if (distance < 1.0) {
+				distance *= 1000; // km to meters
+			}
+		}
+
 		distance = distance.toFixed(2);
 		const length = distance.toString().length;
 		const width = length * 10;
@@ -214,6 +230,24 @@ class StoryPanel extends Carousel {
 
 		const output = Number(distance).toLocaleString(...this._formatOpts);
 		return output;
+	}
+
+	/**
+	 * Formats unit.
+	 * @param {number} number
+	 * @returns {string}
+	 */
+	_formatUnit(number) {
+		let units = this._units.metric;
+		if (!this._state.isMetric) {
+			units = this._units.imperial;
+		}
+		if (number < 1.0) {
+			return units.precisionUnit;
+		}
+		else {
+			return units.distanceUnit;
+		}
 	}
 
 	/**
@@ -242,8 +276,7 @@ class StoryPanel extends Carousel {
 	 */
 	onUnitChange(isMetric) {
 		this.setState({
-			isMetric,
-			...(isMetric ? this._units.metric : this._units.imperial)
+			isMetric
 		});
 	}
 
