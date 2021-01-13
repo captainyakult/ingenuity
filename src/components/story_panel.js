@@ -225,7 +225,6 @@ class StoryPanel extends Carousel {
 	 */
 	_formatDistance(distance, elementKey) {
 		distance = Number.parseFloat(distance);
-
 		if (!this._state.isMetric) {
 			distance *= AppUtils.conversionTable.kmToMi;
 			if (distance < 1.0) {
@@ -256,6 +255,7 @@ class StoryPanel extends Carousel {
 		let units = this._units.metric;
 		if (!this._state.isMetric) {
 			units = this._units.imperial;
+			number *= AppUtils.conversionTable.kmToMi;
 		}
 		if (number < 1.0) {
 			return units.precisionUnit;
