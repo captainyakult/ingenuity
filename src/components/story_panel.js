@@ -165,20 +165,29 @@ class StoryPanel extends Carousel {
 		this._updateFonts();
 
 		this._interval = setInterval(() => {
-			// Return if not needed
+			const scene = this._app.pioneer.getScene('main');
+			const rover = scene.getEntity('sc_perseverance_rover');
+			const landingSite = scene.getEntity('sc_perseverance_landing_site');
+			const perseverance = scene.getEntity('sc_perseverance_rover');
+			const mars = scene.getEntity('mars');
+			const marsSpheroid = mars.get('spheroid').getSpheroid();
 
 			// Update distance
 			const distance = this._app.getManager('scene').getDistance('sc_perseverance_rover', 'sc_perseverance_landing_site', { subtractRadius: false });
 
 			// Update velocity
-			const velocity = this._app.getManager('scene').getSpeed('sc_perseverance_rover', 'mars');
+			const velocity = Pioneer.Vector3.pool.get();
+			velocity.cross(mars.getAngularVelocity(), landingSite.getPosition());
+			const roverVelocityRelMars = Pioneer.Vector3.pool.get();
+			rover.getVelocityRelativeToEntity(roverVelocityRelMars, Pioneer.Vector3.Zero, mars);
+			velocity.sub(velocity, roverVelocityRelMars);
+			const speed = velocity.magnitude();
+			Pioneer.Vector3.pool.release(roverVelocityRelMars);
+			Pioneer.Vector3.pool.release(velocity);
 
 			// Update altitude
-			const marsSpheroid = this._app.pioneer.get('main', 'mars', 'spheroid').getSpheroid();
 			const lla = Pioneer.LatLonAlt.pool.get();
 			const position = Pioneer.Vector3.pool.get();
-			const mars = this._app.pioneer.get('main', 'mars');
-			const perseverance = this._app.pioneer.get('main', 'sc_perseverance_rover');
 			perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
 			// Rotate inverse into the Mars frame
 			position.rotateInverse(mars.getOrientation(), position);
@@ -194,7 +203,7 @@ class StoryPanel extends Carousel {
 			// Update state
 			this.setState({
 				distance: this._formatDistance(distance, `distanceValue_${currentIndex}`),
-				velocity: this._formatSpeed(velocity, `velocityValue_${currentIndex}`),
+				velocity: this._formatSpeed(speed, `velocityValue_${currentIndex}`),
 				altitude: this._formatDistance(alt, `altitudeValue_${currentIndex}`),
 				distanceUnit: this._formatUnit(distance),
 				altitudeUnit: this._formatUnit(alt)
