@@ -307,7 +307,7 @@ class HomeView extends BaseView {
 			// Check rate to adjust duration
 			const options = preset.params[preset.params.length - 1];
 			if (AppUtils.isObject(options) && ('duration' in options) && rate !== 0) {
-				preset.params[preset.params.length - 1].duration = options.duration * 1.0 / rate;
+				preset.params[preset.params.length - 1].duration = Math.max(0.5, options.duration * 1.0 / rate);
 			}
 
 			await this._app.getManager('camera')[preset.func](...preset.params);
