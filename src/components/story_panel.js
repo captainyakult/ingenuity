@@ -21,10 +21,12 @@ class StoryPanel extends Carousel {
 		this._units = {
 			metric: {
 				distanceUnit: 'km',
+				precisionUnit: 'm',
 				speedUnit: 'km/h'
 			},
 			imperial: {
 				distanceUnit: 'miles',
+				precisionUnit: 'ft',
 				speedUnit: 'mph'
 			}
 		};
@@ -39,6 +41,7 @@ class StoryPanel extends Carousel {
 			touchdownClass: '',
 			isMetric: false,
 			...this._units.imperial,
+			altitudeUnit: 'miles',
 			textClass: ''
 		};
 
@@ -75,6 +78,7 @@ class StoryPanel extends Carousel {
 
 		this.update = this.update.bind(this);
 		this.onUnitChange = this.onUnitChange.bind(this);
+		this._updateValues = this._updateValues.bind(this);
 	}
 
 	get currentInfo() {
@@ -99,7 +103,7 @@ class StoryPanel extends Carousel {
 			<h2 class="title">${info.title}</h2>
 			<div class="body">
 				<div class="distance {{textClass}}"><span key="distanceValue_${info.index}" class="value semi">{{distance}}</span><span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
-				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span key="altitudeValue_${info.index}" class="value semi">{{altitude}}</span><span class="unit">{{distanceUnit}}</span></div>
+				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span key="altitudeValue_${info.index}" class="value semi">{{altitude}}</span><span class="unit">{{altitudeUnit}}</span></div>
 				<div class="velocity {{textClass}} {{touchdownClass}}"><span class="label semi">Velocity: </span><span key="velocityValue_${info.index}" class="value semi">{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 				<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
 				<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
@@ -161,48 +165,56 @@ class StoryPanel extends Carousel {
 		});
 		this._updateFonts();
 
-		this._interval = setInterval(() => {
-			const scene = this._app.pioneer.getScene('main');
-			const rover = scene.getEntity('sc_perseverance_rover');
-			const landingSite = scene.getEntity('sc_perseverance_landing_site');
-			const perseverance = scene.getEntity('sc_perseverance_rover');
-			const mars = scene.getEntity('mars');
-			const marsSpheroid = mars.get('spheroid').getSpheroid();
+		this._interval = setInterval(this._updateValues, 200);
+	}
 
-			// Update distance
-			const distance = this._app.getManager('scene').getDistance('sc_perseverance_rover', 'sc_perseverance_landing_site', { subtractRadius: false });
+	/**
+	 * Updates values for the data readout.
+	 */
+	_updateValues() {
+		const scene = this._app.pioneer.getScene('main');
+		const rover = scene.getEntity('sc_perseverance_rover');
+		const landingSite = scene.getEntity('sc_perseverance_landing_site');
+		const perseverance = scene.getEntity('sc_perseverance_rover');
+		const mars = scene.getEntity('mars');
+		const marsSpheroid = mars.get('spheroid').getSpheroid();
 
-			// Update velocity
-			const velocity = Pioneer.Vector3.pool.get();
-			velocity.cross(mars.getAngularVelocity(), landingSite.getPosition());
-			const roverVelocityRelMars = Pioneer.Vector3.pool.get();
-			rover.getVelocityRelativeToEntity(roverVelocityRelMars, Pioneer.Vector3.Zero, mars);
-			velocity.sub(velocity, roverVelocityRelMars);
-			const speed = velocity.magnitude();
-			Pioneer.Vector3.pool.release(roverVelocityRelMars);
-			Pioneer.Vector3.pool.release(velocity);
+		// Update distance
+		const distance = this._app.getManager('scene').getDistance('sc_perseverance_rover', 'sc_perseverance_landing_site', { subtractRadius: false });
 
-			// Update altitude
-			const lla = Pioneer.LatLonAlt.pool.get();
-			const position = Pioneer.Vector3.pool.get();
-			perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
-			// Rotate inverse into the Mars frame
-			position.rotateInverse(mars.getOrientation(), position);
-			marsSpheroid.llaFromXYZ(lla, position, false);
-			// Subtract elevation from landing site
-			const alt = Math.max(0, lla.alt - -2.2130185476344195);
+		// Update velocity
+		const velocity = Pioneer.Vector3.pool.get();
+		velocity.cross(mars.getAngularVelocity(), landingSite.getPosition());
+		const roverVelocityRelMars = Pioneer.Vector3.pool.get();
+		rover.getVelocityRelativeToEntity(roverVelocityRelMars, Pioneer.Vector3.Zero, mars);
+		velocity.sub(velocity, roverVelocityRelMars);
+		const speed = velocity.magnitude();
+		Pioneer.Vector3.pool.release(roverVelocityRelMars);
+		Pioneer.Vector3.pool.release(velocity);
 
-			Pioneer.Vector3.pool.release(position);
-			Pioneer.LatLonAlt.pool.release(lla);
+		// Update altitude
+		const lla = Pioneer.LatLonAlt.pool.get();
+		const position = Pioneer.Vector3.pool.get();
+		perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
+		// Rotate inverse into the Mars frame
+		position.rotateInverse(mars.getOrientation(), position);
+		marsSpheroid.llaFromXYZ(lla, position, false);
+		// Subtract elevation from landing site
+		const alt = Math.max(0, lla.alt - -2.2130185476344195);
 
-			const { currentIndex } = this._state;
-			// Update state
-			this.setState({
-				distance: this._formatDistance(distance, `distanceValue_${currentIndex}`),
-				velocity: this._formatSpeed(speed, `velocityValue_${currentIndex}`),
-				altitude: this._formatDistance(alt, `altitudeValue_${currentIndex}`)
-			});
-		}, 200);
+		Pioneer.Vector3.pool.release(position);
+		Pioneer.LatLonAlt.pool.release(lla);
+
+		const { currentIndex } = this._state;
+
+		// Update state
+		this.setState({
+			distance: this._formatDistance(distance, `distanceValue_${currentIndex}`),
+			velocity: this._formatSpeed(speed, `velocityValue_${currentIndex}`),
+			altitude: this._formatDistance(alt, `altitudeValue_${currentIndex}`),
+			distanceUnit: this._formatUnit(distance),
+			altitudeUnit: this._formatUnit(alt)
+		});
 	}
 
 	/**
@@ -214,8 +226,17 @@ class StoryPanel extends Carousel {
 	_formatDistance(distance, elementKey) {
 		distance = Number.parseFloat(distance);
 		if (!this._state.isMetric) {
-			distance = distance * AppUtils.conversionTable.kmToMi;
+			distance *= AppUtils.conversionTable.kmToMi;
+			if (distance < 1.0) {
+				distance *= AppUtils.conversionTable.miToFt;
+			}
 		}
+		else {
+			if (distance < 1.0) {
+				distance *= 1000; // km to meters
+			}
+		}
+
 		distance = distance.toFixed(2);
 		const length = distance.toString().length;
 		const width = length * 10;
@@ -223,6 +244,25 @@ class StoryPanel extends Carousel {
 
 		const output = Number(distance).toLocaleString(...this._formatOpts);
 		return output;
+	}
+
+	/**
+	 * Formats unit.
+	 * @param {number} number
+	 * @returns {string}
+	 */
+	_formatUnit(number) {
+		let units = this._units.metric;
+		if (!this._state.isMetric) {
+			units = this._units.imperial;
+			number *= AppUtils.conversionTable.kmToMi;
+		}
+		if (number < 1.0) {
+			return units.precisionUnit;
+		}
+		else {
+			return units.distanceUnit;
+		}
 	}
 
 	/**
@@ -250,10 +290,13 @@ class StoryPanel extends Carousel {
 	 * @param {boolean} system
 	 */
 	onUnitChange(isMetric) {
+		const unit = isMetric ? this._units.metric : this._units.imperial;
+
 		this.setState({
 			isMetric,
-			...(isMetric ? this._units.metric : this._units.imperial)
+			speedUnit: unit.speedUnit
 		});
+		this._updateValues();
 	}
 
 	/**
