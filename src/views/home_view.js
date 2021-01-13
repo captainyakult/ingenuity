@@ -104,6 +104,11 @@ class HomeView extends BaseView {
 			}
 		});
 		window.addEventListener('touchstart', (event) => {
+			// Turn off guided camera
+			if (event.target.id === 'main-viewport') {
+				this._app.getComponent('settings').stopGuidedCamera();
+			}
+
 			// Show bottom panel and hide story panel
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
 				this._showControls();
@@ -265,9 +270,9 @@ class HomeView extends BaseView {
 						return;
 					}
 					const preset = presets[i];
-					const options = preset.params[preset.length - 1];
-					if (AppUtils.isObject(options) && ('duration' in options)) {
-						preset.params[preset.length - 1].duration = options.duration * 1.0 / rate;
+					const options = preset.params[preset.params.length - 1];
+					if (AppUtils.isObject(options) && ('duration' in options) && rate !== 0) {
+						preset.params[preset.params.length - 1].duration = options.duration * 1.0 / rate;
 					}
 					// Preset has timestamp
 					if ('timestamp' in preset) {
