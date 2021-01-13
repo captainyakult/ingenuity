@@ -203,13 +203,13 @@ class HomeView extends BaseView {
 
 		// Register callback for photo mode
 		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
-		this._app.getComponent('settings').registerCallback('guidedcamerachange', async (isGuidedCamera) => {
-			const phaseId = this._id;
-			if (isGuidedCamera) {
-				this._id = null;
-			}
-			await this.updateCamera(null, phaseId);
-		});
+		// this._app.getComponent('settings').registerCallback('guidedcamerachange', async (isGuidedCamera) => {
+		// 	const phaseId = this._id;
+		// 	if (isGuidedCamera) {
+		// 		this._id = null;
+		// 	}
+		// 	await this.updateCamera(null, phaseId);
+		// });
 
 		this._app.getComponent('infoPanel').onRouteChange();
 
@@ -294,7 +294,6 @@ class HomeView extends BaseView {
 						}
 						else {
 							if (timestamp >= preset.timestamp * 1000) {
-								console.log('---execute', i)
 								i++;
 								await this._app.getManager('camera')[preset.func](...preset.params);
 							}
