@@ -171,7 +171,8 @@
 					"sc_perseverance_rover",
 					"sc_perseverance_landing_site",
 					{ "verticalOffset": -10, "horizontalOffset": 0, "distance": 0.05 }
-				]
+				],
+				"timestamp": 871.156
 			},
 			{
 				"func": "viewFromBehind",
@@ -188,7 +189,8 @@
 				"params": [
 					"sc_perseverance_rover",
 					{ "upMode": "surfaceUp", "verticalOffset": 170 }
-				]
+				],
+				"timestamp": 889.034
 			},
 			{
 				"func": "alignWithTarget",
@@ -213,7 +215,8 @@
 				"params": [
 					"sc_perseverance_rover",
 					{ "upMode": "surfaceUp", "verticalOffset": 170 }
-				]
+				],
+				"timestamp": 889.035
 			},
 			{
 				"func": "viewFromBehind",
@@ -230,7 +233,8 @@
 				"params": [
 					"sc_perseverance_rover",
 					{ "upMode": "surfaceUp" }
-				]
+				],
+				"timestamp": 930.812
 			},
 			{
 				"func": "viewFromBehind",
@@ -284,7 +288,8 @@
 				"params": [
 					"sc_perseverance_rover",
 					{ "distance": 0.05 }
-				]
+				],
+				"timestamp": 949.453
 			},
 			{
 				"func": "viewFromSide",
@@ -301,7 +306,8 @@
 				"params": [
 					"sc_perseverance_rover",
 					{ "horizontalOffset": -90, "distance": 0.1 }
-				]
+				],
+				"timestamp": 956.854
 			},
 			{
 				"func": "viewFromSide",
@@ -324,7 +330,8 @@
 				"params": [
 					"sc_perseverance_rover",
 					{ "horizontalOffset": -90, "distance": 0.1 }
-				]
+				],
+				"timestamp": 956.855
 			},
 			{
 				"func": "viewFromSide",
@@ -349,7 +356,8 @@
 				"params": [
 					"sc_perseverance_rover",
 					{ "distance": 0.007, "horizontalOffset": 60, "verticalOffset": 15 }
-				]
+				],
+				"timestamp": 967.854
 			},
 			{
 				"func": "viewFromSide",
