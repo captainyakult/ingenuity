@@ -78,6 +78,7 @@ class StoryPanel extends Carousel {
 
 		this.update = this.update.bind(this);
 		this.onUnitChange = this.onUnitChange.bind(this);
+		this._updateValues = this._updateValues.bind(this);
 	}
 
 	get currentInfo() {
@@ -164,51 +165,56 @@ class StoryPanel extends Carousel {
 		});
 		this._updateFonts();
 
-		this._interval = setInterval(() => {
-			const scene = this._app.pioneer.getScene('main');
-			const rover = scene.getEntity('sc_perseverance_rover');
-			const landingSite = scene.getEntity('sc_perseverance_landing_site');
-			const perseverance = scene.getEntity('sc_perseverance_rover');
-			const mars = scene.getEntity('mars');
-			const marsSpheroid = mars.get('spheroid').getSpheroid();
+		this._interval = setInterval(this._updateValues, 200);
+	}
 
-			// Update distance
-			const distance = this._app.getManager('scene').getDistance('sc_perseverance_rover', 'sc_perseverance_landing_site', { subtractRadius: false });
+	/**
+	 * Updates values for the data readout.
+	 */
+	_updateValues() {
+		const scene = this._app.pioneer.getScene('main');
+		const rover = scene.getEntity('sc_perseverance_rover');
+		const landingSite = scene.getEntity('sc_perseverance_landing_site');
+		const perseverance = scene.getEntity('sc_perseverance_rover');
+		const mars = scene.getEntity('mars');
+		const marsSpheroid = mars.get('spheroid').getSpheroid();
 
-			// Update velocity
-			const velocity = Pioneer.Vector3.pool.get();
-			velocity.cross(mars.getAngularVelocity(), landingSite.getPosition());
-			const roverVelocityRelMars = Pioneer.Vector3.pool.get();
-			rover.getVelocityRelativeToEntity(roverVelocityRelMars, Pioneer.Vector3.Zero, mars);
-			velocity.sub(velocity, roverVelocityRelMars);
-			const speed = velocity.magnitude();
-			Pioneer.Vector3.pool.release(roverVelocityRelMars);
-			Pioneer.Vector3.pool.release(velocity);
+		// Update distance
+		const distance = this._app.getManager('scene').getDistance('sc_perseverance_rover', 'sc_perseverance_landing_site', { subtractRadius: false });
 
-			// Update altitude
-			const lla = Pioneer.LatLonAlt.pool.get();
-			const position = Pioneer.Vector3.pool.get();
-			perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
-			// Rotate inverse into the Mars frame
-			position.rotateInverse(mars.getOrientation(), position);
-			marsSpheroid.llaFromXYZ(lla, position, false);
-			// Subtract elevation from landing site
-			const alt = Math.max(0, lla.alt - -2.2130185476344195);
+		// Update velocity
+		const velocity = Pioneer.Vector3.pool.get();
+		velocity.cross(mars.getAngularVelocity(), landingSite.getPosition());
+		const roverVelocityRelMars = Pioneer.Vector3.pool.get();
+		rover.getVelocityRelativeToEntity(roverVelocityRelMars, Pioneer.Vector3.Zero, mars);
+		velocity.sub(velocity, roverVelocityRelMars);
+		const speed = velocity.magnitude();
+		Pioneer.Vector3.pool.release(roverVelocityRelMars);
+		Pioneer.Vector3.pool.release(velocity);
 
-			Pioneer.Vector3.pool.release(position);
-			Pioneer.LatLonAlt.pool.release(lla);
+		// Update altitude
+		const lla = Pioneer.LatLonAlt.pool.get();
+		const position = Pioneer.Vector3.pool.get();
+		perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
+		// Rotate inverse into the Mars frame
+		position.rotateInverse(mars.getOrientation(), position);
+		marsSpheroid.llaFromXYZ(lla, position, false);
+		// Subtract elevation from landing site
+		const alt = Math.max(0, lla.alt - -2.2130185476344195);
 
-			const { currentIndex } = this._state;
+		Pioneer.Vector3.pool.release(position);
+		Pioneer.LatLonAlt.pool.release(lla);
 
-			// Update state
-			this.setState({
-				distance: this._formatDistance(distance, `distanceValue_${currentIndex}`),
-				velocity: this._formatSpeed(speed, `velocityValue_${currentIndex}`),
-				altitude: this._formatDistance(alt, `altitudeValue_${currentIndex}`),
-				distanceUnit: this._formatUnit(distance),
-				altitudeUnit: this._formatUnit(alt)
-			});
-		}, 200);
+		const { currentIndex } = this._state;
+
+		// Update state
+		this.setState({
+			distance: this._formatDistance(distance, `distanceValue_${currentIndex}`),
+			velocity: this._formatSpeed(speed, `velocityValue_${currentIndex}`),
+			altitude: this._formatDistance(alt, `altitudeValue_${currentIndex}`),
+			distanceUnit: this._formatUnit(distance),
+			altitudeUnit: this._formatUnit(alt)
+		});
 	}
 
 	/**
@@ -284,9 +290,13 @@ class StoryPanel extends Carousel {
 	 * @param {boolean} system
 	 */
 	onUnitChange(isMetric) {
+		const unit = isMetric ? this._units.metric : this._units.imperial;
+
 		this.setState({
-			isMetric
+			isMetric,
+			speedUnit: unit.speedUnit
 		});
+		this._updateValues();
 	}
 
 	/**
