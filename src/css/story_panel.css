@@ -74,6 +74,67 @@
 	margin-left: 8px;
 }
 
+/* Preload images */
+body::after{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	z-index: -1;
+	content: url(./assets/png/1.png) url(./assets/png/2.png) url(./assets/png/3.png) url(./assets/png/4.png) url(./assets/png/5.png) url(./assets/png/6.png) url(./assets/png/7.png) url(./assets/png/8.png) url(./assets/png/9.png) url(./assets/png/10.png) url(./assets/png/11.png) url(./assets/png/12.png);
+}
+
+@media (pointer: fine) and (hover: hover) {
+	.carousel .slide.active:hover {
+		animation-iteration-count: infinite;
+		animation-name: animated-cursor;
+		cursor: url(./assets/png/1.png), auto;
+		animation-duration: 1.4s;
+	}
+}
+
+@keyframes animated-cursor {
+	0% {
+		cursor: url(./assets/png/1.png), auto;
+	}
+	7% {
+		cursor: url(./assets/png/2.png), auto;
+	}
+	21% {
+		cursor: url(./assets/png/3.png), auto;
+	}
+	28% {
+		cursor: url(./assets/png/4.png), auto;
+	}
+	35% {
+		cursor: url(./assets/png/5.png), auto;
+	}
+	42% {
+		cursor: url(./assets/png/6.png), auto;
+	}
+	49% {
+		cursor: url(./assets/png/7.png), auto;
+	}
+	56% {
+		cursor: url(./assets/png/8.png), auto;
+	}
+	63% {
+		cursor: url(./assets/png/9.png), auto;
+	}
+	70% {
+		cursor: url(./assets/png/10.png), auto;
+	}
+	77% {
+		cursor: url(./assets/png/11.png), auto;
+	}
+	84% {
+		cursor: url(./assets/png/12.png), auto;
+	}
+	100% {
+		cursor: url(./assets/png/12.png), auto;
+	}
+}
+
 @keyframes pulse {
 	0% {
 		opacity: 0.25;
