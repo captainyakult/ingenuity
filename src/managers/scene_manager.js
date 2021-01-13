@@ -102,7 +102,7 @@ class SceneManager extends BaseSceneManager {
 	 * Creates the scene.
 	 */
 	_createScene() {
-		Entity.createGroup('stars', this._scene, { skybox: true, starfield: false, skyboxResolution: 1024 });
+		Entity.createGroup('stars', this._scene, { skybox: false, starfield: true, skyboxResolution: 1024 });
 		Entity.createGroup('planets', this._scene);
 		Entity.createGroup('mars,moons', this._scene);
 		Entity.create('sc_mars_science_laboratory_landing_site', this._scene);
