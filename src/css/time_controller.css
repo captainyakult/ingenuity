@@ -13,7 +13,7 @@
 }
 .time-controller .icon-forward,
 .time-controller .icon-backward {
-	opacity: 0.2;
+	opacity: 0.4;
 	position: absolute;
 	top: 50%;
 	left: 50%;

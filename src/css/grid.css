@@ -22,6 +22,7 @@
 		align-self: end;
 		justify-self: start;
 		width: 100%;
+		margin-bottom: 95px;
 	}
 
 	/* Time */
@@ -73,6 +74,7 @@ screen and (min-width: 641px) and (orientation: portrait) {
 		align-items: center;
 		justify-content: end;
 		height: 51px;
+		margin-bottom: 95px;
 	}
 
 	/* Time */
