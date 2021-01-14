@@ -211,6 +211,7 @@ class HomeView extends BaseView {
 				this._autoCamIndex = null;
 			}
 		});
+		this._app.getComponent('clockShortcut').registerCallback('replay', this._app.getComponent('settings').startGuidedCamera);
 
 		this._app.getComponent('infoPanel').onRouteChange();
 

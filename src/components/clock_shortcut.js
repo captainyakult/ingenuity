@@ -15,6 +15,23 @@ class ClockShortcut extends BaseClockShortcut {
 	 */
 	constructor(app, div) {
 		super(app, div);
+
+		/**
+		 * Array of possible event names.
+		 * @type {string[]}
+		 * @default
+		 */
+		this._eventNames = ['replay'];
+
+		/**
+		 * Callbacks reference object.
+		 * @type {object}
+		 * @default
+		 */
+		this._callbacks = {};
+		for (let i = 0; i < this._eventNames.length; i++) {
+			this._callbacks[this._eventNames[i]] = [];
+		}
 	}
 
 	/**
@@ -51,7 +68,7 @@ class ClockShortcut extends BaseClockShortcut {
 	 * Change time rate to 1s/s and time to start time.
 	 */
 	async _replay() {
-		const navigated = this._app.getManager('router').navigate('home');
+		const navigated = await this._app.getManager('router').navigate('home');
 		if (!navigated) {
 			this._app.getManager('time').setTimeRate(1);
 			this._app.getManager('time').setToStart();
@@ -61,6 +78,7 @@ class ClockShortcut extends BaseClockShortcut {
 		if (cameraTarget !== 'sc_perseverance_rover') {
 			await this._app.getManager('camera').goToEntity('sc_perseverance_rover');
 		}
+		this.triggerCallbacks('replay');
 	}
 
 	/**
@@ -75,6 +93,31 @@ class ClockShortcut extends BaseClockShortcut {
 		}
 		else {
 			this._children.liveContainer.classList.remove('hidden');
+		}
+	}
+
+	/**
+	 * Registers a callback for a specific event.
+	 * @param {string} eventName
+	 * @param {Function} callback - A callback function to be called
+	 */
+	registerCallback(eventName, callback) {
+		if ((typeof (callback) !== 'function') || (this._eventNames.indexOf(eventName) < 0)) {
+			return;
+		}
+
+		this._callbacks[eventName].push(callback);
+	}
+
+	/**
+	 * Trigger all callbacks for an event.
+	 * @param {string} eventName
+	 * @param {Array} [params=[]] - Parameters for callback
+	 */
+	triggerCallbacks(eventName, params = []) {
+		for (let i = this._callbacks[eventName].length - 1; i >= 0; i--) {
+			const callback = this._callbacks[eventName][i];
+			callback(...params);
 		}
 	}
 }
