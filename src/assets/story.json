@@ -3,7 +3,7 @@
 		"id": "cruise_stage_separation",
 		"title": "Cruise Stage Separation",
 		"description": "About ten minutes before entering the atmosphere, the spacecraft sheds its Cruise Stage, which houses solar panels, radios, and fuel tanks during its flight to Mars.",
-		"mobileDescription": "The spacecraft sheds the cruise stage, which houses the solar panels, fuel tanks.",
+		"mobileDescription": "The spacecraft sheds the cruise stage, which houses the solar panels and fuel tanks.",
 		"timestamp": -60.000,
 		"camera": [
 			{
@@ -17,7 +17,7 @@
 	{
 		"id": "de-spin",
 		"title": "De-Spin",
-		"description": "The spacecraft uses thrusters to stop its 2 RPM spin and then face the optimum entry attitude.",
+		"description": "The spacecraft uses thrusters to stop its 2 RPM spin and then faces the optimum entry attitude.",
 		"timestamp": 20.500,
 		"camera": [
 			{
