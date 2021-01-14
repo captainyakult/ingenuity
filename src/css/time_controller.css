@@ -13,7 +13,7 @@
 }
 .time-controller .icon-forward,
 .time-controller .icon-backward {
-	opacity: 0.2;
+	opacity: 0.4;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -58,9 +58,6 @@
 	.time-controller .next-rate {
 		width: 60px;
 	}
-	.time-controller .rate-container {
-		margin-left: 8px;
-	}
 }
 
 /* Landscape. 480x320 phones and above */
@@ -90,8 +87,5 @@
 	.time-controller .prev-rate,
 	.time-controller .next-rate {
 		width: 70px;
-	}
-	.time-controller .rate-container {
-		margin-left: 0;
 	}
 }

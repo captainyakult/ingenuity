@@ -43,11 +43,12 @@
 
 /* Text */
 .clock-shortcut .text {
-	color: var(--gray);
+	opacity: 0.4;
 }
 @media (pointer: fine) and (hover: hover) {
 	.clock-shortcut .container:hover .text {
 		color: var(--white);
+		opacity: 1;
 	}
 }
 .clock-shortcut .active .live {

@@ -70,11 +70,8 @@ body {
 		grid-column: span 2;
 		justify-self: stretch;
 	}
-	.time-controller .rate-container .play-pause {
-		display: none;
-	}
 	.time-controller .rate-container {
-		grid-template-columns: auto 70px 2px 70px auto;
+		grid-template-columns: max-content auto 70px 2px 70px auto;
 		grid-template-rows: 30px;
 	}
 }
@@ -92,7 +89,7 @@ only screen and (min-width: 641px) and (orientation: portrait) {
 	}
 
 	.time-controller .rate-container {
-		grid-template-columns: auto 85px 2px 85px auto;
+		grid-template-columns: max-content auto 85px 2px 85px auto;
 	}
 
 	/* Story panel */
@@ -119,9 +116,6 @@ only screen and (min-width: 641px) and (orientation: portrait) {
 		grid-row: 2;
 		grid-column: 2;
 		justify-self: auto;
-	}
-	.time-controller .rate-container .play-pause {
-		display: block;
 	}
 	.time-controller .rate-container {
 		grid-template-columns: auto auto 80px 2px 80px auto;
