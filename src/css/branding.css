@@ -71,12 +71,6 @@
 	font-style: normal;
 }
 
-.header .version {
-	opacity: 0.75;
-	color: yellow;
-	font-weight: 600;
-}
-
 /* 480x320 phones and above */
 @media only screen and (min-width: 320px) {
 	.header .disclaimer {
@@ -89,13 +83,6 @@
 		font-size: 14px; /* small */
 		line-height: 150%;
 		letter-spacing: 0;
-	}
-
-	.header .version {
-		grid-column: 4;
-		grid-row: 3;
-		justify-self: end;
-		margin-top: 8px;
 	}
 
 	.header .credits {
@@ -129,15 +116,6 @@ screen and (min-width: 641px) and (orientation: portrait) {
 		top: auto;
 		transform: none;
 	}
-	.header .version {
-		position: absolute;
-		margin: auto;
-		margin-top: 20px;
-		left: 50%;
-		transform: translateX(-50%);
-		grid-row: unset;
-		grid-column: unset;
-	}
 }
 
 /* Exclude panorama. Big landscape tablets, laptops/desktops, and above */
@@ -152,14 +130,6 @@ screen and (min-width: 641px) and (orientation: portrait) {
 		grid-row: unset;
 		grid-column: unset;
 		font-size: 16px; /* normal */
-	}
-	.header .version {
-		position: absolute;
-		margin: auto;
-		margin-top: 50px;
-		left: 50%;
-		transform: translateX(-50%);
-		top: 0;
 	}
 	.header .credits {
 		margin-right: 10px;
