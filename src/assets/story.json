@@ -2,7 +2,7 @@
 	{
 		"id": "cruise_stage_separation",
 		"title": "Cruise Stage Separation",
-		"description": "About ten minutes before entering the atmosphere, the spacecraft sheds its Cruise Stage, which houses solar panels, radios, and fuel tanks during its flight to Mars.",
+		"description": "About ten minutes before entering the atmosphere, the spacecraft sheds its Cruise Stage, which houses solar panels, sensors, and fuel tanks during its flight to Mars.",
 		"mobileDescription": "The spacecraft sheds the cruise stage, which houses the solar panels and fuel tanks.",
 		"timestamp": -60.000,
 		"camera": [
