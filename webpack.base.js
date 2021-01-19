@@ -78,7 +78,7 @@ module.exports = {
 				from: 'src/site.webmanifest'
 			},
 			{
-				from: 'browserconfig.xml'
+				from: 'src/browserconfig.xml'
 			},
 			{
 				from: 'src/config.js',
