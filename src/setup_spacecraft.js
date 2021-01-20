@@ -286,7 +286,39 @@ export class SetupSpacecraft {
 				url: 'assets/dynamo/sc_perseverance_backshell/ori',
 				customUrl: true
 			}],
+			coverages: [{ // Changing the texture to burnt when it enters the atmosphere.
+				coverage: [T0 + 610.000, Number.POSITIVE_INFINITY],
+				enter: (entity) => {
+					const model = entity.get('model', 0);
+					if (model instanceof Pioneer.ModelComponent) {
+						const material = model.getMaterial('back_shell_AO');
+						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO_burnt.png', false, true);
+						}
+					}
+				},
+				exit: (entity) => {
+					const model = entity.get('model', 0);
+					if (model instanceof Pioneer.ModelComponent) {
+						const material = model.getMaterial('back_shell_AO');
+						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO.png', false, true);
+						}
+					}
+				}
+			}],
 			postCreateFunction: (entity) => {
+				// Setup texture change for main model.
+				const model = entity.get('model', 0);
+				if (model instanceof Pioneer.ModelComponent) {
+					model.setMeshCreatedCallback(() => {
+						const material = model.getMaterial('back_shell_AO');
+						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+							const burnt = (entity.getScene().getEngine().getTime() >= T0 + 610.000) ? '_burnt' : '';
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO' + burnt + '.png', false, true);
+						}
+					});
+				}
 				// It's fixed to M20 until the separation point.
 				const fixedAttached = entity.addController('fixed');
 				if (fixedAttached instanceof Pioneer.FixedController) {
