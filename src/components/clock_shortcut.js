@@ -118,7 +118,6 @@ class ClockShortcut extends BaseClockShortcut {
 	 * @param {Array} [params=[]] - Parameters for callback
 	 */
 	triggerCallbacks(eventName, params = []) {
-		console.log(this._callbacks[eventName])
 		for (let i = this._callbacks[eventName].length - 1; i >= 0; i--) {
 			const callback = this._callbacks[eventName][i];
 			callback(...params);
