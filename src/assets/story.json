@@ -33,7 +33,7 @@
 	{
 		"id": "cruise_balance_masses_ejected",
 		"title": "Cruise Balance Masses Ejected",
-		"description": "Five minutes before entering the Martian atmosphere, the spacecraft drops two 70 kg balance masses in order to create the desired lift-to-drag ratio.",
+		"description": "Five minutes before entering the Martian atmosphere, the spacecraft drops two 70 kg(154 pound) balance masses in order to create the desired lift-to-drag ratio.",
 		"mobileDescription": "The spacecraft drops mass for aerodynamics in the atmosphere.",
 		"timestamp": 56.395,
 		"camera": [
