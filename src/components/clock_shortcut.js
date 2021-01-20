@@ -68,7 +68,7 @@ class ClockShortcut extends BaseClockShortcut {
 	 * Change time rate to 1s/s and time to start time.
 	 */
 	async _replay() {
-		const navigated = await this._app.getManager('router').navigate('home');
+		const navigated = await this._app.getManager('router').navigate({ __remove: 'all' }, 'home');
 		if (!navigated) {
 			this._app.getManager('time').setTimeRate(1);
 			this._app.getManager('time').setToStart();
