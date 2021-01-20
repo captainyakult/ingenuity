@@ -63,6 +63,9 @@ module.exports = {
 				from: 'src/mstile-150x150.png'
 			},
 			{
+				from: 'src/favicon-194x194.png'
+			},
+			{
 				from: 'src/favicon-32x32.png'
 			},
 			{
