@@ -36,6 +36,7 @@ class HomeView extends BaseView {
 		this._hideControls = this._hideControls.bind(this);
 		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
+		this.onReplay = this.onReplay.bind(this);
 		this._autoCameraUpdate = this._autoCameraUpdate.bind(this);
 		this._app.pioneer.addCallback(this._autoCameraUpdate, true);
 
@@ -204,14 +205,14 @@ class HomeView extends BaseView {
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);
 
-		// Register callback for photo mode
+		// Register callbacks
 		this._app.getComponent('settings').registerCallback('photomodechange', this.onPhotoModeChange);
-		this._app.getComponent('settings').registerCallback('guidedcamerachange', async (isGuidedCamera) => {
+		this._app.getComponent('settings').registerCallback('guidedcamerachange', (isGuidedCamera) => {
 			if (!isGuidedCamera) {
 				this._autoCamIndex = null;
 			}
 		});
-		this._app.getComponent('clockShortcut').registerCallback('replay', this._app.getComponent('settings').startGuidedCamera);
+		this._app.getComponent('clockShortcut').registerCallback('replay', this.onReplay);
 
 		this._app.getComponent('infoPanel').onRouteChange();
 
@@ -229,6 +230,15 @@ class HomeView extends BaseView {
 		// Remove callback
 		this._app.getManager('scene').removeCallback('loaded', this.onLoaded);
 		super.updateTimeRate(this._app.getManager('router').query);
+	}
+
+	/**
+	 * Reset auto camera on replay.
+	 */
+	onReplay() {
+		this._phaseId = null;
+		this._autoCamIndex = null;
+		this._app.getComponent('settings').startGuidedCamera();
 	}
 
 	/**
@@ -254,7 +264,7 @@ class HomeView extends BaseView {
 			target = 'sc_perseverance_rover';
 		}
 
-		// Preset camera
+		// Normal camera
 		if (this._target !== target) {
 			this._target = target;
 			await this._app.getManager('camera').goToEntity(target);
