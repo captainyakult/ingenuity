@@ -1,6 +1,6 @@
 {
-    "name": "M2020 EDL",
-    "short_name": "M2020 EDL",
+    "name": "Mars 2020 Entry Descent Landing",
+    "short_name": "M2020 Landing",
     "icons": [
         {
             "src": "./android-chrome-192x192.png",
