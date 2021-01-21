@@ -74,6 +74,12 @@
 	margin-left: 8px;
 }
 
+/* Remove tab focus */
+.carousel .slide.hidden a,
+.carousel .slide.hidden button {
+	display: none;
+}
+
 /* Preload images */
 body::after {
 	position: absolute;
