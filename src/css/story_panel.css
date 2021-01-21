@@ -62,7 +62,7 @@
 	display: inline-block;
 }
 .carousel .unit {
-	margin-left: 5px;
+	margin-left: 6px;
 	margin-right: 4px;
 	opacity: 0.9;
 }
@@ -75,7 +75,7 @@
 }
 
 /* Preload images */
-body::after{
+body::after {
 	position: absolute;
 	width: 0;
 	height: 0;
@@ -375,7 +375,7 @@ body::after{
 	}
 	@media (pointer: fine) and (hover: hover) {
 		.carousel .slide .container:hover {
-			background: linear-gradient(90deg, rgba(37, 37, 39, 0.4) 0%,  rgba(37, 37, 39, 0) 25%,  rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.4) 100%);
+			background: linear-gradient(90deg, rgba(37, 37, 39, 0.4) 0%, rgba(37, 37, 39, 0) 25%, rgba(37, 37, 39, 0) 50%, rgba(37, 37, 39, 0.4) 100%);
 			background-size: 200% 100%;
 			animation: gradient 6s ease 1;
 			animation-fill-mode: both;

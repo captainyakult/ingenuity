@@ -207,3 +207,7 @@ a {
 	padding-bottom: 0.25em;
 	padding-right: 0.25em;
 }
+
+.monospace {
+	font-family: DMMono, Verdana, monospace;
+}
