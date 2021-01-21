@@ -102,9 +102,9 @@ class StoryPanel extends Carousel {
 			</div>
 			<h2 class="title">${info.title}</h2>
 			<div class="body">
-				<div class="distance {{textClass}}"><span key="distanceValue_${info.index}" class="value semi">{{distance}}</span><span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
-				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span key="altitudeValue_${info.index}" class="value semi">{{altitude}}</span><span class="unit">{{altitudeUnit}}</span></div>
-				<div class="velocity {{textClass}} {{touchdownClass}}"><span class="label semi">Velocity: </span><span key="velocityValue_${info.index}" class="value semi">{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
+				<div class="distance {{textClass}}"><span key="distanceValue_${info.index}" class="value semi monospace">{{distance}}</span><span class="unit">{{distanceUnit}}</span><span class="label">from landing site.</span></div>
+				<div class="altitude {{textClass}}"><span class="label semi">Altitude: </span><span key="altitudeValue_${info.index}" class="value semi monospace">{{altitude}}</span><span class="unit">{{altitudeUnit}}</span></div>
+				<div class="velocity {{textClass}} {{touchdownClass}}"><span class="label semi">Velocity: </span><span key="velocityValue_${info.index}" class="value semi monospace">{{velocity}}</span><span class="unit">{{speedUnit}}</span></div>
 				<div class="description ${descriptionClass} {{textClass}}">${info.description}</div>
 				<div class="description mobile ${descriptionClass} {{textClass}}">${info.mobileDescription}</div>
 			</div>
@@ -238,10 +238,6 @@ class StoryPanel extends Carousel {
 		}
 
 		distance = distance.toFixed(2);
-		const length = distance.toString().length;
-		const width = length * 10;
-		this._children[elementKey].style.width = width;
-
 		const output = Number(distance).toLocaleString(...this._formatOpts);
 		return output;
 	}
@@ -277,10 +273,6 @@ class StoryPanel extends Carousel {
 			speed = speed * AppUtils.conversionTable.kmToMi;
 		}
 		speed = speed.toFixed(2);
-		const length = speed.toString().length;
-		const width = length * 10;
-		this._children[elementKey].style.width = width;
-
 		const output = Number(speed).toLocaleString(...this._formatOpts);
 		return output;
 	}

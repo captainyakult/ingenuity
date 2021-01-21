@@ -207,3 +207,11 @@ a {
 	padding-bottom: 0.25em;
 	padding-right: 0.25em;
 }
+
+.monospace {
+	font-family: Verdana, monospace;
+	font-size: 15px;
+}
+.monospace.small {
+	font-size: 14px;
+}
