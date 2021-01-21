@@ -25,7 +25,7 @@
 				"params": [
 					"sc_perseverance_rover",
 					"sc_perseverance_landing_site",
-					{ "verticalOffset": -10, "horizontalOffset": -5 }
+					{ "verticalOffset": 10, "horizontalOffset": -5 }
 				]
 			}
 		]
@@ -58,7 +58,7 @@
 				"params": [
 					"sc_perseverance_rover",
 					"sc_perseverance_landing_site",
-					{ "verticalOffset": -10, "horizontalOffset": -5 }
+					{ "verticalOffset": 10, "horizontalOffset": -5 }
 				]
 			}
 		]
