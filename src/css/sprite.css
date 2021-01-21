@@ -72,272 +72,296 @@
 	height: 16px;
 	background-position: -64px -87px;
 }
-.icon-auto-cam {
+.icon-clock {
 	width: 30px;
 	height: 30px;
 	background-position: 0 -119px;
 }
 @media (pointer: fine) and (hover: hover) {
-	.icon-auto-cam:hover {
+	.icon-clock:hover {
 		width: 30px;
 		height: 30px;
 		background-position: -46px -119px;
+	}
+}
+.icon-story {
+	width: 30px;
+	height: 30px;
+	background-position: -92px -119px;
+}
+@media (pointer: fine) and (hover: hover) {
+	.icon-story:hover {
+		width: 30px;
+		height: 30px;
+		background-position: -138px -119px;
+	}
+}
+.icon-auto-cam {
+	width: 30px;
+	height: 30px;
+	background-position: -184px -119px;
+}
+@media (pointer: fine) and (hover: hover) {
+	.icon-auto-cam:hover {
+		width: 30px;
+		height: 30px;
+		background-position: -230px -119px;
 	}
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-free-cam:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -92px -119px;
+		background-position: -276px -119px;
 	}
 }
 .icon-free-cam {
 	width: 30px;
 	height: 30px;
-	background-position: -138px -119px;
+	background-position: -322px -119px;
 }
 .icon-box {
 	width: 30px;
 	height: 30px;
-	background-position: -184px -119px;
+	background-position: -368px -119px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-box:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -230px -119px;
+		background-position: -414px -119px;
 	}
 }
 .icon-info {
 	width: 30px;
 	height: 30px;
-	background-position: -276px -119px;
+	background-position: -460px -119px;
 }
 .icon-hide {
-	width: 30px;
-	height: 30px;
-	background-position: -322px -119px;
-}
-@media (pointer: fine) and (hover: hover) {
-	.icon-hide:hover {
-		width: 30px;
-		height: 30px;
-		background-position: -368px -119px;
-	}
-}
-.icon-km {
-	width: 30px;
-	height: 30px;
-	background-position: -414px -119px;
-}
-@media (pointer: fine) and (hover: hover) {
-	.icon-km:hover {
-		width: 30px;
-		height: 30px;
-		background-position: -460px -119px;
-	}
-}
-.icon-mi {
 	width: 30px;
 	height: 30px;
 	background-position: -506px -119px;
 }
 @media (pointer: fine) and (hover: hover) {
-	.icon-mi:hover {
+	.icon-hide:hover {
 		width: 30px;
 		height: 30px;
 		background-position: -552px -119px;
 	}
 }
+.icon-km {
+	width: 30px;
+	height: 30px;
+	background-position: -598px -119px;
+}
+@media (pointer: fine) and (hover: hover) {
+	.icon-km:hover {
+		width: 30px;
+		height: 30px;
+		background-position: -644px -119px;
+	}
+}
+.icon-mi {
+	width: 30px;
+	height: 30px;
+	background-position: -690px -119px;
+}
+@media (pointer: fine) and (hover: hover) {
+	.icon-mi:hover {
+		width: 30px;
+		height: 30px;
+		background-position: 0 -165px;
+	}
+}
 .icon-lighting {
 	width: 54px;
 	height: 30px;
-	background-position: -598px -119px;
+	background-position: -46px -165px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-lighting:hover {
 		width: 54px;
 		height: 30px;
-		background-position: 0 -165px;
+		background-position: -138px -165px;
 	}
 }
 .icon-fullscreen {
 	width: 30px;
 	height: 30px;
-	background-position: -92px -165px;
+	background-position: -230px -165px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-fullscreen:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -138px -165px;
+		background-position: -276px -165px;
 	}
 }
 .icon-expand {
 	width: 30px;
 	height: 30px;
-	background-position: -184px -165px;
+	background-position: -322px -165px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-expand:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -230px -165px;
+		background-position: -368px -165px;
 	}
 }
 .icon-arrow-down {
 	width: 30px;
 	height: 30px;
-	background-position: -276px -165px;
+	background-position: -414px -165px;
 }
 .icon-arrow-up {
 	width: 30px;
 	height: 30px;
-	background-position: -276px -165px;
+	background-position: -414px -165px;
 	transform: rotate(180deg);
 }
 .icon-arrow-right {
 	width: 30px;
 	height: 30px;
-	background-position: -322px -165px;
+	background-position: -460px -165px;
 }
 .icon-arrow-left {
 	width: 30px;
 	height: 30px;
-	background-position: -322px -165px;
+	background-position: -460px -165px;
 	transform: rotate(180deg);
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-controls:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -368px -165px;
+		background-position: -506px -165px;
 	}
 }
 .icon-controls {
 	width: 30px;
 	height: 30px;
-	background-position: -414px -165px;
+	background-position: -552px -165px;
 }
 .icon-expand-side {
 	width: 30px;
 	height: 30px;
-	background-position: -460px -165px;
+	background-position: -598px -165px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-expand-side:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -506px -165px;
+		background-position: -644px -165px;
 	}
 }
 .icon-replay {
 	width: 30px;
 	height: 30px;
-	background-position: -552px -165px;
+	background-position: -690px -165px;
 }
 .icon-menu {
 	width: 30px;
 	height: 30px;
-	background-position: -598px -165px;
+	background-position: 0 -211px;
 }
 .icon-search {
 	width: 30px;
 	height: 30px;
-	background-position: -644px -165px;
+	background-position: -46px -211px;
 }
 .icon-close {
 	width: 30px;
 	height: 30px;
-	background-position: -690px -165px;
+	background-position: -92px -211px;
 }
 .icon-minus {
 	width: 30px;
 	height: 30px;
-	background-position: 0 -211px;
+	background-position: -138px -211px;
 }
 .icon-plus {
 	width: 30px;
 	height: 30px;
-	background-position: -46px -211px;
+	background-position: -184px -211px;
 }
 .icon-collapse {
 	width: 30px;
 	height: 30px;
-	background-position: -92px -211px;
+	background-position: -230px -211px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-collapse:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -138px -211px;
+		background-position: -276px -211px;
 	}
 }
 .icon-collapse-side {
 	width: 30px;
 	height: 30px;
-	background-position: -184px -211px;
+	background-position: -322px -211px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-collapse-side:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -230px -211px;
+		background-position: -368px -211px;
 	}
 }
 .icon-dropdown {
 	width: 30px;
 	height: 30px;
-	background-position: -276px -211px;
+	background-position: -414px -211px;
 }
 .icon-dropup {
 	width: 31px;
 	height: 30px;
-	background-position: -322px -211px;
+	background-position: -460px -211px;
 }
 .icon-greater {
 	width: 30px;
 	height: 30px;
-	background-position: -368px -211px;
+	background-position: -506px -211px;
 }
 .icon-lesser {
 	width: 30px;
 	height: 30px;
-	background-position: -414px -211px;
+	background-position: -552px -211px;
 }
 .icon-pause {
 	width: 30px;
 	height: 30px;
-	background-position: -460px -211px;
+	background-position: -598px -211px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-pause:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -506px -211px;
+		background-position: -644px -211px;
 	}
 }
 .icon-play {
 	width: 30px;
 	height: 30px;
-	background-position: -552px -211px;
+	background-position: -690px -211px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-play:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -598px -211px;
+		background-position: 0 -257px;
 	}
 }
 .icon-telescope {
 	width: 30px;
 	height: 30px;
-	background-position: -644px -211px;
+	background-position: -46px -257px;
 }
 @media (pointer: fine) and (hover: hover) {
 	.icon-telescope:hover {
 		width: 30px;
 		height: 30px;
-		background-position: -690px -211px;
+		background-position: -92px -257px;
 	}
 }
