@@ -24,7 +24,6 @@ class HomeView extends BaseView {
 		};
 
 		this._isMobileMode = this._app.isMobile() || this._app.isTablet() || this._app.isLandscape();
-		this._isDragging = false;
 		this._controlsVisible = false;
 		this._firstLoad = true;
 		this._phaseId = null;
@@ -43,7 +42,6 @@ class HomeView extends BaseView {
 			if (this._app.isTouch()) {
 				return;
 			}
-			this._isDragging = true;
 
 			// Turn off guided camera
 			if (event.target.id === 'main-viewport') {
@@ -58,12 +56,6 @@ class HomeView extends BaseView {
 					this._app.getComponent('storyPanel').hide();
 				}
 			}
-		});
-		window.addEventListener('mouseup', (event) => {
-			if (this._app.isTouch()) {
-				return;
-			}
-			this._isDragging = false;
 		});
 		window.addEventListener('touchstart', (event) => {
 			// Turn off guided camera
