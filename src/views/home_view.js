@@ -321,6 +321,9 @@ class HomeView extends BaseView {
 				preset.params[preset.params.length - 1].duration = Math.max(0.5, options.duration * 1.0 / rate);
 			}
 
+			// Update target so that normal camera won't trigger incorrectly
+			this._target = 'sc_perseverance_rover';
+
 			await this._app.getManager('camera')[preset.func](...preset.params);
 		}
 	}
