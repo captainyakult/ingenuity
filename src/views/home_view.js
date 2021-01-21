@@ -24,8 +24,6 @@ class HomeView extends BaseView {
 		};
 
 		this._isMobileMode = this._app.isMobile() || this._app.isTablet() || this._app.isLandscape();
-		this._controlsTimeout = 30 * 1000; // in milliseconds
-		this._isDragging = false;
 		this._controlsVisible = false;
 		this._firstLoad = true;
 		this._phaseId = null;
@@ -44,7 +42,6 @@ class HomeView extends BaseView {
 			if (this._app.isTouch()) {
 				return;
 			}
-			this._isDragging = true;
 
 			// Turn off guided camera
 			if (event.target.id === 'main-viewport') {
@@ -58,53 +55,6 @@ class HomeView extends BaseView {
 					this._showSettings();
 					this._app.getComponent('storyPanel').hide();
 				}
-			}
-
-			// Refresh timer
-			clearTimeout(this._timer);
-			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._timer = setTimeout(() => {
-					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
-						this._hideControls();
-						if (this._isMobileMode) {
-							this._hideSettings();
-						}
-						this._app.getComponent('storyPanel').show();
-					}
-				}, this._controlsTimeout);
-			}
-		});
-		window.addEventListener('mousemove', (event) => {
-			if (this._isDragging) {
-				// Refresh timer
-				clearTimeout(this._timer);
-			}
-		});
-		window.addEventListener('wheel', (event) => {
-			if (this._app.isTouch()) {
-				return;
-			}
-			// Refresh timer
-			clearTimeout(this._timer);
-		});
-		window.addEventListener('mouseup', (event) => {
-			if (this._app.isTouch()) {
-				return;
-			}
-			this._isDragging = false;
-
-			// Refresh timer
-			clearTimeout(this._timer);
-			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._timer = setTimeout(() => {
-					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
-						this._hideControls();
-						if (this._isMobileMode) {
-							this._hideSettings();
-						}
-						this._app.getComponent('storyPanel').show();
-					}
-				}, this._controlsTimeout);
 			}
 		});
 		window.addEventListener('touchstart', (event) => {
@@ -121,43 +71,7 @@ class HomeView extends BaseView {
 					this._app.getComponent('storyPanel').hide();
 				}
 			}
-
-			// Refresh timer
-			clearTimeout(this._timer);
-			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._timer = setTimeout(() => {
-					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
-						this._hideControls();
-						if (this._isMobileMode) {
-							this._hideSettings();
-						}
-						this._app.getComponent('storyPanel').show();
-					}
-				}, this._controlsTimeout);
-			}
 		});
-
-		window.addEventListener('touchmove', (event) => {
-			// Refresh timer
-			clearTimeout(this._timer);
-		});
-
-		window.addEventListener('touchend', (event) => {
-			// Refresh timer
-			clearTimeout(this._timer);
-			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._timer = setTimeout(() => {
-					if (!this._app.getComponent('settings').getState('isPhotoMode')) {
-						this._hideControls();
-						if (this._isMobileMode) {
-							this._hideSettings();
-						}
-						this._app.getComponent('storyPanel').show();
-					}
-				}, this._controlsTimeout);
-			}
-		});
-
 		window.addEventListener('resize', () => {
 			if (this._app.getComponent('settings').getState('isPhotoMode')) {
 				return;
@@ -389,9 +303,6 @@ class HomeView extends BaseView {
 		this._hideSettings();
 		if (!this._app.getComponent('storyPanel').isVisible()) {
 			this._app.getComponent('storyPanel').show();
-		}
-		if (this._timer) {
-			clearTimeout(this._timer);
 		}
 	}
 }
