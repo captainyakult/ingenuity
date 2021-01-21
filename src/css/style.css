@@ -209,9 +209,5 @@ a {
 }
 
 .monospace {
-	font-family: Verdana, monospace;
-	font-size: 15px;
-}
-.monospace.small {
-	font-size: 14px;
+	font-family: DMMono, Verdana, monospace;
 }
