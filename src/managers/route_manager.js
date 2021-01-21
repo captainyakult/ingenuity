@@ -9,32 +9,21 @@ class RouteManager extends BaseRouteManager {
 	 */
 	start() {
 		this._router
-			.on('/', (params, query) => {
-				// Called when there is path specified but
-				// there is no route matching
-				let newRoute = '/home';
-				// Try to pass the query stored in the params
-				// to the new route
-				if (params) {
-					newRoute += '?' + params;
-				}
-				this._router.navigate(newRoute);
-			})
-			.on('/home', (params, query) => {
+			.on('/', (query) => {
 				this.resetView('home');
 				if (query) {
 					query = this.parseQuery(query);
 				}
-				this._app.getView('home').init({ ...params, ...query });
+				this._app.getView('home').init({ ...query });
 			})
-			.notFound((params, query) => {
+			.notFound((query) => {
 				// Called when there is path specified but
 				// there is no route matching
-				let newRoute = '/home';
+				let newRoute = '/';
 				// Try to pass the query stored in the params
 				// to the new route
-				if (params) {
-					newRoute += '?' + params;
+				if (query) {
+					newRoute += '?' + query;
 				}
 				this._router.navigate(newRoute);
 			})
