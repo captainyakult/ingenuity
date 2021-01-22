@@ -15,19 +15,20 @@
 	src: url("./assets/fonts/Metropolis-SemiBold.woff");
 }
 
-/* DM Mono */
+/* Inter */
 @font-face {
-	font-family: DMMono;
-	font-weight: 100;
-	src: url(./assets/fonts/DMMono-Light.woff);
-}
-@font-face {
-	font-family: DMMono;
+	font-family: 'Inter';
+	font-style:  normal;
 	font-weight: 300;
-	src: url(./assets/fonts/DMMono-Regular.woff);
+	font-display: swap;
+	src: url("./assets/fonts/Inter-Light.woff2?v=3.15") format("woff2"),
+	url("./assets/fonts/Inter-Light.woff?v=3.15") format("woff");
 }
 @font-face {
-	font-family: DMMono;
-	font-weight: 600;
-	src: url(./assets/fonts/DMMono-Medium.woff);
+	font-family: 'Inter';
+	font-style:  normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("./assets/fonts/Inter-Bold.woff2?v=3.15") format("woff2"),
+	url("./assets/fonts/Inter-Bold.woff?v=3.15") format("woff");
 }
