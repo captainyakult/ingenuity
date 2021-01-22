@@ -9,7 +9,7 @@ class RouteManager extends BaseRouteManager {
 	 */
 	start() {
 		this._router
-			.on('/', (query) => {
+			.on('//', (params, query) => {
 				this.resetView('home');
 				if (query) {
 					query = this.parseQuery(query);
