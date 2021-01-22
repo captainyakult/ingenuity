@@ -235,6 +235,12 @@ body::after{
 		right: 10px;
 		outline: none;
 	}
+	.carousel .icon-clock {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		outline: none;
+	}
 
 	/* Animations */
 	@keyframes shrink {
@@ -266,6 +272,9 @@ body::after{
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 1;
 		animation-fill-mode: both;
+	}
+	.carousel.collapse .content {
+		min-height: 75px;
 	}
 
 	/* Mobile hint */
@@ -328,7 +337,7 @@ body::after{
 		margin-right: 40px;
 	}
 	.carousel .description.mobile {
-		margin-right: 40px;
+		margin-right: 65px;
 	}
 
 	/* Buttons */
@@ -337,6 +346,12 @@ body::after{
 		top: auto;
 		bottom: 20px;
 		right: 20px;
+	}
+	.carousel .icon-clock {
+		position: absolute;
+		top: auto;
+		bottom: 20px;
+		right: 55px;
 	}
 
 	.carousel.expand .footer {
@@ -432,7 +447,8 @@ body::after{
 	}
 	.carousel.expand .slide .mobile-hint,
 	.carousel .slide .mobile-hint,
-	.carousel .collapse-button {
+	.carousel .collapse-button,
+	.carousel .icon-clock {
 		display: none;
 	}
 }

@@ -52,11 +52,10 @@ class HomeView extends BaseView {
 			}
 
 			// Show bottom panel
+			// TODO: Replace desktop with toggle
 			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._showControls();
-				if (this._isMobileMode) {
-					this._showSettings();
-					this._app.getComponent('storyPanel').hide();
+				if (!this._isMobileMode) {
+					this._showControls();
 				}
 			}
 
@@ -111,15 +110,6 @@ class HomeView extends BaseView {
 			// Turn off guided camera
 			if (event.target.id === 'main-viewport') {
 				this._app.getComponent('settings').stopGuidedCamera();
-			}
-
-			// Show bottom panel and hide story panel
-			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._showControls();
-				if (this._isMobileMode) {
-					this._showSettings();
-					this._app.getComponent('storyPanel').hide();
-				}
 			}
 
 			// Refresh timer
@@ -213,6 +203,15 @@ class HomeView extends BaseView {
 			}
 		});
 		this._app.getComponent('clockShortcut').registerCallback('replay', this.onReplay);
+
+		// Mobile controls toggle
+		this._app.getComponent('storyPanel').setOnControlsToggle(() => {
+			this._showControls();
+			if (this._isMobileMode) {
+				this._showSettings();
+				this._app.getComponent('storyPanel').hide();
+			}
+		});
 
 		this._app.getComponent('infoPanel').onRouteChange();
 
