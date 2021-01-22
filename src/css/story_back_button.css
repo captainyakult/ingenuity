@@ -8,8 +8,8 @@
 	background-color: var(--grayDarkAlpha);
 	border-radius: 3px;
 }
-.story-back-button .icon-arrow-left {
-	opacity: 0.4;
+.story-back-button .icon-story {
+	opacity: 0.6;
 }
 
 /* Exclude panorama. Big landscape tablets, laptops/desktops, and above */
