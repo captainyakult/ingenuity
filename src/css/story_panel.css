@@ -91,7 +91,7 @@ body::after {
 }
 
 @media (pointer: fine) and (hover: hover) {
-	.carousel .slide.active:hover {
+	.carousel .track:hover {
 		animation-iteration-count: infinite;
 		animation-name: animated-cursor;
 		cursor: url(./assets/png/1.png), auto;
