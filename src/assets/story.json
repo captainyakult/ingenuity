@@ -380,8 +380,8 @@
 	{
 		"id": "surface_operations",
 		"title": "Surface Operations",
-		"description": "<span>Once successfully landed, surface operations begin. To replay the landing, click </span><a href=\"#/\"/>here</a><span> or hit the \"Replay\" button. For the latest news, visit the mission website: </span><a target=\"_blank\" href=\"https://mars.nasa.gov/mars2020\"/>mars.nasa.gov/mars2020</a>",
-		"mobileDescription": "<span>Once landed, surface operations begin. Click </span><a href=\"#/\"/>here</a><span> to replay the landing and </span><a target=\"_blank\" href=\"https://mars.nasa.gov/mars2020\"/>here</a><span> to visit the mission homepage.</span>",
+		"description": "<span>Once successfully landed, surface operations begin. To replay the landing, click </span><a href=\"#/home\"/>here</a><span> or hit the \"Replay\" button. For the latest news, visit the mission website: </span><a target=\"_blank\" href=\"https://mars.nasa.gov/mars2020\"/>mars.nasa.gov/mars2020</a>",
+		"mobileDescription": "<span>Once landed, surface operations begin. Click </span><a href=\"#/home\"/>here</a><span> to replay the landing and </span><a target=\"_blank\" href=\"https://mars.nasa.gov/mars2020\"/>here</a><span> to visit the mission homepage.</span>",
 		"timestamp": 967.855,
 		"camera": [
 			{
