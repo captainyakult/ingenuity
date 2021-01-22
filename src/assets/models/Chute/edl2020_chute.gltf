@@ -584,7 +584,7 @@
     "buffers" : [
         {
             "byteLength" : 265980,
-            "uri" : "EDL2020_chute.bin"
+            "uri" : "edl2020_chute.bin"
         }
     ]
 }
