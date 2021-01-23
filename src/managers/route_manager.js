@@ -13,7 +13,8 @@ class RouteManager extends BaseRouteManager {
 				if (query) {
 					query = '?' + query;
 				}
-				history.replaceState(query, '', '/#/home' + query);
+				const pathname = window.location.pathname;
+				history.replaceState(query, '', pathname + '#/home' + query);
 				this._router.resolve();
 			})
 			.on('/home', (params, query) => {
