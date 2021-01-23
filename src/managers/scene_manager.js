@@ -68,11 +68,13 @@ class SceneManager extends BaseSceneManager {
 			sc_maven: {
 				clickable: false,
 				trail: true,
+				trailLength: 16139 / 2,
 				label: true
 			},
 			sc_mars_reconnaissance_orbiter: {
 				clickable: false,
 				trail: true,
+				trailLength: 6720 / 2,
 				label: true
 			}
 		};
@@ -152,7 +154,8 @@ class SceneManager extends BaseSceneManager {
 			const entity = this._scene.getEntity(i);
 			const trail = entity.getComponentByType('trail');
 			if (trail instanceof Pioneer.TrailComponent) {
-				trail.setWidths(0, 5);
+				trail.setWidths(0, 3);
+				trail.setColor(new Pioneer.Color(1, 1, 1, 0.15));
 			}
 		}
 	}
@@ -189,6 +192,9 @@ class SceneManager extends BaseSceneManager {
 			if (trailComponent instanceof Pioneer.TrailComponent) {
 				if (this._entityInfo[entityName] === undefined || !this._entityInfo[entityName].trail) {
 					trailComponent.setEnabled(false);
+				}
+				if (this._entityInfo[entityName] === undefined || !this._entityInfo[entityName].trailLength) {
+					trailComponent.setStartTime(this._entityInfo[entityName.trailLength]);
 				}
 			}
 
