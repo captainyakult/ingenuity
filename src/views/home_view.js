@@ -61,15 +61,6 @@ class HomeView extends BaseView {
 			if (event.target.id === 'main-viewport') {
 				this._app.getComponent('settings').stopGuidedCamera();
 			}
-
-			// Show bottom panel and hide story panel
-			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._showControls();
-				if (this._isMobileMode) {
-					this._showSettings();
-					this._app.getComponent('storyPanel').hide();
-				}
-			}
 		});
 		window.addEventListener('resize', () => {
 			if (this._app.getComponent('settings').getState('isPhotoMode')) {
