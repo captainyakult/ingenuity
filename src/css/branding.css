@@ -58,7 +58,6 @@
 	animation-timing-function: ease-in-out;
 	animation-iteration-count: 8;
 	animation-direction: alternate;
-	display: block;
 }
 
 .header .credits {

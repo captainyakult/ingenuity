@@ -207,3 +207,15 @@ a {
 	padding-bottom: 0.25em;
 	padding-right: 0.25em;
 }
+
+.monospace {
+	font-family: "Inter", sans-serif;
+	font-variant-numeric: tabular-nums;
+	font-weight: 300;
+	line-height: 1em;
+	letter-spacing: -0.03em;
+}
+.monospace.semi {
+	font-weight: 700;
+	letter-spacing: -0.03em;
+}
