@@ -154,7 +154,8 @@ class App extends BaseApp {
 		this._managers.time.registerCallback('update', storyPanel.update);
 		settings.registerCallback('unitchange', storyPanel.onUnitChange);
 
-		await this.addComponent('storyBackButton', StoryBackButton, document.getElementById('story-back-button'));
+		const storyBackButton = await this.addComponent('storyBackButton', StoryBackButton, document.getElementById('story-back-button'));
+		storyPanel.registerCallback('slidechange', storyBackButton.updateText);
 
 		await this.addComponent('infoPanel', InfoPanel, document.getElementById('info-panel'));
 

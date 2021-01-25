@@ -73,16 +73,9 @@ class StoryPanel extends Carousel {
 		this._settings.hintText.first = 'Swipe up for next phase';
 		this._settings.hintText.last = 'End of simulation';
 
-		this._info = null;
-		this._currentInfo = null;
-
 		this.update = this.update.bind(this);
 		this.onUnitChange = this.onUnitChange.bind(this);
 		this._updateValues = this._updateValues.bind(this);
-	}
-
-	get currentInfo() {
-		return this._currentInfo;
 	}
 
 	/**

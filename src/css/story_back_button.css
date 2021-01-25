@@ -4,12 +4,13 @@
 	width: 100%;
 }
 .story-back-button .container {
-	display: inline-block;
-	background-color: var(--grayDarkAlpha);
-	border-radius: 3px;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	column-gap: 5px;
 }
-.story-back-button .icon-arrow-left {
-	opacity: 0.4;
+
+.story-back-button h5 {
+	opacity: 0.6;
 }
 
 /* Exclude panorama. Big landscape tablets, laptops/desktops, and above */

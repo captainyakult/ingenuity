@@ -24,7 +24,7 @@ class HomeView extends BaseView {
 		};
 
 		this._isMobileMode = this._app.isMobile() || this._app.isTablet() || this._app.isLandscape();
-		this._controlsVisible = false;
+		this._controlsVisible = true;
 		this._firstLoad = true;
 		this._phaseId = null;
 		this._cameraInterval = null;
@@ -32,6 +32,7 @@ class HomeView extends BaseView {
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
+		this.onToggleSettings = this.onToggleSettings.bind(this);
 		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onReplay = this.onReplay.bind(this);
@@ -47,29 +48,11 @@ class HomeView extends BaseView {
 			if (event.target.id === 'main-viewport') {
 				this._app.getComponent('settings').stopGuidedCamera();
 			}
-
-			// Show bottom panel
-			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._showControls();
-				if (this._isMobileMode) {
-					this._showSettings();
-					this._app.getComponent('storyPanel').hide();
-				}
-			}
 		});
 		window.addEventListener('touchstart', (event) => {
 			// Turn off guided camera
 			if (event.target.id === 'main-viewport') {
 				this._app.getComponent('settings').stopGuidedCamera();
-			}
-
-			// Show bottom panel and hide story panel
-			if (event.target.id === 'main-viewport' && !this._app.getComponent('settings').getState('isPhotoMode')) {
-				this._showControls();
-				if (this._isMobileMode) {
-					this._showSettings();
-					this._app.getComponent('storyPanel').hide();
-				}
 			}
 		});
 		window.addEventListener('resize', () => {
@@ -126,9 +109,22 @@ class HomeView extends BaseView {
 				this._autoCamIndex = null;
 			}
 		});
+		this._app.getComponent('settings').registerCallback('collapsechange', this.onToggleSettings);
 		this._app.getComponent('clockShortcut').registerCallback('replay', this.onReplay);
 
+		// Mobile controls toggle
+		this._app.getComponent('storyPanel').setOnControlsToggle(() => {
+			this._showControls();
+			if (this._isMobileMode) {
+				this._showSettings();
+				this._app.getComponent('storyPanel').hide();
+			}
+		});
+
 		this._app.getComponent('infoPanel').onRouteChange();
+		if (!this._isMobileMode) {
+			this._showControls();
+		}
 
 		this._firstLoad = false;
 		this._phaseId = params.id;
@@ -279,6 +275,19 @@ class HomeView extends BaseView {
 		this._app.getComponent('clockShortcut').hide();
 		document.getElementById('float-mid-bottom').classList.add('hidden');
 		document.getElementById('float-mid-bottom').classList.remove('active');
+	}
+
+	/**
+	 * Show/hide controls on expanding/collapsing settings.
+	 * @param {boolean} isCollapsed
+	 */
+	onToggleSettings(isCollapsed) {
+		if (isCollapsed) {
+			this._hideControls();
+		}
+		else {
+			this._showControls();
+		}
 	}
 
 	/**

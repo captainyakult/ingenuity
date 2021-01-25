@@ -30,6 +30,8 @@ class StoryBackButton extends BaseComponent {
 		};
 
 		this._isVisible = false;
+
+		this.updateText = this.updateText.bind(this);
 	}
 
 	/**
@@ -48,10 +50,21 @@ class StoryBackButton extends BaseComponent {
 		this._div.appendChild(this._container);
 
 		this._children.icon = document.createElement('div');
-		this._children.icon.className = 'icon  icon-arrow-left';
+		this._children.icon.className = 'icon icon-story';
 		this._container.appendChild(this._children.icon);
 
+		this._children.text = document.createElement('h5');
+		this._container.appendChild(this._children.text);
+
 		this._setVariables(this._div);
+	}
+
+	/**
+	 * Update the display text.
+	 * @param {object} info - Current slide's info
+	 */
+	updateText(info) {
+		this._children.text.innerHTML = info.title;
 	}
 }
 
