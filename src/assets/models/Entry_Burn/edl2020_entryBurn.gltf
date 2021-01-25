@@ -6,12 +6,6 @@
     "scene" : 0,
     "scenes" : [
         {
-            "extras" : {
-                "network_render" : {
-                    "server_address" : "[default]"
-                },
-                "v3d" : {}
-            },
             "name" : "Scene",
             "nodes" : [
                 0
