@@ -195,7 +195,7 @@ class SceneManager extends BaseSceneManager {
 				}
 				if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].trailLength !== undefined) {
 					if (entity.get('coverage') !== null) {
-						entity.removeComponent(entity.get('coverage'));
+						entity.get('coverage').clearCoverages();
 					}
 					trailComponent.setStartTime(this._entityInfo[entityName].trailLength);
 				}
