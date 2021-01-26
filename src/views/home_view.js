@@ -248,6 +248,7 @@ class HomeView extends BaseView {
 			this._app.getComponent('storyPanel').hide();
 		}
 		else {
+			this._showControls();
 			this._app.getComponent('storyPanel').show();
 			if (this._isMobileMode) {
 				this._hideSettings();
@@ -280,13 +281,16 @@ class HomeView extends BaseView {
 	/**
 	 * Show/hide controls on expanding/collapsing settings.
 	 * @param {boolean} isCollapsed
+	 * @param {boolean} isPhotoMode
 	 */
-	onToggleSettings(isCollapsed) {
+	onToggleSettings(isCollapsed, isPhotoMode) {
 		if (isCollapsed) {
 			this._hideControls();
 		}
 		else {
-			this._showControls();
+			if (!isPhotoMode) {
+				this._showControls();
+			}
 		}
 	}
 
