@@ -222,10 +222,6 @@ class SceneManager extends BaseSceneManager {
 							this._isTransitioning = false;
 							event.preventDefault();
 						}, false);
-						div.addEventListener('mouseup', (event) => {
-							event.preventDefault();
-							event.stopPropagation();
-						}, true);
 						div.addEventListener('mousemove', (event) => {
 							event.preventDefault();
 						}, true);
