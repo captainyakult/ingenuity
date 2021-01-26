@@ -317,6 +317,7 @@ body::after {
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 1;
 		animation-fill-mode: both;
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.1) 25%, rgba(37, 37, 39, 0.4) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 	.carousel.hidden .slide .container .content,
 	.carousel.scrolling .slide .container .content {
@@ -445,6 +446,10 @@ body::after {
 	.carousel.expand .footer,
 	.carousel.collapse .footer {
 		animation: none;
+	}
+	.carousel.scrolling-done .slide .container .content,
+	.carousel.scrolling .slide .container .content {
+		background: none;
 	}
 
 	/* Buttons */
