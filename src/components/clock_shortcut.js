@@ -21,17 +21,8 @@ class ClockShortcut extends BaseClockShortcut {
 		 * @type {string[]}
 		 * @default
 		 */
-		this._eventNames = ['replay'];
-
-		/**
-		 * Callbacks reference object.
-		 * @type {object}
-		 * @default
-		 */
-		this._callbacks = {};
-		for (let i = 0; i < this._eventNames.length; i++) {
-			this._callbacks[this._eventNames[i]] = [];
-		}
+		this._eventNames.push('replay');
+		this._initCallbacks();
 	}
 
 	/**
@@ -93,34 +84,6 @@ class ClockShortcut extends BaseClockShortcut {
 		}
 		else {
 			this._children.liveContainer.classList.remove('hidden');
-		}
-	}
-
-	/**
-	 * Registers a callback for a specific event.
-	 * @param {string} eventName
-	 * @param {Function} callback - A callback function to be called
-	 */
-	registerCallback(eventName, callback) {
-		if ((typeof (callback) !== 'function') || (this._eventNames.indexOf(eventName) < 0)) {
-			return;
-		}
-
-		// Prevent multiple registrations of same event with same callback
-		if (!this._callbacks[eventName].includes(callback)) {
-			this._callbacks[eventName].push(callback);
-		}
-	}
-
-	/**
-	 * Trigger all callbacks for an event.
-	 * @param {string} eventName
-	 * @param {Array} [params=[]] - Parameters for callback
-	 */
-	triggerCallbacks(eventName, params = []) {
-		for (let i = this._callbacks[eventName].length - 1; i >= 0; i--) {
-			const callback = this._callbacks[eventName][i];
-			callback(...params);
 		}
 	}
 }
