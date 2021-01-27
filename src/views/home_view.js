@@ -56,14 +56,12 @@ class HomeView extends BaseView {
 			}
 		});
 		window.addEventListener('resize', () => {
-			if (this._app.getComponent('settings').getState('isPhotoMode')) {
-				return;
-			}
-
 			const isMobileMode = this._app.isMobile() || this._app.isTablet() || this._app.isLandscape();
-
 			if (this._isMobileMode !== isMobileMode) {
 				this._isMobileMode = isMobileMode;
+				if (this._app.getComponent('settings').getState('isPhotoMode')) {
+					return;
+				}
 				// Mobile
 				if (this._isMobileMode) {
 					if (this._app.getComponent('storyPanel').isVisible()
@@ -250,9 +248,8 @@ class HomeView extends BaseView {
 		}
 		else {
 			this._showControls();
-			this._app.getComponent('storyPanel').show();
-			if (this._isMobileMode) {
-				this._hideSettings();
+			if (!this._isMobileMode) {
+				this._app.getComponent('storyPanel').show();
 			}
 		}
 	}
