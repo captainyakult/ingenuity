@@ -122,7 +122,8 @@ class HomeView extends BaseView {
 		});
 
 		this._app.getComponent('infoPanel').onRouteChange();
-		if (!this._isMobileMode) {
+		const settingsCollapsed = this._app.getComponent('settings').getState('isCollapsed');
+		if (!this._isMobileMode && !settingsCollapsed) {
 			this._showControls();
 		}
 
