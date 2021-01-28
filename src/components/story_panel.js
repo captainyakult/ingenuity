@@ -2,6 +2,7 @@ import { Carousel, AppUtils } from 'es6-ui-library';
 import 'es6-ui-library/css/carousel.css';
 import '../css/story_panel.css';
 import * as Pioneer from 'pioneer-js';
+import moment from 'moment-timezone';
 
 /**
  * Story panel.
@@ -302,6 +303,9 @@ class StoryPanel extends Carousel {
 
 	updatePanel(currentIndex, time) {
 		const isNow = this._app.getManager('time').isNow();
+		const now = moment();
+		const inBounds = this._app.getManager('time').isWithinLimits(now);
+
 		const id = this._children.slides[currentIndex].dataset.id;
 		const nextIndex = currentIndex + 1;
 		const nextPhase = nextIndex < this._timestamps.length
@@ -314,7 +318,7 @@ class StoryPanel extends Carousel {
 			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second.toString().padStart(2, '0')}`;
 		}
 		this.setState({
-			liveClass: isNow ? '' : 'hidden',
+			liveClass: (inBounds === 0) ? (isNow ? 'active' : 'clickable') : 'hidden',
 			touchdown: `${touchdown.hour}:${touchdown.minute.toString().padStart(2, '0')}:${touchdown.second.toString().padStart(2, '0')}`,
 			touchdownClass: (this._touchdown - time) <= 0 ? 'hidden ' : ''
 		});
