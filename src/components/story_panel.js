@@ -34,7 +34,7 @@ class StoryPanel extends Carousel {
 
 		this._state = {
 			...this._state,
-			liveClass: 'hidden',
+			liveContainerClass: 'hidden',
 			distance: 0,
 			velocity: 0,
 			altitude: 0,
@@ -90,7 +90,7 @@ class StoryPanel extends Carousel {
 		info.mobileDescription = (info.mobileDescription !== undefined) ? info.mobileDescription : info.description;
 
 		let html = `
-			<div class="live-container {{liveClass}}">
+			<div class="live-container {{liveContainerClass}}">
 				<span class="icon icon-live"></span>
 				<span class="live semi color">live</span>
 			</div>
@@ -318,7 +318,7 @@ class StoryPanel extends Carousel {
 			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second.toString().padStart(2, '0')}`;
 		}
 		this.setState({
-			liveClass: (inBounds === 0) ? (isNow ? 'active' : 'clickable') : 'hidden',
+			liveContainerClass: (inBounds === 0) ? (isNow ? 'active' : 'clickable') : 'hidden',
 			touchdown: `${touchdown.hour}:${touchdown.minute.toString().padStart(2, '0')}:${touchdown.second.toString().padStart(2, '0')}`,
 			touchdownClass: (this._touchdown - time) <= 0 ? 'hidden ' : ''
 		});
