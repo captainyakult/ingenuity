@@ -1,6 +1,7 @@
 import { BaseView, AppUtils } from 'es6-ui-library';
 import moment from 'moment-timezone';
 import * as Pioneer from 'pioneer-js';
+import { SceneHelpers } from 'pioneer-scripts';
 
 /**
  *
@@ -91,10 +92,35 @@ class HomeView extends BaseView {
 		this._app.getManager('time').resetLimits();
 
 		this.processQuery(params);
+		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance']));
+
+		const now = moment('2021-02-18T12:42:00');
+		// const now = moment();
+		console.log(now.format())
 
 		if (!params.time) {
+			// Before or after EDL
 			const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
-			this._app.getManager('time').setTime(startTime);
+			const endTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.end) * 1000, 'Etc/UTC');
+			const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'earth', { subtractRadius: true });
+			const startERT = startTime.clone();
+			startERT.add(distance / AppUtils.constants.speedOfLight, 's');
+			const endERT = endTime.clone();
+			endERT.add(distance / AppUtils.constants.speedOfLight, 's');
+
+			console.log(startTime.format(), startERT.format())
+			if (now.isBefore(startERT) || now.isAfter(endERT)) {
+				console.log('before or after')
+				this._app.getManager('time').setTime(startTime);
+			}
+			else {
+				// During EDL
+				// Subtract ERT to now
+				const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'earth', { subtractRadius: true });
+				now.subtract(distance / AppUtils.constants.speedOfLight, 's');
+				console.log('in between')
+				this._app.getManager('time').setTime(now);
+			}
 		}
 
 		// Update story panel
