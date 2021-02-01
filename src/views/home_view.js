@@ -98,11 +98,9 @@ class HomeView extends BaseView {
 		endERT.add(distance / AppUtils.constants.speedOfLight, 's');
 
 		if (now.isBefore(startERT) || now.isAfter(endERT)) {
-			console.log('before or after')
 			return false;
 		}
 		else {
-			console.log('in between')
 			return true;
 		}
 	}

@@ -356,30 +356,25 @@ class StoryPanel extends Carousel {
 			// Get index using time
 			const time = this._app.getManager('time').parseTime(params.time);
 			index = this.findIndex(time.valueOf());
-			console.log('params time', params.time, index)
 		}
 		else if (params.id) {
 			// Get index
 			index = this._children.slides.findIndex(x => x.dataset.id === params.id);
-			console.log('params id', params.id, index)
 			// Update the time to start time of this phase
 			this._app.getManager('time').setTime(this._timestamps[index]);
 		}
 		else if (isLive) {
 			// Get index using now
 			index = this.findIndex(now.valueOf());
-			console.log('live now', now, index)
 			this._app.getManager('time').setTime(now);
 		}
 		else {
-			console.log('assume start')
 			// Assumed index 0
 			// Assumed start time
 			const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
 			this._app.getManager('time').setTime(startTime);
 		}
 
-		console.log('story panel on route change', index)
 		this._currentInfo = this._info[index];
 		this.goToSlide(index);
 		this.updatePanel(index, this._app.getManager('time').getTime().valueOf());
@@ -407,7 +402,7 @@ class StoryPanel extends Carousel {
 			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second.toString().padStart(2, '0')}`;
 		}
 		this.setState({
-			liveContainerClass: (inBounds === 0) ? (isNow ? 'active' : 'clickable') : 'hidden',
+			liveContainerClass: (inBounds === 0) ? (isNow ? 'active' : 'hidden') : 'hidden',
 			touchdown: `${touchdown.hour}:${touchdown.minute.toString().padStart(2, '0')}:${touchdown.second.toString().padStart(2, '0')}`,
 			touchdownClass: (this._touchdown - time) <= 0 ? 'hidden ' : ''
 		});
