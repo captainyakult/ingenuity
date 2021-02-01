@@ -119,22 +119,6 @@ class HomeView extends BaseView {
 		this.processQuery(params);
 		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance']));
 
-		const now = this._app.getManager('time').getNow();
-
-		if (!params.time) {
-			// Before or after EDL
-			if (!this.isLive()) {
-				const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
-				this._app.getManager('time').setTime(startTime);
-			}
-			else {
-				const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'earth', { subtractRadius: true });
-				now.subtract(distance / AppUtils.constants.speedOfLight, 's');
-				this._app.getManager('time').setTime(now);
-				console.log('home view', now)
-			}
-		}
-
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);
 
