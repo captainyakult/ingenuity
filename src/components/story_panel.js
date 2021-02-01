@@ -54,6 +54,7 @@ class StoryPanel extends Carousel {
 		this._formatOpts = [undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }];
 
 		this._onSlideChange = async (index, includeTime = false) => {
+			return; // TODO:
 			const query = {
 				id: this._children.slides[index].dataset.id
 			};
@@ -285,6 +286,48 @@ class StoryPanel extends Carousel {
 		this._updateValues();
 	}
 
+	findIndex(time) {
+		const rate = this._app.getManager('time').getTimeRate();
+		const { currentIndex } = this._state;
+		let index = currentIndex;
+
+		// Find the slide index to go to as needed
+		if (rate > 0) {
+			index = this._timestamps.findIndex(x => time < x);
+			if (index < 0) {
+				index = this._timestamps.length;
+			}
+			if (index !== 0) {
+				index -= 1;
+			}
+		}
+		else if (rate < 0) {
+			index = this._timestamps.findIndex(x => time < x);
+			if (index <= 0) {
+				if (currentIndex === this._timestamps.length - 1) {
+					index = this._timestamps.length;
+				}
+				else {
+					index = 1;
+				}
+			}
+			index -= 1;
+		}
+		// In case of forced pause
+		else {
+			// Reached start limit
+			if (time <= this._timeLimits.min.valueOf()) {
+				index = 0;
+			}
+			// Reached end limit
+			else if (time >= this._timeLimits.max.valueOf()) {
+				index = this._timestamps.length - 1;
+			}
+		}
+
+		return index;
+	}
+
 	/**
 	 * Update UI on route change.
 	 * @param {object} params
@@ -292,18 +335,56 @@ class StoryPanel extends Carousel {
 	 * @param {string} params.time
 	 */
 	async onRouteChange(params) {
-		// Go to slide using id, or first slide if no id
-		const index = Math.max(0, this._children.slides.findIndex(x => x.dataset.id === params.id));
+		let index = 0;
+
+		// Choose time first
+		if (params.time) {
+			// Find index using time
+			const time = this._app.getManager('time').parseTime(params.time);
+			index = this.findIndex(time.valueOf());
+			console.log('params time', params.time, index)
+		}
+		else if (params.id) {
+			// Update the time
+			index = this._children.slides.findIndex(x => x.dataset.id === params.id);
+			console.log('params id', params.id, index)
+		}
+		else {
+			// Assume index 0
+		}
+		console.log('on route change', index)
+
 		this._currentInfo = this._info[index];
 		this.goToSlide(index);
-		const time = params.time ? params.time : this._timestamps[index];
-		this._app.getManager('time').setTime(time);
-		this.updatePanel(index, this._app.getManager('time').getTime().valueOf());
+		// const time = params.time ? params.time : this._timestamps[index];
+		// this._app.getManager('time').setTime(time);
+		// this.updatePanel(index, this._app.getManager('time').getTime().valueOf());
 	}
 
+	/**
+	 * Check if time is now.
+	 * @returns {boolean}
+	 */
+	isNowERT() {
+		const rate = this._app.getManager('time').getTimeRate() === 1;
+		const time = this._app.getManager('time').getTime();
+		const now = this._app.getManager('time').getNow();
+		// Subtract ERT to now
+		const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'earth', { subtractRadius: true });
+		now.subtract(distance / AppUtils.constants.speedOfLight, 's');
+
+		return rate === 1 && Math.abs(time.valueOf() - now.valueOf()) < 1000;
+	}
+
+	/**
+	 * Called every frame by update.
+	 * @param {number} currentIndex 
+	 * @param {number} time 
+	 */
 	updatePanel(currentIndex, time) {
+		return;
 		const isNow = this._app.getManager('time').isNow();
-		const now = moment();
+		const now = this._app.getManager('time').getNow();
 		const inBounds = this._app.getManager('time').isWithinLimits(now);
 
 		const id = this._children.slides[currentIndex].dataset.id;
@@ -328,6 +409,7 @@ class StoryPanel extends Carousel {
 	 * Update every frame.
 	 */
 	async update() {
+		// return;
 		const time = this._app.getManager('time').getTime().valueOf();
 		const rate = this._app.getManager('time').getTimeRate();
 		const { currentIndex } = this._state;
