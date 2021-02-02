@@ -1,6 +1,8 @@
 import { ClockShortcut as BaseClockShortcut } from 'es6-ui-library';
 import 'es6-ui-library/css/clock_shortcut.css';
 import '../css/clock_shortcut.css';
+import moment from 'moment-timezone';
+import * as Pioneer from 'pioneer-js';
 
 /**
  * Extended ClockShortcut from es6-ui-library.
@@ -59,7 +61,13 @@ class ClockShortcut extends BaseClockShortcut {
 	 * Change time rate to 1s/s and time to start time.
 	 */
 	async _replay() {
-		const navigated = await this._app.getManager('router').navigate({ __remove: 'all' }, 'home');
+		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
+		const time = this._app.getManager('time').getTimeUrl(startTime);
+		const navigated = this._app.getManager('router').navigate({
+			time,
+			__remove: ['rate', 'id']
+		});
+
 		if (!navigated) {
 			this._app.getManager('time').setTimeRate(1);
 			this._app.getManager('time').setToStart();
