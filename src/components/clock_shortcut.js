@@ -66,7 +66,7 @@ class ClockShortcut extends BaseClockShortcut {
 		const navigated = this._app.getManager('router').navigate({
 			time,
 			__remove: ['rate', 'id']
-		});
+		}, 'home');
 
 		if (!navigated) {
 			this._app.getManager('time').setTimeRate(1);
