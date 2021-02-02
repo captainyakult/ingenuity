@@ -1,6 +1,7 @@
 import { BaseView, AppUtils } from 'es6-ui-library';
 import moment from 'moment-timezone';
 import * as Pioneer from 'pioneer-js';
+import { SceneHelpers } from 'pioneer-scripts';
 
 /**
  *
@@ -82,6 +83,29 @@ class HomeView extends BaseView {
 	}
 
 	/**
+	 * Checks if live mode.
+	 */
+	async isLive() {
+		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance']));
+
+		const now = this._app.getManager('time').getNow();
+		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
+		const endTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.end) * 1000, 'Etc/UTC');
+		const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'earth', { subtractRadius: true });
+		const startERT = startTime.clone();
+		startERT.add(distance / AppUtils.constants.speedOfLight, 's');
+		const endERT = endTime.clone();
+		endERT.add(distance / AppUtils.constants.speedOfLight, 's');
+
+		if (now.isBefore(startERT) || now.isAfter(endERT)) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	/**
 	 * Initialization.
 	 * @param {object} params - Parameters and queries from url
 	 */
@@ -91,11 +115,7 @@ class HomeView extends BaseView {
 		this._app.getManager('time').resetLimits();
 
 		this.processQuery(params);
-
-		if (!params.time) {
-			const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
-			this._app.getManager('time').setTime(startTime);
-		}
+		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance']));
 
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);

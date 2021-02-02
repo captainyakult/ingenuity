@@ -53,6 +53,7 @@
 }
 .clock-shortcut .active .live {
 	color: var(--live);
+	opacity: 1.0;
 }
 @media (pointer: fine) and (hover: hover) {
 	.clock-shortcut .container.active:hover .live {

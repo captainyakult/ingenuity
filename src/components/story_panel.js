@@ -2,6 +2,7 @@ import { Carousel, AppUtils } from 'es6-ui-library';
 import 'es6-ui-library/css/carousel.css';
 import '../css/story_panel.css';
 import * as Pioneer from 'pioneer-js';
+import moment from 'moment-timezone';
 
 /**
  * Story panel.
@@ -33,7 +34,7 @@ class StoryPanel extends Carousel {
 
 		this._state = {
 			...this._state,
-			liveClass: 'hidden',
+			liveContainerClass: 'hidden',
 			distance: 0,
 			velocity: 0,
 			altitude: 0,
@@ -56,6 +57,8 @@ class StoryPanel extends Carousel {
 			const query = {
 				id: this._children.slides[index].dataset.id
 			};
+			// Include the time so when we go back in time
+			// we start at the end of the phase instead of start
 			if (includeTime) {
 				query.time = this._app.getManager('time').getTimeUrl();
 			}
@@ -89,7 +92,7 @@ class StoryPanel extends Carousel {
 		info.mobileDescription = (info.mobileDescription !== undefined) ? info.mobileDescription : info.description;
 
 		let html = `
-			<div class="live-container {{liveClass}}">
+			<div class="live-container {{liveContainerClass}}">
 				<span class="icon icon-live"></span>
 				<span class="live semi color">live</span>
 			</div>
@@ -284,54 +287,15 @@ class StoryPanel extends Carousel {
 		this._updateValues();
 	}
 
-	/**
-	 * Update UI on route change.
-	 * @param {object} params
-	 * @param {string} params.id
-	 * @param {string} params.time
-	 */
-	async onRouteChange(params) {
-		// Go to slide using id, or first slide if no id
-		const index = Math.max(0, this._children.slides.findIndex(x => x.dataset.id === params.id));
-		this._currentInfo = this._info[index];
-		this.goToSlide(index);
-		const time = params.time ? params.time : this._timestamps[index];
-		this._app.getManager('time').setTime(time);
-		this.updatePanel(index, this._app.getManager('time').getTime().valueOf());
-	}
-
-	updatePanel(currentIndex, time) {
-		const isNow = this._app.getManager('time').isNow();
-		const id = this._children.slides[currentIndex].dataset.id;
-		const nextIndex = currentIndex + 1;
-		const nextPhase = nextIndex < this._timestamps.length
-			? AppUtils.msToTime(this._timestamps[nextIndex] - time)
-			: 0;
-		const touchdown = AppUtils.msToTime(this._touchdown - time);
-
-		const nextPhaseId = this._keywords.nextPhase(id);
-		if (this._children[nextPhaseId]) {
-			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second.toString().padStart(2, '0')}`;
-		}
-		this.setState({
-			liveClass: isNow ? '' : 'hidden',
-			touchdown: `${touchdown.hour}:${touchdown.minute.toString().padStart(2, '0')}:${touchdown.second.toString().padStart(2, '0')}`,
-			touchdownClass: (this._touchdown - time) <= 0 ? 'hidden ' : ''
-		});
-	}
-
-	/**
-	 * Update every frame.
-	 */
-	async update() {
-		const time = this._app.getManager('time').getTime().valueOf();
+	findIndex(time) {
 		const rate = this._app.getManager('time').getTimeRate();
 		const { currentIndex } = this._state;
 		let index = currentIndex;
 
 		// Find the slide index to go to as needed
 		if (rate > 0) {
-			index = this._timestamps.findIndex(x => time < x);
+			index = this._timestamps.findIndex(x => time < x); // TODO: Might use binary search
+
 			if (index < 0) {
 				index = this._timestamps.length;
 			}
@@ -361,7 +325,98 @@ class StoryPanel extends Carousel {
 			else if (time >= this._timeLimits.max.valueOf()) {
 				index = this._timestamps.length - 1;
 			}
+			else {
+				// Pause
+				index = this._timestamps.findIndex(x => time < x);
+				if (index < 0) {
+					index = this._timestamps.length;
+				}
+				if (index !== 0) {
+					index -= 1;
+				}
+			}
 		}
+
+		return index;
+	}
+
+	/**
+	 * Update UI on route change.
+	 * @param {object} params
+	 * @param {string} params.id
+	 * @param {string} params.time
+	 */
+	async onRouteChange(params) {
+		let index = 0;
+		const now = this._app.getManager('time').getNow();
+		const isLive = this._app.getView('home').isLive();
+
+		// Choose time first
+		if (params.time) {
+			// Get index using time
+			const time = this._app.getManager('time').parseTime(params.time);
+			index = this.findIndex(time.valueOf());
+		}
+		else if (params.id) {
+			// Get index
+			index = this._children.slides.findIndex(x => x.dataset.id === params.id);
+			// Update the time to start time of this phase
+			this._app.getManager('time').setTime(this._timestamps[index]);
+		}
+		else if (isLive) {
+			// Get index using now
+			index = this.findIndex(now.valueOf());
+			this._app.getManager('time').setTime(now);
+		}
+		else {
+			// Assumed index 0
+			// Assumed start time
+			const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
+			this._app.getManager('time').setTime(startTime);
+		}
+
+		this._currentInfo = this._info[index];
+		this.goToSlide(index);
+		this.updatePanel(index, this._app.getManager('time').getTime().valueOf());
+	}
+
+	/**
+	 * Called every frame by update.
+	 * @param {number} currentIndex
+	 * @param {number} time
+	 */
+	updatePanel(currentIndex, time) {
+		const isNow = this._app.getManager('time').isNow();
+		const now = this._app.getManager('time').getNow();
+		const inBounds = this._app.getManager('time').isWithinLimits(now);
+
+		const id = this._children.slides[currentIndex].dataset.id;
+		const nextIndex = currentIndex + 1;
+		const nextPhase = nextIndex < this._timestamps.length
+			? AppUtils.msToTime(this._timestamps[nextIndex] - time)
+			: 0;
+		const touchdown = AppUtils.msToTime(this._touchdown - time);
+
+		const nextPhaseId = this._keywords.nextPhase(id);
+		if (this._children[nextPhaseId]) {
+			this._children[nextPhaseId].textContent = `${nextPhase.minute}:${nextPhase.second.toString().padStart(2, '0')}`;
+		}
+		this.setState({
+			liveContainerClass: (inBounds === 0) ? (isNow ? 'active' : 'hidden') : 'hidden',
+			touchdown: `${touchdown.hour}:${touchdown.minute.toString().padStart(2, '0')}:${touchdown.second.toString().padStart(2, '0')}`,
+			touchdownClass: (this._touchdown - time) <= 0 ? 'hidden ' : ''
+		});
+	}
+
+	/**
+	 * Update every frame.
+	 */
+	async update() {
+		const time = this._app.getManager('time').getTime().valueOf();
+		const rate = this._app.getManager('time').getTimeRate();
+		const { currentIndex } = this._state;
+		let index = currentIndex;
+		index = this.findIndex(time);
 
 		if (currentIndex !== index) {
 			await this._onSlideChange(index, true);
