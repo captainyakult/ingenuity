@@ -85,19 +85,12 @@ class HomeView extends BaseView {
 	/**
 	 * Checks if live mode.
 	 */
-	async isLive() {
-		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance']));
-
+	isLive() {
 		const now = this._app.getManager('time').getNow();
 		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
 		const endTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.end) * 1000, 'Etc/UTC');
-		const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'earth', { subtractRadius: true });
-		const startERT = startTime.clone();
-		startERT.add(distance / AppUtils.constants.speedOfLight, 's');
-		const endERT = endTime.clone();
-		endERT.add(distance / AppUtils.constants.speedOfLight, 's');
 
-		if (now.isBefore(startERT) || now.isAfter(endERT)) {
+		if (now.isBefore(startTime) || now.isAfter(endTime)) {
 			return false;
 		}
 		else {
@@ -145,7 +138,6 @@ class HomeView extends BaseView {
 			this._showControls();
 		}
 
-		this._firstLoad = false;
 		this._phaseId = params.id;
 		if (!this._app.getComponent('settings').getState('isGuidedCamera')) {
 			await this.updateCamera(params.target);
@@ -158,7 +150,12 @@ class HomeView extends BaseView {
 	onLoaded() {
 		// Remove callback
 		this._app.getManager('scene').removeCallback('loaded', this.onLoaded);
-		super.updateTimeRate(this._app.getManager('router').query);
+		const query = this._app.getManager('router').query;
+		super.updateTimeRate(query);
+		if (this.isLive() && this._firstLoad && !query.id && !query.time) {
+			this._firstLoad = false;
+			this._app.getComponent('clockShortcut').backToLive();
+		}
 	}
 
 	/**
@@ -238,10 +235,14 @@ class HomeView extends BaseView {
 			}
 		}
 		// Launch camera transition
-		if (this._phaseId + '-' + closestIndex !== this._autoCamIndex) {
+		if (this._phaseId === undefined) {
+			this._phaseId = info.id;
+		}
+		const phaseId = this._phaseId + '-' + closestIndex;
+		if (phaseId !== this._autoCamIndex) {
 			// Save it, we dont want to launch it again
 			// Unless we cleared auto mode and came back
-			this._autoCamIndex = this._phaseId + '-' + closestIndex;
+			this._autoCamIndex = phaseId;
 			const preset = presets[closestIndex];
 
 			// Check rate to adjust duration
