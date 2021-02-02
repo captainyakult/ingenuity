@@ -170,6 +170,7 @@ a {
 	.icon-bg:hover {
 		background: var(--grayAlpha);
 	}
+	.icon-replay:hover,
 	.icon-info:hover,
 	.icon-plus:hover,
 	.icon-minus:hover,
