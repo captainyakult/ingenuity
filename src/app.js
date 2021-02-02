@@ -19,7 +19,7 @@ import './css/settings.css';
 
 // Import UI library managers
 import {
-	BaseApp, TimeManager, Settings, LoadIcon
+	BaseApp, TimeManager, Settings, LoadIcon, ERTManager
 } from 'es6-ui-library';
 
 // Overriden managers
@@ -99,7 +99,6 @@ class App extends BaseApp {
 	async createManagers() {
 		// Time manager
 		const timeManager = this.addManager('time', TimeManager);
-		timeManager.setDisplayERT(true);
 		// Update date limits
 		const min = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.start) * 1000, this._timezone);
 		const max = moment.tz(Pioneer.TimeUtils.etToUnix(this.dateConstants.end) * 1000, this._timezone);
@@ -112,6 +111,14 @@ class App extends BaseApp {
 		const sceneManager = this.addManager('scene', SceneManager, this._pioneer);
 		this._scene = sceneManager.main;
 		await sceneManager.populate();
+
+		// ERT manager
+		const ertManager = this.addManager('ert', ERTManager, {
+			isERT: true,
+			ertTarget: 'sc_perseverance',
+			sceneMgr: sceneManager
+		});
+		timeManager.registerCallback('getnow', ertManager.getNow);
 
 		// Camera manager
 		const cameraManager = this.addManager('camera', CameraManager, this._pioneer, this._scene);
@@ -135,7 +142,6 @@ class App extends BaseApp {
 
 		const clock = await this.addComponent('clock', Clock, document.getElementById('clock'), { allowEdit: false });
 		this._managers.time.registerCallback('update', clock.update);
-		this._managers.time.registerCallback('earthreceivedtime', clock.update);
 		clock.setEnabled(true);
 
 		const clockShortcut = await this.addComponent('clockShortcut', ClockShortcut, document.getElementById('clock-shortcut'));

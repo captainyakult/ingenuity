@@ -44,8 +44,8 @@ class Clock extends BaseClock {
 	 */
 	_handleTimeUpdate(time) {
 		// Change time to Earth Received Time
-		if (this._app.getManager('time').isERT()) {
-			this._setEarthReceivedTime(time, 'sc_perseverance');
+		if (this._app.getManager('ert').isERT()) {
+			this._app.getManager('ert').getERTFromTime(time);
 		}
 	}
 
