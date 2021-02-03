@@ -30,6 +30,9 @@ class HomeView extends BaseView {
 		this._phaseId = null;
 		this._cameraInterval = null;
 		this._autoCamIndex = null;
+		this._previousNow = null;
+		this._autoLiveMode = false;
+		this._sceneReady = false;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -37,8 +40,10 @@ class HomeView extends BaseView {
 		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onReplay = this.onReplay.bind(this);
+		this._checkLiveMode = this._checkLiveMode.bind(this);
 		this._autoCameraUpdate = this._autoCameraUpdate.bind(this);
 		this._app.pioneer.addCallback(this._autoCameraUpdate, true);
+		this._app.pioneer.addCallback(this._checkLiveMode, true);
 
 		window.addEventListener('mousedown', (event) => {
 			if (this._app.isTouch()) {
@@ -99,6 +104,28 @@ class HomeView extends BaseView {
 	}
 
 	/**
+	 * Checks if we need to enter live mode.
+	 */
+	_checkLiveMode() {
+		if (this._autoLiveMode || !this._sceneReady) {
+			return;
+		}
+		const now = this._app.getManager('time').getNow();
+		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
+		if (this._previousNow !== null && this._previousNow.isBefore(startTime) && now.isAfter(startTime)) {
+			// Enter live mode
+			this._app.getComponent('clockShortcut').backToLive();
+			this._autoLiveMode = true;
+		}
+		else if (this._previousNow !== null && this._previousNow.isAfter(startTime)) {
+			// We're after no need to trigger auto live mode
+			this._autoLiveMode = true;
+		}
+
+		this._previousNow = now;
+	}
+
+	/**
 	 * Initialization.
 	 * @param {object} params - Parameters and queries from url
 	 */
@@ -108,7 +135,8 @@ class HomeView extends BaseView {
 		this._app.getManager('time').resetLimits();
 
 		this.processQuery(params);
-		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance']));
+		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance', 'earth']));
+		this._sceneReady = true;
 
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);

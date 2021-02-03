@@ -33,6 +33,15 @@
 .carousel .slide .content {
 	align-content: center;
 }
+.carousel .slide .live-container {
+	opacity: 0.4;
+}
+.carousel .slide .live-container.active {
+	opacity: 1;
+}
+.carousel .slide .content .text {
+	text-transform: uppercase;
+}
 .carousel .slide .content .live {
 	color: var(--live);
 	text-transform: uppercase;
