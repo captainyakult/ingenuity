@@ -32,6 +32,7 @@ class HomeView extends BaseView {
 		this._autoCamIndex = null;
 		this._previousNow = null;
 		this._autoLiveMode = false;
+		this._sceneReady = false;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -106,12 +107,12 @@ class HomeView extends BaseView {
 	 * Checks if we need to enter live mode.
 	 */
 	_checkLiveMode() {
-		if (this._autoLiveMode) {
+		if (this._autoLiveMode || !this._sceneReady) {
 			return;
 		}
 		const now = this._app.getManager('time').getNow();
 		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
-		console.log('checking')
+		console.log('checking now', now, 'agains start', startTime)
 		if (this._previousNow !== null && this._previousNow.isBefore(startTime) && now.isAfter(startTime)) {
 			// Enter live mode
 			console.log('entered live mode')
@@ -137,7 +138,8 @@ class HomeView extends BaseView {
 		this._app.getManager('time').resetLimits();
 
 		this.processQuery(params);
-		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance']));
+		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance', 'earth']));
+		this._sceneReady = true;
 
 		// Update story panel
 		this._app.getComponent('storyPanel').onRouteChange(params);
