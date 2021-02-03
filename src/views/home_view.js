@@ -31,6 +31,7 @@ class HomeView extends BaseView {
 		this._cameraInterval = null;
 		this._autoCamIndex = null;
 		this._previousNow = null;
+		this._autoLiveMode = false;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -105,6 +106,9 @@ class HomeView extends BaseView {
 	 * Checks if we need to enter live mode.
 	 */
 	_checkLiveMode() {
+		if (this._autoLiveMode) {
+			return;
+		}
 		const now = this._app.getManager('time').getNow();
 		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
 		console.log('checking')
@@ -112,14 +116,12 @@ class HomeView extends BaseView {
 			// Enter live mode
 			console.log('entered live mode')
 			this._app.getComponent('clockShortcut').backToLive();
-
-			// Remove pioneer callback
-			this._app.pioneer.removeCallback(this._checkLiveMode);
+			this._autoLiveMode = true;
 		}
 		else if (this._previousNow !== null && this._previousNow.isAfter(startTime)) {
-			// Remove pioneer callback
+			// We're after no need to trigger auto live mode
 			console.log('after, remove callback')
-			this._app.pioneer.removeCallback(this._checkLiveMode);
+			this._autoLiveMode = true;
 		}
 
 		this._previousNow = now;
