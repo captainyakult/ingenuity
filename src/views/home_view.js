@@ -112,16 +112,13 @@ class HomeView extends BaseView {
 		}
 		const now = this._app.getManager('time').getNow();
 		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
-		console.log('checking now', now, 'agains start', startTime)
 		if (this._previousNow !== null && this._previousNow.isBefore(startTime) && now.isAfter(startTime)) {
 			// Enter live mode
-			console.log('entered live mode')
 			this._app.getComponent('clockShortcut').backToLive();
 			this._autoLiveMode = true;
 		}
 		else if (this._previousNow !== null && this._previousNow.isAfter(startTime)) {
 			// We're after no need to trigger auto live mode
-			console.log('after, remove callback')
 			this._autoLiveMode = true;
 		}
 
