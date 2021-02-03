@@ -30,6 +30,7 @@ class HomeView extends BaseView {
 		this._phaseId = null;
 		this._cameraInterval = null;
 		this._autoCamIndex = null;
+		this._previousNow = null;
 
 		this._showControls = this._showControls.bind(this);
 		this._hideControls = this._hideControls.bind(this);
@@ -37,8 +38,10 @@ class HomeView extends BaseView {
 		this.onPhotoModeChange = this.onPhotoModeChange.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
 		this.onReplay = this.onReplay.bind(this);
+		this._checkLiveMode = this._checkLiveMode.bind(this);
 		this._autoCameraUpdate = this._autoCameraUpdate.bind(this);
 		this._app.pioneer.addCallback(this._autoCameraUpdate, true);
+		this._app.pioneer.addCallback(this._checkLiveMode, true);
 
 		window.addEventListener('mousedown', (event) => {
 			if (this._app.isTouch()) {
@@ -96,6 +99,30 @@ class HomeView extends BaseView {
 		else {
 			return true;
 		}
+	}
+
+	/**
+	 * Checks if we need to enter live mode.
+	 */
+	_checkLiveMode() {
+		const now = this._app.getManager('time').getNow();
+		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
+		console.log('checking')
+		if (this._previousNow !== null && this._previousNow.isBefore(startTime) && now.isAfter(startTime)) {
+			// Enter live mode
+			console.log('entered live mode')
+			this._app.getComponent('clockShortcut').backToLive();
+
+			// Remove pioneer callback
+			this._app.pioneer.removeCallback(this._checkLiveMode);
+		}
+		else if (this._previousNow !== null && this._previousNow.isAfter(startTime)) {
+			// Remove pioneer callback
+			console.log('after, remove callback')
+			this._app.pioneer.removeCallback(this._checkLiveMode);
+		}
+
+		this._previousNow = now;
 	}
 
 	/**
