@@ -126,7 +126,6 @@ class InfoPanel extends BaseComponent {
 	 */
 	openPanel() {
 		this._children.infoPanelOverlay.style.display = 'block';
-		this._app.getManager('time').pause();
 		this.setState({ visibleClass: 'active' });
 	}
 
@@ -134,9 +133,6 @@ class InfoPanel extends BaseComponent {
 	 * Closes info panel.
 	 */
 	closePanel() {
-		if (this._app.getManager('time').previousTimeRate !== 0) {
-			this._app.getManager('time').play();
-		}
 		this.setState({ visibleClass: 'hidden' });
 	}
 }
