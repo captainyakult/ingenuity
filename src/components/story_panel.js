@@ -1,5 +1,5 @@
 import { Carousel, AppUtils } from 'es6-ui-library';
-import 'es6-ui-library/css/carousel.css';
+import 'es6-ui-library/src/css/carousel.css';
 import '../css/story_panel.css';
 import * as Pioneer from 'pioneer-js';
 import moment from 'moment-timezone';

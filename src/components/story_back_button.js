@@ -1,5 +1,5 @@
 import { BaseComponent } from 'es6-ui-library';
-import 'es6-ui-library/css/clock_shortcut.css';
+import 'es6-ui-library/src/css/clock_shortcut.css';
 import '../css/story_back_button.css';
 
 /**
