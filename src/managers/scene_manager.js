@@ -84,6 +84,20 @@ class SceneManager extends BaseSceneManager {
 		 * @type {boolean}
 		 */
 		this._isTransitioning = false;
+
+		/**
+		 * The rocky patch color texture shared by the multiple rocky patches.
+		 * @type {Pioneer.THREE.Texture}
+		 * @private
+		 */
+		this._rockyPatchColorTexture = null;
+
+		/**
+		 * The rocky patch normal texture shared by the multiple rocky patches.
+		 * @type {Pioneer.THREE.Texture}
+		 * @private
+		 */
+		this._rockyPatchNormalTexture = null;
 	}
 
 	/**
@@ -112,6 +126,7 @@ class SceneManager extends BaseSceneManager {
 		Entity.create('sc_maven', this._scene);
 		Entity.create('sc_mars_reconnaissance_orbiter', this._scene);
 		SetupSpacecraft.setup(this._scene);
+		this._setupRockyPatches();
 	}
 
 	/**
@@ -131,7 +146,7 @@ class SceneManager extends BaseSceneManager {
 		const cmts = mars.addComponent('cmts');
 		cmts.setMaxLevel(12);
 		cmts.setLightSource(this._scene.get('sun', 'lightSource'));
-		cmts.setRadii(3396.190 - 0.01469, 3396.190 - 0.01469); // Offset to get the rover landing on its wheels.
+		cmts.setRadii(3396.190 - 0.01469 - 0.0003, 3396.190 - 0.01469 - 0.0002); // Offset to get the rover landing on its wheels.
 		cmts.setBaseUrl('color', '$DYNAMIC_ASSETS_URL/cmts/mars/color');
 		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height');
 		cmts.setHeightScale(1);
@@ -175,6 +190,81 @@ class SceneManager extends BaseSceneManager {
 			this._scene.get('sc_perseverance_backshell', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 			this._scene.get('sc_perseverance_heat_shield', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
 			this._scene.get('sc_perseverance_descent_stage', 'model').setDynamicEnvironmentMapComponent(dynEnvMap);
+		}
+	}
+
+	/**
+	 * Sets up a single rocky patch on the ground.
+	 * @param {Pioneer.Vector3} offset
+	 * @private
+	 */
+	_setupRockyPatch(number, offset, rotation) {
+		const entity = this._scene.addEntity('patch_entity_' + number);
+		entity.setExtentsRadius(0.1);
+		// entity.addComponent('gizmo');
+		const model = entity.addComponent('model');
+		if (model instanceof Pioneer.ModelComponent) {
+			model.setUrl('assets/models/RockyPatch/edl2020_rockPatch.gltf');
+			model.setLightSource('sun');
+			model.setMeshCreatedCallback(() => {
+				const oldMaterial = model.getMaterial('RockPatch');
+				const newMaterial = Pioneer.MaterialUtils.get();
+				if (this._rockyPatchColorTexture === null) {
+					this._rockyPatchColorTexture = oldMaterial.uniforms.colorTexture.value;
+					this._rockyPatchNormalTexture = oldMaterial.uniforms.normalTexture.value;
+				}
+				oldMaterial.uniforms.colorTexture.value.dispose();
+				oldMaterial.uniforms.normalTexture.value.dispose();
+				newMaterial.uniforms.colorTexture.value = this._rockyPatchColorTexture;
+				newMaterial.uniforms.normalTexture.value = this._rockyPatchNormalTexture;
+				newMaterial.uniforms.normalScale.value = oldMaterial.uniforms.normalScale.value;
+				newMaterial.defines.normalMap = true;
+				newMaterial.transparent = true;
+				newMaterial.blending = Pioneer.THREE.NormalBlending;
+				newMaterial.depthWrite = false;
+				newMaterial.needsUpdate = true;
+				model.updateMaterial('RockPatch', newMaterial);
+				model.getMaterial('RockPatch').depthWrite = false;
+				model.getRoot().renderOrder = number - 1000;
+			});
+		}
+		const fixedGround = entity.addController('fixed');
+		if (fixedGround instanceof Pioneer.FixedController) {
+			fixedGround.setParent(this._scene.get('mars'));
+			const rot90 = new Pioneer.Quaternion();
+			rot90.setFromAxisAngle(Pioneer.Vector3.XAxis, -Math.PI / 2.0);
+			// Landing orientation of perseverance
+			const orientation = new Pioneer.Quaternion(-0.3687957252164953, -0.6453124355946519, -0.5010749764034842, 0.44326678372193135);
+			orientation.mult(orientation, rot90);
+			const rot = new Pioneer.Quaternion();
+			rot.setFromAxisAngle(Pioneer.Vector3.ZAxis, -1 * Math.PI / 180);
+			orientation.mult(orientation, rot);
+			offset.y -= 0.0008;
+			offset.rotate(orientation, offset);
+			rot.setFromAxisAngle(Pioneer.Vector3.YAxis, rotation * Math.PI / 180);
+			orientation.mult(orientation, rot);
+			fixedGround.setOrientation(orientation);
+			const position = new Pioneer.Vector3(700.0259971377374, 3140.147204279965, 1074.6137468717366);
+			position.add(position, offset);
+			fixedGround.setPosition(position);
+		}
+		const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
+		if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
+			rotateByParentOrientationSeparated.setRotatingOrientation(true);
+		}
+	}
+
+	/**
+	 * Sets up rocky patches on the ground.
+	 * @private
+	 */
+	_setupRockyPatches() {
+		// this._setupRockyPatch(0, new Pioneer.Vector3(0, 0, 0), 0);
+		for (let i = 0; i < 100; i++) {
+			const radius = 0.04 * Math.random();
+			const angle = Math.random() * Math.PI * 2.0;
+			const rotation = Math.random() * 360;
+			this._setupRockyPatch(i, new Pioneer.Vector3(radius * Math.cos(angle), 0, radius * Math.sin(angle)), rotation);
 		}
 	}
 
