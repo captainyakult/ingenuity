@@ -88,8 +88,8 @@ module.exports = {
 				noErrorOnMissing: true
 			},
 			{
-				from: '../es6-ui-library/src/themes',
-				to: 'assets/themes',
+				from: '../es6-ui-library/src/themes/solar-system',
+				to: 'assets/themes/solar-system',
 				noErrorOnMissing: true
 			},
 			{

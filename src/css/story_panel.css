@@ -1,5 +1,5 @@
 .carousel .track {
-	background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+	background: transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 }
 .carousel .slide {
 	position: relative;
@@ -171,19 +171,19 @@ body::after {
 }
 @keyframes mobile-gradient {
 	0% {
-		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.0) 25%, rgba(37, 37, 39, 0.0) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.0) 25%, rgba(37, 37, 39, 0.0) 100%), transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 	25% {
-		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.0) 25%, rgba(37, 37, 39, 0.05) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.0) 25%, rgba(37, 37, 39, 0.05) 100%), transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 	50% {
-		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.04) 25%, rgba(37, 37, 39, 0.2) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.04) 25%, rgba(37, 37, 39, 0.2) 100%), transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 	75% {
-		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.075) 25%, rgba(37, 37, 39, 0.35) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.075) 25%, rgba(37, 37, 39, 0.35) 100%), transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 	100% {
-		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.1) 25%, rgba(37, 37, 39, 0.4) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.1) 25%, rgba(37, 37, 39, 0.4) 100%), transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 }
 
@@ -216,7 +216,7 @@ body::after {
 		align-content: end;
 		pointer-events: all;
 		position: relative;
-		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 		padding-bottom: 20px;
 	}
 	.carousel .body {
@@ -326,11 +326,11 @@ body::after {
 		animation-timing-function: ease-in-out;
 		animation-iteration-count: 1;
 		animation-fill-mode: both;
-		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.1) 25%, rgba(37, 37, 39, 0.4) 100%), transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: linear-gradient(180deg, rgba(37, 37, 39, 0.0) 0%, rgba(37, 37, 39, 0.1) 25%, rgba(37, 37, 39, 0.4) 100%), transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 	.carousel.hidden .slide .container .content,
 	.carousel.scrolling .slide .container .content {
-		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 		animation: none;
 	}
 }
@@ -395,7 +395,7 @@ body::after {
 	}
 	.carousel .track {
 		pointer-events: auto;
-		background: transparent url(./assets/svg/timeline-bg.svg) repeat-y 0 0;
+		background: transparent url(./assets/themes/solar-system/svg/timeline-bg.svg) repeat-y 0 0;
 	}
 	.carousel .slide .container {
 		padding-right: 20px;
