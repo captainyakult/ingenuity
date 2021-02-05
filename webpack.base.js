@@ -88,6 +88,11 @@ module.exports = {
 				noErrorOnMissing: true
 			},
 			{
+				from: '../es6-ui-library/src/themes',
+				to: 'assets/themes',
+				noErrorOnMissing: true
+			},
+			{
 				from: 'src/assets',
 				to: 'assets',
 				noErrorOnMissing: true
