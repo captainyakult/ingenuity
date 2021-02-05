@@ -1,6 +1,6 @@
 {
 	"name": "mars2020",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Mars 2020 Mission Visualization",
 	"private": true,
 	"scripts": {
