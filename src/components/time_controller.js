@@ -1,5 +1,4 @@
 import { TimeController as BaseTimeController } from 'es6-ui-library';
-import 'es6-ui-library/css/time_controller.css';
 import '../css/time_controller.css';
 
 /**

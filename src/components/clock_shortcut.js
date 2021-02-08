@@ -1,5 +1,4 @@
 import { ClockShortcut as BaseClockShortcut } from 'es6-ui-library';
-import 'es6-ui-library/css/clock_shortcut.css';
 import '../css/clock_shortcut.css';
 import moment from 'moment-timezone';
 import * as Pioneer from 'pioneer-js';

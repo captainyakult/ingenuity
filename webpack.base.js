@@ -88,6 +88,16 @@ module.exports = {
 				noErrorOnMissing: true
 			},
 			{
+				from: '../es6-ui-library/src/themes/default',
+				to: 'assets/themes/default',
+				noErrorOnMissing: true
+			},
+			{
+				from: '../es6-ui-library/src/themes/solar-system',
+				to: 'assets/themes/solar-system',
+				noErrorOnMissing: true
+			},
+			{
 				from: 'src/assets',
 				to: 'assets',
 				noErrorOnMissing: true

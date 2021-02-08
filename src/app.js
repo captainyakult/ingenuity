@@ -3,15 +3,10 @@ import CollisionController from './lib/collision_controller';
 import moment from 'moment-timezone';
 
 // Import css
-import 'es6-ui-library/css/grid_layout.css';
-import 'es6-ui-library/css/style.css';
-import 'es6-ui-library/css/animation.css';
-import 'es6-ui-library/css/settings.css';
-import 'es6-ui-library/css/load_icon.css';
-import './css/font.css';
+import 'es6-ui-library/src/themes/default';
+import 'es6-ui-library/src/themes/solar-system';
+
 import './css/grid.css';
-import './css/sprite.css';
-import './css/color.css';
 import './css/layout.css';
 import './css/style.css';
 import './css/branding.css';
