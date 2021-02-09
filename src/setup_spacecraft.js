@@ -40,10 +40,17 @@ export class SetupSpacecraft {
 				length: 10000000.0
 			},
 			dynamo: [{
+				url: '$DYNAMIC_ASSETS_URL/dynamo/sc_perseverance/mars/pos',
+				parent: 'mars',
+				coverages: [{
+					interval: [null, T0]
+				}],
+				customUrl: true
+			}, {
 				url: 'assets/dynamo/sc_perseverance/mars/pos',
 				parent: 'mars',
 				coverages: [{
-					interval: [null, T0 + 969.0]
+					interval: [T0, T0 + 969.0]
 				}],
 				customUrl: true
 			}, {
@@ -88,29 +95,17 @@ export class SetupSpacecraft {
 				// Since dynamo starts after separation, fixed, spin, and keyframe backfills it.
 				const fixedPre = entity.addController('fixed');
 				if (fixedPre instanceof Pioneer.FixedController) {
-					fixedPre.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 0.000));
+					fixedPre.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 0.000));
 					// UPDATE: Orientation of M20 at T0 + 0.000.
 					fixedPre.setOrientation(new Pioneer.Quaternion(0.8092756274728345, -0.4796625006256699, 0.3249889720674909, -0.09684530090043017));
 				}
 				const spin = entity.addController('spin');
 				if (spin instanceof Pioneer.SpinController) {
-					spin.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 0.000));
+					spin.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 0.000));
 					spin.setAxis(new Pioneer.Vector3(0, 0, 1), true);
 					spin.setRate(2 * Math.PI / 30); // 30 rotations per hour.
 					spin.setReferenceTime(T0);
 					spin.setReferenceAngle(0.0);
-				}
-				const keyframePre = entity.addController('keyframe');
-				keyframePre.setParent(mars);
-				if (keyframePre instanceof Pioneer.KeyframeController) {
-					keyframePre.addPositionKeyframe(T0 - 360.000, {
-						// UPDATE: Position of M20 - 360 * velocity of M20 at T0 + 0.000.
-						position: new Pioneer.Vector3(-498.2428551314156, -6039.068508016852, -113.90010223393193)
-					});
-					keyframePre.addPositionKeyframe(T0 + 0.000, {
-						// UPDATE: Position of M20 at T0 + 0.000.
-						position: new Pioneer.Vector3(659.3594036761485, -4745.765988033754, -483.6893172514795)
-					});
 				}
 				// Dynamo doesn't quite get to the ground.
 				const keyframePost = entity.addController('keyframe');
@@ -178,12 +173,12 @@ export class SetupSpacecraft {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setParent(perseverance);
-					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 - 60.000));
+					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 - 60.000));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 - 60.000));
+					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 - 60.000));
 				}
 				// Add a spin for when it separates.
 				const spin = entity.addController('spin');
@@ -325,12 +320,12 @@ export class SetupSpacecraft {
 					fixedAttached.setPosition(Pioneer.Vector3.Zero);
 					fixedAttached.setOrientation(Pioneer.Quaternion.Identity);
 					fixedAttached.setParent(perseverance);
-					fixedAttached.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 889.035));
+					fixedAttached.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 889.035));
 				}
 				const rotateByParentOrientationAttached = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientationAttached instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientationAttached.setRotatingOrientation(true);
-					rotateByParentOrientationAttached.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 889.035));
+					rotateByParentOrientationAttached.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 889.035));
 				}
 				// The separation keyframes.
 				const keyframe = entity.addController('keyframe');
@@ -385,12 +380,12 @@ export class SetupSpacecraft {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setParent(perseverance);
-					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 783.275 - 2.000));
+					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 783.275 - 2.000));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 783.275 - 2.000));
+					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 783.275 - 2.000));
 				}
 			}
 		}, scene);
@@ -553,13 +548,13 @@ export class SetupSpacecraft {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setParent(perseverance);
-					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 804.269));
+					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 804.269));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientation.setRotatingPosition(false);
 					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 804.269));
+					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 804.269));
 				}
 				// Add keyframes for separation.
 				const keyframe = entity.addController('keyframe');
@@ -641,12 +636,12 @@ export class SetupSpacecraft {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setParent('sc_perseverance');
-					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.497));
+					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 933.497));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + 933.497));
+					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 933.497));
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
@@ -868,12 +863,12 @@ export class SetupSpacecraft {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setParent('sc_perseverance');
-					fixed.setCoverage(new Pioneer.Interval(T0 - 360.000, T0 + Number.POSITIVE_INFINITY));
+					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + Number.POSITIVE_INFINITY));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
 				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
 					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 - 360.000, Number.POSITIVE_INFINITY));
+					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY));
 				}
 			}
 		}, scene);
