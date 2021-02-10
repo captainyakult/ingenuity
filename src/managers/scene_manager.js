@@ -259,12 +259,11 @@ class SceneManager extends BaseSceneManager {
 	 * @private
 	 */
 	_setupRockyPatches() {
-		// this._setupRockyPatch(0, new Pioneer.Vector3(0, 0, 0), 0);
-		for (let i = 0; i < 100; i++) {
+		for (let i = 0; i < 1; i++) {
 			const radius = 0.04 * Math.random();
 			const angle = Math.random() * Math.PI * 2.0;
 			const rotation = Math.random() * 360;
-			this._setupRockyPatch(i, new Pioneer.Vector3(radius * Math.cos(angle), 0, radius * Math.sin(angle)), rotation);
+			this._setupRockyPatch(i, new Pioneer.Vector3(0, 0, 0), 0);
 		}
 	}
 
