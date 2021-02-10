@@ -146,7 +146,11 @@ class SceneManager extends BaseSceneManager {
 		const cmts = mars.addComponent('cmts');
 		cmts.setMaxLevel(12);
 		cmts.setLightSource(this._scene.get('sun', 'lightSource'));
-		cmts.setRadii(3396.190 - 0.01469 - 0.0003, 3396.190 - 0.01469 - 0.0002); // Offset to get the rover landing on its wheels.
+		let offset = 0.0003;
+		if (!Pioneer.Capabilities.hasFragDepth()) {
+			offset = 0.003;
+		}
+		cmts.setRadii(3396.190 - 0.01469 - offset, 3396.190 - 0.01469 - offset); // Offset to get the rover landing on its wheels.
 		cmts.setBaseUrl('color', '$DYNAMIC_ASSETS_URL/cmts/mars/color');
 		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height');
 		cmts.setHeightScale(1);
