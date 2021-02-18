@@ -70,9 +70,6 @@
 
 /* Landscape. 480x320 phones and above */
 @media only screen and (min-width: 320px) and (orientation: landscape) {
-	.clock-shortcut .live-container {
-		margin-right: 5px;
-	}
 	.clock-shortcut .replay-container {
 		margin-top: 0;
 	}
