@@ -85,19 +85,12 @@ class HomeView extends BaseView {
 	/**
 	 * Checks if live mode.
 	 */
-	async isLive() {
-		await SceneHelpers.waitTillEntitiesInPlace(this._app.getManager('scene')._scene, new Set(['sc_perseverance']));
-
+	isLive() {
 		const now = this._app.getManager('time').getNow();
 		const startTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.start) * 1000, 'Etc/UTC');
 		const endTime = moment.tz(Pioneer.TimeUtils.etToUnix(this._app.dateConstants.end) * 1000, 'Etc/UTC');
-		const distance = this._app.getManager('scene').getDistance('sc_perseverance', 'earth', { subtractRadius: true });
-		const startERT = startTime.clone();
-		startERT.add(distance / AppUtils.constants.speedOfLight, 's');
-		const endERT = endTime.clone();
-		endERT.add(distance / AppUtils.constants.speedOfLight, 's');
 
-		if (now.isBefore(startERT) || now.isAfter(endERT)) {
+		if (now.isBefore(startTime) || now.isAfter(endTime)) {
 			return false;
 		}
 		else {
