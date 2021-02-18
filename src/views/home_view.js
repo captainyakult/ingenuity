@@ -138,7 +138,6 @@ class HomeView extends BaseView {
 			this._showControls();
 		}
 
-		this._firstLoad = false;
 		this._phaseId = params.id;
 		if (!this._app.getComponent('settings').getState('isGuidedCamera')) {
 			await this.updateCamera(params.target);
