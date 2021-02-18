@@ -131,7 +131,7 @@ screen and (min-width: 641px) and (orientation: portrait) {
 		justify-items: start;
 		height: auto;
 		display: grid;
-		gap: 0 10px;
+		gap: 4px 10px;
 	}
 }
 
