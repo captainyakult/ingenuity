@@ -151,7 +151,12 @@ class HomeView extends BaseView {
 	onLoaded() {
 		// Remove callback
 		this._app.getManager('scene').removeCallback('loaded', this.onLoaded);
-		super.updateTimeRate(this._app.getManager('router').query);
+		const query = this._app.getManager('router').query;
+		super.updateTimeRate(query);
+		if (this.isLive() && this._firstLoad && !query.id && !query.time) {
+			this._firstLoad = false;
+			this._app.getComponent('clockShortcut').backToLive();
+		}
 	}
 
 	/**
