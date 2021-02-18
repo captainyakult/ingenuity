@@ -236,10 +236,11 @@ class HomeView extends BaseView {
 			}
 		}
 		// Launch camera transition
-		if (this._phaseId + '-' + closestIndex !== this._autoCamIndex) {
+		const phaseId = this._phaseId + '-' + closestIndex;
+		if (this._phaseId && phaseId !== this._autoCamIndex) {
 			// Save it, we dont want to launch it again
 			// Unless we cleared auto mode and came back
-			this._autoCamIndex = this._phaseId + '-' + closestIndex;
+			this._autoCamIndex = phaseId;
 			const preset = presets[closestIndex];
 
 			// Check rate to adjust duration
