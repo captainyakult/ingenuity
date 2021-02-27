@@ -236,10 +236,10 @@
             "source" : 2
         },
         {
-            "source" : 1
+            "source" : 3
         },
         {
-            "source" : 3
+            "source" : 4
         }
     ],
     "images" : [
@@ -249,14 +249,19 @@
             "uri" : "tex_01_chute.png"
         },
         {
-            "mimeType" : "image/png",
-            "name" : "newChutediff",
-            "uri" : "newChutediff.png"
+            "mimeType" : "image/jpeg",
+            "name" : "newChuteCode_diff",
+            "uri" : "newChuteCode_diff.jpg"
         },
         {
             "mimeType" : "image/png",
             "name" : "tex_01_chute.png",
             "uri" : "tex_01_chute_png.png"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "newChutediff",
+            "uri" : "newChutediff.png"
         },
         {
             "mimeType" : "image/png",
@@ -336,7 +341,7 @@
         {
             "bufferView" : 8,
             "componentType" : 5126,
-            "count" : 3400,
+            "count" : 3456,
             "max" : [
                 7.964661598205566,
                 52.675758361816406,
@@ -352,13 +357,13 @@
         {
             "bufferView" : 9,
             "componentType" : 5126,
-            "count" : 3400,
+            "count" : 3456,
             "type" : "VEC3"
         },
         {
             "bufferView" : 10,
             "componentType" : 5126,
-            "count" : 3400,
+            "count" : 3456,
             "type" : "VEC2"
         },
         {
@@ -507,84 +512,84 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 40800,
+            "byteLength" : 41472,
             "byteOffset" : 77100
         },
         {
             "buffer" : 0,
-            "byteLength" : 40800,
-            "byteOffset" : 117900
+            "byteLength" : 41472,
+            "byteOffset" : 118572
         },
         {
             "buffer" : 0,
-            "byteLength" : 27200,
-            "byteOffset" : 158700
+            "byteLength" : 27648,
+            "byteOffset" : 160044
         },
         {
             "buffer" : 0,
             "byteLength" : 31200,
-            "byteOffset" : 185900
+            "byteOffset" : 187692
         },
         {
             "buffer" : 0,
             "byteLength" : 11520,
-            "byteOffset" : 217100
+            "byteOffset" : 218892
         },
         {
             "buffer" : 0,
             "byteLength" : 11520,
-            "byteOffset" : 228620
+            "byteOffset" : 230412
         },
         {
             "buffer" : 0,
             "byteLength" : 7680,
-            "byteOffset" : 240140
+            "byteOffset" : 241932
         },
         {
             "buffer" : 0,
             "byteLength" : 5760,
-            "byteOffset" : 247820
+            "byteOffset" : 249612
         },
         {
             "buffer" : 0,
             "byteLength" : 3840,
-            "byteOffset" : 253580
+            "byteOffset" : 255372
         },
         {
             "buffer" : 0,
             "byteLength" : 3840,
-            "byteOffset" : 257420
+            "byteOffset" : 259212
         },
         {
             "buffer" : 0,
             "byteLength" : 2560,
-            "byteOffset" : 261260
+            "byteOffset" : 263052
         },
         {
             "buffer" : 0,
             "byteLength" : 1896,
-            "byteOffset" : 263820
+            "byteOffset" : 265612
         },
         {
             "buffer" : 0,
             "byteLength" : 96,
-            "byteOffset" : 265716
+            "byteOffset" : 267508
         },
         {
             "buffer" : 0,
             "byteLength" : 96,
-            "byteOffset" : 265812
+            "byteOffset" : 267604
         },
         {
             "buffer" : 0,
             "byteLength" : 72,
-            "byteOffset" : 265908
+            "byteOffset" : 267700
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 265980,
-            "uri" : "edl2020_chute.bin"
+            "byteLength" : 267772,
+            "uri" : "EDL2020_chute.bin"
         }
     ]
 }

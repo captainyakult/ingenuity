@@ -206,9 +206,9 @@
             "uri" : "chute_cables_tiling.png"
         },
         {
-            "mimeType" : "image/png",
-            "name" : "newChutediff",
-            "uri" : "newChutediff.png"
+            "mimeType" : "image/jpeg",
+            "name" : "newChuteCode_diff",
+            "uri" : "newChuteCode_diff.jpg"
         },
         {
             "mimeType" : "image/png",
@@ -288,7 +288,7 @@
         {
             "bufferView" : 8,
             "componentType" : 5126,
-            "count" : 5642,
+            "count" : 5510,
             "max" : [
                 34.64213562011719,
                 3.492436170578003,
@@ -304,13 +304,13 @@
         {
             "bufferView" : 9,
             "componentType" : 5126,
-            "count" : 5642,
+            "count" : 5510,
             "type" : "VEC3"
         },
         {
             "bufferView" : 10,
             "componentType" : 5126,
-            "count" : 5642,
+            "count" : 5510,
             "type" : "VEC2"
         },
         {
@@ -425,63 +425,63 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 67704,
+            "byteLength" : 66120,
             "byteOffset" : 564480
         },
         {
             "buffer" : 0,
-            "byteLength" : 67704,
-            "byteOffset" : 632184
+            "byteLength" : 66120,
+            "byteOffset" : 630600
         },
         {
             "buffer" : 0,
-            "byteLength" : 45136,
-            "byteOffset" : 699888
+            "byteLength" : 44080,
+            "byteOffset" : 696720
         },
         {
             "buffer" : 0,
             "byteLength" : 52320,
-            "byteOffset" : 745024
+            "byteOffset" : 740800
         },
         {
             "buffer" : 0,
             "byteLength" : 9072,
-            "byteOffset" : 797344
+            "byteOffset" : 793120
         },
         {
             "buffer" : 0,
             "byteLength" : 9072,
-            "byteOffset" : 806416
+            "byteOffset" : 802192
         },
         {
             "buffer" : 0,
             "byteLength" : 6048,
-            "byteOffset" : 815488
+            "byteOffset" : 811264
         },
         {
             "buffer" : 0,
             "byteLength" : 4956,
-            "byteOffset" : 821536
+            "byteOffset" : 817312
         },
         {
             "buffer" : 0,
             "byteLength" : 96,
-            "byteOffset" : 826492
+            "byteOffset" : 822268
         },
         {
             "buffer" : 0,
             "byteLength" : 96,
-            "byteOffset" : 826588
+            "byteOffset" : 822364
         },
         {
             "buffer" : 0,
             "byteLength" : 72,
-            "byteOffset" : 826684
+            "byteOffset" : 822460
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 826756,
+            "byteLength" : 822532,
             "uri" : "EDL2020_chuteCrumple.bin"
         }
     ]
