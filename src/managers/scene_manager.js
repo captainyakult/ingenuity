@@ -210,7 +210,7 @@ class SceneManager extends BaseSceneManager {
 		if (model instanceof Pioneer.ModelComponent) {
 			model.setUrl('assets/models/RockyPatch/edl2020_rockPatch.gltf');
 			model.setLightSource('sun');
-			model.setMeshCreatedCallback(() => {
+			model.setResourcesLoadedCallback(() => {
 				const oldMaterial = model.getMaterial('RockPatch');
 				const newMaterial = Pioneer.MaterialUtils.get();
 				if (this._rockyPatchColorTexture === null) {
@@ -228,8 +228,7 @@ class SceneManager extends BaseSceneManager {
 				newMaterial.depthWrite = false;
 				newMaterial.needsUpdate = true;
 				model.updateMaterial('RockPatch', newMaterial);
-				model.getMaterial('RockPatch').depthWrite = false;
-				model.getRoot().renderOrder = number - 1000;
+				model.getThreeJsObjects()[0].renderOrder = number - 1000;
 			});
 		}
 		const fixedGround = entity.addController('fixed');

@@ -287,7 +287,7 @@ export class SetupSpacecraft {
 					const model = entity.get('model', 0);
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('back_shell_AO');
-						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+						if (material !== null) {
 							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO_burnt.png', false, true);
 						}
 					}
@@ -296,7 +296,7 @@ export class SetupSpacecraft {
 					const model = entity.get('model', 0);
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('back_shell_AO');
-						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+						if (material !== null) {
 							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO.png', false, true);
 						}
 					}
@@ -306,9 +306,9 @@ export class SetupSpacecraft {
 				// Setup texture change for main model.
 				const model = entity.get('model', 0);
 				if (model instanceof Pioneer.ModelComponent) {
-					model.setMeshCreatedCallback(() => {
+					model.setResourcesLoadedCallback(() => {
 						const material = model.getMaterial('back_shell_AO');
-						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+						if (material !== null) {
 							const burnt = (entity.getScene().getEngine().getTime() >= T0 + 610.000) ? '_burnt' : '';
 							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO' + burnt + '.png', false, true);
 						}
@@ -449,11 +449,11 @@ export class SetupSpacecraft {
 				update: (entity) => {
 					const entryBurnModel = entity.getComponent('entryBurn');
 					if (entryBurnModel instanceof Pioneer.ModelComponent) {
-						// Get the speed, subtracting off the approximate speed of the ground below.
-						const speed = Math.max(0, perseverance.getVelocity().magnitude() - (0.951 * 3396 * mars.getAngularVelocity().magnitude()));
-						const atmosphereDensity = 1100.0 * Math.exp(-(perseverance.getPosition().magnitude() - 3396.0) / 11.0);
 						const material = entryBurnModel.getMaterial('effects.003');
-						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+						if (material !== null) {
+							// Get the speed, subtracting off the approximate speed of the ground below.
+							const speed = Math.max(0, perseverance.getVelocity().magnitude() - (0.951 * 3396 * mars.getAngularVelocity().magnitude()));
+							const atmosphereDensity = 1100.0 * Math.exp(-(perseverance.getPosition().magnitude() - 3396.0) / 11.0);
 							// Calculation to turn black-body temperature into RGBA values.
 							const temperature = speed * speed * atmosphereDensity;
 							const r = Pioneer.MathUtils.clamp(164.32 + 753.6 * Math.exp(temperature / -3060), 0, 255);
@@ -478,18 +478,18 @@ export class SetupSpacecraft {
 				exit: (entity) => {
 					const model = entity.getComponentByType('model');
 					if (model instanceof Pioneer.ModelComponent) {
-						if (model.getRoot() !== null) {
-							model.getRoot().children[0].children[0].position.set(0, 0, 0);
+						if (model.getThreeJsObjects()[0] !== undefined) {
+							model.getThreeJsObjects()[0].children[0].children[0].position.set(0, 0, 0);
 						}
 					}
 				},
 				update: (entity) => {
 					const model = entity.getComponentByType('model');
 					if (model instanceof Pioneer.ModelComponent) {
-						if (model.getRoot() !== null) {
+						if (model.getThreeJsObjects()[0] !== undefined) {
 							const lerpOffset = Pioneer.MathUtils.clamp01((entity.getScene().getEngine().getTime() - (T0 + 804.269)) / 1.0);
 							// UPDATE: If heat shield mesh offset changes, update it here.
-							model.getRoot().children[0].children[0].position.set(0, 1.20 * lerpOffset, 0);
+							model.getThreeJsObjects()[0].children[0].children[0].position.set(0, 1.20 * lerpOffset, 0);
 						}
 					}
 				}
@@ -499,7 +499,7 @@ export class SetupSpacecraft {
 					const model = entity.get('model', 0);
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('heat_shield_AO');
-						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+						if (material !== null) {
 							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO_burnt.png', false, true);
 						}
 					}
@@ -508,7 +508,7 @@ export class SetupSpacecraft {
 					const model = entity.get('model', 0);
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('heat_shield_AO');
-						if (material instanceof Pioneer.THREE.ShaderMaterial) {
+						if (material !== null) {
 							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO.png', false, true);
 						}
 					}
@@ -518,12 +518,10 @@ export class SetupSpacecraft {
 				// Setup texture change for main model.
 				const model = entity.get('model', 0);
 				if (model instanceof Pioneer.ModelComponent) {
-					model.setMeshCreatedCallback(() => {
+					model.setResourcesLoadedCallback(() => {
 						const material = model.getMaterial('heat_shield_AO');
-						if (material instanceof Pioneer.THREE.ShaderMaterial) {
-							const burnt = (entity.getScene().getEngine().getTime() >= T0 + 610.000) ? '_burnt' : '';
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO' + burnt + '.png', false, true);
-						}
+						const burnt = (entity.getScene().getEngine().getTime() >= T0 + 610.000) ? '_burnt' : '';
+						entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO' + burnt + '.png', false, true);
 					});
 				}
 				// Add entry burn model.
@@ -531,7 +529,7 @@ export class SetupSpacecraft {
 				if (model instanceof Pioneer.ModelComponent && entryBurnModel instanceof Pioneer.ModelComponent) {
 					entryBurnModel.setUrl('assets/models/Entry_Burn/edl2020_entryBurn.gltf');
 					entryBurnModel.setRotation(model.getRotation());
-					entryBurnModel.setMeshCreatedCallback(async () => {
+					entryBurnModel.setResourcesLoadedCallback(async () => {
 						const oldMaterial = entryBurnModel.getMaterial('effects.003');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
 						newMaterial.uniforms.colorTexture.value = oldMaterial.uniforms.colorTexture.value;
@@ -678,16 +676,16 @@ export class SetupSpacecraft {
 						(entity) => { // exit
 							const model = entity.getComponentByType('model');
 							if (model instanceof Pioneer.ModelComponent) {
-								if (model.getRoot() !== null) {
-									model.getRoot().children[0].position.set(0, 0, 0);
+								if (model.getThreeJsObjects()[0] !== undefined) {
+									model.getThreeJsObjects()[0].children[0].position.set(0, 0, 0);
 								}
 							}
 						}, (entity) => { // update
 							const model = entity.getComponentByType('model');
 							if (model instanceof Pioneer.ModelComponent) {
-								if (model.getRoot() !== null) {
+								if (model.getThreeJsObjects()[0] !== undefined) {
 									// The difference between the IGP, which spice uses and the model origin.
-									model.getRoot().children[0].position.set(0, 0.9637721523176879, 0);
+									model.getThreeJsObjects()[0].children[0].position.set(0, 0.9637721523176879, 0);
 								}
 							}
 						});
@@ -722,16 +720,16 @@ export class SetupSpacecraft {
 				coverage: [T0 + 933.497 - 1.5, T0 + 956.855],
 				update: (entity) => {
 					const thrusterModel = entity.get('model', 1);
-					if (thrusterModel instanceof Pioneer.ModelComponent && thrusterModel.getRoot() !== null) {
-						const threeJsObjects = thrusterModel.getRoot().children[0].children;
+					if (thrusterModel instanceof Pioneer.ModelComponent && thrusterModel.getThreeJsObjects()[0] !== undefined) {
+						const threeJsObjects = thrusterModel.getThreeJsObjects()[0].children[0].children;
 						threeJsObjects[0].visible = false;
 						threeJsObjects[2].visible = false;
 						threeJsObjects[5].visible = false;
 						threeJsObjects[6].visible = false;
 					}
 					const plumesModel = entity.get('model', 2);
-					if (plumesModel instanceof Pioneer.ModelComponent && plumesModel.getRoot() !== null) {
-						const threeJsObjects = plumesModel.getRoot().children[0].children;
+					if (plumesModel instanceof Pioneer.ModelComponent && plumesModel.getThreeJsObjects()[0] !== undefined) {
+						const threeJsObjects = plumesModel.getThreeJsObjects()[0].children[0].children;
 						threeJsObjects[1].visible = false;
 						threeJsObjects[2].visible = false;
 						threeJsObjects[4].visible = false;
@@ -740,16 +738,16 @@ export class SetupSpacecraft {
 				},
 				exit: (entity) => {
 					const thrusterModel = entity.get('model', 1);
-					if (thrusterModel instanceof Pioneer.ModelComponent && thrusterModel.getRoot() !== null) {
-						const threeJsObjects = thrusterModel.getRoot().children[0].children;
+					if (thrusterModel instanceof Pioneer.ModelComponent && thrusterModel.getThreeJsObjects()[0] !== undefined) {
+						const threeJsObjects = thrusterModel.getThreeJsObjects()[0].children[0].children;
 						threeJsObjects[0].visible = true;
 						threeJsObjects[2].visible = true;
 						threeJsObjects[5].visible = true;
 						threeJsObjects[6].visible = true;
 					}
 					const plumesModel = entity.get('model', 2);
-					if (plumesModel instanceof Pioneer.ModelComponent && plumesModel.getRoot() !== null) {
-						const threeJsObjects = plumesModel.getRoot().children[0].children;
+					if (plumesModel instanceof Pioneer.ModelComponent && plumesModel.getThreeJsObjects()[0] !== undefined) {
+						const threeJsObjects = plumesModel.getThreeJsObjects()[0].children[0].children;
 						threeJsObjects[1].visible = true;
 						threeJsObjects[2].visible = true;
 						threeJsObjects[4].visible = true;
@@ -778,7 +776,7 @@ export class SetupSpacecraft {
 				if (model instanceof Pioneer.ModelComponent && thrustersModel instanceof Pioneer.ModelComponent) {
 					thrustersModel.setUrl('assets/models/SkyCrane_Thrusters/edl2020_skyCraneThrusters.gltf');
 					thrustersModel.setRotation(model.getRotation());
-					thrustersModel.setMeshCreatedCallback(async () => {
+					thrustersModel.setResourcesLoadedCallback(async () => {
 						const oldMaterial = thrustersModel.getMaterial('effects');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
 						newMaterial.uniforms.colorTexture.value = oldMaterial.uniforms.colorTexture.value;
@@ -799,7 +797,7 @@ export class SetupSpacecraft {
 				if (model instanceof Pioneer.ModelComponent && plumesModel instanceof Pioneer.ModelComponent) {
 					plumesModel.setUrl('assets/models/SkyCrane_Plumes/edl2020_skyCranePlumes.gltf');
 					plumesModel.setRotation(model.getRotation());
-					plumesModel.setMeshCreatedCallback(async () => {
+					plumesModel.setResourcesLoadedCallback(async () => {
 						const oldMaterial = plumesModel.getMaterial('Plumes2');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
 						newMaterial.uniforms.colorTexture.value = oldMaterial.uniforms.colorTexture.value;
