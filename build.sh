@@ -13,19 +13,19 @@ QA_LEVEL=$1
 VERSION=$2
 BUILD_FOLDER=$3
 
-# Get git branchs
+# Get git branches.
 PIONEER_BRANCH=$QA_LEVEL
 ES6_UI_LIBRARY_BRANCH=$QA_LEVEL
 if [[($QA_LEVEL = "dev")]]; then
-	PIONEER_BRANCH="mars2020"
+	PIONEER_BRANCH="42.0.0"
 	ES6_UI_LIBRARY_BRANCH="mars2020"
 fi
 if [[($QA_LEVEL = "staging")]]; then
-	PIONEER_BRANCH="mars2020"
+	PIONEER_BRANCH="42.0.0"
 	ES6_UI_LIBRARY_BRANCH="mars2020"
 fi
 if [[($QA_LEVEL = "production")]]; then
-	PIONEER_BRANCH="mars2020"
+	PIONEER_BRANCH="42.0.0"
 	ES6_UI_LIBRARY_BRANCH="mars2020"
 fi
 

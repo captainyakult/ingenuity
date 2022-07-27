@@ -10,20 +10,20 @@ export class SetupSpacecraft {
 	 * @param {Pioneer.Scene} scene
 	 */
 	static setup(scene) {
-		const mars = scene.get('mars');
+		const mars = scene.getEntity('mars');
 
 		// Make the landing site disappear after Perseverance has separated from the descent stage.
 		const landingSite = scene.getEntity('sc_perseverance_landing_site');
 		landingSite.setCanOcclude(false);
 		const coverageController = landingSite.addController('coverage');
 		if (coverageController instanceof Pioneer.CoverageController) {
-			coverageController.addCoverage(new Pioneer.Interval(T0 + 933.497, Number.POSITIVE_INFINITY), (entity) => {
+			coverageController.addCoverage(new Pioneer.Interval(T0 + 933.497, Number.POSITIVE_INFINITY), () => {
 				// Enter
 				const div = landingSite.get('div');
 				if (div instanceof Pioneer.DivComponent) {
 					div.setEnabled(false);
 				}
-			}, (entity) => {
+			}, () => {
 				// Exit
 				const div = landingSite.get('div');
 				if (div instanceof Pioneer.DivComponent) {
@@ -39,20 +39,17 @@ export class SetupSpacecraft {
 			trail: {
 				length: 10000000.0
 			},
+			parents: [
+				[Number.NEGATIVE_INFINITY, 'mars']
+			],
 			dynamo: [{
 				url: '$DYNAMIC_ASSETS_URL/dynamo/sc_perseverance/mars/pos',
-				parent: 'mars',
-				coverages: [{
-					interval: [null, T0]
-				}],
-				customUrl: true
+				customUrl: true,
+				coverage: [Number.NEGATIVE_INFINITY, T0]
 			}, {
 				url: 'assets/dynamo/sc_perseverance/mars/pos',
-				parent: 'mars',
-				coverages: [{
-					interval: [T0, T0 + 969.0]
-				}],
-				customUrl: true
+				customUrl: true,
+				coverage: [T0, T0 + 969.0]
 			}, {
 				url: 'assets/dynamo/sc_perseverance/ori',
 				customUrl: true
@@ -89,7 +86,7 @@ export class SetupSpacecraft {
 				// Make the trail relative to mars orientation.
 				const trail = entity.get('trail');
 				if (trail instanceof Pioneer.TrailComponent) {
-					trail.setRelativeToParentOrientation(true);
+					trail.setRelativeToEntityOrientation(true);
 					trail.resetPoints();
 				}
 				// Since dynamo starts after separation, fixed, spin, and keyframe backfills it.
@@ -109,23 +106,13 @@ export class SetupSpacecraft {
 				}
 				// Dynamo doesn't quite get to the ground.
 				const keyframePost = entity.addController('keyframe');
-				keyframePost.setParent(mars);
 				if (keyframePost instanceof Pioneer.KeyframeController) {
-					keyframePost.addPositionKeyframe(T0 + 969.000, {
-						// UPDATE: Position of M20 at T0 + 969.000.
-						position: new Pioneer.Vector3(699.9282618101414, 3140.022745856009, 1075.148228997441)
-					});
-					keyframePost.addPositionKeyframe(T0 + 969.000 + 0.500, {
-						position: new Pioneer.Vector3(699.9263438125089, 3140.0181573155814, 1075.1545236431045)
-					});
-					keyframePost.addOrientationKeyframe(T0 + 969.000, {
-						// UPDATE: Orientation of M20 at T0 + 969.000.
-						orientation: new Pioneer.Quaternion(0.4361985953702206, -0.6187150911204635, 0.4815552790814696, 0.4416185396986984)
-					});
-					keyframePost.addOrientationKeyframe(T0 + 969.000 + 0.500, {
-						// UPDATE: Orientation of M20 at T0 + 969.000.
-						orientation: new Pioneer.Quaternion(0.4361985953702206, -0.6187150911204635, 0.4815552790814696, 0.4416185396986984)
-					});
+					// UPDATE: Position of M20 at T0 + 969.000.
+					keyframePost.addPositionKeyframe(T0 + 969.000, new Pioneer.Vector3(699.9282618101414, 3140.022745856009, 1075.148228997441));
+					keyframePost.addPositionKeyframe(T0 + 969.000 + 0.500, new Pioneer.Vector3(699.9263438125089, 3140.0181573155814, 1075.1545236431045));
+					// UPDATE: Orientation of M20 at T0 + 969.000.
+					keyframePost.addOrientationKeyframe(T0 + 969.000, new Pioneer.Quaternion(0.4361985953702206, -0.6187150911204635, 0.4815552790814696, 0.4416185396986984));
+					keyframePost.addOrientationKeyframe(T0 + 969.000 + 0.500, new Pioneer.Quaternion(0.4361985953702206, -0.6187150911204635, 0.4815552790814696, 0.4416185396986984));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
 				const rotateByParentOrientationPost = entity.addController('rotateByParentOrientation');
@@ -139,7 +126,6 @@ export class SetupSpacecraft {
 					fixedGround.setPosition(new Pioneer.Vector3(699.9263438125089, 3140.0181573155814, 1075.1545236431045));
 					// UPDATE: Orientation of M20 in Mars frame at T0 + 969.000 + 0.500.
 					fixedGround.setOrientation(new Pioneer.Quaternion(0.07771742455276032, -0.8084333182508934, -0.4028005453548352, 0.42207498448093733));
-					fixedGround.setParent(mars);
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 969.000 + 0.500, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it stays on the ground appropriately.
@@ -154,6 +140,9 @@ export class SetupSpacecraft {
 		// Cruise Stage
 		Entity.createFromOptions('sc_perseverance_cruise_stage', {
 			radius: 0.002,
+			parents: [
+				[Number.NEGATIVE_INFINITY, 'sc_perseverence']
+			],
 			label: 'Cruise Stage',
 			model: {
 				url: 'assets/models/CruiseStage/edl2020_cruiseStage.gltf',
@@ -172,7 +161,6 @@ export class SetupSpacecraft {
 				if (fixed instanceof Pioneer.FixedController) {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
-					fixed.setParent(perseverance);
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 - 60.000));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
@@ -190,48 +178,21 @@ export class SetupSpacecraft {
 					spin.setCoverage(new Pioneer.Interval(T0 - 60.000, Number.POSITIVE_INFINITY));
 				}
 				const keyframe = entity.addController('keyframe');
-				keyframe.setParent('sc_perseverance');
 				if (keyframe instanceof Pioneer.KeyframeController) {
-					keyframe.addPositionKeyframe(T0 - 60.000, { // Separation
-						position: Pioneer.Vector3.Zero,
-						relativeToEntityPosition: perseverance
-					});
-					keyframe.addPositionKeyframe(T0 - 50.000, { // Separate back.
-						position: new Pioneer.Vector3(0, 0, -0.020),
-						relativeToEntityPosition: perseverance,
-						relativeToEntityOrientation: perseverance,
-						relativeToEntityOrientationTime: T0 - 60.000
-					});
-					keyframe.addPositionKeyframe(T0 + 0.000, { // Separate back.
-						position: new Pioneer.Vector3(0, 0, -0.240),
-						relativeToEntityPosition: perseverance,
-						relativeToEntityOrientation: perseverance,
-						relativeToEntityOrientationTime: T0 - 60.000
-					});
-					keyframe.addPositionKeyframe(T0 + 120.000, { // Further back.
-						position: new Pioneer.Vector3(0, 0, -1.000),
-						relativeToEntityPosition: perseverance,
-						relativeToEntityOrientation: perseverance,
-						relativeToEntityOrientationTime: T0 - 60.000
-					});
-					keyframe.addPositionKeyframe(T0 + 300.000, { // Further back.
-						position: new Pioneer.Vector3(0, 0, -2.440),
-						relativeToEntityPosition: perseverance,
-						relativeToEntityOrientation: perseverance,
-						relativeToEntityOrientationTime: T0 - 60.000
-					});
-					keyframe.addPositionKeyframe(T0 + 633.000, { // And further back.
-						position: new Pioneer.Vector3(0, 0, -28.00),
-						relativeToEntityPosition: perseverance,
-						relativeToEntityOrientation: perseverance,
-						relativeToEntityOrientationTime: T0 - 60.000
-					});
-					keyframe.addPositionKeyframe(T0 + 740.000, { // Way back and disappear.
-						position: new Pioneer.Vector3(0, 0, -70.386),
-						relativeToEntityPosition: perseverance,
-						relativeToEntityOrientation: perseverance,
-						relativeToEntityOrientationTime: T0 - 60.000
-					});
+					// Separation
+					keyframe.addPositionKeyframe(T0 - 60.000, Pioneer.Vector3.Zero, 'sc_perseverance');
+					// Separate back.
+					keyframe.addPositionKeyframe(T0 - 50.000, new Pioneer.Vector3(0, 0, -0.020), 'sc_perseverance', undefined, 'sc_perseverance', T0 - 60.000);
+					// Separate back.
+					keyframe.addPositionKeyframe(T0 + 0.000, new Pioneer.Vector3(0, 0, -0.240), 'sc_perseverance', undefined, 'sc_perseverance', T0 - 60.000);
+					// Further back.
+					keyframe.addPositionKeyframe(T0 + 120.000, new Pioneer.Vector3(0, 0, -1.000), 'sc_perseverance', undefined, 'sc_perseverance', T0 - 60.000);
+					// Further back.
+					keyframe.addPositionKeyframe(T0 + 300.000, new Pioneer.Vector3(0, 0, -2.440), 'sc_perseverance', undefined, 'sc_perseverance', T0 - 60.000);
+					// And further back.
+					keyframe.addPositionKeyframe(T0 + 633.000, new Pioneer.Vector3(0, 0, -28.00), 'sc_perseverance', undefined, 'sc_perseverance', T0 - 60.000);
+					// Way back and disappear.
+					keyframe.addPositionKeyframe(T0 + 740.000, new Pioneer.Vector3(0, 0, -70.386), 'sc_perseverance', undefined, 'sc_perseverance', T0 - 60.000);
 				}
 			}
 		}, scene);
@@ -240,27 +201,21 @@ export class SetupSpacecraft {
 		for (let i = 0; i < 2; i++) {
 			Entity.createFromOptions('sc_perseverance_ballast_' + i, {
 				radius: 0.0001,
+				parents: [
+					[Number.NEGATIVE_INFINITY, 'sc_perseverance']
+				],
 				label: 'Balance Mass',
 				fixed: {
 					orientation: Pioneer.Quaternion.Identity
 				},
 				postCreateFunction: (entity) => {
 					const keyframe = entity.addController('keyframe');
-					keyframe.setParent('sc_perseverance');
 					if (keyframe instanceof Pioneer.KeyframeController) {
 						const factor = 2.0 * (i - 0.5);
-						keyframe.addPositionKeyframe(T0 + 56.395, { // Balance mass ejection
-							position: new Pioneer.Vector3(0.002, factor * 0.0002, 0.00065),
-							relativeToEntityPosition: perseverance,
-							relativeToEntityOrientation: perseverance
-						});
-						keyframe.addPositionKeyframe(T0 + 570.145, { // End point
-							position: new Pioneer.Vector3(1, factor * 0.020, 0.00065),
-							relativeToEntityPosition: perseverance,
-							relativeToEntityPositionTime: T0 + 56.395,
-							relativeToEntityOrientation: perseverance,
-							relativeToEntityOrientationTime: T0 + 56.395
-						});
+						// Balance mass ejection
+						keyframe.addPositionKeyframe(T0 + 56.395, new Pioneer.Vector3(0.002, factor * 0.0002, 0.00065), 'sc_perseverance', undefined, 'sc_perseverance');
+						// End point
+						keyframe.addPositionKeyframe(T0 + 570.145, new Pioneer.Vector3(1, factor * 0.020, 0.00065), 'sc_perseverance', T0 + 56.395, 'sc_perseverance', T0 + 56.395);
 					}
 				}
 			}, scene);
@@ -269,6 +224,10 @@ export class SetupSpacecraft {
 		// Backshell
 		Entity.createFromOptions('sc_perseverance_backshell', {
 			radius: 0.00225,
+			parents: [
+				[Number.NEGATIVE_INFINITY, 'sc_perseverance'],
+				[T0 + 889.035, 'mars'],
+			],
 			label: 'Backshell',
 			model: {
 				url: 'assets/models/Backshell/edl2020_backshell.gltf',
@@ -288,7 +247,7 @@ export class SetupSpacecraft {
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('back_shell_AO');
 						if (material !== null) {
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO_burnt.png', false, true);
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms['colorTexture'], 'assets/models/Backshell/back_shell_AO_burnt.png', true);
 						}
 					}
 				},
@@ -297,7 +256,7 @@ export class SetupSpacecraft {
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('back_shell_AO');
 						if (material !== null) {
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO.png', false, true);
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms['colorTexture'], 'assets/models/Backshell/back_shell_AO.png', true);
 						}
 					}
 				}
@@ -310,7 +269,7 @@ export class SetupSpacecraft {
 						const material = model.getMaterial('back_shell_AO');
 						if (material !== null) {
 							const burnt = (entity.getScene().getEngine().getTime() >= T0 + 610.000) ? '_burnt' : '';
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/Backshell/back_shell_AO' + burnt + '.png', false, true);
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms['colorTexture'], 'assets/models/Backshell/back_shell_AO' + burnt + '.png', true);
 						}
 					});
 				}
@@ -319,7 +278,6 @@ export class SetupSpacecraft {
 				if (fixedAttached instanceof Pioneer.FixedController) {
 					fixedAttached.setPosition(Pioneer.Vector3.Zero);
 					fixedAttached.setOrientation(Pioneer.Quaternion.Identity);
-					fixedAttached.setParent(perseverance);
 					fixedAttached.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 889.035));
 				}
 				const rotateByParentOrientationAttached = entity.addController('rotateByParentOrientation');
@@ -329,15 +287,11 @@ export class SetupSpacecraft {
 				}
 				// The separation keyframes.
 				const keyframe = entity.addController('keyframe');
-				keyframe.setParent(mars);
 				if (keyframe instanceof Pioneer.KeyframeController) {
-					keyframe.addPositionKeyframe(T0 + 889.035, { // Separation
-						// UPDATE: M20 position in mars frame at T0 + 889.035.
-						position: new Pioneer.Vector3(700.8357588368021, 3142.16472493506, 1075.087115041164)
-					});
-					keyframe.addPositionKeyframe(T0 + 889.035 + 53.432, { // Fly away further.
-						position: new Pioneer.Vector3(700.9753580151794, 3140.3171146126915, 1073.4937970114418)
-					});
+					// Separation
+					// UPDATE: M20 position in mars frame at T0 + 889.035.
+					keyframe.addPositionKeyframe(T0 + 889.035, new Pioneer.Vector3(700.8357588368021, 3142.16472493506, 1075.087115041164));
+					keyframe.addPositionKeyframe(T0 + 889.035 + 53.432, new Pioneer.Vector3(700.9753580151794, 3140.3171146126915, 1073.4937970114418));
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
@@ -345,7 +299,6 @@ export class SetupSpacecraft {
 					fixedGround.setPosition(new Pioneer.Vector3(700.9753580151794, 3140.3171146126915, 1073.4937970114418));
 					// UPDATE: Backshell orientation in Mars frame at T0 + 889.035 + 53.432.
 					fixedGround.setOrientation(new Pioneer.Quaternion(-0.2566301737304677, -0.538722076961457, -0.5959056867504157, 0.537415937820902));
-					fixedGround.setParent(mars);
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 889.035 + 53.432, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
@@ -366,6 +319,9 @@ export class SetupSpacecraft {
 		// Parachute Cap
 		Entity.createFromOptions('sc_perseverance_chutecap', {
 			radius: 0.0001,
+			parents: [
+				[Number.NEGATIVE_INFINITY, 'sc_perseverance']
+			],
 			model: {
 				url: 'assets/models/ChuteCap/edl2020_chuteCap.gltf',
 				useCompressedTextures: true,
@@ -379,7 +335,6 @@ export class SetupSpacecraft {
 				if (fixed instanceof Pioneer.FixedController) {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
-					fixed.setParent(perseverance);
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 783.275 - 2.000));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
@@ -393,6 +348,9 @@ export class SetupSpacecraft {
 		// Parachute
 		Entity.createFromOptions('sc_perseverance_parachute', {
 			radius: 0.002,
+			parents: [
+				[Number.NEGATIVE_INFINITY, 'sc_perseverance_backshell']
+			],
 			label: 'Parachute',
 			model: {
 				url: 'assets/models/Chute/edl2020_chute.gltf',
@@ -422,7 +380,6 @@ export class SetupSpacecraft {
 				if (fixed instanceof Pioneer.FixedController) {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
-					fixed.setParent(scene.get('sc_perseverance_backshell'));
 					fixed.setCoverage(new Pioneer.Interval(T0 + 783.275, Number.POSITIVE_INFINITY));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
@@ -436,6 +393,10 @@ export class SetupSpacecraft {
 		// Heat shield
 		Entity.createFromOptions('sc_perseverance_heat_shield', {
 			radius: 0.00225,
+			parents: [
+				[Number.NEGATIVE_INFINITY, 'sc_perseverance'],
+				[T0 + 804.269, 'mars']
+			],
 			label: 'Heat Shield',
 			model: {
 				url: 'assets/models/HeatShield/edl2020_heatshield.gltf',
@@ -460,7 +421,7 @@ export class SetupSpacecraft {
 							const g = Pioneer.MathUtils.clamp(262.77 - 335.83 * Math.exp(temperature / -2216), 0, 186.85 + 346 * Math.exp(temperature / -3746));
 							const b = Pioneer.MathUtils.clamp(426.9 - 563.76 * Math.exp(temperature / -5479), temperature / 157.142 + 24.272, 255);
 							const a = Pioneer.MathUtils.clamp(255 * Math.log((temperature - 250) / 500 + 1), 0, 255);
-							material.uniforms.colorMultiplier.value.set(r / 255, g / 255, b / 255, 10 * a / 255);
+							material.uniforms['colorMultiplier'].value.set(r / 255, g / 255, b / 255, 10 * a / 255);
 						}
 					}
 				},
@@ -469,7 +430,7 @@ export class SetupSpacecraft {
 					if (entryBurnModel instanceof Pioneer.ModelComponent) {
 						const material = entryBurnModel.getMaterial('effects.003');
 						if (material !== null) {
-							material.uniforms.colorMultiplier.value.set(1, 1, 1, 0);
+							material.uniforms['colorMultiplier'].value.set(1, 1, 1, 0);
 						}
 					}
 				}
@@ -500,7 +461,7 @@ export class SetupSpacecraft {
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('heat_shield_AO');
 						if (material !== null) {
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO_burnt.png', false, true);
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms['colorTexture'], 'assets/models/HeatShield/heat_shield_AO_burnt.png', true);
 						}
 					}
 				},
@@ -509,7 +470,7 @@ export class SetupSpacecraft {
 					if (model instanceof Pioneer.ModelComponent) {
 						const material = model.getMaterial('heat_shield_AO');
 						if (material !== null) {
-							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO.png', false, true);
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms['colorTexture'], 'assets/models/HeatShield/heat_shield_AO.png', true);
 						}
 					}
 				}
@@ -521,7 +482,9 @@ export class SetupSpacecraft {
 					model.setResourcesLoadedCallback(() => {
 						const material = model.getMaterial('heat_shield_AO');
 						const burnt = (entity.getScene().getEngine().getTime() >= T0 + 610.000) ? '_burnt' : '';
-						entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms.colorTexture, 'assets/models/HeatShield/heat_shield_AO' + burnt + '.png', false, true);
+						if (material !== null) {
+							entity.getScene().getEngine().getTextureLoader().loadIntoUniform(material.uniforms['colorTexture'], 'assets/models/HeatShield/heat_shield_AO' + burnt + '.png', true);
+						}
 					});
 				}
 				// Add entry burn model.
@@ -532,11 +495,13 @@ export class SetupSpacecraft {
 					entryBurnModel.setResourcesLoadedCallback(async () => {
 						const oldMaterial = entryBurnModel.getMaterial('effects.003');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
-						newMaterial.uniforms.colorTexture.value = oldMaterial.uniforms.colorTexture.value;
-						newMaterial.uniforms.colorTexture.value.wrapS = Pioneer.THREE.RepeatWrapping;
-						newMaterial.uniforms.colorTexture.value.wrapT = Pioneer.THREE.RepeatWrapping;
-						newMaterial.uniforms.colorMultiplier.value = new Pioneer.THREE.Vector4(1, 1, 1, 0);
-						newMaterial.uniforms.speed.value = 0.0;
+						if (oldMaterial !== null) {
+							newMaterial.uniforms['colorTexture'].value = oldMaterial.uniforms['colorTexture'].value;
+							newMaterial.uniforms['colorTexture'].value.wrapS = Pioneer.THREE.RepeatWrapping;
+							newMaterial.uniforms['colorTexture'].value.wrapT = Pioneer.THREE.RepeatWrapping;
+						}
+						newMaterial.uniforms['colorMultiplier'].value = new Pioneer.THREE.Vector4(1, 1, 1, 0);
+						newMaterial.uniforms['speed'].value = 0.0;
 						entryBurnModel.updateMaterial('effects.003', newMaterial);
 					});
 				}
@@ -545,7 +510,6 @@ export class SetupSpacecraft {
 				if (fixed instanceof Pioneer.FixedController) {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
-					fixed.setParent(perseverance);
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 804.269));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
@@ -556,18 +520,14 @@ export class SetupSpacecraft {
 				}
 				// Add keyframes for separation.
 				const keyframe = entity.addController('keyframe');
-				keyframe.setParent('mars');
 				if (keyframe instanceof Pioneer.KeyframeController) {
-					keyframe.addPositionKeyframe(T0 + 804.269, { // Separation
-						// UPDATE: M20 position in mars frame at T0 + 804.269.
-						position: new Pioneer.Vector3(705.6134199726483, 3148.089861491276, 1078.4971021783292)
-					});
-					keyframe.addPositionKeyframe(T0 + 804.269 + 15.000, { // Fly away somewhere.
-						position: new Pioneer.Vector3(702.4418208779947, 3145.9844968597126, 1076.5851208833976)
-					});
-					keyframe.addPositionKeyframe(T0 + 804.269 + 50.000, { // Fly away further.
-						position: new Pioneer.Vector3(699.9077300645706, 3140.597445997733, 1073.3802665247613)
-					});
+					// Separation
+					// UPDATE: M20 position in mars frame at T0 + 804.269.
+					keyframe.addPositionKeyframe(T0 + 804.269, new Pioneer.Vector3(705.6134199726483, 3148.089861491276, 1078.4971021783292));
+					// Fly away somewhere.
+					keyframe.addPositionKeyframe(T0 + 804.269 + 15.000, new Pioneer.Vector3(702.4418208779947, 3145.9844968597126, 1076.5851208833976));
+					// Fly away further.
+					keyframe.addPositionKeyframe(T0 + 804.269 + 50.000, new Pioneer.Vector3(699.9077300645706, 3140.597445997733, 1073.3802665247613));
 				}
 				// It starts oriented with M20 and then spins away from there.
 				const fixedSeparated = entity.addController('fixed');
@@ -593,7 +553,6 @@ export class SetupSpacecraft {
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
-					fixedGround.setParent(mars);
 					fixedGround.setPosition(new Pioneer.Vector3(699.9077300645706, 3140.597445997733, 1073.3802665247613));
 					// UPDATE: M20 Orientation in Mars frame at T0 + 804.269 + 50.000.
 					fixedGround.setOrientation(new Pioneer.Quaternion(-0.1542819752354937, -0.3597189432276211, 0.5045895327243909, 0.7695380156078185));
@@ -611,6 +570,10 @@ export class SetupSpacecraft {
 		// Rover
 		Entity.createFromOptions('sc_perseverance_rover', {
 			radius: 0.002,
+			parents: [
+				[Number.NEGATIVE_INFINITY, 'sc_perseverance'],
+				[T0 + 933.497, 'mars']
+			],
 			label: 'Perseverance',
 			model: {
 				url: 'assets/models/Perse/edl2020_perse.gltf',
@@ -621,7 +584,6 @@ export class SetupSpacecraft {
 			},
 			dynamo: [{
 				url: 'assets/dynamo/sc_perseverance_rover/mars/pos',
-				parent: 'mars',
 				customUrl: true
 			}, {
 				url: 'assets/dynamo/sc_perseverance_rover/ori',
@@ -633,7 +595,6 @@ export class SetupSpacecraft {
 				if (fixed instanceof Pioneer.FixedController) {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
-					fixed.setParent('sc_perseverance');
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 933.497));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
@@ -644,7 +605,6 @@ export class SetupSpacecraft {
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
-					fixedGround.setParent(mars);
 					// UPDATE: M20 rover position and orientation in mars frame at T0 + 949.453 - 0.00001.
 					fixedGround.setPosition(new Pioneer.Vector3(700.0259971377374, 3140.147204279965, 1074.6137468717366));
 					fixedGround.setOrientation(new Pioneer.Quaternion(-0.3687957252164953, -0.6453124355946519, -0.5010749764034842, 0.44326678372193135));
@@ -696,6 +656,9 @@ export class SetupSpacecraft {
 		// Descent Stage
 		Entity.createFromOptions('sc_perseverance_descent_stage', {
 			radius: 0.002,
+			parents: [
+				[Number.NEGATIVE_INFINITY, 'sc_perseverance']
+			],
 			label: 'Descent Stage',
 			model: {
 				url: 'assets/models/SkyCrane/edl2020_skyCrane.gltf',
@@ -757,16 +720,20 @@ export class SetupSpacecraft {
 			}, {
 				coverage: [T0 + 949.453, Number.POSITIVE_INFINITY],
 				enter: (entity) => {
-					entity.getComponentByType('connectedSprite', 0).setEnabled(false);
-					entity.getComponentByType('connectedSprite', 1).setEnabled(false);
-					entity.getComponentByType('connectedSprite', 2).setEnabled(false);
-					entity.getComponentByType('connectedSprite', 3).setEnabled(false);
+					for (let i = 0; i < 4; i++) {
+						const connectedSprite = entity.getComponentByType('connectedSprite', i);
+						if (connectedSprite !== null) {
+							connectedSprite.setEnabled(false);
+						}
+					}
 				},
 				exit: (entity) => {
-					entity.getComponentByType('connectedSprite', 0).setEnabled(true);
-					entity.getComponentByType('connectedSprite', 1).setEnabled(true);
-					entity.getComponentByType('connectedSprite', 2).setEnabled(true);
-					entity.getComponentByType('connectedSprite', 3).setEnabled(true);
+					for (let i = 0; i < 4; i++) {
+						const connectedSprite = entity.getComponentByType('connectedSprite', i);
+						if (connectedSprite !== null) {
+							connectedSprite.setEnabled(true);
+						}
+					}
 				}
 			}],
 			postCreateFunction: async (entity) => {
@@ -779,11 +746,13 @@ export class SetupSpacecraft {
 					thrustersModel.setResourcesLoadedCallback(async () => {
 						const oldMaterial = thrustersModel.getMaterial('effects');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
-						newMaterial.uniforms.colorTexture.value = oldMaterial.uniforms.colorTexture.value;
-						newMaterial.uniforms.colorTexture.value.wrapS = Pioneer.THREE.RepeatWrapping;
-						newMaterial.uniforms.colorTexture.value.wrapT = Pioneer.THREE.RepeatWrapping;
-						newMaterial.uniforms.colorMultiplier.value = new Pioneer.THREE.Vector4(1, 1, 1, 1);
-						newMaterial.uniforms.speed.value = 0.0;
+						if (oldMaterial !== null) {
+							newMaterial.uniforms['colorTexture'].value = oldMaterial.uniforms['colorTexture'].value;
+							newMaterial.uniforms['colorTexture'].value.wrapS = Pioneer.THREE.RepeatWrapping;
+							newMaterial.uniforms['colorTexture'].value.wrapT = Pioneer.THREE.RepeatWrapping;
+						}
+						newMaterial.uniforms['colorMultiplier'].value = new Pioneer.THREE.Vector4(1, 1, 1, 1);
+						newMaterial.uniforms['speed'].value = 0.0;
 						thrustersModel.updateMaterial('effects', newMaterial);
 						// Turn the model on/off if it is in the proper coverage.
 						const coverageController = entity.get('coverage');
@@ -800,11 +769,13 @@ export class SetupSpacecraft {
 					plumesModel.setResourcesLoadedCallback(async () => {
 						const oldMaterial = plumesModel.getMaterial('Plumes2');
 						const newMaterial = await entity.getScene().getEngine().getMaterialManager().get('plumes');
-						newMaterial.uniforms.colorTexture.value = oldMaterial.uniforms.colorTexture.value;
-						newMaterial.uniforms.colorTexture.value.wrapS = Pioneer.THREE.RepeatWrapping;
-						newMaterial.uniforms.colorTexture.value.wrapT = Pioneer.THREE.RepeatWrapping;
-						newMaterial.uniforms.colorMultiplier.value = new Pioneer.THREE.Vector4(1, 1, 1, 0.25);
-						newMaterial.uniforms.speed.value = -0.5;
+						if (oldMaterial !== null) {
+							newMaterial.uniforms['colorTexture'].value = oldMaterial.uniforms['colorTexture'].value;
+							newMaterial.uniforms['colorTexture'].value.wrapS = Pioneer.THREE.RepeatWrapping;
+							newMaterial.uniforms['colorTexture'].value.wrapT = Pioneer.THREE.RepeatWrapping;
+						}
+						newMaterial.uniforms['colorMultiplier'].value = new Pioneer.THREE.Vector4(1, 1, 1, 0.25);
+						newMaterial.uniforms['speed'].value = -0.5;
 						plumesModel.updateMaterial('Plumes2', newMaterial);
 						// Turn the model on/off if it is in the proper coverage.
 						const coverageController = entity.get('coverage');
@@ -818,41 +789,41 @@ export class SetupSpacecraft {
 				const cable = entity.addComponent('connectedSprite');
 				if (cable instanceof Pioneer.ConnectedSpriteComponent) {
 					cable.setTextureUrl('assets/models/Cables/cable.png');
-					cable.setEntity1(entity);
+					cable.setEntity1('sc_perseverance_descent_stage');
 					cable.setEntity1Offset(new Pioneer.Vector3(0.00049103, -0.000082696, 0.00040494));
-					cable.setEntity2(scene.getEntity('sc_perseverance_rover'));
+					cable.setEntity2('sc_perseverance_rover');
 					cable.setEntity2Offset(new Pioneer.Vector3(0.000635, 0, -0.00030));
-					cable.setWidth('0.0001');
+					cable.setWidth(0.0001);
 					cable.setTextureRepeat(false);
 				}
 				const rope1 = entity.addComponent('connectedSprite');
 				if (rope1 instanceof Pioneer.ConnectedSpriteComponent) {
 					rope1.setTextureUrl('assets/models/Cables/rope.png');
-					rope1.setEntity1(entity);
+					rope1.setEntity1('sc_perseverance_descent_stage');
 					rope1.setEntity1Offset(new Pioneer.Vector3(0.000006286, 0.000001785, 0.00014488));
-					rope1.setEntity2(scene.getEntity('sc_perseverance_rover'));
+					rope1.setEntity2('sc_perseverance_rover');
 					rope1.setEntity2Offset(new Pioneer.Vector3(0.00044, 0, -0.00047));
-					rope1.setWidth('0.0001');
+					rope1.setWidth(0.0001);
 					rope1.setTextureRepeat(false);
 				}
 				const rope2 = entity.addComponent('connectedSprite');
 				if (rope2 instanceof Pioneer.ConnectedSpriteComponent) {
 					rope2.setTextureUrl('assets/models/Cables/rope.png');
-					rope2.setEntity1(entity);
+					rope2.setEntity1('sc_perseverance_descent_stage');
 					rope2.setEntity1Offset(new Pioneer.Vector3(0.000006286, 0.000001785, 0.00014488));
-					rope2.setEntity2(scene.getEntity('sc_perseverance_rover'));
+					rope2.setEntity2('sc_perseverance_rover');
 					rope2.setEntity2Offset(new Pioneer.Vector3(-0.00022, 0.00038, -0.00047));
-					rope2.setWidth('0.0001');
+					rope2.setWidth(0.0001);
 					rope2.setTextureRepeat(false);
 				}
 				const rope3 = entity.addComponent('connectedSprite');
 				if (rope3 instanceof Pioneer.ConnectedSpriteComponent) {
 					rope3.setTextureUrl('assets/models/Cables/rope.png');
-					rope3.setEntity1(entity);
+					rope3.setEntity1('sc_perseverance_descent_stage');
 					rope3.setEntity1Offset(new Pioneer.Vector3(0.000006286, 0.000001785, 0.00014488));
-					rope3.setEntity2(scene.getEntity('sc_perseverance_rover'));
+					rope3.setEntity2('sc_perseverance_rover');
 					rope3.setEntity2Offset(new Pioneer.Vector3(-0.00022, -0.00038, -0.00047));
-					rope3.setWidth('0.0001');
+					rope3.setWidth(0.0001);
 					rope3.setTextureRepeat(false);
 				}
 				// It's fixed to M20 until separation (at which point the dynamo has run out).
@@ -860,7 +831,6 @@ export class SetupSpacecraft {
 				if (fixed instanceof Pioneer.FixedController) {
 					fixed.setPosition(Pioneer.Vector3.Zero);
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
-					fixed.setParent('sc_perseverance');
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + Number.POSITIVE_INFINITY));
 				}
 				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
