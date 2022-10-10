@@ -17,11 +17,8 @@ module.exports = {
 	devServer: {
 		static: [
 			{ directory: '../pioneer-assets', publicPath: '/assets/static' },
-			{ directory: '../bh3/data', publicPath: '/assets/dynamic' }
+			{ directory: '../bh3/data', publicPath: '/assets/dynamic', watch: false }
 		]
-	},
-	watchOptions: {
-		ignored: '../cmts_creator/out'
 	},
 	stats: {
 		assets: false,

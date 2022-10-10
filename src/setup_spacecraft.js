@@ -64,7 +64,7 @@ export class SetupSpacecraft {
 					}
 					const trail = entity.get('trail');
 					if (trail instanceof Pioneer.TrailComponent) {
-						trail.setRelativeTime(false);
+						trail.setRelativeStartTime(false);
 						trail.setStartTime(T0);
 						trail.setEndTime(T0 + 933.497); // rover separation
 					}
@@ -76,7 +76,7 @@ export class SetupSpacecraft {
 					}
 					const trail = entity.get('trail');
 					if (trail instanceof Pioneer.TrailComponent) {
-						trail.setRelativeTime(true);
+						trail.setRelativeStartTime(true);
 						trail.setStartTime(10000000.0);
 						trail.setEndTime(0);
 					}
@@ -115,10 +115,10 @@ export class SetupSpacecraft {
 					keyframePost.addOrientationKeyframe(T0 + 969.000 + 0.500, new Pioneer.Quaternion(0.4361985953702206, -0.6187150911204635, 0.4815552790814696, 0.4416185396986984));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
-				const rotateByParentOrientationPost = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientationPost instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationPost.setRotatingOrientation(false);
-					rotateByParentOrientationPost.setCoverage(new Pioneer.Interval(T0 + 969.000, T0 + 969.000 + 0.500));
+				const rotateByEntityOrientationPost = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientationPost instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientationPost.setRotatingOrientation(false);
+					rotateByEntityOrientationPost.setCoverage(new Pioneer.Interval(T0 + 969.000, T0 + 969.000 + 0.500));
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
@@ -129,10 +129,10 @@ export class SetupSpacecraft {
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 969.000 + 0.500, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it stays on the ground appropriately.
-				const rotateByParentOrientationGround = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientationGround instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationGround.setRotatingOrientation(true);
-					rotateByParentOrientationGround.setCoverage(new Pioneer.Interval(T0 + 969.000 + 0.500, Number.POSITIVE_INFINITY));
+				const rotateByEntityOrientationGround = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientationGround instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientationGround.setRotatingOrientation(true);
+					rotateByEntityOrientationGround.setCoverage(new Pioneer.Interval(T0 + 969.000 + 0.500, Number.POSITIVE_INFINITY));
 				}
 			}
 		}, scene);
@@ -163,10 +163,10 @@ export class SetupSpacecraft {
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 - 60.000));
 				}
-				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 - 60.000));
+				const rotateByEntityOrientation = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientation instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientation.setRotatingOrientation(true);
+					rotateByEntityOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 - 60.000));
 				}
 				// Add a spin for when it separates.
 				const spin = entity.addController('spin');
@@ -280,10 +280,10 @@ export class SetupSpacecraft {
 					fixedAttached.setOrientation(Pioneer.Quaternion.Identity);
 					fixedAttached.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 889.035));
 				}
-				const rotateByParentOrientationAttached = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientationAttached instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationAttached.setRotatingOrientation(true);
-					rotateByParentOrientationAttached.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 889.035));
+				const rotateByEntityOrientationAttached = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientationAttached instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientationAttached.setRotatingOrientation(true);
+					rotateByEntityOrientationAttached.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 889.035));
 				}
 				// The separation keyframes.
 				const keyframe = entity.addController('keyframe');
@@ -302,16 +302,16 @@ export class SetupSpacecraft {
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 889.035 + 53.432, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
-				const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationSeparated.setRotatingOrientation(false);
-					rotateByParentOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 889.035, T0 + 889.035 + 53.432));
+				const rotateByEntityOrientationSeparated = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientationSeparated instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientationSeparated.setRotatingOrientation(false);
+					rotateByEntityOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 889.035, T0 + 889.035 + 53.432));
 				}
 				// Its position needs to be relative to mars on the ground.
-				const rotateByParentOrientationFixed = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientationFixed instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationFixed.setRotatingOrientation(true);
-					rotateByParentOrientationFixed.setCoverage(new Pioneer.Interval(T0 + 889.035 + 53.432, Number.POSITIVE_INFINITY));
+				const rotateByEntityOrientationFixed = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientationFixed instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientationFixed.setRotatingOrientation(true);
+					rotateByEntityOrientationFixed.setCoverage(new Pioneer.Interval(T0 + 889.035 + 53.432, Number.POSITIVE_INFINITY));
 				}
 			}
 		}, scene);
@@ -337,10 +337,10 @@ export class SetupSpacecraft {
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 783.275 - 2.000));
 				}
-				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 783.275 - 2.000));
+				const rotateByEntityOrientation = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientation instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientation.setRotatingOrientation(true);
+					rotateByEntityOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 783.275 - 2.000));
 				}
 			}
 		}, scene);
@@ -382,10 +382,10 @@ export class SetupSpacecraft {
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setCoverage(new Pioneer.Interval(T0 + 783.275, Number.POSITIVE_INFINITY));
 				}
-				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(T0 + 783.275, Number.POSITIVE_INFINITY));
+				const rotateByEntityOrientation = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientation instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientation.setRotatingOrientation(true);
+					rotateByEntityOrientation.setCoverage(new Pioneer.Interval(T0 + 783.275, Number.POSITIVE_INFINITY));
 				}
 			}
 		}, scene);
@@ -512,11 +512,11 @@ export class SetupSpacecraft {
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 804.269));
 				}
-				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientation.setRotatingPosition(false);
-					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 804.269));
+				const rotateByEntityOrientation = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientation instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientation.setRotatingPosition(false);
+					rotateByEntityOrientation.setRotatingOrientation(true);
+					rotateByEntityOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 804.269));
 				}
 				// Add keyframes for separation.
 				const keyframe = entity.addController('keyframe');
@@ -545,10 +545,10 @@ export class SetupSpacecraft {
 					spin.setCoverage(new Pioneer.Interval(T0 + 804.269, T0 + 804.269 + 50.000));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
-				const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationSeparated.setRotatingOrientation(false);
-					rotateByParentOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 804.269, T0 + 804.269 + 50.000));
+				const rotateByEntityOrientationSeparated = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientationSeparated instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientationSeparated.setRotatingOrientation(false);
+					rotateByEntityOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 804.269, T0 + 804.269 + 50.000));
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
@@ -559,10 +559,10 @@ export class SetupSpacecraft {
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 804.269 + 50.000, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
-				const rotateByParentOrientationGround = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientationGround instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationGround.setRotatingOrientation(true);
-					rotateByParentOrientationGround.setCoverage(new Pioneer.Interval(T0 + 804.269 + 50.000, Number.POSITIVE_INFINITY));
+				const rotateByEntityOrientationGround = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientationGround instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientationGround.setRotatingOrientation(true);
+					rotateByEntityOrientationGround.setCoverage(new Pioneer.Interval(T0 + 804.269 + 50.000, Number.POSITIVE_INFINITY));
 				}
 			}
 		}, scene);
@@ -597,10 +597,10 @@ export class SetupSpacecraft {
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 933.497));
 				}
-				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 933.497));
+				const rotateByEntityOrientation = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientation instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientation.setRotatingOrientation(true);
+					rotateByEntityOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 933.497));
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
@@ -611,10 +611,10 @@ export class SetupSpacecraft {
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 949.453, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
-				const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientationSeparated.setRotatingOrientation(true);
-					rotateByParentOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 949.453, Number.POSITIVE_INFINITY));
+				const rotateByEntityOrientationSeparated = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientationSeparated instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientationSeparated.setRotatingOrientation(true);
+					rotateByEntityOrientationSeparated.setCoverage(new Pioneer.Interval(T0 + 949.453, Number.POSITIVE_INFINITY));
 				}
 				// Add the model animations.
 				const modelAnimate = entity.addController('modelAnimate');
@@ -833,10 +833,10 @@ export class SetupSpacecraft {
 					fixed.setOrientation(Pioneer.Quaternion.Identity);
 					fixed.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + Number.POSITIVE_INFINITY));
 				}
-				const rotateByParentOrientation = entity.addController('rotateByParentOrientation');
-				if (rotateByParentOrientation instanceof Pioneer.RotateByParentOrientationController) {
-					rotateByParentOrientation.setRotatingOrientation(true);
-					rotateByParentOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY));
+				const rotateByEntityOrientation = entity.addController('rotateByEntityOrientation');
+				if (rotateByEntityOrientation instanceof Pioneer.RotateByEntityOrientationController) {
+					rotateByEntityOrientation.setRotatingOrientation(true);
+					rotateByEntityOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY));
 				}
 			}
 		}, scene);

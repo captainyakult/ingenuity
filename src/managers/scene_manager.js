@@ -141,14 +141,6 @@ class SceneManager extends BaseSceneManager {
 		// mars.get('atmosphere').setEnabled(false);
 		const cmts = /** @type {Pioneer.CMTSComponent} */(mars.addComponent('cmts'));
 		cmts.setMaxLevel(12);
-		let offset = 0.0003;
-		if (!Pioneer.Capabilities.hasFragDepth()) {
-			offset = 0.003;
-		}
-		// Offset to get the rover landing on its wheels.
-		const spheroid = /** @type {Pioneer.SpheroidComponent} */(mars.getComponentByType('spheroid'));
-		spheroid.setEquatorialRadius(3396.190 - offset);
-		spheroid.setPolarRadius(3396.190 - offset);
 		cmts.setBaseUrl('color', '$DYNAMIC_ASSETS_URL/cmts/mars/color');
 		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height');
 		cmts.setHeightScale(1);
@@ -247,9 +239,9 @@ class SceneManager extends BaseSceneManager {
 			position.add(position, offset);
 			fixedGround.setPosition(position);
 		}
-		const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
-		if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
-			rotateByParentOrientationSeparated.setRotatingOrientation(true);
+		const rotateByEntityOrientationSeparated = entity.addController('rotateByEntityOrientation');
+		if (rotateByEntityOrientationSeparated instanceof Pioneer.RotateByEntityOrientationController) {
+			rotateByEntityOrientationSeparated.setRotatingOrientation(true);
 		}
 	}
 
