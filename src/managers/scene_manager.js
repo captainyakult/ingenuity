@@ -235,7 +235,7 @@ class SceneManager extends BaseSceneManager {
 			rot.setFromAxisAngle(Pioneer.Vector3.YAxis, rotation * Math.PI / 180);
 			orientation.mult(orientation, rot);
 			fixedGround.setOrientation(orientation);
-			const position = new Pioneer.Vector3(700.0259971377374, 3140.147204279965, 1074.6137468717366);
+			const position = new Pioneer.Vector3(700.0259352242308, 3140.146926550959, 1074.6136518279732);
 			position.add(position, offset);
 			fixedGround.setPosition(position);
 		}

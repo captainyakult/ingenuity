@@ -108,8 +108,8 @@ export class SetupSpacecraft {
 				const keyframePost = entity.addController('keyframe');
 				if (keyframePost instanceof Pioneer.KeyframeController) {
 					// UPDATE: Position of M20 at T0 + 969.000.
-					keyframePost.addPositionKeyframe(T0 + 969.000, new Pioneer.Vector3(699.9282618101414, 3140.022745856009, 1075.148228997441));
-					keyframePost.addPositionKeyframe(T0 + 969.000 + 0.500, new Pioneer.Vector3(699.9263438125089, 3140.0181573155814, 1075.1545236431045));
+					keyframePost.addPositionKeyframe(T0 + 969.000, new Pioneer.Vector3(699.9281999058993, 3140.022468140793, 1075.1481339073584));
+					keyframePost.addPositionKeyframe(T0 + 969.000 + 0.500, new Pioneer.Vector3(699.9262819083881, 3140.017879600555, 1075.154428552391));
 					// UPDATE: Orientation of M20 at T0 + 969.000.
 					keyframePost.addOrientationKeyframe(T0 + 969.000, new Pioneer.Quaternion(0.4361985953702206, -0.6187150911204635, 0.4815552790814696, 0.4416185396986984));
 					keyframePost.addOrientationKeyframe(T0 + 969.000 + 0.500, new Pioneer.Quaternion(0.4361985953702206, -0.6187150911204635, 0.4815552790814696, 0.4416185396986984));
@@ -123,7 +123,7 @@ export class SetupSpacecraft {
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
-					fixedGround.setPosition(new Pioneer.Vector3(699.9263438125089, 3140.0181573155814, 1075.1545236431045));
+					fixedGround.setPosition(new Pioneer.Vector3(699.9262819083881, 3140.017879600555, 1075.154428552391));
 					// UPDATE: Orientation of M20 in Mars frame at T0 + 969.000 + 0.500.
 					fixedGround.setOrientation(new Pioneer.Quaternion(0.07771742455276032, -0.8084333182508934, -0.4028005453548352, 0.42207498448093733));
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 969.000 + 0.500, Number.POSITIVE_INFINITY));
@@ -141,7 +141,7 @@ export class SetupSpacecraft {
 		Entity.createFromOptions('sc_perseverance_cruise_stage', {
 			radius: 0.002,
 			parents: [
-				[Number.NEGATIVE_INFINITY, 'sc_perseverence']
+				[Number.NEGATIVE_INFINITY, 'sc_perseverance']
 			],
 			label: 'Cruise Stage',
 			model: {
@@ -291,12 +291,12 @@ export class SetupSpacecraft {
 					// Separation
 					// UPDATE: M20 position in mars frame at T0 + 889.035.
 					keyframe.addPositionKeyframe(T0 + 889.035, new Pioneer.Vector3(700.8357588368021, 3142.16472493506, 1075.087115041164));
-					keyframe.addPositionKeyframe(T0 + 889.035 + 53.432, new Pioneer.Vector3(700.9753580151794, 3140.3171146126915, 1073.4937970114418));
+					keyframe.addPositionKeyframe(T0 + 889.035 + 53.432, new Pioneer.Vector3(700.9752960176838, 3140.3168368685538, 1073.4937020666964));
 				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
-					fixedGround.setPosition(new Pioneer.Vector3(700.9753580151794, 3140.3171146126915, 1073.4937970114418));
+					fixedGround.setPosition(new Pioneer.Vector3(700.9752960176838, 3140.3168368685538, 1073.4937020666964));
 					// UPDATE: Backshell orientation in Mars frame at T0 + 889.035 + 53.432.
 					fixedGround.setOrientation(new Pioneer.Quaternion(-0.2566301737304677, -0.538722076961457, -0.5959056867504157, 0.537415937820902));
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 889.035 + 53.432, Number.POSITIVE_INFINITY));
@@ -527,7 +527,7 @@ export class SetupSpacecraft {
 					// Fly away somewhere.
 					keyframe.addPositionKeyframe(T0 + 804.269 + 15.000, new Pioneer.Vector3(702.4418208779947, 3145.9844968597126, 1076.5851208833976));
 					// Fly away further.
-					keyframe.addPositionKeyframe(T0 + 804.269 + 50.000, new Pioneer.Vector3(699.9077300645706, 3140.597445997733, 1073.3802665247613));
+					keyframe.addPositionKeyframe(T0 + 804.269 + 50.000, new Pioneer.Vector3(699.9076681615586, 3140.5971682290597, 1073.3801715901452));
 				}
 				// It starts oriented with M20 and then spins away from there.
 				const fixedSeparated = entity.addController('fixed');
@@ -553,7 +553,7 @@ export class SetupSpacecraft {
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
-					fixedGround.setPosition(new Pioneer.Vector3(699.9077300645706, 3140.597445997733, 1073.3802665247613));
+					fixedGround.setPosition(new Pioneer.Vector3(699.9076681615586, 3140.5971682290597, 1073.3801715901452));
 					// UPDATE: M20 Orientation in Mars frame at T0 + 804.269 + 50.000.
 					fixedGround.setOrientation(new Pioneer.Quaternion(-0.1542819752354937, -0.3597189432276211, 0.5045895327243909, 0.7695380156078185));
 					fixedGround.setCoverage(new Pioneer.Interval(T0 + 804.269 + 50.000, Number.POSITIVE_INFINITY));
@@ -602,13 +602,23 @@ export class SetupSpacecraft {
 					rotateByEntityOrientation.setRotatingOrientation(true);
 					rotateByEntityOrientation.setCoverage(new Pioneer.Interval(Number.NEGATIVE_INFINITY, T0 + 933.497));
 				}
+				// Spice doesn't quite reach to the ground, so add a small keyframe.
+				const keyframe = entity.addController('keyframe');
+				if (keyframe instanceof Pioneer.KeyframeController) {
+					// UPDATE: M20 position and orientation in mars frame at T0 + 949.453.
+					keyframe.addPositionKeyframe(T0 + 949.453, new Pioneer.Vector3(700.0259971377374, 3140.147204279965, 1074.6137468717366));
+					keyframe.addOrientationKeyframe(T0 + 949.453, new Pioneer.Quaternion(-0.3687957252164953, -0.6453124355946519, -0.5010749764034842, 0.44326678372193135));
+					// Land on ground.
+					keyframe.addPositionKeyframe(T0 + 949.453 + 0.5, new Pioneer.Vector3(700.0259352242308, 3140.146926550959, 1074.6136518279732));
+					keyframe.addOrientationKeyframe(T0 + 949.453 + 0.5, new Pioneer.Quaternion(-0.3687957252164953, -0.6453124355946519, -0.5010749764034842, 0.44326678372193135));
+				}
 				// It's fixed on ground after this point.
 				const fixedGround = entity.addController('fixed');
 				if (fixedGround instanceof Pioneer.FixedController) {
 					// UPDATE: M20 rover position and orientation in mars frame at T0 + 949.453 - 0.00001.
-					fixedGround.setPosition(new Pioneer.Vector3(700.0259971377374, 3140.147204279965, 1074.6137468717366));
+					fixedGround.setPosition(new Pioneer.Vector3(700.0259352242308, 3140.146926550959, 1074.6136518279732));
 					fixedGround.setOrientation(new Pioneer.Quaternion(-0.3687957252164953, -0.6453124355946519, -0.5010749764034842, 0.44326678372193135));
-					fixedGround.setCoverage(new Pioneer.Interval(T0 + 949.453, Number.POSITIVE_INFINITY));
+					fixedGround.setCoverage(new Pioneer.Interval(T0 + 949.453 + 0.5, Number.POSITIVE_INFINITY));
 				}
 				// Its position needs to be relative to mars so that it flies appropriately.
 				const rotateByEntityOrientationSeparated = entity.addController('rotateByEntityOrientation');
@@ -644,7 +654,7 @@ export class SetupSpacecraft {
 							const model = entity.getComponentByType('model');
 							if (model instanceof Pioneer.ModelComponent) {
 								if (model.getThreeJsObjects()[0] !== undefined) {
-									// The difference between the IGP, which spice uses and the model origin.
+									// The difference between the IGP, which spice uses, and the model origin.
 									model.getThreeJsObjects()[0].children[0].position.set(0, 0.9637721523176879, 0);
 								}
 							}
@@ -718,7 +728,7 @@ export class SetupSpacecraft {
 					}
 				}
 			}, {
-				coverage: [T0 + 949.453, Number.POSITIVE_INFINITY],
+				coverage: [T0 + 949.453 + 0.5, Number.POSITIVE_INFINITY],
 				enter: (entity) => {
 					for (let i = 0; i < 4; i++) {
 						const connectedSprite = entity.getComponentByType('connectedSprite', i);

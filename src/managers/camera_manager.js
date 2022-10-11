@@ -146,7 +146,6 @@ class CameraManager extends BaseCameraManager {
 
 	async viewFromBehind(id, { upMode = 'planetUp', planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75, verticalOffset = 0, horizontalOffset = 0 } = {}) {
 
-		console.log(`viewFromBehind ${upMode} ${planeId} ${distance} ${cinematic} ${duration} ${verticalOffset} ${horizontalOffset}`);
 		// Entities
 		const scEntity = this._defaultScene.get(id);
 		await SceneHelpers.waitTillEntitiesInPlace(this._defaultScene, new Set([scEntity.getName()]));
@@ -216,8 +215,6 @@ class CameraManager extends BaseCameraManager {
 		else {
 			dest.mult(dest, distance);
 		}
-
-		console.log(minRadius);
 
 		await this.goToEntity(id, { destination: dest, cinematic, minRadius, destinationUp: up, duration });
 	}
