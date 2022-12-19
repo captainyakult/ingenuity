@@ -82,14 +82,22 @@ class CollisionController extends Pioneer.BaseController {
 
 		// Get the equivalent position on the ground of the CMTS. If the CMTS tiles aren't loaded it, do nothing.
 		const cmts = /** @type {Pioneer.CMTSComponent} */(this._collisionEntity.getComponentByType('cmts'));
-		if (!cmts.areTilesLoaded()) {
-			return;
+		if (cmts.areTilesLoaded()) {
+			const xyzGround = Pioneer.Vector3.pool.get();
+			cmts.getGroundPosition(xyzGround, xyzCamera, 0.002);
+			spheroid.llaFromXYZ(llaGround, xyzGround);
+			Pioneer.Vector3.pool.release(xyzGround);
 		}
-		const xyzGround = Pioneer.Vector3.pool.get();
-		cmts.getGroundPosition(xyzGround, xyzCamera, 0.002);
-		spheroid.llaFromXYZ(llaGround, xyzGround);
-		Pioneer.Vector3.pool.release(xyzGround);
-		
+		else {
+			const xyzFocus = Pioneer.Vector3.pool.get();
+			this.getEntity().getParent().getPositionRelativeToEntity(xyzFocus, Pioneer.Vector3.Zero, this._collisionEntity);
+			xyzFocus.rotateInverse(this._collisionEntity.getOrientation(), xyzFocus);
+			const spheroid = /** @type {Pioneer.SpheroidComponent} */(this._collisionEntity.getComponentByType('spheroid'));
+			spheroid.llaFromXYZ(llaGround, xyzFocus);
+			llaGround.alt += 0.002;
+			Pioneer.Vector3.pool.release(xyzFocus);
+		}
+
 		// Limit camera to threshold
 		if (llaCamera.alt < llaGround.alt) {
 			// Clamp the camera altitude.
