@@ -4,6 +4,9 @@
 		"plugin:import/errors",
 		"plugin:import/warnings"
 	],
+	"plugins": [
+		"jsdoc"
+	],
 	"parserOptions": {
 		"ecmaFeatures": {
 			"modules": true
@@ -11,15 +14,21 @@
 	},
 	"rules": {
 		"brace-style": ["error", "stroustrup"],
+		"dot-notation": "off",
 		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"jsdoc/no-undefined-types": ["error", { "definedTypes": ["ArrayLike", "Iterable", "Type", "ItemType", "KeyType", "ValueType", "CollectionParentType", "ArrayType", "LHSType", "RHSType", "TileType", "ComponentType", "ControllerType"] }],
+		"multiline-ternary": "off",
+		"no-console": "error",
 		"no-tabs": ["off"],
+		"object-shorthand": ["off"],
 		"operator-linebreak": ["error", "before"],
 		"semi": ["error", "always"],
 		"space-before-function-paren": ["error", {
 			"anonymous": "always",
 			"asyncArrow": "always",
 			"named": "never"
-		}]
+		}],
+		"yoda": "off"
 	},
 	"env": {
 		"browser": true
