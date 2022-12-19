@@ -1,5 +1,5 @@
 import * as Pioneer from 'pioneer-js';
-import { Entity } from 'pioneer-scripts';
+import { Entity, Mapping } from 'pioneer-scripts';
 import { SceneManager as BaseSceneManager } from 'es6-ui-library';
 import { SetupSpacecraft } from '../setup_spacecraft';
 
@@ -133,17 +133,9 @@ class SceneManager extends BaseSceneManager {
 	 */
 	async _createCMTS() {
 		const mars = this._scene.getEntity('mars');
-		// Remove the spheroid component.
-		mars.getComponentByType('spheroidLOD')?.setEnabled(false);
-		// mars.removeComponent(mars.getComponentByType('spheroid'));
-		// mars.get('atmosphere').setEnabled(false);
-		const cmts = /** @type {Pioneer.CMTSComponent} */(mars.addComponent('cmts'));
+		Mapping.set(this._scene, 'mars', 'cmts');
+		const cmts = /** @type {Pioneer.CMTSComponent} */(mars.get('cmts'));
 		cmts.setMaxLevel(12);
-		cmts.setBaseUrl('color', '$DYNAMIC_ASSETS_URL/cmts/mars/color');
-		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height');
-		cmts.setHeightScale(1);
-
-		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 12, 1590, 2747, 1592, 2749);
 
 		// Add loading icon
 		this.addLoading('mars', 'cmts');
