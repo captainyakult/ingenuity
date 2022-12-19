@@ -12,25 +12,36 @@ export class SetupSpacecraft {
 	static setup(scene) {
 		const mars = scene.getEntity('mars');
 
-		// Make the landing site disappear after Perseverance has separated from the descent stage.
-		const landingSite = scene.getEntity('sc_perseverance_landing_site');
+		// Create the landing site.
+		const landingSite = Entity.createFromOptions('sc_perseverance_landing_site', {
+			groups: ['mars', 'sc_perseverance', 'sites'],
+			radius: 0.001,
+			systemRadius: 200,
+			label: 'Perseverance Landing Site',
+			parents: [
+				[649385563.6433017, 'mars']
+			],
+			fixed: {
+				llaOnSpheroid: new Pioneer.LatLonAlt(18.470270180371674 * Math.PI / 180, 77.4326757785127 * Math.PI / 180, -2.2130185476344195),
+				coverage: [649385563.6433017, Number.POSITIVE_INFINITY]
+			},
+			coverages: [{
+				coverage: [T0 + 933.497, Number.POSITIVE_INFINITY],
+				enter: (entity) => {
+					const div = entity.get('div');
+					if (div instanceof Pioneer.DivComponent) {
+						div.setEnabled(false);
+					}
+				},
+				exit: (entity) => {
+					const div = entity.get('div');
+					if (div instanceof Pioneer.DivComponent) {
+						div.setEnabled(true);
+					}
+				}
+			}]
+		}, scene);
 		landingSite.setCanOcclude(false);
-		const coverageController = landingSite.addController('coverage');
-		if (coverageController instanceof Pioneer.CoverageController) {
-			coverageController.addCoverage(new Pioneer.Interval(T0 + 933.497, Number.POSITIVE_INFINITY), () => {
-				// Enter
-				const div = landingSite.get('div');
-				if (div instanceof Pioneer.DivComponent) {
-					div.setEnabled(false);
-				}
-			}, () => {
-				// Exit
-				const div = landingSite.get('div');
-				if (div instanceof Pioneer.DivComponent) {
-					div.setEnabled(true);
-				}
-			});
-		}
 
 		// Create Perseverance parent.
 		const perseverance = Entity.createFromOptions('sc_perseverance', {
