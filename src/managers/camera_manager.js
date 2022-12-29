@@ -1,4 +1,4 @@
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 import { Cameras, SceneHelpers } from 'pioneer-scripts';
 import { CameraManager as BaseCameraManager, AppUtils } from 'es6-ui-library';
 

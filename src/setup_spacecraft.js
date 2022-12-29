@@ -1,4 +1,4 @@
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 import { Entity } from 'pioneer-scripts';
 
 /** The time 60 seconds after cruise stage separation, used by the Mars 2020 team. */

@@ -1,5 +1,5 @@
 import app from './app';
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 
 document.addEventListener('DOMContentLoaded', async () => {
 	await app.init();

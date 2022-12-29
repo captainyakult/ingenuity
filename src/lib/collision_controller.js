@@ -1,5 +1,5 @@
 /** @module mars2020 */
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 
 /**
  * The collision controller.

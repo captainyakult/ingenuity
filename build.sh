@@ -29,23 +29,16 @@ if [[($QA_LEVEL = "production")]]; then
 	ES6_UI_LIBRARY_BRANCH="mars2020"
 fi
 
-# Update the pioneer-js.
-echo "Making sure pioneer-js is up-to-date."
-pushd ../pioneer-js > /dev/null
+# Update the pioneer.
+echo "Making sure pioneer is up-to-date."
+pushd ../pioneer > /dev/null
 git fetch -p
 git checkout $PIONEER_BRANCH
 git reset --hard origin/$PIONEER_BRANCH
 git clean -dfx
+cd engine
 yarn setup
-popd > /dev/null
-
-# Update pioneer-scripts
-echo "Making sure pioneer-scripts is up-to-date."
-pushd ../pioneer-scripts > /dev/null
-git fetch -p
-git checkout $PIONEER_BRANCH
-git reset --hard origin/$PIONEER_BRANCH
-git clean -dfx
+cd ../scripts
 yarn setup
 popd > /dev/null
 

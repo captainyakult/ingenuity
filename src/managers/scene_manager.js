@@ -1,4 +1,4 @@
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 import { Entity, Mapping } from 'pioneer-scripts';
 import { SceneManager as BaseSceneManager } from 'es6-ui-library';
 import { SetupSpacecraft } from '../setup_spacecraft';

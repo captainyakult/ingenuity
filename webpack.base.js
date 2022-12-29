@@ -10,13 +10,13 @@ module.exports = {
 	resolve: {
 		alias: {
 			'es6-ui-library': path.resolve(__dirname, '../es6-ui-library'),
-			'pioneer-js': path.resolve(__dirname, '../pioneer-js'),
-			'pioneer-scripts': path.resolve(__dirname, '../pioneer-scripts')
+			'pioneer': path.resolve(__dirname, '../pioneer/engine'),
+			'pioneer-scripts': path.resolve(__dirname, '../pioneer/scripts')
 		}
 	},
 	devServer: {
 		static: [
-			{ directory: '../pioneer-assets', publicPath: '/assets/static' },
+			{ directory: '../pioneer/assets', publicPath: '/assets/static' },
 			{ directory: '../bh3/data', publicPath: '/assets/dynamic', watch: false }
 		]
 	},

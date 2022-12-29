@@ -1,4 +1,4 @@
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 import CollisionController from './lib/collision_controller';
 import moment from 'moment-timezone';
 

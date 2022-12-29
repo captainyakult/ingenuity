@@ -19,8 +19,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"es6-ui-library": ["../es6-ui-library/src/index"],
-			"pioneer-js": ["../pioneer-js/src/index"],
-			"pioneer-scripts": ["../pioneer-scripts/src/index"]
+			"pioneer": ["../pioneer/engine/src/index"],
+			"pioneer-scripts": ["../pioneer/scripts/src/index"]
 		}
 	},
 	"include": [
