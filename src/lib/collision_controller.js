@@ -1,14 +1,15 @@
 /** @module mars2020 */
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 
-/** The collision controller.
- * @extends BaseController */
+/**
+ * The collision controller.
+ */
 class CollisionController extends Pioneer.BaseController {
 	/**
 	 * Constructor.
 	 * @param {string} type - the type of the controller
 	 * @param {string} name - the name of the controller
-	 * @param {Entity} entity - the parent entity
+	 * @param {Pioneer.Entity} entity - the parent entity
 	 * @package
 	 */
 	constructor(type, name, entity) {
@@ -37,7 +38,7 @@ class CollisionController extends Pioneer.BaseController {
 
 	/**
 	 * Gets the target entity with which this entity will track.
-	 * @returns {Entity}
+	 * @returns {Pioneer.Entity | null}
 	 */
 	getCollisionEntity() {
 		return this._collisionEntity;
@@ -45,7 +46,7 @@ class CollisionController extends Pioneer.BaseController {
 
 	/**
 	 * Sets the target entity with which this entity will track.
-	 * @param {Entity} targetEntity
+	 * @param {Pioneer.Entity} targetEntity
 	 */
 	setCollisionEntity(targetEntity) {
 		if (this._collisionEntity !== null) {
@@ -61,35 +62,62 @@ class CollisionController extends Pioneer.BaseController {
 
 	/**
 	 * Updates the orientation.
-	 * @package
+	 * @override
 	 */
 	__update() {
-		const positionRelativeToEntity = Pioneer.Vector3.pool.get();
+		const xyzCamera = Pioneer.Vector3.pool.get();
 		const parentToEntity = Pioneer.Vector3.pool.get();
-		const lla = Pioneer.LatLonAlt.pool.get();
+		const llaCamera = Pioneer.LatLonAlt.pool.get();
+		const llaGround = Pioneer.LatLonAlt.pool.get();
 
-		this.getEntity().getPositionRelativeToEntity(positionRelativeToEntity, Pioneer.Vector3.Zero, this._collisionEntity);
-		const spheroid = this._collisionEntity.get('spheroid').getSpheroid();
-		spheroid.llaFromXYZ(lla, positionRelativeToEntity);
+		if (this._collisionEntity === null) {
+			return;
+		}
+
+		// Get the position of the camera as an LLA.
+		this.getEntity().getPositionRelativeToEntity(xyzCamera, Pioneer.Vector3.Zero, this._collisionEntity);
+		xyzCamera.rotateInverse(this._collisionEntity.getOrientation(), xyzCamera);
+		const spheroid = /** @type {Pioneer.SpheroidComponent} */(this._collisionEntity.getComponentByType('spheroid'));
+		spheroid.llaFromXYZ(llaCamera, xyzCamera);
+
+		// Get the equivalent position on the ground of the CMTS. If the CMTS tiles aren't loaded it, do nothing.
+		const cmts = /** @type {Pioneer.CMTSComponent} */(this._collisionEntity.getComponentByType('cmts'));
+		if (cmts.areTilesLoaded()) {
+			const xyzGround = Pioneer.Vector3.pool.get();
+			cmts.getGroundPosition(xyzGround, xyzCamera, 0.002);
+			spheroid.llaFromXYZ(llaGround, xyzGround);
+			Pioneer.Vector3.pool.release(xyzGround);
+		}
+		else {
+			const xyzFocus = Pioneer.Vector3.pool.get();
+			this.getEntity().getParent().getPositionRelativeToEntity(xyzFocus, Pioneer.Vector3.Zero, this._collisionEntity);
+			xyzFocus.rotateInverse(this._collisionEntity.getOrientation(), xyzFocus);
+			const spheroid = /** @type {Pioneer.SpheroidComponent} */(this._collisionEntity.getComponentByType('spheroid'));
+			spheroid.llaFromXYZ(llaGround, xyzFocus);
+			llaGround.alt += 0.002;
+			Pioneer.Vector3.pool.release(xyzFocus);
+		}
 
 		// Limit camera to threshold
-		if (lla.alt < this._threshold) {
-			// Set altitude to zero
-			lla.alt = this._threshold;
+		if (llaCamera.alt < llaGround.alt) {
+			// Clamp the camera altitude.
+			llaCamera.alt = llaGround.alt;
 
 			// Calculate new position relative to collision entity
-			spheroid.xyzFromLLA(positionRelativeToEntity, lla);
+			spheroid.xyzFromLLA(xyzCamera, llaCamera);
+			xyzCamera.rotate(this._collisionEntity.getOrientation(), xyzCamera);
 
 			// Translate position to relative to parent
 			this.getEntity().getParent().getPositionRelativeToEntity(parentToEntity, Pioneer.Vector3.Zero, this._collisionEntity);
-			positionRelativeToEntity.sub(positionRelativeToEntity, parentToEntity);
+			xyzCamera.sub(xyzCamera, parentToEntity);
 
 			// Set new position for camera
-			this.getEntity().setPosition(positionRelativeToEntity);
+			this.getEntity().setPosition(xyzCamera);
 		}
 
-		Pioneer.LatLonAlt.pool.release(lla);
-		Pioneer.Vector3.pool.release(positionRelativeToEntity);
+		Pioneer.LatLonAlt.pool.release(llaGround);
+		Pioneer.LatLonAlt.pool.release(llaCamera);
+		Pioneer.Vector3.pool.release(xyzCamera);
 		Pioneer.Vector3.pool.release(parentToEntity);
 	}
 }

@@ -1,6 +1,6 @@
 import { BaseView, AppUtils } from 'es6-ui-library';
 import moment from 'moment-timezone';
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 import { SceneHelpers } from 'pioneer-scripts';
 
 /**

@@ -1,4 +1,4 @@
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 import { Cameras, SceneHelpers } from 'pioneer-scripts';
 import { CameraManager as BaseCameraManager, AppUtils } from 'es6-ui-library';
 
@@ -25,7 +25,7 @@ class CameraManager extends BaseCameraManager {
 	 * After objects are loaded camera callback.
 	 */
 	async _afterLoad() {
-		const collisionController = this._cameraEntity.addController('collision');
+		const collisionController = this._cameraEntity.addController('collision', undefined, this._cameraEntity.get('align'));
 		collisionController.setCollisionEntity(this._app.getManager('scene')._scene.get('mars'));
 	}
 
@@ -145,6 +145,7 @@ class CameraManager extends BaseCameraManager {
 	}
 
 	async viewFromBehind(id, { upMode = 'planetUp', planeId = 'mars', distance = undefined, cinematic = false, duration = 0.75, verticalOffset = 0, horizontalOffset = 0 } = {}) {
+
 		// Entities
 		const scEntity = this._defaultScene.get(id);
 		await SceneHelpers.waitTillEntitiesInPlace(this._defaultScene, new Set([scEntity.getName()]));

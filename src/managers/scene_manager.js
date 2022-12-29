@@ -1,5 +1,5 @@
-import * as Pioneer from 'pioneer-js';
-import { Entity, CMTSComponent } from 'pioneer-scripts';
+import * as Pioneer from 'pioneer';
+import { Entity, Mapping } from 'pioneer-scripts';
 import { SceneManager as BaseSceneManager } from 'es6-ui-library';
 import { SetupSpacecraft } from '../setup_spacecraft';
 
@@ -121,8 +121,6 @@ class SceneManager extends BaseSceneManager {
 		Entity.createGroup('stars', this._scene, { skybox: false, starfield: true, skyboxResolution: 1024 });
 		Entity.createGroup('planets', this._scene);
 		Entity.createGroup('mars,moons', this._scene);
-		Entity.create('sc_mars_science_laboratory_landing_site', this._scene);
-		Entity.create('sc_perseverance_landing_site', this._scene);
 		Entity.create('sc_maven', this._scene);
 		Entity.create('sc_mars_reconnaissance_orbiter', this._scene);
 		SetupSpacecraft.setup(this._scene);
@@ -134,29 +132,10 @@ class SceneManager extends BaseSceneManager {
 	 * @private
 	 */
 	async _createCMTS() {
-		this._pioneer.registerComponentType('cmts', CMTSComponent);
 		const mars = this._scene.getEntity('mars');
-		// Get the spheroid from the spheroid coomponent.
-		/** @type {Pioneer.Spheroid} */
-		// Remove the spheroid component.
-		mars.getComponentByType('spheroid').setEnabled(false);
-		// mars.removeComponent(mars.getComponentByType('spheroid'));
-		// mars.get('atmosphere').setEnabled(false);
-		/** @type {CMTSComponent} */
-		const cmts = mars.addComponent('cmts');
+		Mapping.set(this._scene, 'mars', 'cmts');
+		const cmts = /** @type {Pioneer.CMTSComponent} */(mars.get('cmts'));
 		cmts.setMaxLevel(12);
-		cmts.setLightSource(this._scene.get('sun', 'lightSource'));
-		let offset = 0.0003;
-		if (!Pioneer.Capabilities.hasFragDepth()) {
-			offset = 0.003;
-		}
-		cmts.setRadii(3396.190 - 0.01469 - offset, 3396.190 - 0.01469 - offset); // Offset to get the rover landing on its wheels.
-		cmts.setBaseUrl('color', '$DYNAMIC_ASSETS_URL/cmts/mars/color');
-		cmts.setBaseUrl('height', '$DYNAMIC_ASSETS_URL/cmts/mars/height');
-		cmts.setHeightScale(1);
-		cmts.setPlanetographic(false);
-
-		cmts.addTileOffset(new Pioneer.Vector3(700.6128653358727, 3140.020080650305, 1073.622947405036), 1, 12, 1590, 2747, 1592, 2749);
 
 		// Add loading icon
 		this.addLoading('mars', 'cmts');
@@ -205,36 +184,34 @@ class SceneManager extends BaseSceneManager {
 	_setupRockyPatch(number, offset, rotation) {
 		const entity = this._scene.addEntity('patch_entity_' + number);
 		entity.setExtentsRadius(0.1);
+		entity.addParentingTableEntry(Number.NEGATIVE_INFINITY, 'mars');
 		// entity.addComponent('gizmo');
 		const model = entity.addComponent('model');
 		if (model instanceof Pioneer.ModelComponent) {
 			model.setUrl('assets/models/RockyPatch/edl2020_rockPatch.gltf');
-			model.setLightSource('sun');
-			model.setMeshCreatedCallback(() => {
+			model.setResourcesLoadedCallback(() => {
 				const oldMaterial = model.getMaterial('RockPatch');
 				const newMaterial = Pioneer.MaterialUtils.get();
-				if (this._rockyPatchColorTexture === null) {
-					this._rockyPatchColorTexture = oldMaterial.uniforms.colorTexture.value;
-					this._rockyPatchNormalTexture = oldMaterial.uniforms.normalTexture.value;
+				if (oldMaterial !== null && this._rockyPatchColorTexture === null) {
+					this._rockyPatchColorTexture = oldMaterial.uniforms['colorTexture'].value;
+					this._rockyPatchNormalTexture = oldMaterial.uniforms['normalTexture'].value;
 				}
-				oldMaterial.uniforms.colorTexture.value.dispose();
-				oldMaterial.uniforms.normalTexture.value.dispose();
-				newMaterial.uniforms.colorTexture.value = this._rockyPatchColorTexture;
-				newMaterial.uniforms.normalTexture.value = this._rockyPatchNormalTexture;
-				newMaterial.uniforms.normalScale.value = oldMaterial.uniforms.normalScale.value;
-				newMaterial.defines.normalMap = true;
+				newMaterial.uniforms['colorTexture'].value = this._rockyPatchColorTexture;
+				newMaterial.uniforms['normalTexture'].value = this._rockyPatchNormalTexture;
+				if (oldMaterial !== null) {
+					newMaterial.uniforms['normalScale'].value = oldMaterial.uniforms['normalScale'].value;
+				}
+				newMaterial.defines['normalMap'] = true;
 				newMaterial.transparent = true;
 				newMaterial.blending = Pioneer.THREE.NormalBlending;
 				newMaterial.depthWrite = false;
 				newMaterial.needsUpdate = true;
 				model.updateMaterial('RockPatch', newMaterial);
-				model.getMaterial('RockPatch').depthWrite = false;
-				model.getRoot().renderOrder = number - 1000;
+				model.getThreeJsObjects()[0].renderOrder = number - 1000;
 			});
 		}
 		const fixedGround = entity.addController('fixed');
 		if (fixedGround instanceof Pioneer.FixedController) {
-			fixedGround.setParent(this._scene.get('mars'));
 			const rot90 = new Pioneer.Quaternion();
 			rot90.setFromAxisAngle(Pioneer.Vector3.XAxis, -Math.PI / 2.0);
 			// Landing orientation of perseverance
@@ -248,13 +225,13 @@ class SceneManager extends BaseSceneManager {
 			rot.setFromAxisAngle(Pioneer.Vector3.YAxis, rotation * Math.PI / 180);
 			orientation.mult(orientation, rot);
 			fixedGround.setOrientation(orientation);
-			const position = new Pioneer.Vector3(700.0259971377374, 3140.147204279965, 1074.6137468717366);
+			const position = new Pioneer.Vector3(700.0259352242308, 3140.146926550959, 1074.6136518279732);
 			position.add(position, offset);
 			fixedGround.setPosition(position);
 		}
-		const rotateByParentOrientationSeparated = entity.addController('rotateByParentOrientation');
-		if (rotateByParentOrientationSeparated instanceof Pioneer.RotateByParentOrientationController) {
-			rotateByParentOrientationSeparated.setRotatingOrientation(true);
+		const rotateByEntityOrientationSeparated = entity.addController('rotateByEntityOrientation');
+		if (rotateByEntityOrientationSeparated instanceof Pioneer.RotateByEntityOrientationController) {
+			rotateByEntityOrientationSeparated.setRotatingOrientation(true);
 		}
 	}
 
@@ -301,7 +278,7 @@ class SceneManager extends BaseSceneManager {
 				else {
 					if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].fadeWhenCloseToParent !== undefined
 						&& this._entityInfo[entityName].fadeWhenCloseToParent === false) {
-						divComponent.setFadeWhenCloseToParent(false);
+						divComponent.setFadeWhenCloseToEntity('sun');
 					}
 					const div = divComponent.getDiv();
 					if (this._entityInfo[entityName] !== undefined && this._entityInfo[entityName].clickable === true) {

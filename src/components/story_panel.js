@@ -1,6 +1,6 @@
 import { Carousel, AppUtils } from 'es6-ui-library';
 import '../css/story_panel.css';
-import * as Pioneer from 'pioneer-js';
+import * as Pioneer from 'pioneer';
 import moment from 'moment-timezone';
 
 /**
@@ -174,7 +174,7 @@ class StoryPanel extends Carousel {
 		const landingSite = scene.getEntity('sc_perseverance_landing_site');
 		const perseverance = scene.getEntity('sc_perseverance_rover');
 		const mars = scene.getEntity('mars');
-		const marsSpheroid = mars.get('spheroid').getSpheroid();
+		const marsSpheroid = /** @type {Pioneer.SpheroidComponent} */(mars.getComponentByType('spheroid'));
 
 		// Update distance
 		const distance = this._app.getManager('scene').getDistance('sc_perseverance_rover', 'sc_perseverance_landing_site', { subtractRadius: false });
@@ -195,7 +195,7 @@ class StoryPanel extends Carousel {
 		perseverance.getPositionRelativeToEntity(position, Pioneer.Vector3.Zero, mars);
 		// Rotate inverse into the Mars frame
 		position.rotateInverse(mars.getOrientation(), position);
-		marsSpheroid.llaFromXYZ(lla, position, false);
+		marsSpheroid.llaFromXYZ(lla, position);
 		// Subtract elevation from landing site
 		const alt = Math.max(0, lla.alt - -2.2130185476344195);
 

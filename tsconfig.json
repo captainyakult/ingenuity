@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"target": "ES2017",
+		"allowJs": true,
+		"checkJs": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"module": "CommonJS",
+		"moduleResolution": "Node",
+		"noImplicitAny": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedParameters": true,
+		"resolveJsonModule": true,
+		"strict": true,
+		"baseUrl": ".",
+		"paths": {
+			"es6-ui-library": ["../es6-ui-library/src/index"],
+			"pioneer": ["../pioneer/engine/src/index"],
+			"pioneer-scripts": ["../pioneer/scripts/src/index"]
+		}
+	},
+	"include": [
+		"src/**/*.js"
+	]
+}

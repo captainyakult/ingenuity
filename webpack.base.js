@@ -1,3 +1,4 @@
+const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -7,14 +8,17 @@ module.exports = {
 		filename: 'script.js'
 	},
 	resolve: {
-		extensions: ['.js']
+		alias: {
+			'es6-ui-library': path.resolve(__dirname, '../es6-ui-library'),
+			'pioneer': path.resolve(__dirname, '../pioneer/engine'),
+			'pioneer-scripts': path.resolve(__dirname, '../pioneer/scripts')
+		}
 	},
-	devServer:{
-		contentBase: ['src', '../pioneer-assets', '../cmts_creator/out/'],
-		contentBasePublicPath: ['/', '/assets/static', '/cmts/']
-	},
-	watchOptions: {
-		ignored: '../cmts_creator/out'
+	devServer: {
+		static: [
+			{ directory: '../pioneer/assets', publicPath: '/assets/static' },
+			{ directory: '../bh3/data', publicPath: '/assets/dynamic', watch: false }
+		]
 	},
 	stats: {
 		assets: false,

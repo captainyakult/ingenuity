@@ -4,8 +4,8 @@
 	"description": "Mars 2020 Mission Visualization",
 	"private": true,
 	"scripts": {
-		"setup": "yarn install; yarn link pioneer-js; yarn link pioneer-scripts; yarn link es6-ui-library; mkdir -p dist; cp src/config.example.js src/config.js",
-		"update": "yarn install --no-default-rc",
+		"setup": "yarn install --frozen-lockfile",
+		"update": "yarn install && yarn upgrade --latest --exact",
 		"build": "webpack --config webpack.dev.js",
 		"build-production": "webpack --config webpack.production.js",
 		"start": "webpack-dev-server --config webpack.dev.js"
@@ -18,23 +18,24 @@
 	"license": "ISC",
 	"homepage": "https://github.jpl.nasa.gov/VTAD/mars2020",
 	"dependencies": {
-		"moment": "^2.29.1",
-		"moment-timezone": "^0.5.31",
-		"overlayscrollbars": "^1.13.1"
+		"moment": "2.29.4",
+		"moment-timezone": "0.5.34",
+		"overlayscrollbars": "1.13.3"
 	},
 	"devDependencies": {
-		"copy-webpack-plugin": "latest",
-		"css-loader": "latest",
-		"eslint": "latest",
-		"eslint-config-standard": "latest",
-		"eslint-plugin-import": "latest",
-		"eslint-plugin-node": "latest",
-		"eslint-plugin-promise": "latest",
-		"eslint-plugin-standard": "latest",
-		"mini-css-extract-plugin": "latest",
-		"webpack": "latest",
-		"webpack-cli": "latest",
-		"webpack-dev-server": "latest",
-		"webpack-merge": "latest"
+		"copy-webpack-plugin": "11.0.0",
+		"css-loader": "6.7.1",
+		"css-minimizer-webpack-plugin": "4.2.1",
+		"eslint": "8.20.0",
+		"eslint-config-standard": "17.0.0",
+		"eslint-plugin-import": "2.26.0",
+		"eslint-plugin-n": "15.3.0",
+		"eslint-plugin-promise": "6.0.0",
+		"mini-css-extract-plugin": "2.6.1",
+		"typescript": "4.4.4",
+		"webpack": "5.74.0",
+		"webpack-cli": "4.10.0",
+		"webpack-dev-server": "4.9.3",
+		"webpack-merge": "5.8.0"
 	}
 }
