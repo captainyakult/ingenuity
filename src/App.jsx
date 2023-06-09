@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Box, Sphere, OrbitControls, Stats, useTexture, Sky, Stars } from "@react-three/drei";
+
+import Ingenuity from "./Ingenuity";
 import * as THREE from "three";
 
 // const Scene = () => {
@@ -54,6 +56,7 @@ const App = () => {
       <pointLight intensity={0.2} position={[0, -5, 4]} />
       <ambientLight intensity={0.5} />
       <Terrain />
+      <Ingenuity />
       <Stars radius={5000} factor={1000} fade speed={0.1} depth={50000} />
       <Stats />
     </Canvas>
