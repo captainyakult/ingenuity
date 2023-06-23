@@ -19,10 +19,6 @@ body,
   overflow: hidden;
 }
 
-#root {
-  overflow: auto;
-}
-
 body {
   position: fixed;
   overflow: hidden;
@@ -30,4 +26,10 @@ body {
   font-family: helvetica neue, helvetica, arial, sans-serif;
   color: black;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Nipples */
+.nipple .front {
+  border-radius: 0.5rem !important;
+  transform: scale(0.6);
 }
